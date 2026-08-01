@@ -1,64 +1,195 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rawcookr 개인정보처리방침 / Privacy Policy</title>
+<title>Rawcookr Privacy Policy</title>
 <style>
-  body { font-family: -apple-system, "Apple SD Gothic Neo", sans-serif; max-width: 720px;
-         margin: 0 auto; padding: 40px 24px; line-height: 1.7; color: #222; }
+  body { font-family: -apple-system, "Apple SD Gothic Neo", "Hiragino Sans", "PingFang SC", sans-serif;
+         max-width: 720px; margin: 0 auto; padding: 40px 24px; line-height: 1.7; color: #222; }
   h1 { font-size: 1.6em; } h2 { font-size: 1.2em; margin-top: 2em; }
-  hr { margin: 3em 0; border: none; border-top: 1px solid #ddd; }
   .muted { color: #777; font-size: 0.9em; }
+  .lang-bar { text-align: right; margin-bottom: 1.5em; }
+  select { font-size: 0.95em; padding: 4px 8px; }
+  section[data-lang] { display: none; }
 </style>
 </head>
 <body>
-<h1>Rawcookr 개인정보처리방침</h1>
-<p class="muted">시행일: 2026년 7월 · 개발자: Slowsalmon</p>
 
-<h2>요약</h2>
-<p><strong>Rawcookr는 어떠한 개인정보도 수집하지 않습니다.</strong></p>
+<div class="lang-bar">
+  <label for="lang">🌐</label>
+  <select id="lang" onchange="setLang(this.value)">
+    <option value="en">English</option>
+    <option value="ko">한국어</option>
+    <option value="es">Español</option>
+    <option value="ja">日本語</option>
+    <option value="it">Italiano</option>
+    <option value="fr">Français</option>
+    <option value="zh">中文</option>
+  </select>
+</div>
 
-<h2>데이터 처리</h2>
-<p>Rawcookr의 모든 사진 처리(RAW 현상, 편집, 얼굴·번호판 자동 인식을 포함한 개인정보 보호 블러)는
-전적으로 사용자의 Mac에서만 이루어집니다. 사진, 편집 내용, 파일 정보는 개발자나 제3자의 서버로
-전송되지 않습니다. 얼굴 인식은 Apple의 온디바이스 Vision 프레임워크를 사용하며 네트워크를 통해
-전송되는 데이터가 없습니다.</p>
-
-<h2>수집하지 않는 것</h2>
-<p>계정 생성이 없으며, 분석(애널리틱스) 도구, 광고 식별자, 추적 기술을 사용하지 않습니다.</p>
-
-<h2>구독 결제</h2>
-<p>구독 결제와 무료 체험은 Apple의 App Store를 통해 처리됩니다. 결제 과정에서 개발자는
-사용자의 결제 수단이나 개인 식별 정보를 전달받지 않습니다. Apple의 개인정보 처리에 대해서는
-<a href="https://www.apple.com/legal/privacy/">Apple 개인정보처리방침</a>을 참고하세요.</p>
-
-<h2>문의</h2>
-<p>개인정보 관련 문의: <a href="mailto:tearbomb@gmail.com">tearbomb@gmail.com</a></p>
-
-<hr>
-
+<section data-lang="en">
 <h1>Rawcookr Privacy Policy</h1>
 <p class="muted">Effective: July 2026 · Developer: Slowsalmon</p>
-
 <h2>Summary</h2>
 <p><strong>Rawcookr does not collect any personal data.</strong></p>
-
 <h2>Data Processing</h2>
 <p>All photo processing in Rawcookr — RAW development, editing, and privacy blur (including automatic
 face and license-plate detection) — happens entirely on your Mac. Your photos, edits, and file
 information are never transmitted to the developer or any third party. Face detection uses Apple's
 on-device Vision framework; nothing is sent over the network.</p>
-
 <h2>What We Don't Collect</h2>
 <p>There are no user accounts, no analytics, no advertising identifiers, and no tracking technologies.</p>
-
 <h2>Subscriptions</h2>
 <p>Subscriptions and free trials are processed by Apple through the App Store. The developer never
 receives your payment details or personally identifying information. See
 <a href="https://www.apple.com/legal/privacy/">Apple's Privacy Policy</a> for details.</p>
-
 <h2>Contact</h2>
-<p>Questions: <a href="mailto:tearbomb@gmail.com">tearbomb@gmail.com</a></p>
+<p>Questions: <a href="mailto:rawcookr@icloud.com">rawcookr@icloud.com</a></p>
+</section>
+
+<section data-lang="ko">
+<h1>Rawcookr 개인정보처리방침</h1>
+<p class="muted">시행일: 2026년 7월 · 개발자: Slowsalmon</p>
+<h2>요약</h2>
+<p><strong>Rawcookr는 어떠한 개인정보도 수집하지 않습니다.</strong></p>
+<h2>데이터 처리</h2>
+<p>Rawcookr의 모든 사진 처리(RAW 현상, 편집, 얼굴·번호판 자동 인식을 포함한 개인정보 보호 블러)는
+전적으로 사용자의 Mac에서만 이루어집니다. 사진, 편집 내용, 파일 정보는 개발자나 제3자의 서버로
+전송되지 않습니다. 얼굴 인식은 Apple의 온디바이스 Vision 프레임워크를 사용하며 네트워크로
+전송되는 데이터가 없습니다.</p>
+<h2>수집하지 않는 것</h2>
+<p>계정 생성이 없으며, 분석(애널리틱스) 도구, 광고 식별자, 추적 기술을 사용하지 않습니다.</p>
+<h2>구독 결제</h2>
+<p>구독 결제와 무료 체험은 Apple의 App Store를 통해 처리됩니다. 결제 과정에서 개발자는
+사용자의 결제 수단이나 개인 식별 정보를 전달받지 않습니다. 자세한 내용은
+<a href="https://www.apple.com/legal/privacy/">Apple 개인정보처리방침</a>을 참고하세요.</p>
+<h2>문의</h2>
+<p>개인정보 관련 문의: <a href="mailto:rawcookr@icloud.com">rawcookr@icloud.com</a></p>
+</section>
+
+<section data-lang="es">
+<h1>Política de Privacidad de Rawcookr</h1>
+<p class="muted">Vigente desde: julio de 2026 · Desarrollador: Slowsalmon</p>
+<h2>Resumen</h2>
+<p><strong>Rawcookr no recopila ningún dato personal.</strong></p>
+<h2>Tratamiento de datos</h2>
+<p>Todo el procesamiento de fotos en Rawcookr — revelado RAW, edición y desenfoque de privacidad
+(incluida la detección automática de rostros y matrículas) — se realiza íntegramente en tu Mac.
+Tus fotos, ediciones e información de archivos nunca se transmiten al desarrollador ni a terceros.
+La detección de rostros utiliza el framework Vision de Apple en el dispositivo; no se envía nada
+por la red.</p>
+<h2>Lo que no recopilamos</h2>
+<p>No hay cuentas de usuario, ni analíticas, ni identificadores publicitarios, ni tecnologías de
+seguimiento.</p>
+<h2>Suscripciones</h2>
+<p>Las suscripciones y las pruebas gratuitas son procesadas por Apple a través del App Store.
+El desarrollador nunca recibe tus datos de pago ni información que te identifique personalmente.
+Consulta la <a href="https://www.apple.com/legal/privacy/">Política de Privacidad de Apple</a>.</p>
+<h2>Contacto</h2>
+<p>Preguntas: <a href="mailto:rawcookr@icloud.com">rawcookr@icloud.com</a></p>
+</section>
+
+<section data-lang="ja">
+<h1>Rawcookr プライバシーポリシー</h1>
+<p class="muted">施行日: 2026年7月 · 開発者: Slowsalmon</p>
+<h2>概要</h2>
+<p><strong>Rawcookr は個人データを一切収集しません。</strong></p>
+<h2>データ処理</h2>
+<p>Rawcookr におけるすべての写真処理(RAW現像、編集、顔やナンバープレートの自動検出を含む
+プライバシーぼかし)は、お使いのMac上でのみ行われます。写真、編集内容、ファイル情報が開発者や
+第三者に送信されることはありません。顔検出にはAppleのオンデバイスVisionフレームワークを使用し、
+ネットワークに送信されるデータはありません。</p>
+<h2>収集しないもの</h2>
+<p>ユーザーアカウントはなく、アナリティクス、広告識別子、トラッキング技術も使用しません。</p>
+<h2>サブスクリプション</h2>
+<p>サブスクリプションと無料トライアルは、App Storeを通じてAppleが処理します。開発者がお客様の
+支払い情報や個人を特定できる情報を受け取ることはありません。詳しくは
+<a href="https://www.apple.com/legal/privacy/">Appleのプライバシーポリシー</a>をご覧ください。</p>
+<h2>お問い合わせ</h2>
+<p>ご質問: <a href="mailto:rawcookr@icloud.com">rawcookr@icloud.com</a></p>
+</section>
+
+<section data-lang="it">
+<h1>Informativa sulla Privacy di Rawcookr</h1>
+<p class="muted">In vigore da: luglio 2026 · Sviluppatore: Slowsalmon</p>
+<h2>In sintesi</h2>
+<p><strong>Rawcookr non raccoglie alcun dato personale.</strong></p>
+<h2>Trattamento dei dati</h2>
+<p>Tutta l'elaborazione delle foto in Rawcookr — sviluppo RAW, editing e sfocatura per la privacy
+(incluso il rilevamento automatico di volti e targhe) — avviene interamente sul tuo Mac. Le tue
+foto, le modifiche e le informazioni sui file non vengono mai trasmesse allo sviluppatore né a
+terzi. Il rilevamento dei volti utilizza il framework Vision di Apple sul dispositivo; nulla viene
+inviato in rete.</p>
+<h2>Cosa non raccogliamo</h2>
+<p>Non ci sono account utente, né analytics, né identificatori pubblicitari, né tecnologie di
+tracciamento.</p>
+<h2>Abbonamenti</h2>
+<p>Gli abbonamenti e le prove gratuite sono gestiti da Apple tramite l'App Store. Lo sviluppatore
+non riceve mai i tuoi dati di pagamento né informazioni che ti identificano personalmente.
+Consulta l'<a href="https://www.apple.com/legal/privacy/">Informativa sulla Privacy di Apple</a>.</p>
+<h2>Contatti</h2>
+<p>Domande: <a href="mailto:rawcookr@icloud.com">rawcookr@icloud.com</a></p>
+</section>
+
+<section data-lang="fr">
+<h1>Politique de Confidentialité de Rawcookr</h1>
+<p class="muted">En vigueur : juillet 2026 · Développeur : Slowsalmon</p>
+<h2>Résumé</h2>
+<p><strong>Rawcookr ne collecte aucune donnée personnelle.</strong></p>
+<h2>Traitement des données</h2>
+<p>Tout le traitement des photos dans Rawcookr — développement RAW, retouche et floutage de
+confidentialité (y compris la détection automatique des visages et des plaques d'immatriculation) —
+s'effectue entièrement sur votre Mac. Vos photos, vos retouches et les informations de vos fichiers
+ne sont jamais transmises au développeur ni à des tiers. La détection des visages utilise le
+framework Vision d'Apple sur l'appareil ; rien n'est envoyé sur le réseau.</p>
+<h2>Ce que nous ne collectons pas</h2>
+<p>Pas de compte utilisateur, pas d'outils d'analyse, pas d'identifiants publicitaires, pas de
+technologies de suivi.</p>
+<h2>Abonnements</h2>
+<p>Les abonnements et les essais gratuits sont traités par Apple via l'App Store. Le développeur
+ne reçoit jamais vos informations de paiement ni de données permettant de vous identifier.
+Consultez la <a href="https://www.apple.com/legal/privacy/">Politique de Confidentialité d'Apple</a>.</p>
+<h2>Contact</h2>
+<p>Questions : <a href="mailto:rawcookr@icloud.com">rawcookr@icloud.com</a></p>
+</section>
+
+<section data-lang="zh">
+<h1>Rawcookr 隐私政策</h1>
+<p class="muted">生效日期:2026年7月 · 开发者:Slowsalmon</p>
+<h2>摘要</h2>
+<p><strong>Rawcookr 不收集任何个人数据。</strong></p>
+<h2>数据处理</h2>
+<p>Rawcookr 中的所有照片处理——RAW 显影、编辑以及隐私模糊(包括人脸和车牌的自动识别)——
+完全在您的 Mac 上进行。您的照片、编辑内容和文件信息绝不会传输给开发者或任何第三方。
+人脸识别使用 Apple 的设备端 Vision 框架,不会通过网络发送任何数据。</p>
+<h2>我们不收集的内容</h2>
+<p>没有用户账户,没有分析工具,没有广告标识符,也没有任何跟踪技术。</p>
+<h2>订阅</h2>
+<p>订阅和免费试用由 Apple 通过 App Store 处理。开发者绝不会收到您的付款信息或任何可识别
+个人身份的信息。详情请参阅 <a href="https://www.apple.com/legal/privacy/">Apple 隐私政策</a>。</p>
+<h2>联系方式</h2>
+<p>如有疑问:<a href="mailto:rawcookr@icloud.com">rawcookr@icloud.com</a></p>
+</section>
+
+<script>
+function setLang(code) {
+  document.querySelectorAll('section[data-lang]').forEach(function (s) {
+    s.style.display = s.dataset.lang === code ? 'block' : 'none';
+  });
+  document.documentElement.lang = code;
+  document.getElementById('lang').value = code;
+  try { localStorage.setItem('rawcookr-lang', code); } catch (e) {}
+}
+(function () {
+  var saved = null;
+  try { saved = localStorage.getItem('rawcookr-lang'); } catch (e) {}
+  var supported = ['en', 'ko', 'es', 'ja', 'it', 'fr', 'zh'];
+  var browser = (navigator.language || 'en').slice(0, 2);
+  var code = saved || (supported.indexOf(browser) >= 0 ? browser : 'en');
+  setLang(code);
+})();
+</script>
 </body>
 </html>
