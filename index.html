@@ -1,28 +1,548 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rawcookr — Mac용 RAW 현상 앱</title>
+<title>Rawcookr — Finish it before you post it</title>
+<meta name="description" content="A RAW editor for Mac, built for people who put photos online. Automatic face and license-plate blurring, a digital mist filter, and film recipes of your own.">
+<meta property="og:title" content="Rawcookr — Finish it before you post it">
+<meta property="og:description" content="A RAW editor for Mac with automatic privacy blurring, a mist filter, and film recipes.">
+<meta property="og:type" content="website">
 <style>
-  body { font-family: -apple-system, "Apple SD Gothic Neo", sans-serif; max-width: 720px;
-         margin: 0 auto; padding: 60px 24px; line-height: 1.7; color: #222; text-align: center; }
-  h1 { font-size: 2.2em; margin-bottom: 0.2em; }
-  .tagline { color: #555; font-size: 1.1em; }
-  .links { margin-top: 3em; } .links a { margin: 0 12px; }
-  footer { margin-top: 5em; color: #999; font-size: 0.85em; }
+  :root {
+    --cream: #F8F5EB;
+    --ink: #1E1B16;
+    --muted: #6B6459;
+    --blue: #0055B8;
+    --blue-soft: #E8EFFA;
+    --lemon: #F2C100;
+    --line: #E4DCC9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                 "Pretendard", "Noto Sans KR", sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* 좌우 여백만 담당 — 상하 여백은 각 요소가 따로 정한다 (단축 padding을 쓰면 덮어써짐) */
+  .wrap { max-width: 860px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+
+  /* ── 언어 전환 ── */
+  .lang-bar { position: sticky; top: 0; z-index: 10; background: var(--cream);
+              border-bottom: 1px solid transparent; }
+  .lang-inner { max-width: 860px; margin: 0 auto; padding: 14px 24px; text-align: right; }
+  .lang-btn {
+    border: 1px solid var(--line); background: #fff; color: var(--muted);
+    font: inherit; font-size: 0.82em; font-weight: 600;
+    padding: 5px 14px; border-radius: 999px; cursor: pointer; margin-left: 6px;
+  }
+  .lang-btn[aria-pressed="true"] { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+  /* ── 히어로 ── */
+  header.wrap { text-align: center; padding-top: 56px; padding-bottom: 60px; }
+  header img { width: 132px; height: 132px; }
+  h1 { font-size: 3em; margin: 22px 0 6px; letter-spacing: -0.02em; }
+  .tagline { font-size: 1.35em; font-weight: 600; margin: 0 0 20px; }
+  .sub { color: var(--muted); font-size: 1.05em; max-width: 640px; margin: 0 auto; }
+  .badge {
+    display: inline-block; margin-top: 36px; padding: 9px 20px;
+    background: var(--blue); color: #fff; border-radius: 999px;
+    font-size: 0.95em; font-weight: 600;
+  }
+  .badge-note { display: block; margin-top: 12px; color: var(--muted); font-size: 0.88em; }
+
+  /* ── 섹션 ── */
+  section.wrap { padding-top: 60px; padding-bottom: 60px; border-top: 1px solid var(--line); }
+  h2 { font-size: 1.7em; margin: 0 0 14px; letter-spacing: -0.01em; }
+  .lead { color: var(--muted); margin: 0 0 52px; max-width: 700px; }
+
+  .feature { display: flex; gap: 24px; margin-bottom: 54px; align-items: flex-start; }
+  .feature:last-child { margin-bottom: 0; }
+  .num {
+    flex: none; width: 40px; height: 40px; border-radius: 11px;
+    background: var(--blue-soft); color: var(--blue);
+    font-weight: 800; font-size: 0.95em;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .feature h3 { margin: 5px 0 10px; font-size: 1.18em; }
+  .feature p { margin: 0; color: #443E36; }
+  .feature .why {
+    display: block; margin-top: 14px; padding-left: 14px;
+    border-left: 3px solid var(--lemon);
+    color: var(--muted); font-size: 0.94em;
+  }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; }
+  .card h4 { margin: 0 0 8px; font-size: 1em; }
+  .card p { margin: 0; color: var(--muted); font-size: 0.93em; line-height: 1.7; }
+
+  .specs { display: grid; grid-template-columns: 150px 1fr; gap: 18px 24px; font-size: 0.97em; }
+  .specs dt { color: var(--muted); }
+  .specs dd { margin: 0; }
+
+  .price { text-align: center; background: #fff; border: 1px solid var(--line);
+           border-radius: 16px; padding: 40px 24px; }
+  .price .amount { font-size: 2.4em; font-weight: 800; letter-spacing: -0.02em; line-height: 1.3; }
+  .price .amount small { font-size: 0.4em; font-weight: 600; color: var(--muted); }
+  .price .alt { color: var(--muted); margin: 8px 0 0; }
+  .price .trial { display: inline-block; margin-top: 22px; padding: 8px 18px;
+                  background: var(--lemon); color: #3A2E00; border-radius: 999px;
+                  font-weight: 700; font-size: 0.92em; }
+
+  footer.wrap { border-top: 1px solid var(--line); text-align: center;
+                color: var(--muted); font-size: 0.9em;
+                padding-top: 60px; padding-bottom: 72px; }
+  footer a { color: var(--blue); text-decoration: none; margin: 0 12px; }
+  footer a:hover { text-decoration: underline; }
+  .copy { margin-top: 20px; color: #A69C89; font-size: 0.92em; line-height: 1.7; }
+
+  [data-lang] { display: none; }
+
+  @media (max-width: 560px) {
+    h1 { font-size: 2.3em; }
+    .tagline { font-size: 1.15em; }
+    section.wrap { padding-top: 48px; padding-bottom: 48px; }
+    header.wrap { padding-top: 36px; padding-bottom: 48px; }
+    footer.wrap { padding-top: 48px; padding-bottom: 56px; }
+    .feature { gap: 16px; margin-bottom: 44px; }
+    .lead { margin-bottom: 40px; }
+    .specs { grid-template-columns: 1fr; gap: 4px 0; }
+    .specs dd { margin-bottom: 18px; }
+  }
 </style>
 </head>
 <body>
-<h1>Rawcookr</h1>
-<p class="tagline">모든 RAW에 사적이고 감성적인 필름의 색을 입히다.<br>
-주요 미러리스 카메라를 지원하는 Mac용 현상 앱.</p>
-<p>라이브러리 관리 · 필름 시뮬레이션 · 나만의 레시피와 필름롤 공유 ·<br>
-비파괴 편집 · 개인정보 보호 블러 · 일괄 내보내기</p>
-<div class="links">
-  <a href="privacy.html">개인정보처리방침</a>
-  <a href="mailto:rawcookr@icloud.com">문의</a>
+
+<div class="lang-bar">
+  <div class="lang-inner">
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')" aria-pressed="true">English</button>
+    <button class="lang-btn" id="btn-ko" onclick="setLang('ko')" aria-pressed="false">한국어</button>
+  </div>
 </div>
-<footer>© 2026 Slowsalmon. All rights reserved.</footer>
+
+<!-- ════════════════ ENGLISH ════════════════ -->
+<div data-lang="en">
+
+<header class="wrap">
+  <img src="icon.png" alt="Rawcookr app icon">
+  <h1>Rawcookr</h1>
+  <p class="tagline">Finish it before you post it</p>
+  <p class="sub">
+    A RAW editor for Mac, made for people who put their photos online.
+    Develop the file, protect the people in it, give it the mood you want,
+    and export it ready to upload — all without leaving the app.
+  </p>
+  <span class="badge">Coming to the Mac App Store</span>
+  <span class="badge-note">7-day free trial · macOS 14 or later</span>
+</header>
+
+<section class="wrap">
+  <h2>Why Rawcookr</h2>
+  <p class="lead">
+    Professional developing tools are excellent with color, but they stop short of
+    <strong>the part where the photo goes online</strong>. The stranger at the next table,
+    the license plate down the alley, the GPS coordinates still sitting in the file —
+    sooner or later you open yet another app. Rawcookr brings that last step
+    into developing itself.
+  </p>
+
+  <div class="feature">
+    <div class="num">01</div>
+    <div>
+      <h3>Faces and plates, blurred automatically</h3>
+      <p>
+        Rawcookr finds unfamiliar faces and vehicle license plates in your café, travel and
+        street photos, then blurs or pixelates them. Detection runs on the
+        <strong>full-resolution file</strong> rather than a downscaled preview, so small faces
+        far in the background are caught too. Every detected region can be switched on or off
+        individually, and you can draw your own.
+      </p>
+      <span class="why">
+        All detection happens on your Mac. Your photos never leave the device.
+      </span>
+    </div>
+  </div>
+
+  <div class="feature">
+    <div class="num">02</div>
+    <div>
+      <h3>The air of cinema, in a mist filter</h3>
+      <p>
+        A digital take on the optical diffusion filters that cost a small fortune.
+        Light blooms gently, highlights melt, and a stepped strength control carries you from
+        a faint haze to an unmistakably cinematic look. A classic mode lets the glow spread
+        into the shadows as well.
+      </p>
+      <span class="why">
+        Screw a filter onto a lens and you are committed. Here you can change your mind
+        at any time — and more optical filter effects are on the way.
+      </span>
+    </div>
+  </div>
+
+  <div class="feature">
+    <div class="num">03</div>
+    <div>
+      <h3>Film recipes that hold a memory</h3>
+      <p>
+        Put a much-loved film look on a photo with a single click, then shape the tone, color,
+        grain and tint until it becomes <strong>a film of your own</strong>. Register a LUT
+        (.cube) you already have as a film, or capture only the color you have just dialled in
+        and save that as a new one.
+      </p>
+      <span class="why">
+        Export a finished recipe book as one file to share with friends or followers.
+        The custom films a recipe depends on travel inside it, so the color lands the same
+        on their screen.
+      </span>
+    </div>
+  </div>
+
+  <div class="feature">
+    <div class="num">04</div>
+    <div>
+      <h3>Serious RAW developing underneath</h3>
+      <p>
+        Exposure, contrast, highlight and shadow recovery and white balance, plus tone curves,
+        eight-band hue and saturation, levels and three-way color balance. Purple and green
+        fringing removal, local adjustments through gradient, radial and brush masks, lens
+        distortion correction and horizon straightening are all here.
+      </p>
+      <span class="why">
+        Your original file is never modified. Every edit is kept separately,
+        so you can always return to where you started.
+      </span>
+    </div>
+  </div>
+
+  <div class="feature">
+    <div class="num">05</div>
+    <div>
+      <h3>The date, written on the frame</h3>
+      <p>
+        Like the data back of a film camera, Rawcookr prints the shooting date in the corner
+        of the photo. The date is read from the file's own capture information, so it cannot
+        be invented — only the order of the numbers is yours to choose.
+      </p>
+      <span class="why">
+        The amber digits of old film prints, reproduced down to the slant.
+      </span>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>A finish built for uploading</h2>
+  <p class="lead">The small chores that come after developing, handled for you.</p>
+  <div class="grid">
+    <div class="card">
+      <h4>Location data removed</h4>
+      <p>GPS coordinates are stripped on export, so your home and regular haunts don't travel with the photo.</p>
+    </div>
+    <div class="card">
+      <h4>Sized for upload</h4>
+      <p>Scale down by percentage, width or long edge in one pass. Never enlarged beyond the original.</p>
+    </div>
+    <div class="card">
+      <h4>The format you need</h4>
+      <p>JPEG, HEIF, PNG, WebP and 16-bit TIFF, with quality set anywhere from 1 to 100%.</p>
+    </div>
+    <div class="card">
+      <h4>Whole batches at once</h4>
+      <p>Every selected photo exported with its own edits, and the folder opened for you when it's done.</p>
+    </div>
+    <div class="card">
+      <h4>Frame it</h4>
+      <p>Square, 4:5, 16:9 and more — add borders so the feed doesn't crop your composition away.</p>
+    </div>
+    <div class="card">
+      <h4>One photo, many versions</h4>
+      <p>Develop the same frame several ways and compare them side by side.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>Less time choosing, more time shooting</h2>
+  <p class="lead">The hours that disappear before and after developing, given back.</p>
+  <div class="grid">
+    <div class="card">
+      <h4>Instant previews</h4>
+      <p>Open a folder and thumbnails appear right away. Rate, flag and filter down to what matters.</p>
+    </div>
+    <div class="card">
+      <h4>Presets you can see</h4>
+      <p>Saved presets are shown applied to the photo in front of you, not just listed by name.</p>
+    </div>
+    <div class="card">
+      <h4>Copy and paste edits</h4>
+      <p>Move the look you built on one frame onto everything else from the same scene.</p>
+    </div>
+    <div class="card">
+      <h4>Focus view</h4>
+      <p>Hide every panel and fill the screen with the photo. Nothing to distract you while judging color.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>Good to know</h2>
+  <dl class="specs">
+    <dt>Supported files</dt>
+    <dd>RAW from major mirrorless and DSLR cameras (DNG, RAF, ARW, CR3, NEF, RW2, ORF, PEF and more),
+        plus JPEG, HEIF, PNG and TIFF</dd>
+    <dt>Requirements</dt>
+    <dd>macOS 14 or later · Apple Silicon</dd>
+    <dt>Processing</dt>
+    <dd>Everything runs on your Mac. No account to create, nothing uploaded to a cloud.</dd>
+    <dt>Appearance</dt>
+    <dd>Dark and light mode</dd>
+  </dl>
+</section>
+
+<section class="wrap">
+  <h2>Pricing</h2>
+  <p class="lead">Try it first, decide later.</p>
+  <div class="price">
+    <div class="amount">₩4,400<small> / month</small></div>
+    <p class="alt">₩50,000 billed yearly · every feature included</p>
+    <span class="trial">7-day free trial</span>
+  </div>
+</section>
+
+<footer class="wrap">
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="mailto:rawcookr@icloud.com">Contact</a>
+  <p class="copy">
+    © 2026 Slowsalmon. All rights reserved.<br>
+    Film style names and colors are Rawcookr's own creations
+    and are not affiliated with any camera or film manufacturer.
+  </p>
+</footer>
+
+</div>
+
+<!-- ════════════════ 한국어 ════════════════ -->
+<div data-lang="ko">
+
+<header class="wrap">
+  <img src="icon.png" alt="Rawcookr 앱 아이콘">
+  <h1>Rawcookr</h1>
+  <p class="tagline">올리기 전에, 끝내는 사진 앱</p>
+  <p class="sub">
+    블로그와 SNS에 사진을 올리는 사람을 위해 만든 Mac용 RAW 현상 앱.
+    현상부터 초상권 처리, 감성 보정, 업로드용 내보내기까지 —
+    여러 앱을 오갈 필요 없이 한 자리에서 끝납니다.
+  </p>
+  <span class="badge">Mac App Store 출시 준비 중</span>
+  <span class="badge-note">7일 무료 체험 · macOS 14 이상</span>
+</header>
+
+<section class="wrap">
+  <h2>왜 Rawcookr인가</h2>
+  <p class="lead">
+    전문 현상 도구는 색을 다루는 데는 훌륭하지만, <strong>사진을 온라인에 올리는 과정</strong>은
+    돌봐주지 않습니다. 카페에 앉은 다른 손님의 얼굴, 골목에 세워진 차의 번호판,
+    파일에 남은 촬영 위치 정보 — 결국 다른 앱을 하나 더 켜게 됩니다.
+    Rawcookr는 그 마지막 단계를 현상 과정 안으로 가져왔습니다.
+  </p>
+
+  <div class="feature">
+    <div class="num">01</div>
+    <div>
+      <h3>얼굴과 번호판, 자동으로 가립니다</h3>
+      <p>
+        카페·관광지·길거리에서 찍은 사진 속 낯선 사람의 얼굴과 자동차 번호판을
+        자동으로 찾아 블러 또는 모자이크로 처리합니다. 인식은 축소 화면이 아니라
+        <strong>원본 해상도</strong>에서 이뤄져 멀리 있는 작은 얼굴까지 놓치지 않고,
+        잡아낸 영역은 하나씩 켜고 끄거나 직접 그려 추가할 수 있습니다.
+      </p>
+      <span class="why">
+        모든 인식은 Mac 안에서만 처리됩니다. 사진이 서버로 올라가는 일은 없습니다.
+      </span>
+    </div>
+  </div>
+
+  <div class="feature">
+    <div class="num">02</div>
+    <div>
+      <h3>영화의 공기감, 미스트 필터</h3>
+      <p>
+        수십만 원짜리 광학 디퓨전 필터의 느낌을 디지털로 구현했습니다.
+        빛이 부드럽게 번지며 하이라이트가 풀리고, 단계별로 세기를 조절해
+        은은한 공기감부터 확실한 시네마틱 룩까지 만들 수 있습니다.
+        암부까지 퍼지는 클래식 모드도 함께 제공합니다.
+      </p>
+      <span class="why">
+        렌즈 앞에 무언가를 끼우면 되돌릴 수 없지만, 여기서는 언제든 다시 조절할 수 있습니다.
+        다른 광학 필터 효과도 순차적으로 추가됩니다.
+      </span>
+    </div>
+  </div>
+
+  <div class="feature">
+    <div class="num">03</div>
+    <div>
+      <h3>기억의 색을 담는 필름 레시피</h3>
+      <p>
+        널리 사랑받아 온 필름 스타일을 한 번의 클릭으로 사진에 입히고,
+        거기서부터 톤·컬러·입자·색조를 다듬어 <strong>나만의 필름</strong>을 만듭니다.
+        가지고 있는 LUT(.cube) 파일을 필름으로 등록할 수도 있고,
+        지금 맞춰 둔 색만 뽑아 새 필름으로 저장할 수도 있습니다.
+      </p>
+      <span class="why">
+        완성한 레시피는 레시피북 파일 하나로 내보내 친구나 팔로워와 나눌 수 있습니다.
+        레시피가 쓰는 커스텀 필름까지 함께 담겨 상대방 화면에서도 같은 색이 나옵니다.
+      </span>
+    </div>
+  </div>
+
+  <div class="feature">
+    <div class="num">04</div>
+    <div>
+      <h3>기본기에 충실한 RAW 현상</h3>
+      <p>
+        노출·대비·명부/암부 복구·화이트 밸런스는 물론, 톤 커브, 8밴드 색조·채도,
+        레벨, 3방향 색상 균형까지 제대로 갖췄습니다.
+        보라·초록 색수차 제거, 그라디언트·원형·브러시 마스크를 이용한 부분 보정,
+        렌즈 왜곡 보정과 수평 조절도 지원합니다.
+      </p>
+      <span class="why">
+        원본 파일은 절대 수정되지 않습니다. 모든 편집은 따로 기록되어,
+        언제든 처음으로 되돌릴 수 있습니다.
+      </span>
+    </div>
+  </div>
+
+  <div class="feature">
+    <div class="num">05</div>
+    <div>
+      <h3>그날의 날짜를 사진 위에</h3>
+      <p>
+        필름 카메라 데이터백처럼 촬영 날짜를 사진 구석에 새깁니다.
+        날짜는 사진에 기록된 촬영 정보에서 그대로 가져오기 때문에 꾸며낼 수 없고,
+        표기 순서만 문화권에 맞게 고를 수 있습니다.
+      </p>
+      <span class="why">
+        오래된 필름 사진 특유의 주황빛 숫자가 기울기까지 그대로 재현됩니다.
+      </span>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>업로드까지 생각한 마무리</h2>
+  <p class="lead">현상이 끝난 뒤에 해야 하는 자잘한 일들을 앱이 대신합니다.</p>
+  <div class="grid">
+    <div class="card">
+      <h4>위치 정보 제거</h4>
+      <p>내보낼 때 GPS 정보를 지웁니다. 집이나 자주 가는 장소가 사진에 남지 않습니다.</p>
+    </div>
+    <div class="card">
+      <h4>업로드용 크기로</h4>
+      <p>배율·가로 픽셀·긴 변 기준으로 한 번에 줄여 저장합니다. 원본보다 커지지 않도록 제한됩니다.</p>
+    </div>
+    <div class="card">
+      <h4>원하는 형식으로</h4>
+      <p>JPEG · HEIF · PNG · WebP · 16비트 TIFF. 품질도 1~100%로 직접 지정할 수 있습니다.</p>
+    </div>
+    <div class="card">
+      <h4>여러 장을 한 번에</h4>
+      <p>고른 사진 전부에 각자의 편집을 적용해 일괄 저장하고, 끝나면 폴더를 바로 열어 줍니다.</p>
+    </div>
+    <div class="card">
+      <h4>프레임 두르기</h4>
+      <p>정사각형·4:5·16:9 등 SNS 비율에 맞춰 여백을 둘러 잘리지 않게 올릴 수 있습니다.</p>
+    </div>
+    <div class="card">
+      <h4>한 장, 여러 버전</h4>
+      <p>같은 사진을 색만 달리해 여러 버전으로 현상하고 나란히 비교할 수 있습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>고르고 정리하는 시간도 줄입니다</h2>
+  <p class="lead">현상 전후로 흘려보내는 시간을 아끼도록 만들었습니다.</p>
+  <div class="grid">
+    <div class="card">
+      <h4>빠른 미리보기</h4>
+      <p>폴더를 열면 곧바로 썸네일이 뜹니다. 별점과 깃발로 고르고 원하는 조건만 걸러 봅니다.</p>
+    </div>
+    <div class="card">
+      <h4>프리셋 즉시 확인</h4>
+      <p>저장해 둔 프리셋이 지금 이 사진에 적용된 모습으로 보입니다. 이름만 보고 고르지 않아도 됩니다.</p>
+    </div>
+    <div class="card">
+      <h4>편집 복사·붙여넣기</h4>
+      <p>한 장에 맞춘 보정을 같은 자리에서 찍은 다른 사진들에 그대로 옮깁니다.</p>
+    </div>
+    <div class="card">
+      <h4>집중 보기</h4>
+      <p>패널을 모두 감추고 사진만 전체 화면으로. 색을 판단할 때 방해받지 않습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>지원 정보</h2>
+  <dl class="specs">
+    <dt>지원 파일</dt>
+    <dd>주요 미러리스·DSLR의 RAW (DNG, RAF, ARW, CR3, NEF, RW2, ORF, PEF 등)와
+        JPEG · HEIF · PNG · TIFF</dd>
+    <dt>필요 환경</dt>
+    <dd>macOS 14 이상 · Apple Silicon</dd>
+    <dt>처리 방식</dt>
+    <dd>모든 편집과 인식이 Mac 안에서 이뤄집니다. 계정 가입도, 클라우드 업로드도 없습니다.</dd>
+    <dt>보기 모드</dt>
+    <dd>다크 모드 · 라이트 모드 전환 지원</dd>
+  </dl>
+</section>
+
+<section class="wrap">
+  <h2>가격</h2>
+  <p class="lead">먼저 써 보고 결정하세요.</p>
+  <div class="price">
+    <div class="amount">₩4,400<small> / 월</small></div>
+    <p class="alt">연간 결제 시 ₩50,000 · 모든 기능 포함</p>
+    <span class="trial">7일 무료 체험</span>
+  </div>
+</section>
+
+<footer class="wrap">
+  <a href="privacy.html">개인정보처리방침</a>
+  <a href="mailto:rawcookr@icloud.com">문의하기</a>
+  <p class="copy">
+    © 2026 Slowsalmon. All rights reserved.<br>
+    필름 스타일 이름과 색감은 Rawcookr가 독자적으로 구성한 것이며,
+    특정 제조사의 제품과 무관합니다.
+  </p>
+</footer>
+
+</div>
+
+<script>
+function setLang(code) {
+  document.querySelectorAll('[data-lang]').forEach(function (el) {
+    el.style.display = el.dataset.lang === code ? 'block' : 'none';
+  });
+  document.documentElement.lang = code;
+  document.getElementById('btn-en').setAttribute('aria-pressed', code === 'en');
+  document.getElementById('btn-ko').setAttribute('aria-pressed', code === 'ko');
+  try { localStorage.setItem('rawcookr-site-lang', code); } catch (e) {}
+}
+(function () {
+  var saved = null;
+  try { saved = localStorage.getItem('rawcookr-site-lang'); } catch (e) {}
+  // 기본은 영문 — 이전에 고른 언어가 있으면 그것을 따른다
+  setLang(saved === 'ko' ? 'ko' : 'en');
+})();
+</script>
+
 </body>
 </html>
