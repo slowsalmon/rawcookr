@@ -4,10 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rawcookr — A lean RAW editor for creators</title>
-<meta name="description" content="Post faster. Blur every face in one click, give the photo a film mood that’s yours, and keep a full set of real editing tools — for a price that stays light.">
+<meta name="description" content="">
 <meta property="og:title" content="Rawcookr — A lean RAW editor for creators">
 <meta property="og:description" content="Blur every face in one click, add a film mood of your own, and export ready to post. A lean RAW editor for Mac.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://rawcookr.slowsalmon.com/">
+<link rel="canonical" href="https://rawcookr.slowsalmon.com/">
 <style>
   :root {
     --cream: #F8F5EB;
@@ -22,38 +24,45 @@
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
-                 "Pretendard", "Noto Sans KR", sans-serif;
+                 "Pretendard", "Noto Sans KR", "Noto Sans Thai", sans-serif;
     background: var(--cream);
     color: var(--ink);
     line-height: 1.8;
     -webkit-font-smoothing: antialiased;
   }
-  /* 좌우 여백만 담당 — 상하 여백은 각 요소가 따로 정한다 (단축 padding을 쓰면 덮어써짐) */
   .wrap { max-width: 860px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
 
-  /* ── 언어 전환 ── */
-  .lang-bar { position: sticky; top: 0; z-index: 10; background: var(--cream);
-              border-bottom: 1px solid transparent; }
-  .lang-inner { max-width: 860px; margin: 0 auto; padding: 14px 24px; text-align: right; }
-  .lang-btn {
-    border: 1px solid var(--line); background: #fff; color: var(--muted);
-    font: inherit; font-size: 0.82em; font-weight: 600;
-    padding: 5px 14px; border-radius: 999px; cursor: pointer; margin-left: 6px;
+  /* ── 언어 선택 ── */
+  .lang-bar { position: sticky; top: 0; z-index: 10; background: var(--cream); }
+  .lang-inner { max-width: 860px; margin: 0 auto; padding: 12px 24px; text-align: right; }
+  .lang-inner label { color: var(--muted); font-size: 0.9em; margin-right: 4px; }
+  #lang {
+    font: inherit; font-size: 0.85em; font-weight: 600; color: var(--ink);
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 6px 32px 6px 14px; cursor: pointer;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%236B6459'/></svg>");
+    background-repeat: no-repeat; background-position: right 13px center;
   }
-  .lang-btn[aria-pressed="true"] { background: var(--blue); border-color: var(--blue); color: #fff; }
 
   /* ── 히어로 ── */
-  header.wrap { text-align: center; padding-top: 56px; padding-bottom: 60px; }
+  header.wrap { text-align: center; padding-top: 44px; padding-bottom: 60px; }
   header img { width: 132px; height: 132px; }
   h1 { font-size: 3em; margin: 22px 0 6px; letter-spacing: -0.02em; }
   .tagline { font-size: 1.35em; font-weight: 600; margin: 0 0 20px; }
   .sub { color: var(--muted); font-size: 1.05em; max-width: 640px; margin: 0 auto; }
   .badge {
     display: inline-block; margin-top: 36px; padding: 9px 20px;
-    background: var(--blue); color: #fff; border-radius: 999px;
-    font-size: 0.95em; font-weight: 600;
+    background: var(--blue-soft); color: var(--blue); border-radius: 999px;
+    font-size: 0.95em; font-weight: 700;
   }
-  .badge-note { display: block; margin-top: 12px; color: var(--muted); font-size: 0.88em; }
+  .cta {
+    display: inline-block; margin-top: 18px; padding: 13px 28px;
+    background: var(--blue); color: #fff; border-radius: 999px;
+    font-size: 1.02em; font-weight: 700; text-decoration: none;
+  }
+  .cta:hover { background: #00449A; }
+  .badge-note { display: block; margin-top: 14px; color: var(--muted); font-size: 0.88em; }
 
   /* ── 섹션 ── */
   section.wrap { padding-top: 60px; padding-bottom: 60px; border-top: 1px solid var(--line); }
@@ -81,7 +90,7 @@
   .card h4 { margin: 0 0 8px; font-size: 1em; }
   .card p { margin: 0; color: var(--muted); font-size: 0.93em; line-height: 1.7; }
 
-  .specs { display: grid; grid-template-columns: 150px 1fr; gap: 18px 24px; font-size: 0.97em; }
+  .specs { display: grid; grid-template-columns: 170px 1fr; gap: 18px 24px; font-size: 0.97em; }
   .specs dt { color: var(--muted); }
   .specs dd { margin: 0; }
 
@@ -93,6 +102,7 @@
   .price .trial { display: inline-block; margin-top: 22px; padding: 8px 18px;
                   background: var(--lemon); color: #3A2E00; border-radius: 999px;
                   font-weight: 700; font-size: 0.92em; }
+  .price .note { color: #A69C89; font-size: 0.85em; margin: 18px 0 0; }
 
   footer.wrap { border-top: 1px solid var(--line); text-align: center;
                 color: var(--muted); font-size: 0.9em;
@@ -101,13 +111,11 @@
   footer a:hover { text-decoration: underline; }
   .copy { margin-top: 20px; color: #A69C89; font-size: 0.92em; line-height: 1.7; }
 
-  [data-lang] { display: none; }
-
   @media (max-width: 560px) {
     h1 { font-size: 2.3em; }
     .tagline { font-size: 1.15em; }
     section.wrap { padding-top: 48px; padding-bottom: 48px; }
-    header.wrap { padding-top: 36px; padding-bottom: 48px; }
+    header.wrap { padding-top: 28px; padding-bottom: 48px; }
     footer.wrap { padding-top: 48px; padding-bottom: 56px; }
     .feature { gap: 16px; margin-bottom: 44px; }
     .lead { margin-bottom: 40px; }
@@ -120,428 +128,210 @@
 
 <div class="lang-bar">
   <div class="lang-inner">
-    <button class="lang-btn" id="btn-en" onclick="setLang('en')" aria-pressed="true">English</button>
-    <button class="lang-btn" id="btn-ko" onclick="setLang('ko')" aria-pressed="false">한국어</button>
+    <label for="lang">&#127760;</label>
+    <select id="lang" onchange="setLang(this.value)" aria-label="Language">
+      <option value="en">English</option>
+      <option value="ko">한국어</option>
+      <option value="ja">日本語</option>
+      <option value="zh">中文（简体）</option>
+      <option value="de">Deutsch</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="th">ไทย</option>
+      <option value="vi">Tiếng Việt</option>
+      <option value="id">Bahasa Indonesia</option>
+    </select>
   </div>
 </div>
 
-<!-- ════════════════ ENGLISH ════════════════ -->
-<div data-lang="en">
-
 <header class="wrap">
-  <img src="icon.png" alt="Rawcookr app icon">
+  <img src="icon.png" alt="Rawcookr">
   <h1>Rawcookr</h1>
-  <p class="tagline">A lean RAW editor for creators</p>
-  <p class="sub">
-    Post faster. Blur every face in one click, give the photo a film mood
-    that&rsquo;s yours, and keep a full set of real editing tools &mdash;
-    for a price that stays light.
-  </p>
-  <span class="badge">Coming to the Mac App Store</span>
-  <span class="badge-note">7-day free trial · macOS 14 or later</span>
+  <p class="tagline" data-i18n="tagline"></p>
+  <p class="sub" data-i18n="sub"></p>
+  <div>
+    <span class="badge" data-i18n="badge"></span>
+  </div>
+  <a class="cta" id="cta" href="#" data-i18n="cta" style="display:none"></a>
+  <span class="badge-note" data-i18n="badgeNote"></span>
 </header>
 
 <section class="wrap">
-  <h2>Why Rawcookr</h2>
-  <p class="lead">
-    A shoot ends and the work begins: blur the strangers, find the color, strip the
-    location, resize for upload. Four apps, an afternoon gone, and the moment has cooled.
-    Rawcookr puts all of it in one place — <strong>so the photo goes up while it still
-    matters to you</strong>. Built for people who post often, priced so it never becomes
-    a decision.
-  </p>
-
+  <h2 data-i18n="whyH"></h2>
+  <p class="lead" data-i18n="whyLead"></p>
   <div class="feature">
     <div class="num">01</div>
     <div>
-      <h3>Faces and plates, blurred automatically</h3>
-      <p>
-        Rawcookr finds unfamiliar faces and vehicle license plates in your café, travel and
-        street photos, then blurs or pixelates them. Detection runs on the
-        <strong>full-resolution file</strong> rather than a downscaled preview, so small faces
-        far in the background are caught too. Every detected region can be switched on or off
-        individually, and you can draw your own.
-      </p>
-      <span class="why">
-        All detection happens on your Mac. Your photos never leave the device.
-      </span>
+      <h3 data-i18n="f1h"></h3>
+      <p data-i18n="f1p"></p>
+      <span class="why" data-i18n="f1w"></span>
     </div>
   </div>
 
   <div class="feature">
     <div class="num">02</div>
     <div>
-      <h3>The air of cinema, in a mist filter</h3>
-      <p>
-        A digital take on the optical diffusion filters that cost a small fortune.
-        Light blooms gently, highlights melt, and a stepped strength control carries you from
-        a faint haze to an unmistakably cinematic look. A classic mode lets the glow spread
-        into the shadows as well.
-      </p>
-      <span class="why">
-        Screw a filter onto a lens and you are committed. Here you can change your mind
-        at any time — and more optical filter effects are on the way.
-      </span>
+      <h3 data-i18n="f2h"></h3>
+      <p data-i18n="f2p"></p>
+      <span class="why" data-i18n="f2w"></span>
     </div>
   </div>
 
   <div class="feature">
     <div class="num">03</div>
     <div>
-      <h3>Film recipes that hold a memory</h3>
-      <p>
-        Put a much-loved film look on a photo with a single click, then shape the tone, color,
-        grain and tint until it becomes <strong>a film of your own</strong>. Register a LUT
-        (.cube) you already have as a film, or capture only the color you have just dialled in
-        and save that as a new one.
-      </p>
-      <span class="why">
-        Export a finished recipe book as one file to share with friends or followers.
-        The custom films a recipe depends on travel inside it, so the color lands the same
-        on their screen.
-      </span>
+      <h3 data-i18n="f3h"></h3>
+      <p data-i18n="f3p"></p>
+      <span class="why" data-i18n="f3w"></span>
     </div>
   </div>
 
   <div class="feature">
     <div class="num">04</div>
     <div>
-      <h3>Serious RAW developing underneath</h3>
-      <p>
-        Exposure, contrast, highlight and shadow recovery and white balance, plus tone curves,
-        eight-band hue and saturation, levels and three-way color balance. Purple and green
-        fringing removal, local adjustments through gradient, radial and brush masks, lens
-        distortion correction and horizon straightening are all here.
-      </p>
-      <span class="why">
-        Your original file is never modified. Every edit is kept separately,
-        so you can always return to where you started.
-      </span>
+      <h3 data-i18n="f4h"></h3>
+      <p data-i18n="f4p"></p>
+      <span class="why" data-i18n="f4w"></span>
     </div>
   </div>
 
   <div class="feature">
     <div class="num">05</div>
     <div>
-      <h3>The date, written on the frame</h3>
-      <p>
-        Like the data back of a film camera, Rawcookr prints the shooting date in the corner
-        of the photo. The date is read from the file's own capture information, so it cannot
-        be invented — only the order of the numbers is yours to choose.
-      </p>
-      <span class="why">
-        The amber digits of old film prints, reproduced down to the slant.
-      </span>
+      <h3 data-i18n="f5h"></h3>
+      <p data-i18n="f5p"></p>
+      <span class="why" data-i18n="f5w"></span>
     </div>
   </div>
 </section>
 
 <section class="wrap">
-  <h2>A finish built for uploading</h2>
-  <p class="lead">The small chores that come after developing, handled for you.</p>
+  <h2 data-i18n="finH"></h2>
+  <p class="lead" data-i18n="finLead"></p>
   <div class="grid">
     <div class="card">
-      <h4>Location data removed</h4>
-      <p>GPS coordinates are stripped on export, so your home and regular haunts don't travel with the photo.</p>
+      <h4 data-i18n="c1h"></h4>
+      <p data-i18n="c1p"></p>
     </div>
     <div class="card">
-      <h4>Sized for upload</h4>
-      <p>Scale down by percentage, width or long edge in one pass. Never enlarged beyond the original.</p>
+      <h4 data-i18n="c2h"></h4>
+      <p data-i18n="c2p"></p>
     </div>
     <div class="card">
-      <h4>The format you need</h4>
-      <p>JPEG, HEIF, PNG, WebP and 16-bit TIFF, with quality set anywhere from 1 to 100%.</p>
+      <h4 data-i18n="c3h"></h4>
+      <p data-i18n="c3p"></p>
     </div>
     <div class="card">
-      <h4>Whole batches at once</h4>
-      <p>Every selected photo exported with its own edits, and the folder opened for you when it's done.</p>
+      <h4 data-i18n="c4h"></h4>
+      <p data-i18n="c4p"></p>
     </div>
     <div class="card">
-      <h4>Frame it</h4>
-      <p>Square, 4:5, 16:9 and more — add borders so the feed doesn't crop your composition away.</p>
+      <h4 data-i18n="c5h"></h4>
+      <p data-i18n="c5p"></p>
     </div>
     <div class="card">
-      <h4>One photo, many versions</h4>
-      <p>Develop the same frame several ways and compare them side by side.</p>
+      <h4 data-i18n="c6h"></h4>
+      <p data-i18n="c6p"></p>
     </div>
   </div>
 </section>
 
 <section class="wrap">
-  <h2>Less time choosing, more time shooting</h2>
-  <p class="lead">The hours that disappear before and after developing, given back.</p>
+  <h2 data-i18n="tmH"></h2>
+  <p class="lead" data-i18n="tmLead"></p>
   <div class="grid">
     <div class="card">
-      <h4>Instant previews</h4>
-      <p>Open a folder and thumbnails appear right away. Rate, flag and filter down to what matters.</p>
+      <h4 data-i18n="t1h"></h4>
+      <p data-i18n="t1p"></p>
     </div>
     <div class="card">
-      <h4>Presets you can see</h4>
-      <p>Saved presets are shown applied to the photo in front of you, not just listed by name.</p>
+      <h4 data-i18n="t2h"></h4>
+      <p data-i18n="t2p"></p>
     </div>
     <div class="card">
-      <h4>Copy and paste edits</h4>
-      <p>Move the look you built on one frame onto everything else from the same scene.</p>
+      <h4 data-i18n="t3h"></h4>
+      <p data-i18n="t3p"></p>
     </div>
     <div class="card">
-      <h4>Focus view</h4>
-      <p>Hide every panel and fill the screen with the photo. Nothing to distract you while judging color.</p>
+      <h4 data-i18n="t4h"></h4>
+      <p data-i18n="t4p"></p>
     </div>
   </div>
 </section>
 
 <section class="wrap">
-  <h2>Good to know</h2>
+  <h2 data-i18n="gkH"></h2>
   <dl class="specs">
-    <dt>Supported files</dt>
-    <dd>RAW from major mirrorless and DSLR cameras (DNG, RAF, ARW, CR3, NEF, RW2, ORF, PEF and more),
-        plus JPEG, HEIF, PNG and TIFF</dd>
-    <dt>Requirements</dt>
-    <dd>macOS 14 or later · Apple Silicon</dd>
-    <dt>Processing</dt>
-    <dd>Everything runs on your Mac. No account to create, nothing uploaded to a cloud.</dd>
-    <dt>Appearance</dt>
-    <dd>Dark and light mode</dd>
+    <dt data-i18n="sFilesT"></dt><dd data-i18n="sFiles"></dd>
+    <dt data-i18n="sReqT"></dt><dd data-i18n="sReq"></dd>
+    <dt data-i18n="sProcT"></dt><dd data-i18n="sProc"></dd>
+    <dt data-i18n="sAppT"></dt><dd data-i18n="sApp"></dd>
   </dl>
 </section>
 
 <section class="wrap">
-  <h2>Pricing</h2>
-  <p class="lead">Try it first, decide later.</p>
+  <h2 data-i18n="prH"></h2>
+  <p class="lead" data-i18n="prLead"></p>
   <div class="price">
-    <div class="amount">₩4,400<small> / month</small></div>
-    <p class="alt">₩50,000 billed yearly · every feature included</p>
-    <span class="trial">7-day free trial</span>
+    <div class="amount"><span data-i18n="prAmount"></span><small data-i18n="prUnit"></small></div>
+    <p class="alt" data-i18n="prAlt"></p>
+    <span class="trial" data-i18n="prTrial"></span>
+    <p class="note" data-i18n="prNote"></p>
   </div>
 </section>
 
 <footer class="wrap">
-  <a href="privacy.html">Privacy Policy</a>
-  <a href="mailto:rawcookr@icloud.com">Contact</a>
-  <p class="copy">
-    © 2026 Slowsalmon. All rights reserved.<br>
-    Film style names and colors are Rawcookr's own creations
-    and are not affiliated with any camera or film manufacturer.
-  </p>
+  <a href="privacy.html" data-i18n="fPrivacy"></a>
+  <a href="mailto:rawcookr@slowsalmon.com" data-i18n="fContact"></a>
+  <p class="copy" data-i18n="fCopy"></p>
 </footer>
-
-</div>
-
-<!-- ════════════════ 한국어 ════════════════ -->
-<div data-lang="ko">
-
-<header class="wrap">
-  <img src="icon.png" alt="Rawcookr 앱 아이콘">
-  <h1>Rawcookr</h1>
-  <p class="tagline">크리에이터를 위한 실속 있는 RAW 현상앱</p>
-  <p class="sub">
-    포스팅이 빨라집니다. 여러 사람의 얼굴을 클릭 한 번으로 가리고,
-    나만의 필름 감성을 입혀 바로 올리세요.
-    제대로 된 보정 기능은 그대로, 부담스럽지 않은 비용으로.
-  </p>
-  <span class="badge">Mac App Store 출시 준비 중</span>
-  <span class="badge-note">7일 무료 체험 · macOS 14 이상</span>
-</header>
-
-<section class="wrap">
-  <h2>왜 Rawcookr인가</h2>
-  <p class="lead">
-    촬영이 끝나면 일이 시작됩니다. 낯선 얼굴을 가리고, 색을 잡고, 위치 정보를 지우고,
-    올릴 크기로 줄이고 — 앱 네 개를 오가는 사이 오후가 지나고 그 사진의 온도도 식습니다.
-    Rawcookr는 이 모두를 한자리에 모았습니다. <strong>마음이 식기 전에 올릴 수 있도록.</strong>
-    자주 올리는 사람을 위해 만들었고, 가격도 망설일 일이 없게 정했습니다.
-  </p>
-
-  <div class="feature">
-    <div class="num">01</div>
-    <div>
-      <h3>얼굴과 번호판, 자동으로 가립니다</h3>
-      <p>
-        카페·관광지·길거리에서 찍은 사진 속 낯선 사람의 얼굴과 자동차 번호판을
-        자동으로 찾아 블러 또는 모자이크로 처리합니다. 인식은 축소 화면이 아니라
-        <strong>원본 해상도</strong>에서 이뤄져 멀리 있는 작은 얼굴까지 놓치지 않고,
-        잡아낸 영역은 하나씩 켜고 끄거나 직접 그려 추가할 수 있습니다.
-      </p>
-      <span class="why">
-        모든 인식은 Mac 안에서만 처리됩니다. 사진이 서버로 올라가는 일은 없습니다.
-      </span>
-    </div>
-  </div>
-
-  <div class="feature">
-    <div class="num">02</div>
-    <div>
-      <h3>영화의 공기감, 미스트 필터</h3>
-      <p>
-        수십만 원짜리 광학 디퓨전 필터의 느낌을 디지털로 구현했습니다.
-        빛이 부드럽게 번지며 하이라이트가 풀리고, 단계별로 세기를 조절해
-        은은한 공기감부터 확실한 시네마틱 룩까지 만들 수 있습니다.
-        암부까지 퍼지는 클래식 모드도 함께 제공합니다.
-      </p>
-      <span class="why">
-        렌즈 앞에 무언가를 끼우면 되돌릴 수 없지만, 여기서는 언제든 다시 조절할 수 있습니다.
-        다른 광학 필터 효과도 순차적으로 추가됩니다.
-      </span>
-    </div>
-  </div>
-
-  <div class="feature">
-    <div class="num">03</div>
-    <div>
-      <h3>기억의 색을 담는 필름 레시피</h3>
-      <p>
-        널리 사랑받아 온 필름 스타일을 한 번의 클릭으로 사진에 입히고,
-        거기서부터 톤·컬러·입자·색조를 다듬어 <strong>나만의 필름</strong>을 만듭니다.
-        가지고 있는 LUT(.cube) 파일을 필름으로 등록할 수도 있고,
-        지금 맞춰 둔 색만 뽑아 새 필름으로 저장할 수도 있습니다.
-      </p>
-      <span class="why">
-        완성한 레시피는 레시피북 파일 하나로 내보내 친구나 팔로워와 나눌 수 있습니다.
-        레시피가 쓰는 커스텀 필름까지 함께 담겨 상대방 화면에서도 같은 색이 나옵니다.
-      </span>
-    </div>
-  </div>
-
-  <div class="feature">
-    <div class="num">04</div>
-    <div>
-      <h3>기본기에 충실한 RAW 현상</h3>
-      <p>
-        노출·대비·명부/암부 복구·화이트 밸런스는 물론, 톤 커브, 8밴드 색조·채도,
-        레벨, 3방향 색상 균형까지 제대로 갖췄습니다.
-        보라·초록 색수차 제거, 그라디언트·원형·브러시 마스크를 이용한 부분 보정,
-        렌즈 왜곡 보정과 수평 조절도 지원합니다.
-      </p>
-      <span class="why">
-        원본 파일은 절대 수정되지 않습니다. 모든 편집은 따로 기록되어,
-        언제든 처음으로 되돌릴 수 있습니다.
-      </span>
-    </div>
-  </div>
-
-  <div class="feature">
-    <div class="num">05</div>
-    <div>
-      <h3>그날의 날짜를 사진 위에</h3>
-      <p>
-        필름 카메라 데이터백처럼 촬영 날짜를 사진 구석에 새깁니다.
-        날짜는 사진에 기록된 촬영 정보에서 그대로 가져오기 때문에 꾸며낼 수 없고,
-        표기 순서만 문화권에 맞게 고를 수 있습니다.
-      </p>
-      <span class="why">
-        오래된 필름 사진 특유의 주황빛 숫자가 기울기까지 그대로 재현됩니다.
-      </span>
-    </div>
-  </div>
-</section>
-
-<section class="wrap">
-  <h2>업로드까지 생각한 마무리</h2>
-  <p class="lead">현상이 끝난 뒤에 해야 하는 자잘한 일들을 앱이 대신합니다.</p>
-  <div class="grid">
-    <div class="card">
-      <h4>위치 정보 제거</h4>
-      <p>내보낼 때 GPS 정보를 지웁니다. 집이나 자주 가는 장소가 사진에 남지 않습니다.</p>
-    </div>
-    <div class="card">
-      <h4>업로드용 크기로</h4>
-      <p>배율·가로 픽셀·긴 변 기준으로 한 번에 줄여 저장합니다. 원본보다 커지지 않도록 제한됩니다.</p>
-    </div>
-    <div class="card">
-      <h4>원하는 형식으로</h4>
-      <p>JPEG · HEIF · PNG · WebP · 16비트 TIFF. 품질도 1~100%로 직접 지정할 수 있습니다.</p>
-    </div>
-    <div class="card">
-      <h4>여러 장을 한 번에</h4>
-      <p>고른 사진 전부에 각자의 편집을 적용해 일괄 저장하고, 끝나면 폴더를 바로 열어 줍니다.</p>
-    </div>
-    <div class="card">
-      <h4>프레임 두르기</h4>
-      <p>정사각형·4:5·16:9 등 SNS 비율에 맞춰 여백을 둘러 잘리지 않게 올릴 수 있습니다.</p>
-    </div>
-    <div class="card">
-      <h4>한 장, 여러 버전</h4>
-      <p>같은 사진을 색만 달리해 여러 버전으로 현상하고 나란히 비교할 수 있습니다.</p>
-    </div>
-  </div>
-</section>
-
-<section class="wrap">
-  <h2>고르고 정리하는 시간도 줄입니다</h2>
-  <p class="lead">현상 전후로 흘려보내는 시간을 아끼도록 만들었습니다.</p>
-  <div class="grid">
-    <div class="card">
-      <h4>빠른 미리보기</h4>
-      <p>폴더를 열면 곧바로 썸네일이 뜹니다. 별점과 깃발로 고르고 원하는 조건만 걸러 봅니다.</p>
-    </div>
-    <div class="card">
-      <h4>프리셋 즉시 확인</h4>
-      <p>저장해 둔 프리셋이 지금 이 사진에 적용된 모습으로 보입니다. 이름만 보고 고르지 않아도 됩니다.</p>
-    </div>
-    <div class="card">
-      <h4>편집 복사·붙여넣기</h4>
-      <p>한 장에 맞춘 보정을 같은 자리에서 찍은 다른 사진들에 그대로 옮깁니다.</p>
-    </div>
-    <div class="card">
-      <h4>집중 보기</h4>
-      <p>패널을 모두 감추고 사진만 전체 화면으로. 색을 판단할 때 방해받지 않습니다.</p>
-    </div>
-  </div>
-</section>
-
-<section class="wrap">
-  <h2>지원 정보</h2>
-  <dl class="specs">
-    <dt>지원 파일</dt>
-    <dd>주요 미러리스·DSLR의 RAW (DNG, RAF, ARW, CR3, NEF, RW2, ORF, PEF 등)와
-        JPEG · HEIF · PNG · TIFF</dd>
-    <dt>필요 환경</dt>
-    <dd>macOS 14 이상 · Apple Silicon</dd>
-    <dt>처리 방식</dt>
-    <dd>모든 편집과 인식이 Mac 안에서 이뤄집니다. 계정 가입도, 클라우드 업로드도 없습니다.</dd>
-    <dt>보기 모드</dt>
-    <dd>다크 모드 · 라이트 모드 전환 지원</dd>
-  </dl>
-</section>
-
-<section class="wrap">
-  <h2>가격</h2>
-  <p class="lead">먼저 써 보고 결정하세요.</p>
-  <div class="price">
-    <div class="amount">₩4,400<small> / 월</small></div>
-    <p class="alt">연간 결제 시 ₩50,000 · 모든 기능 포함</p>
-    <span class="trial">7일 무료 체험</span>
-  </div>
-</section>
-
-<footer class="wrap">
-  <a href="privacy.html">개인정보처리방침</a>
-  <a href="mailto:rawcookr@icloud.com">문의하기</a>
-  <p class="copy">
-    © 2026 Slowsalmon. All rights reserved.<br>
-    필름 스타일 이름과 색감은 Rawcookr가 독자적으로 구성한 것이며,
-    특정 제조사의 제품과 무관합니다.
-  </p>
-</footer>
-
-</div>
 
 <script>
-function setLang(code) {
-  document.querySelectorAll('[data-lang]').forEach(function (el) {
-    el.style.display = el.dataset.lang === code ? 'block' : 'none';
-  });
-  document.documentElement.lang = code;
-  document.getElementById('btn-en').setAttribute('aria-pressed', code === 'en');
-  document.getElementById('btn-ko').setAttribute('aria-pressed', code === 'ko');
-  try { localStorage.setItem('rawcookr-site-lang', code); } catch (e) {}
+
+// ── App Store 주소 ──────────────────────────────────────────────
+// 스토어 링크를 여기에 넣으면 버튼이 나타납니다. 비워 두면 버튼은 숨겨집니다.
+var APP_STORE_URL = "https://apps.apple.com/app/id6795018843?mt=12";
+// ───────────────────────────────────────────────────────────────
+var I18N = {"en":{"tagline":"A lean RAW editor for creators","sub":"Post faster. Blur every face in one click, give the photo a film mood that&rsquo;s yours, and keep a full set of real editing tools &mdash; for a price that stays light.","badge":"Now on the Mac App Store","badgeNote":"7-day free trial · macOS 14 or later","whyH":"Why Rawcookr","whyLead":"A shoot ends and the work begins: blur the strangers, find the color, strip the location, resize for upload. Four apps, an afternoon gone, and the moment has cooled. Rawcookr puts all of it in one place — <strong>so the photo goes up while it still matters to you</strong>. Built for people who post often, priced so it never becomes a decision.","finH":"A finish built for uploading","finLead":"The small chores that come after developing, handled for you.","tmH":"Less time choosing, more time shooting","tmLead":"The hours that disappear before and after developing, given back.","gkH":"Good to know","prH":"Pricing","prLead":"Try it first, decide later.","f1h":"Faces and plates, blurred automatically","f1p":"Rawcookr finds unfamiliar faces and vehicle license plates in your café, travel and street photos, then blurs or pixelates them. Detection runs on the <strong>full-resolution file</strong> rather than a downscaled preview, so small faces far in the background are caught too. Every detected region can be switched on or off individually, and you can draw your own.","f1w":"All detection happens on your Mac. Your photos never leave the device.","f2h":"The air of cinema, in a mist filter","f2p":"A digital take on the optical diffusion filters that cost a small fortune. Light blooms gently, highlights melt, and a stepped strength control carries you from a faint haze to an unmistakably cinematic look. A classic mode lets the glow spread into the shadows as well.","f2w":"Screw a filter onto a lens and you are committed. Here you can change your mind at any time — and more optical filter effects are on the way.","f3h":"Film recipes that hold a memory","f3p":"Put a much-loved film look on a photo with a single click, then shape the tone, color, grain and tint until it becomes <strong>a film of your own</strong>. Register a LUT (.cube) you already have as a film, or capture only the color you have just dialled in and save that as a new one.","f3w":"Export a finished recipe book as one file to share with friends or followers. The custom films a recipe depends on travel inside it, so the color lands the same on their screen.","f4h":"Serious RAW developing underneath","f4p":"Exposure, contrast, highlight and shadow recovery and white balance, plus tone curves, eight-band hue and saturation, levels and three-way color balance. Purple and green fringing removal, local adjustments through gradient, radial and brush masks, lens distortion correction and horizon straightening are all here.","f4w":"Your original file is never modified. Every edit is kept separately, so you can always return to where you started.","f5h":"The date, written on the frame","f5p":"Like the data back of a film camera, Rawcookr prints the shooting date in the corner of the photo. The date is read from the file's own capture information, so it cannot be invented — only the order of the numbers is yours to choose.","f5w":"The amber digits of old film prints, reproduced down to the slant.","c1h":"Location data removed","c1p":"GPS coordinates are stripped on export, so your home and regular haunts don't travel with the photo.","c2h":"Sized for upload","c2p":"Scale down by percentage, width or long edge in one pass. Never enlarged beyond the original.","c3h":"The format you need","c3p":"JPEG, HEIF, PNG, WebP and 16-bit TIFF, with quality set anywhere from 1 to 100%.","c4h":"Whole batches at once","c4p":"Every selected photo exported with its own edits, and the folder opened for you when it's done.","c5h":"Frame it","c5p":"Square, 4:5, 16:9 and more — add borders so the feed doesn't crop your composition away.","c6h":"One photo, many versions","c6p":"Develop the same frame several ways and compare them side by side.","t1h":"Instant previews","t1p":"Open a folder and thumbnails appear right away. Rate, flag and filter down to what matters.","t2h":"Presets you can see","t2p":"Saved presets are shown applied to the photo in front of you, not just listed by name.","t3h":"Copy and paste edits","t3p":"Move the look you built on one frame onto everything else from the same scene.","t4h":"Focus view","t4p":"Hide every panel and fill the screen with the photo. Nothing to distract you while judging color.","sFilesT":"Supported files","sFiles":"RAW from major mirrorless and DSLR cameras (DNG, RAF, ARW, CR3, NEF, RW2, ORF, PEF and more), plus JPEG, HEIF, PNG and TIFF","sReqT":"Requirements","sReq":"macOS 14 or later · Apple Silicon","sProcT":"Processing","sProc":"Everything runs on your Mac. No account to create, nothing uploaded to a cloud.","sAppT":"Appearance","sApp":"Dark and light mode","prAmount":"$2.99","prUnit":" / month","prAlt":"$29.99 billed yearly · every feature included","prTrial":"7-day free trial","fPrivacy":"Privacy Policy","fContact":"Contact","fCopy":"© 2026 Slowsalmon. All rights reserved.<br> Film style names and colors are Rawcookr's own creations and are not affiliated with any camera or film manufacturer.","title":"Rawcookr — A lean RAW editor for creators","desc":"Post faster. Blur every face in one click, give the photo a film mood that’s yours, and keep a full set of real editing tools — for a price that stays light.","cta":"Download on the Mac App Store","prNote":"US pricing shown. You are charged in your own currency.","pTitle":"Rawcookr Privacy Policy","pEff":"Effective: July 2026 · Developer: Slowsalmon","pSumH":"Summary","pSumP":"<strong>Rawcookr does not collect any personal data.</strong>","pProcH":"Data Processing","pProcP":"All photo processing in Rawcookr — RAW development, editing, and privacy blur (including automatic face and license-plate detection) — happens entirely on your Mac. Your photos, edits, and file information are never transmitted to the developer or any third party. Face detection uses Apple's on-device Vision framework; nothing is sent over the network.","pNoH":"What We Don't Collect","pNoP":"There are no user accounts, no analytics, no advertising identifiers, and no tracking technologies.","pSubH":"Subscriptions","pSubP":"Subscriptions and free trials are processed by Apple through the App Store. The developer never receives your payment details or personally identifying information. See {link} for details.","pAppleLink":"Apple's Privacy Policy","pConH":"Contact","pConP":"Questions:"},"ko":{"tagline":"크리에이터를 위한 실속 있는 RAW 현상앱","sub":"포스팅이 빨라집니다. 여러 사람의 얼굴을 클릭 한 번으로 가리고, 나만의 필름 감성을 입혀 바로 올리세요. 제대로 된 보정 기능은 그대로, 부담스럽지 않은 비용으로.","badge":"Mac App Store에서 만나보세요","badgeNote":"7일 무료 체험 · macOS 14 이상","whyH":"왜 Rawcookr인가","whyLead":"촬영이 끝나면 일이 시작됩니다. 낯선 얼굴을 가리고, 색을 잡고, 위치 정보를 지우고, 올릴 크기로 줄이고 — 앱 네 개를 오가는 사이 오후가 지나고 그 사진의 온도도 식습니다. Rawcookr는 이 모두를 한자리에 모았습니다. <strong>마음이 식기 전에 올릴 수 있도록.</strong> 자주 올리는 사람을 위해 만들었고, 가격도 망설일 일이 없게 정했습니다.","finH":"업로드까지 생각한 마무리","finLead":"현상이 끝난 뒤에 해야 하는 자잘한 일들을 앱이 대신합니다.","tmH":"고르고 정리하는 시간도 줄입니다","tmLead":"현상 전후로 흘려보내는 시간을 아끼도록 만들었습니다.","gkH":"지원 정보","prH":"가격","prLead":"먼저 써 보고 결정하세요.","f1h":"얼굴과 번호판, 자동으로 가립니다","f1p":"카페·관광지·길거리에서 찍은 사진 속 낯선 사람의 얼굴과 자동차 번호판을 자동으로 찾아 블러 또는 모자이크로 처리합니다. 인식은 축소 화면이 아니라 <strong>원본 해상도</strong>에서 이뤄져 멀리 있는 작은 얼굴까지 놓치지 않고, 잡아낸 영역은 하나씩 켜고 끄거나 직접 그려 추가할 수 있습니다.","f1w":"모든 인식은 Mac 안에서만 처리됩니다. 사진이 서버로 올라가는 일은 없습니다.","f2h":"영화의 공기감, 미스트 필터","f2p":"수십만 원짜리 광학 디퓨전 필터의 느낌을 디지털로 구현했습니다. 빛이 부드럽게 번지며 하이라이트가 풀리고, 단계별로 세기를 조절해 은은한 공기감부터 확실한 시네마틱 룩까지 만들 수 있습니다. 암부까지 퍼지는 클래식 모드도 함께 제공합니다.","f2w":"렌즈 앞에 무언가를 끼우면 되돌릴 수 없지만, 여기서는 언제든 다시 조절할 수 있습니다. 다른 광학 필터 효과도 순차적으로 추가됩니다.","f3h":"기억의 색을 담는 필름 레시피","f3p":"널리 사랑받아 온 필름 스타일을 한 번의 클릭으로 사진에 입히고, 거기서부터 톤·컬러·입자·색조를 다듬어 <strong>나만의 필름</strong>을 만듭니다. 가지고 있는 LUT(.cube) 파일을 필름으로 등록할 수도 있고, 지금 맞춰 둔 색만 뽑아 새 필름으로 저장할 수도 있습니다.","f3w":"완성한 레시피는 레시피북 파일 하나로 내보내 친구나 팔로워와 나눌 수 있습니다. 레시피가 쓰는 커스텀 필름까지 함께 담겨 상대방 화면에서도 같은 색이 나옵니다.","f4h":"기본기에 충실한 RAW 현상","f4p":"노출·대비·명부/암부 복구·화이트 밸런스는 물론, 톤 커브, 8밴드 색조·채도, 레벨, 3방향 색상 균형까지 제대로 갖췄습니다. 보라·초록 색수차 제거, 그라디언트·원형·브러시 마스크를 이용한 부분 보정, 렌즈 왜곡 보정과 수평 조절도 지원합니다.","f4w":"원본 파일은 절대 수정되지 않습니다. 모든 편집은 따로 기록되어, 언제든 처음으로 되돌릴 수 있습니다.","f5h":"그날의 날짜를 사진 위에","f5p":"필름 카메라 데이터백처럼 촬영 날짜를 사진 구석에 새깁니다. 날짜는 사진에 기록된 촬영 정보에서 그대로 가져오기 때문에 꾸며낼 수 없고, 표기 순서만 문화권에 맞게 고를 수 있습니다.","f5w":"오래된 필름 사진 특유의 주황빛 숫자가 기울기까지 그대로 재현됩니다.","c1h":"위치 정보 제거","c1p":"내보낼 때 GPS 정보를 지웁니다. 집이나 자주 가는 장소가 사진에 남지 않습니다.","c2h":"업로드용 크기로","c2p":"배율·가로 픽셀·긴 변 기준으로 한 번에 줄여 저장합니다. 원본보다 커지지 않도록 제한됩니다.","c3h":"원하는 형식으로","c3p":"JPEG · HEIF · PNG · WebP · 16비트 TIFF. 품질도 1~100%로 직접 지정할 수 있습니다.","c4h":"여러 장을 한 번에","c4p":"고른 사진 전부에 각자의 편집을 적용해 일괄 저장하고, 끝나면 폴더를 바로 열어 줍니다.","c5h":"프레임 두르기","c5p":"정사각형·4:5·16:9 등 SNS 비율에 맞춰 여백을 둘러 잘리지 않게 올릴 수 있습니다.","c6h":"한 장, 여러 버전","c6p":"같은 사진을 색만 달리해 여러 버전으로 현상하고 나란히 비교할 수 있습니다.","t1h":"빠른 미리보기","t1p":"폴더를 열면 곧바로 썸네일이 뜹니다. 별점과 깃발로 고르고 원하는 조건만 걸러 봅니다.","t2h":"프리셋 즉시 확인","t2p":"저장해 둔 프리셋이 지금 이 사진에 적용된 모습으로 보입니다. 이름만 보고 고르지 않아도 됩니다.","t3h":"편집 복사·붙여넣기","t3p":"한 장에 맞춘 보정을 같은 자리에서 찍은 다른 사진들에 그대로 옮깁니다.","t4h":"집중 보기","t4p":"패널을 모두 감추고 사진만 전체 화면으로. 색을 판단할 때 방해받지 않습니다.","sFilesT":"지원 파일","sFiles":"주요 미러리스·DSLR의 RAW (DNG, RAF, ARW, CR3, NEF, RW2, ORF, PEF 등)와 JPEG · HEIF · PNG · TIFF","sReqT":"필요 환경","sReq":"macOS 14 이상 · Apple Silicon","sProcT":"처리 방식","sProc":"모든 편집과 인식이 Mac 안에서 이뤄집니다. 계정 가입도, 클라우드 업로드도 없습니다.","sAppT":"보기 모드","sApp":"다크 모드 · 라이트 모드 전환 지원","prAmount":"₩4,400","prUnit":" / 월","prAlt":"연간 결제 시 ₩50,000 · 모든 기능 포함","prTrial":"7일 무료 체험","fPrivacy":"개인정보처리방침","fContact":"문의하기","fCopy":"© 2026 Slowsalmon. All rights reserved.<br> 필름 스타일 이름과 색감은 Rawcookr가 독자적으로 구성한 것이며, 특정 제조사의 제품과 무관합니다.","title":"Rawcookr — 크리에이터를 위한 실속 있는 RAW 현상앱","desc":"포스팅이 빨라집니다. 여러 사람의 얼굴을 클릭 한 번으로 가리고, 나만의 필름 감성을 입혀 바로 올리세요. 제대로 된 보정 기능은 그대로, 부담스럽지 않은 비용으로.","cta":"Mac App Store에서 받기","prNote":"","pTitle":"Rawcookr 개인정보처리방침","pEff":"시행일: 2026년 7월 · 개발자: Slowsalmon","pSumH":"요약","pSumP":"<strong>Rawcookr는 어떠한 개인정보도 수집하지 않습니다.</strong>","pProcH":"데이터 처리","pProcP":"Rawcookr의 모든 사진 처리(RAW 현상, 편집, 얼굴·번호판 자동 인식을 포함한 개인정보 보호 블러)는 전적으로 사용자의 Mac에서만 이루어집니다. 사진, 편집 내용, 파일 정보는 개발자나 제3자의 서버로 전송되지 않습니다. 얼굴 인식은 Apple의 온디바이스 Vision 프레임워크를 사용하며 네트워크로 전송되는 데이터가 없습니다.","pNoH":"수집하지 않는 것","pNoP":"계정 생성이 없으며, 분석(애널리틱스) 도구, 광고 식별자, 추적 기술을 사용하지 않습니다.","pSubH":"구독 결제","pSubP":"구독 결제와 무료 체험은 Apple의 App Store를 통해 처리됩니다. 결제 과정에서 개발자는 사용자의 결제 수단이나 개인 식별 정보를 전달받지 않습니다. 자세한 내용은 {link}을 참고하세요.","pAppleLink":"Apple 개인정보처리방침","pConH":"문의","pConP":"개인정보 관련 문의:"},"ja":{"title":"Rawcookr — クリエイターのための無駄のないRAW現像アプリ","desc":"投稿までが速くなります。通行人の顔をワンクリックで隠し、自分だけのフィルムの色を与えて、そのまま投稿へ。本格的な編集機能はそのままに、負担にならない価格で。","tagline":"クリエイターのための無駄のないRAW現像アプリ","sub":"投稿までが速くなります。通行人の顔をワンクリックで隠し、自分だけのフィルムの色を与えて、そのまま投稿へ。本格的な編集機能はそのままに、負担にならない価格で。","badge":"Mac App Storeで配信中","badgeNote":"7日間の無料体験 · macOS 14以降","cta":"Mac App Storeで入手","whyH":"Rawcookrを選ぶ理由","whyLead":"撮影が終わると、そこから作業が始まります。知らない人の顔を隠し、色を決め、位置情報を消し、投稿用にサイズを整える。アプリを四つ渡り歩くうちに午後が消え、その一枚への熱も冷めていきます。Rawcookrはそれらを一つにまとめました。<strong>気持ちが冷めないうちに投稿できる</strong>ように。よく投稿する人のために作り、迷わず続けられる価格にしました。","f1h":"顔とナンバープレートを自動でぼかす","f1p":"カフェや旅先、街の写真に写り込んだ見知らぬ顔や車のナンバープレートを見つけ、ぼかしかモザイクをかけます。検出は縮小版ではなく<strong>原寸のファイル</strong>で行うため、背景の小さな顔も逃しません。検出された範囲は一つずつオン・オフでき、自分で範囲を描き足すこともできます。","f1w":"検出はすべてMacの中で行われます。写真が端末の外に出ることはありません。","f2h":"ミストフィルターがつくる映画の空気","f2p":"高価な光学ディフュージョンフィルターをデジタルで再現しました。光がやわらかくにじみ、ハイライトが溶け、段階式の強度調整でかすかな霞から明確に映画的な質感まで運んでくれます。クラシックモードでは、にじみが影の側にも広がります。","f2w":"レンズにフィルターを付けたら後戻りできません。ここではいつでも考え直せます。光学フィルターの効果は今後も増えていきます。","f3h":"記憶を宿すフィルムレシピ","f3p":"愛着のあるフィルムの色をワンクリックで写真にのせ、トーン・色・粒子・色かぶりを整えて<strong>自分だけのフィルム</strong>に育てられます。手持ちのLUT(.cube)をフィルムとして登録することも、今つくり込んだ色だけを新しいフィルムとして保存することもできます。","f3w":"仕上げたレシピブックは一つのファイルとして書き出し、友人やフォロワーに渡せます。レシピが使う自作フィルムも中に入って旅をするので、相手の画面でも同じ色で届きます。","f4h":"土台には本格的なRAW現像","f4p":"露出、コントラスト、ハイライトとシャドウの復元、ホワイトバランス。トーンカーブ、8バンドの色相・彩度、レベル、3ウェイカラーバランス。パープル・グリーンフリンジの除去、線形・円形・ブラシマスクによる部分補正、レンズの歪み補正と水平出しまで揃っています。","f4w":"元のファイルは決して書き換えません。編集は別に保存されるので、いつでも出発点に戻れます。","f5h":"コマに刻まれる日付","f5p":"フィルムカメラのデータバックのように、撮影日を写真の隅に写し込みます。日付はファイル自身の撮影情報から読み取るので、後からつくることはできません。選べるのは数字の並び順だけです。","f5w":"昔のフィルムプリントに焼き込まれた琥珀色の数字を、傾きまで再現しました。","finH":"投稿までを見据えた仕上げ","finLead":"現像のあとに残る細かな雑用を、こちらで片づけます。","c1h":"位置情報を削除","c1p":"書き出し時にGPS座標を取り除くので、自宅やよく行く場所が写真と一緒に出回りません。","c2h":"投稿に合うサイズへ","c2p":"パーセント・幅・長辺のいずれかで一度に縮小。元のサイズを超えて拡大されることはありません。","c3h":"必要な形式で","c3p":"JPEG、HEIF、PNG、WebP、16ビットTIFF。品質は1〜100%の間で自由に。","c4h":"まとめて一度に","c4p":"選んだ写真をそれぞれの編集のまま書き出し、終わったらフォルダを開いてお知らせします。","c5h":"フレームをつける","c5p":"正方形、4:5、16:9など。余白を足せば、フィードに構図を切り落とされません。","c6h":"一枚から何通りも","c6p":"同じコマを複数の方向に現像し、並べて見比べられます。","tmH":"選ぶ時間を減らし、撮る時間を増やす","tmLead":"現像の前後で消えていく時間を、そのまま返します。","t1h":"すぐ出るプレビュー","t1p":"フォルダを開けばサムネイルがすぐ並びます。評価と旗で絞り込み、必要な一枚まで一気に。","t2h":"見えるプリセット","t2p":"保存したプリセットは名前の一覧ではなく、目の前の写真に適用した姿で並びます。","t3h":"編集のコピーと貼り付け","t3p":"一枚でつくり上げた雰囲気を、同じ場面の残り全部に運べます。","t4h":"集中表示","t4p":"パネルをすべて隠して写真で画面を埋めます。色を見極める間、気を散らすものは何もありません。","gkH":"はじめに知っておくこと","sFilesT":"対応ファイル","sFiles":"主要なミラーレス・一眼レフのRAW(DNG、RAF、ARW、CR3、NEF、RW2、ORF、PEFほか)とJPEG、HEIF、PNG、TIFF","sReqT":"動作環境","sReq":"macOS 14以降 · Apple Silicon","sProcT":"処理","sProc":"すべてMacの中で動きます。アカウント登録も、クラウドへのアップロードもありません。","sAppT":"外観","sApp":"ダークモードとライトモード","prH":"価格","prLead":"まず試してから決めてください。","prAmount":"¥500","prUnit":" / 月","prAlt":"年払いは¥5,000 · すべての機能を含みます","prTrial":"7日間の無料体験","prNote":"","fPrivacy":"プライバシーポリシー","fContact":"お問い合わせ","fCopy":"© 2026 Slowsalmon. All rights reserved.<br> フィルムスタイルの名称と色はRawcookrが独自に構成したもので、特定のカメラ・フィルムメーカーとは関係ありません。","pTitle":"Rawcookr プライバシーポリシー","pEff":"施行日: 2026年7月 · 開発者: Slowsalmon","pSumH":"要約","pSumP":"<strong>Rawcookrは個人情報を一切収集しません。</strong>","pProcH":"データの処理","pProcP":"Rawcookrにおける写真の処理(RAW現像、編集、顔とナンバープレートの自動検出を含むプライバシーぼかし)は、すべて利用者のMacの中だけで行われます。写真、編集内容、ファイル情報が開発者や第三者に送信されることはありません。顔の検出にはAppleのオンデバイスVisionフレームワークを使用し、ネットワークに送られるデータはありません。","pNoH":"収集しないもの","pNoP":"アカウント登録はなく、解析ツール、広告識別子、トラッキング技術も使用していません。","pSubH":"サブスクリプション","pSubP":"サブスクリプションと無料体験はAppleのApp Storeを通じて処理されます。開発者が支払い情報や個人を特定できる情報を受け取ることはありません。詳しくは{link}をご覧ください。","pAppleLink":"Appleのプライバシーポリシー","pConH":"お問い合わせ","pConP":"ご質問:"},"zh":{"title":"Rawcookr — 为创作者而生的轻量 RAW 修图应用","desc":"发布更快。一键遮住路人的脸，为照片调出属于你的胶片味道，专业修图工具一样不少，价格却很轻。","tagline":"为创作者而生的轻量 RAW 修图应用","sub":"发布更快。一键遮住路人的脸，为照片调出属于你的胶片味道，专业修图工具一样不少，价格却很轻。","badge":"已在 Mac App Store 上架","badgeNote":"7 天免费试用 · 需 macOS 14 或更高版本","cta":"前往 Mac App Store 下载","whyH":"为什么选择 Rawcookr","whyLead":"拍摄结束，活儿才刚开始：遮住陌生人、调好颜色、抹掉位置信息、改成适合上传的尺寸。换了四个应用，一个下午就没了，那份心情也凉了。Rawcookr 把这些放在一处，<strong>让照片在你还在意它的时候就发出去</strong>。为经常发布的人而做，价格轻到不必犹豫。","f1h":"自动模糊人脸与车牌","f1p":"Rawcookr 会在你的咖啡馆、旅途和街头照片里找出陌生人脸和车牌，并加上模糊或马赛克。识别在<strong>原始分辨率的文件</strong>上进行，而不是缩小后的预览图，因此远处背景中的小脸也不会漏掉。每个识别到的区域都可以单独开关，你也可以自己框选。","f1w":"所有识别都在你的 Mac 上完成，照片不会离开这台设备。","f2h":"柔光滤镜里的电影空气感","f2p":"用数字方式还原价格不菲的光学柔焦滤镜。光线柔和地晕开，高光融化，分级的强度控制带你从一层薄雾走到明确的电影质感。经典模式还会让光晕蔓延进暗部。","f2w":"滤镜一旦拧上镜头就没有退路。在这里你随时可以改主意，而且还会有更多光学滤镜效果加入。","f3h":"留住记忆的胶片配方","f3p":"一键为照片套上心爱的胶片色，再调整影调、色彩、颗粒和色偏，直到它成为<strong>属于你的胶片</strong>。可以把手上的 LUT（.cube）登记为一款胶片，也可以只把刚调好的颜色保存为新的胶片。","f3w":"整本配方册可以导出为一个文件，分享给朋友或粉丝。配方所依赖的自制胶片会一同打包，颜色在对方屏幕上也一样。","f4h":"底下是认真的 RAW 处理","f4p":"曝光、对比度、高光与暗部恢复、白平衡，还有色调曲线、八段色相饱和度、色阶和三向色彩平衡。紫边绿边消除，线性、径向和画笔蒙版的局部调整，镜头畸变校正与地平线校正，一应俱全。","f4w":"原始文件绝不会被改动。每一次编辑都单独保存，你随时可以回到起点。","f5h":"写在画面上的日期","f5p":"像胶片相机的机背打印一样，Rawcookr 把拍摄日期印在照片角落。日期读自文件自身的拍摄信息，无法编造——你能选的只有数字的排列顺序。","f5w":"老照片上那串琥珀色数字，连倾斜的角度都还原了。","finH":"为上传准备的收尾","finLead":"修完图之后那些琐碎的事，都替你做好。","c1h":"移除位置信息","c1p":"导出时去除 GPS 坐标，你的家和常去的地方不会跟着照片走。","c2h":"调成适合上传的尺寸","c2p":"按百分比、宽度或长边一次缩小，绝不会放大到超过原图。","c3h":"你需要的格式","c3p":"JPEG、HEIF、PNG、WebP 和 16 位 TIFF，画质可在 1 到 100% 之间任选。","c4h":"整批一次导出","c4p":"每张选中的照片都带着各自的编辑导出，完成后自动为你打开文件夹。","c5h":"加上画框","c5p":"方形、4:5、16:9 等等——加上留白，信息流就不会把你的构图裁掉。","c6h":"一张照片，多种版本","c6p":"把同一张底片修成几种样子，并排比较。","tmH":"少花时间挑选，多留时间拍摄","tmLead":"把修图前后悄悄溜走的时间还给你。","t1h":"立刻出现的预览","t1p":"打开文件夹，缩略图马上出现。评星、加旗、筛选，一路缩到真正要的那几张。","t2h":"看得见的预设","t2p":"保存的预设不是一串名字，而是直接显示在眼前这张照片上的效果。","t3h":"复制粘贴编辑","t3p":"把一张照片上调好的味道，搬到同一场景的其他照片上。","t4h":"专注视图","t4p":"隐藏所有面板，让照片占满屏幕。判断颜色时没有任何东西打扰。","gkH":"值得先知道的","sFilesT":"支持的文件","sFiles":"主流微单与单反的 RAW（DNG、RAF、ARW、CR3、NEF、RW2、ORF、PEF 等），以及 JPEG、HEIF、PNG 和 TIFF","sReqT":"运行环境","sReq":"macOS 14 或更高版本 · Apple 芯片","sProcT":"处理方式","sProc":"一切都在你的 Mac 上运行。无需注册账号，不上传任何内容到云端。","sAppT":"外观","sApp":"深色与浅色模式","prH":"价格","prLead":"先试用，再决定。","prAmount":"¥22","prUnit":" / 月","prAlt":"按年付费 ¥198 · 包含全部功能","prTrial":"7 天免费试用","prNote":"价格为中国大陆区定价。","fPrivacy":"隐私政策","fContact":"联系我们","fCopy":"© 2026 Slowsalmon. All rights reserved.<br> 胶片风格的名称与色彩均为 Rawcookr 自行创作，与任何相机或胶片厂商无关。","pTitle":"Rawcookr 隐私政策","pEff":"生效日期：2026 年 7 月 · 开发者：Slowsalmon","pSumH":"摘要","pSumP":"<strong>Rawcookr 不收集任何个人信息。</strong>","pProcH":"数据处理","pProcP":"Rawcookr 中的所有照片处理（RAW 转换、编辑，以及包含人脸与车牌自动识别的隐私模糊）都完全在你的 Mac 上进行。你的照片、编辑内容和文件信息不会传送给开发者或任何第三方。人脸识别使用 Apple 的设备端 Vision 框架，没有任何数据经由网络发送。","pNoH":"我们不收集的内容","pNoP":"没有用户账号，没有分析统计，没有广告标识符，也没有任何追踪技术。","pSubH":"订阅","pSubP":"订阅与免费试用由 Apple 通过 App Store 处理。开发者不会收到你的支付信息或可识别个人身份的信息。详情请参阅{link}。","pAppleLink":"Apple 隐私政策","pConH":"联系方式","pConP":"如有疑问："},"de":{"title":"Rawcookr — Ein schlanker RAW-Editor für Kreative","desc":"Schneller posten. Gesichter mit einem Klick unkenntlich machen, dem Foto eine eigene Filmstimmung geben und trotzdem alle echten Bearbeitungswerkzeuge behalten — zu einem Preis, der leicht bleibt.","tagline":"Ein schlanker RAW-Editor für Kreative","sub":"Schneller posten. Gesichter mit einem Klick unkenntlich machen, dem Foto eine eigene Filmstimmung geben und trotzdem alle echten Bearbeitungswerkzeuge behalten — zu einem Preis, der leicht bleibt.","badge":"Jetzt im Mac App Store","badgeNote":"7 Tage kostenlos testen · macOS 14 oder neuer","cta":"Im Mac App Store laden","whyH":"Warum Rawcookr","whyLead":"Das Shooting endet, die Arbeit beginnt: Fremde unkenntlich machen, die Farbe finden, den Ort entfernen, für den Upload verkleinern. Vier Apps, ein verlorener Nachmittag — und der Moment ist kalt geworden. Rawcookr bringt alles an einen Ort, <strong>damit das Foto online geht, solange es dir noch etwas bedeutet</strong>. Gemacht für Menschen, die oft posten, und so bepreist, dass es nie zur Entscheidung wird.","f1h":"Gesichter und Kennzeichen, automatisch unkenntlich","f1p":"Rawcookr findet fremde Gesichter und Autokennzeichen in deinen Café-, Reise- und Straßenfotos und macht sie unscharf oder verpixelt sie. Die Erkennung läuft auf der <strong>Datei in voller Auflösung</strong> statt auf einer verkleinerten Vorschau, so werden auch kleine Gesichter weit im Hintergrund erfasst. Jeder erkannte Bereich lässt sich einzeln an- und abschalten, und du kannst eigene hinzufügen.","f1w":"Die gesamte Erkennung läuft auf deinem Mac. Deine Fotos verlassen das Gerät nie.","f2h":"Kino-Atmosphäre aus dem Mist-Filter","f2p":"Eine digitale Antwort auf optische Diffusionsfilter, die ein kleines Vermögen kosten. Licht blüht sanft auf, Lichter zerfließen, und eine abgestufte Stärke trägt dich vom feinen Schleier bis zum unverkennbar filmischen Look. Ein klassischer Modus lässt das Leuchten auch in die Schatten laufen.","f2w":"Ein Filter am Objektiv ist eine endgültige Entscheidung. Hier kannst du es dir jederzeit anders überlegen — und weitere optische Filtereffekte kommen noch.","f3h":"Filmrezepte, die eine Erinnerung bewahren","f3p":"Leg einen geliebten Film-Look mit einem Klick auf das Foto und forme dann Tonwert, Farbe, Korn und Tönung, bis daraus <strong>ein eigener Film</strong> wird. Registriere eine LUT (.cube), die du schon hast, als Film — oder sichere nur die Farbe, die du gerade eingestellt hast, als neuen Film.","f3w":"Exportiere ein fertiges Rezeptbuch als eine einzige Datei für Freunde oder Follower. Die eigenen Filme, auf denen ein Rezept beruht, reisen darin mit, damit die Farbe auf dem anderen Bildschirm genauso ankommt.","f4h":"Darunter eine ernsthafte RAW-Entwicklung","f4p":"Belichtung, Kontrast, Lichter- und Schattenrettung und Weißabgleich, dazu Gradationskurven, achtbandige Farbton- und Sättigungsregelung, Tonwertkorrektur und Drei-Wege-Farbbalance. Entfernung von violetten und grünen Farbsäumen, lokale Korrekturen über Verlaufs-, Radial- und Pinselmasken, Objektivverzeichnungskorrektur und Horizontausrichtung sind alle vorhanden.","f4w":"Deine Originaldatei wird nie verändert. Jede Bearbeitung liegt getrennt davon, du kannst also jederzeit zum Anfang zurück.","f5h":"Das Datum, ins Bild geschrieben","f5p":"Wie der Databack einer Filmkamera druckt Rawcookr das Aufnahmedatum in die Ecke des Fotos. Das Datum stammt aus den Aufnahmeinformationen der Datei selbst und lässt sich nicht erfinden — nur die Reihenfolge der Ziffern wählst du.","f5w":"Die bernsteinfarbenen Ziffern alter Filmabzüge, bis zur Schräge nachgebildet.","finH":"Ein Finish, das den Upload mitdenkt","finLead":"Die kleinen Pflichten nach der Entwicklung, für dich erledigt.","c1h":"Ortsdaten entfernt","c1p":"Beim Export werden GPS-Koordinaten entfernt, damit dein Zuhause und deine Stammorte nicht mit dem Foto mitreisen.","c2h":"Passend für den Upload","c2p":"In einem Durchgang nach Prozent, Breite oder langer Kante verkleinern. Nie größer als das Original.","c3h":"Das Format, das du brauchst","c3p":"JPEG, HEIF, PNG, WebP und 16-Bit-TIFF, mit Qualität zwischen 1 und 100 %.","c4h":"Ganze Serien auf einmal","c4p":"Jedes ausgewählte Foto mit seinen eigenen Bearbeitungen exportiert — und am Ende öffnet sich der Ordner für dich.","c5h":"Rahmen dazu","c5p":"Quadrat, 4:5, 16:9 und mehr — mit Rändern, damit der Feed deine Komposition nicht beschneidet.","c6h":"Ein Foto, viele Fassungen","c6p":"Entwickle dieselbe Aufnahme mehrfach und vergleiche die Fassungen nebeneinander.","tmH":"Weniger Zeit beim Auswählen, mehr beim Fotografieren","tmLead":"Die Stunden, die vor und nach der Entwicklung verschwinden, zurückgegeben.","t1h":"Vorschauen ohne Warten","t1p":"Ordner öffnen und die Miniaturen sind sofort da. Bewerten, markieren, filtern — bis nur noch das Wesentliche übrig ist.","t2h":"Vorgaben, die man sieht","t2p":"Gespeicherte Vorgaben erscheinen angewendet auf das Foto vor dir, nicht bloß als Liste von Namen.","t3h":"Bearbeitungen kopieren und einsetzen","t3p":"Übertrage den Look, den du an einer Aufnahme gebaut hast, auf alles andere aus derselben Szene.","t4h":"Fokusansicht","t4p":"Alle Bedienfelder ausblenden und den Bildschirm mit dem Foto füllen. Nichts lenkt ab, während du die Farbe beurteilst.","gkH":"Gut zu wissen","sFilesT":"Unterstützte Dateien","sFiles":"RAW gängiger spiegelloser Kameras und DSLRs (DNG, RAF, ARW, CR3, NEF, RW2, ORF, PEF und mehr) sowie JPEG, HEIF, PNG und TIFF","sReqT":"Voraussetzungen","sReq":"macOS 14 oder neuer · Apple Silicon","sProcT":"Verarbeitung","sProc":"Alles läuft auf deinem Mac. Kein Konto anzulegen, nichts in eine Cloud hochgeladen.","sAppT":"Erscheinungsbild","sApp":"Dunkel- und Hellmodus","prH":"Preis","prLead":"Erst ausprobieren, später entscheiden.","prAmount":"2,99 €","prUnit":" / Monat","prAlt":"34,99 € jährlich abgerechnet · alle Funktionen enthalten","prTrial":"7 Tage kostenlos testen","prNote":"","fPrivacy":"Datenschutzerklärung","fContact":"Kontakt","fCopy":"© 2026 Slowsalmon. Alle Rechte vorbehalten.<br> Namen und Farben der Filmstile sind eigene Schöpfungen von Rawcookr und stehen in keiner Verbindung zu einem Kamera- oder Filmhersteller.","pTitle":"Rawcookr Datenschutzerklärung","pEff":"Gültig ab: Juli 2026 · Entwickler: Slowsalmon","pSumH":"Kurz gefasst","pSumP":"<strong>Rawcookr erhebt keinerlei personenbezogene Daten.</strong>","pProcH":"Datenverarbeitung","pProcP":"Die gesamte Fotoverarbeitung in Rawcookr — RAW-Entwicklung, Bearbeitung und Privatsphäre-Unschärfe einschließlich der automatischen Erkennung von Gesichtern und Kennzeichen — findet vollständig auf deinem Mac statt. Deine Fotos, Bearbeitungen und Dateiinformationen werden nie an den Entwickler oder Dritte übertragen. Die Gesichtserkennung nutzt Apples geräteinternes Vision-Framework; nichts wird über das Netzwerk gesendet.","pNoH":"Was wir nicht erheben","pNoP":"Es gibt keine Benutzerkonten, keine Analysewerkzeuge, keine Werbe-IDs und keine Tracking-Technologien.","pSubH":"Abonnements","pSubP":"Abonnements und kostenlose Testzeiträume werden von Apple über den App Store abgewickelt. Der Entwickler erhält weder deine Zahlungsdaten noch personenbezogene Informationen. Näheres in {link}.","pAppleLink":"Apples Datenschutzrichtlinie","pConH":"Kontakt","pConP":"Fragen:"},"fr":{"title":"Rawcookr — Un éditeur RAW léger pour les créateurs","desc":"Publiez plus vite. Floutez chaque visage en un clic, donnez à la photo une ambiance argentique qui vous ressemble, et gardez de vrais outils de retouche — à un prix qui reste léger.","tagline":"Un éditeur RAW léger pour les créateurs","sub":"Publiez plus vite. Floutez chaque visage en un clic, donnez à la photo une ambiance argentique qui vous ressemble, et gardez de vrais outils de retouche — à un prix qui reste léger.","badge":"Disponible sur le Mac App Store","badgeNote":"7 jours d’essai gratuit · macOS 14 ou ultérieur","cta":"Télécharger sur le Mac App Store","whyH":"Pourquoi Rawcookr","whyLead":"La séance se termine et le travail commence : flouter les inconnus, trouver la couleur, effacer le lieu, redimensionner pour la mise en ligne. Quatre applications, un après-midi envolé, et l’élan est retombé. Rawcookr réunit tout au même endroit, <strong>pour que la photo parte tant qu’elle compte encore pour vous</strong>. Pensé pour ceux qui publient souvent, à un prix qui n’oblige jamais à réfléchir.","f1h":"Visages et plaques, floutés automatiquement","f1p":"Rawcookr repère les visages inconnus et les plaques d’immatriculation dans vos photos de café, de voyage et de rue, puis les floute ou les pixellise. La détection s’effectue sur le <strong>fichier en pleine résolution</strong> et non sur un aperçu réduit : les petits visages loin dans l’arrière-plan sont donc trouvés eux aussi. Chaque zone détectée s’active ou se désactive séparément, et vous pouvez tracer les vôtres.","f1w":"Toute la détection se fait sur votre Mac. Vos photos ne quittent jamais l’appareil.","f2h":"L’air du cinéma, dans un filtre diffuseur","f2p":"Une version numérique des filtres de diffusion optiques qui coûtent une petite fortune. La lumière s’épanouit doucement, les hautes lumières fondent, et un réglage d’intensité par paliers vous mène d’un voile discret à un rendu franchement cinématographique. Un mode classique laisse aussi la lueur se répandre dans les ombres.","f2w":"Un filtre vissé sur l’objectif ne se reprend pas. Ici vous pouvez changer d’avis à tout moment — et d’autres effets de filtres optiques arrivent.","f3h":"Des recettes argentiques qui gardent un souvenir","f3p":"Posez en un clic un rendu argentique aimé sur la photo, puis façonnez la tonalité, la couleur, le grain et la dominante jusqu’à en faire <strong>un film qui vous appartient</strong>. Enregistrez comme film une LUT (.cube) que vous possédez déjà, ou ne retenez que la couleur que vous venez de régler pour en créer un nouveau.","f3w":"Exportez un carnet de recettes terminé en un seul fichier à partager avec vos amis ou votre public. Les films personnels dont dépend une recette voyagent à l’intérieur, la couleur arrive donc identique sur leur écran.","f4h":"Un vrai développement RAW en dessous","f4p":"Exposition, contraste, récupération des hautes lumières et des ombres, balance des blancs, plus courbes de tonalité, teinte et saturation sur huit bandes, niveaux et balance des couleurs en trois zones. Suppression des franges violettes et vertes, retouches locales par masques dégradé, radial et pinceau, correction de la distorsion et redressement de l’horizon : tout est là.","f4w":"Votre fichier d’origine n’est jamais modifié. Chaque retouche est conservée à part : vous pouvez toujours revenir au point de départ.","f5h":"La date, inscrite sur l’image","f5p":"Comme le dos dateur d’un appareil argentique, Rawcookr imprime la date de prise de vue dans un coin de la photo. Elle est lue dans les informations de capture du fichier et ne peut donc pas être inventée — seul l’ordre des chiffres vous revient.","f5w":"Les chiffres ambrés des vieux tirages argentiques, reproduits jusqu’à l’inclinaison.","finH":"Une finition pensée pour la mise en ligne","finLead":"Les petites corvées d’après développement, prises en charge.","c1h":"Données de lieu retirées","c1p":"Les coordonnées GPS sont supprimées à l’exportation : votre domicile et vos habitudes ne voyagent pas avec la photo.","c2h":"À la bonne taille","c2p":"Réduisez en un passage par pourcentage, largeur ou grand côté. Jamais agrandi au-delà de l’original.","c3h":"Le format qu’il vous faut","c3p":"JPEG, HEIF, PNG, WebP et TIFF 16 bits, avec une qualité réglable de 1 à 100 %.","c4h":"Des lots entiers d’un coup","c4p":"Chaque photo sélectionnée exportée avec ses propres retouches, et le dossier ouvert pour vous à la fin.","c5h":"Un cadre autour","c5p":"Carré, 4:5, 16:9 et plus — ajoutez des bordures pour que le fil ne rogne pas votre composition.","c6h":"Une photo, plusieurs versions","c6p":"Développez la même image de plusieurs façons et comparez-les côte à côte.","tmH":"Moins de temps à choisir, plus de temps à photographier","tmLead":"Les heures qui disparaissent avant et après le développement, rendues.","t1h":"Aperçus immédiats","t1p":"Ouvrez un dossier et les vignettes apparaissent tout de suite. Notez, marquez, filtrez jusqu’à l’essentiel.","t2h":"Des préréglages visibles","t2p":"Les préréglages enregistrés s’affichent appliqués à la photo devant vous, pas seulement listés par leur nom.","t3h":"Copier et coller les retouches","t3p":"Reportez le rendu construit sur une image sur tout le reste de la même scène.","t4h":"Vue concentrée","t4p":"Masquez tous les panneaux et remplissez l’écran avec la photo. Rien ne vous distrait pendant que vous jugez la couleur.","gkH":"Bon à savoir","sFilesT":"Fichiers pris en charge","sFiles":"RAW des principaux hybrides et reflex (DNG, RAF, ARW, CR3, NEF, RW2, ORF, PEF et d’autres), ainsi que JPEG, HEIF, PNG et TIFF","sReqT":"Configuration","sReq":"macOS 14 ou ultérieur · Apple Silicon","sProcT":"Traitement","sProc":"Tout fonctionne sur votre Mac. Aucun compte à créer, rien envoyé vers un nuage.","sAppT":"Apparence","sApp":"Mode sombre et mode clair","prH":"Tarif","prLead":"Essayez d’abord, décidez ensuite.","prAmount":"2,99 €","prUnit":" / mois","prAlt":"34,99 € facturés à l’année · toutes les fonctions comprises","prTrial":"7 jours d’essai gratuit","prNote":"","fPrivacy":"Politique de confidentialité","fContact":"Nous écrire","fCopy":"© 2026 Slowsalmon. Tous droits réservés.<br> Les noms et les couleurs des styles argentiques sont des créations propres à Rawcookr et ne sont affiliés à aucun fabricant d’appareils ou de films.","pTitle":"Politique de confidentialité de Rawcookr","pEff":"En vigueur : juillet 2026 · Développeur : Slowsalmon","pSumH":"En résumé","pSumP":"<strong>Rawcookr ne collecte aucune donnée personnelle.</strong>","pProcH":"Traitement des données","pProcP":"Tout le traitement des photos dans Rawcookr — développement RAW, retouche et floutage de confidentialité, y compris la détection automatique des visages et des plaques — se déroule entièrement sur votre Mac. Vos photos, vos retouches et les informations de fichier ne sont jamais transmises au développeur ni à un tiers. La détection des visages utilise le framework Vision d’Apple, exécuté sur l’appareil ; rien n’est envoyé sur le réseau.","pNoH":"Ce que nous ne collectons pas","pNoP":"Il n’y a ni compte utilisateur, ni outil d’analyse, ni identifiant publicitaire, ni technologie de suivi.","pSubH":"Abonnements","pSubP":"Les abonnements et les périodes d’essai sont traités par Apple via l’App Store. Le développeur ne reçoit jamais vos informations de paiement ni de données permettant de vous identifier. Voir {link} pour le détail.","pAppleLink":"la politique de confidentialité d’Apple","pConH":"Contact","pConP":"Questions :"},"es":{"title":"Rawcookr — Un editor RAW ligero para creadores","desc":"Publica antes. Difumina cada rostro con un clic, dale a la foto un aire de película que sea tuyo y conserva herramientas de edición de verdad, a un precio que no pesa.","tagline":"Un editor RAW ligero para creadores","sub":"Publica antes. Difumina cada rostro con un clic, dale a la foto un aire de película que sea tuyo y conserva herramientas de edición de verdad, a un precio que no pesa.","badge":"Ya en la Mac App Store","badgeNote":"7 días de prueba gratis · macOS 14 o posterior","cta":"Descargar en la Mac App Store","whyH":"Por qué Rawcookr","whyLead":"Termina la sesión y empieza el trabajo: difuminar a los desconocidos, encontrar el color, quitar la ubicación, ajustar el tamaño para subirla. Cuatro aplicaciones, una tarde perdida y el momento ya se ha enfriado. Rawcookr lo reúne todo en un sitio, <strong>para que la foto salga mientras aún te importa</strong>. Hecho para quien publica a menudo, con un precio que nunca obliga a pensárselo.","f1h":"Rostros y matrículas, difuminados solos","f1p":"Rawcookr encuentra rostros desconocidos y matrículas de vehículos en tus fotos de cafés, viajes y calle, y los difumina o pixela. La detección trabaja sobre el <strong>archivo a plena resolución</strong> y no sobre una vista previa reducida, así que también atrapa caras pequeñas al fondo. Cada zona detectada se activa o desactiva por separado, y puedes dibujar las tuyas.","f1w":"Toda la detección ocurre en tu Mac. Tus fotos nunca salen del dispositivo.","f2h":"El aire del cine, en un filtro de niebla","f2p":"Una versión digital de los filtros ópticos de difusión que cuestan una pequeña fortuna. La luz florece con suavidad, las altas luces se funden y un control de intensidad por pasos te lleva de una bruma leve a un aspecto claramente cinematográfico. Un modo clásico deja que el brillo se extienda también a las sombras.","f2w":"Un filtro enroscado en el objetivo no admite marcha atrás. Aquí puedes cambiar de idea cuando quieras, y llegarán más efectos de filtros ópticos.","f3h":"Recetas de película que guardan un recuerdo","f3p":"Pon con un clic un aspecto de película muy querido y luego moldea el tono, el color, el grano y la dominante hasta convertirlo en <strong>una película tuya</strong>. Registra como película una LUT (.cube) que ya tengas, o guarda solo el color que acabas de ajustar como una nueva.","f3w":"Exporta un recetario terminado como un único archivo para compartirlo con amigos o seguidores. Las películas propias de las que depende una receta viajan dentro, así el color llega igual a su pantalla.","f4h":"Debajo, un revelado RAW en serio","f4p":"Exposición, contraste, recuperación de altas luces y sombras y balance de blancos, además de curvas de tono, matiz y saturación en ocho bandas, niveles y balance de color de tres vías. Eliminación de bordes violeta y verde, ajustes locales con máscaras de degradado, radiales y de pincel, corrección de distorsión del objetivo y enderezado del horizonte: está todo.","f4w":"Tu archivo original nunca se modifica. Cada edición se guarda aparte, así que siempre puedes volver al punto de partida.","f5h":"La fecha, escrita en el fotograma","f5p":"Como el respaldo de datos de una cámara de película, Rawcookr imprime la fecha de captura en una esquina de la foto. La fecha se lee de la propia información del archivo, así que no se puede inventar: solo eliges el orden de las cifras.","f5w":"Los dígitos ámbar de las copias antiguas, reproducidos hasta en la inclinación.","finH":"Un acabado pensado para publicar","finLead":"Las pequeñas tareas que vienen después del revelado, resueltas.","c1h":"Ubicación eliminada","c1p":"Las coordenadas GPS se quitan al exportar, así tu casa y tus sitios de siempre no viajan con la foto.","c2h":"Al tamaño de la publicación","c2p":"Reduce por porcentaje, ancho o lado largo en una sola pasada. Nunca se amplía más allá del original.","c3h":"El formato que necesitas","c3p":"JPEG, HEIF, PNG, WebP y TIFF de 16 bits, con calidad entre 1 y 100 %.","c4h":"Lotes enteros de una vez","c4p":"Cada foto seleccionada se exporta con sus propias ediciones, y al terminar se abre la carpeta.","c5h":"Ponle marco","c5p":"Cuadrado, 4:5, 16:9 y más: añade bordes para que el feed no recorte tu composición.","c6h":"Una foto, muchas versiones","c6p":"Revela el mismo fotograma de varias formas y compáralas una al lado de la otra.","tmH":"Menos tiempo eligiendo, más tiempo fotografiando","tmLead":"Las horas que desaparecen antes y después del revelado, devueltas.","t1h":"Vistas previas al instante","t1p":"Abre una carpeta y las miniaturas aparecen enseguida. Puntúa, marca y filtra hasta lo que importa.","t2h":"Ajustes que se ven","t2p":"Los ajustes guardados se muestran aplicados a la foto que tienes delante, no como una lista de nombres.","t3h":"Copiar y pegar ediciones","t3p":"Lleva el aspecto que construiste en una toma al resto de fotos de la misma escena.","t4h":"Vista de enfoque","t4p":"Oculta todos los paneles y llena la pantalla con la foto. Nada te distrae mientras juzgas el color.","gkH":"Conviene saber","sFilesT":"Archivos compatibles","sFiles":"RAW de las principales cámaras sin espejo y réflex (DNG, RAF, ARW, CR3, NEF, RW2, ORF, PEF y más), además de JPEG, HEIF, PNG y TIFF","sReqT":"Requisitos","sReq":"macOS 14 o posterior · Apple Silicon","sProcT":"Procesamiento","sProc":"Todo funciona en tu Mac. Sin cuentas que crear y sin nada subido a la nube.","sAppT":"Aspecto","sApp":"Modo oscuro y claro","prH":"Precio","prLead":"Pruébalo primero y decide después.","prAmount":"2,99 €","prUnit":" / mes","prAlt":"34,99 € al año · todas las funciones incluidas","prTrial":"7 días de prueba gratis","prNote":"","fPrivacy":"Política de privacidad","fContact":"Contacto","fCopy":"© 2026 Slowsalmon. Todos los derechos reservados.<br> Los nombres y colores de los estilos de película son creaciones propias de Rawcookr y no están afiliados a ningún fabricante de cámaras o películas.","pTitle":"Política de privacidad de Rawcookr","pEff":"Vigente desde: julio de 2026 · Desarrollador: Slowsalmon","pSumH":"Resumen","pSumP":"<strong>Rawcookr no recopila ningún dato personal.</strong>","pProcH":"Tratamiento de datos","pProcP":"Todo el procesamiento de fotos en Rawcookr —revelado RAW, edición y difuminado de privacidad, incluida la detección automática de rostros y matrículas— ocurre por completo en tu Mac. Tus fotos, tus ediciones y la información de los archivos nunca se transmiten al desarrollador ni a terceros. La detección de rostros usa el marco Vision de Apple en el dispositivo; no se envía nada por la red.","pNoH":"Lo que no recopilamos","pNoP":"No hay cuentas de usuario, ni analíticas, ni identificadores publicitarios, ni tecnologías de seguimiento.","pSubH":"Suscripciones","pSubP":"Las suscripciones y las pruebas gratuitas las gestiona Apple a través de la App Store. El desarrollador nunca recibe tus datos de pago ni información que te identifique. Consulta {link} para más detalles.","pAppleLink":"la Política de privacidad de Apple","pConH":"Contacto","pConP":"Preguntas:"},"th":{"title":"Rawcookr — แอปล้างภาพ RAW ที่กระชับ สำหรับครีเอเตอร์","desc":"โพสต์ได้เร็วขึ้น เบลอใบหน้าทุกคนด้วยคลิกเดียว ใส่อารมณ์ฟิล์มในแบบของคุณ และยังมีเครื่องมือแต่งภาพครบจริง ในราคาที่ไม่หนัก","tagline":"แอปล้างภาพ RAW ที่กระชับ สำหรับครีเอเตอร์","sub":"โพสต์ได้เร็วขึ้น เบลอใบหน้าทุกคนด้วยคลิกเดียว ใส่อารมณ์ฟิล์มในแบบของคุณ และยังมีเครื่องมือแต่งภาพครบจริง ในราคาที่ไม่หนัก","badge":"วางจำหน่ายแล้วบน Mac App Store","badgeNote":"ทดลองใช้ฟรี 7 วัน · ต้องใช้ macOS 14 ขึ้นไป","cta":"ดาวน์โหลดบน Mac App Store","whyH":"ทำไมต้อง Rawcookr","whyLead":"ถ่ายเสร็จแล้วงานเพิ่งเริ่ม ต้องเบลอคนแปลกหน้า หาโทนสีที่ใช่ ลบข้อมูลตำแหน่ง แล้วย่อขนาดให้พอดีกับการอัปโหลด สลับสี่แอป เสียเวลาไปทั้งบ่าย และความรู้สึกต่อภาพนั้นก็จางลง Rawcookr รวมทุกอย่างไว้ที่เดียว <strong>เพื่อให้ภาพได้ขึ้นตอนที่มันยังสำคัญกับคุณ</strong> ออกแบบมาเพื่อคนที่โพสต์บ่อย และตั้งราคาให้ไม่ต้องคิดนาน","f1h":"เบลอใบหน้าและป้ายทะเบียนอัตโนมัติ","f1p":"Rawcookr จะค้นหาใบหน้าคนแปลกหน้าและป้ายทะเบียนรถในรูปคาเฟ่ รูปท่องเที่ยว และรูปสตรีทของคุณ แล้วเบลอหรือใส่โมเสก การตรวจหาทำงานบน<strong>ไฟล์ความละเอียดเต็ม</strong> ไม่ใช่ภาพตัวอย่างที่ย่อแล้ว จึงจับใบหน้าเล็ก ๆ ไกล ๆ ด้านหลังได้ด้วย ทุกพื้นที่ที่พบเปิดปิดแยกกันได้ และคุณวาดเพิ่มเองได้","f1w":"การตรวจหาทั้งหมดเกิดขึ้นบน Mac ของคุณ รูปไม่เคยออกจากเครื่อง","f2h":"อากาศแบบภาพยนตร์ ในฟิลเตอร์หมอก","f2p":"งานดิจิทัลที่จำลองฟิลเตอร์ดิฟฟิวชันแบบออปติกซึ่งราคาแพงลิ่ว แสงฟุ้งอย่างนุ่มนวล ส่วนสว่างละลาย และการปรับความเข้มแบบเป็นขั้นพาคุณจากหมอกบาง ๆ ไปสู่ลุคภาพยนตร์เต็มตัว โหมดคลาสสิกยังปล่อยให้แสงฟุ้งลามเข้าไปในเงาด้วย","f2w":"ขันฟิลเตอร์เข้ากับเลนส์แล้วก็ถอยกลับไม่ได้ ที่นี่คุณเปลี่ยนใจได้ทุกเมื่อ และเอฟเฟกต์ฟิลเตอร์ออปติกอื่น ๆ กำลังจะตามมา","f3h":"สูตรฟิล์มที่เก็บความทรงจำไว้","f3p":"ใส่ลุคฟิล์มที่คุณรักลงบนภาพด้วยคลิกเดียว แล้วปรับโทน สี เกรน และสีเหลือบจนกลายเป็น<strong>ฟิล์มของคุณเอง</strong> จะลงทะเบียน LUT (.cube) ที่มีอยู่แล้วให้เป็นฟิล์ม หรือเก็บเฉพาะสีที่เพิ่งปรับไว้เป็นฟิล์มใหม่ก็ได้","f3w":"ส่งออกสมุดสูตรที่ทำเสร็จเป็นไฟล์เดียวเพื่อแบ่งปันให้เพื่อนหรือผู้ติดตาม ฟิล์มที่คุณสร้างเองซึ่งสูตรนั้นใช้อยู่จะเดินทางไปด้วย สีบนจอของอีกฝ่ายจึงออกมาเหมือนกัน","f4h":"ข้างใต้คือการล้างไฟล์ RAW อย่างจริงจัง","f4p":"ค่าแสง คอนทราสต์ การกู้ส่วนสว่างและส่วนมืด สมดุลแสงขาว พร้อมเส้นโค้งโทน เฉดสีและความอิ่มตัวแบบแปดย่าน เลเวล และสมดุลสีสามทาง ลบขอบสีม่วงและเขียว ปรับเฉพาะจุดด้วยมาสก์แบบเชิงเส้น รัศมี และแปรง แก้ความบิดเบี้ยวของเลนส์ และปรับเส้นขอบฟ้าให้ตรง ครบอยู่ที่นี่","f4w":"ไฟล์ต้นฉบับของคุณไม่เคยถูกแก้ไข ทุกการแก้ไขถูกเก็บแยกไว้ จึงย้อนกลับไปจุดเริ่มต้นได้เสมอ","f5h":"วันที่ ที่เขียนอยู่บนภาพ","f5p":"เหมือนฝาหลังพิมพ์วันที่ของกล้องฟิล์ม Rawcookr พิมพ์วันที่ถ่ายไว้ที่มุมภาพ วันที่อ่านจากข้อมูลการถ่ายของไฟล์เอง จึงสร้างขึ้นเองไม่ได้ สิ่งที่คุณเลือกได้คือลำดับของตัวเลขเท่านั้น","f5w":"ตัวเลขสีเหลืองอำพันบนภาพอัดฟิล์มยุคเก่า จำลองมาถึงองศาที่เอียง","finH":"งานเก็บท้ายที่คิดเผื่อการอัปโหลด","finLead":"งานจุกจิกหลังล้างภาพ จัดการให้เรียบร้อย","c1h":"ลบข้อมูลตำแหน่ง","c1p":"พิกัด GPS จะถูกลบตอนส่งออก บ้านและที่ที่คุณไปประจำจึงไม่เดินทางไปกับรูป","c2h":"ขนาดพอดีกับการอัปโหลด","c2p":"ย่อด้วยเปอร์เซ็นต์ ความกว้าง หรือด้านยาว ในครั้งเดียว และไม่ขยายเกินต้นฉบับ","c3h":"ไฟล์รูปแบบที่คุณต้องการ","c3p":"JPEG, HEIF, PNG, WebP และ TIFF 16 บิต ปรับคุณภาพได้ตั้งแต่ 1 ถึง 100%","c4h":"ทีละหลายไฟล์ในครั้งเดียว","c4p":"รูปที่เลือกทุกใบถูกส่งออกพร้อมการแก้ไขของตัวเอง และเปิดโฟลเดอร์ให้เมื่อเสร็จ","c5h":"ใส่กรอบให้","c5p":"สี่เหลี่ยมจัตุรัส 4:5 16:9 และอื่น ๆ เติมขอบไว้ ฟีดจะได้ไม่ตัดองค์ประกอบภาพของคุณทิ้ง","c6h":"หนึ่งภาพ หลายเวอร์ชัน","c6p":"ล้างภาพเดียวกันได้หลายแนวแล้ววางเทียบกัน","tmH":"ใช้เวลาเลือกน้อยลง ได้เวลาถ่ายมากขึ้น","tmLead":"คืนชั่วโมงที่หายไปทั้งก่อนและหลังการล้างภาพ","t1h":"ภาพตัวอย่างขึ้นทันที","t1p":"เปิดโฟลเดอร์แล้วภาพย่อขึ้นทันที ให้ดาว ติดธง และกรองจนเหลือเฉพาะรูปที่สำคัญ","t2h":"พรีเซ็ตที่มองเห็น","t2p":"พรีเซ็ตที่บันทึกไว้แสดงเป็นผลลัพธ์บนรูปตรงหน้า ไม่ใช่แค่รายชื่อ","t3h":"คัดลอกและวางการแก้ไข","t3p":"ย้ายลุคที่คุณสร้างจากรูปหนึ่ง ไปยังรูปที่เหลือในฉากเดียวกัน","t4h":"มุมมองโฟกัส","t4p":"ซ่อนทุกแผงแล้วให้รูปเต็มจอ ไม่มีอะไรมารบกวนตอนตัดสินใจเรื่องสี","gkH":"เรื่องที่ควรรู้","sFilesT":"ไฟล์ที่รองรับ","sFiles":"ไฟล์ RAW จากกล้องมิเรอร์เลสและ DSLR รุ่นหลัก (DNG, RAF, ARW, CR3, NEF, RW2, ORF, PEF และอื่น ๆ) รวมถึง JPEG, HEIF, PNG และ TIFF","sReqT":"ความต้องการของระบบ","sReq":"macOS 14 ขึ้นไป · ชิป Apple","sProcT":"การประมวลผล","sProc":"ทุกอย่างทำงานบน Mac ของคุณ ไม่ต้องสมัครบัญชี ไม่มีการอัปโหลดขึ้นคลาวด์","sAppT":"ลักษณะหน้าตา","sApp":"โหมดมืดและโหมดสว่าง","prH":"ราคา","prLead":"ลองก่อน แล้วค่อยตัดสินใจ","prAmount":"฿99","prUnit":" / เดือน","prAlt":"รายปี ฿999 · รวมทุกฟีเจอร์","prTrial":"ทดลองใช้ฟรี 7 วัน","prNote":"","fPrivacy":"นโยบายความเป็นส่วนตัว","fContact":"ติดต่อเรา","fCopy":"© 2026 Slowsalmon สงวนลิขสิทธิ์<br> ชื่อและสีของสไตล์ฟิล์มเป็นผลงานที่ Rawcookr สร้างขึ้นเอง ไม่มีความเกี่ยวข้องกับผู้ผลิตกล้องหรือฟิล์มรายใด","pTitle":"นโยบายความเป็นส่วนตัวของ Rawcookr","pEff":"มีผลตั้งแต่: กรกฎาคม 2026 · ผู้พัฒนา: Slowsalmon","pSumH":"สรุป","pSumP":"<strong>Rawcookr ไม่เก็บข้อมูลส่วนบุคคลใด ๆ</strong>","pProcH":"การประมวลผลข้อมูล","pProcP":"การประมวลผลรูปทั้งหมดใน Rawcookr — การล้างไฟล์ RAW การแก้ไข และการเบลอเพื่อความเป็นส่วนตัว รวมถึงการตรวจหาใบหน้าและป้ายทะเบียนอัตโนมัติ — เกิดขึ้นบน Mac ของคุณทั้งหมด รูป การแก้ไข และข้อมูลไฟล์ของคุณจะไม่ถูกส่งไปยังผู้พัฒนาหรือบุคคลที่สามเลย การตรวจหาใบหน้าใช้เฟรมเวิร์ก Vision ของ Apple ที่ทำงานบนเครื่อง ไม่มีข้อมูลใดถูกส่งผ่านเครือข่าย","pNoH":"สิ่งที่เราไม่เก็บ","pNoP":"ไม่มีบัญชีผู้ใช้ ไม่มีการวิเคราะห์การใช้งาน ไม่มีตัวระบุเพื่อการโฆษณา และไม่มีเทคโนโลยีติดตาม","pSubH":"การสมัครสมาชิก","pSubP":"การสมัครสมาชิกและการทดลองใช้ฟรีดำเนินการโดย Apple ผ่าน App Store ผู้พัฒนาไม่เคยได้รับข้อมูลการชำระเงินหรือข้อมูลที่ระบุตัวตนของคุณ ดูรายละเอียดได้ที่{link}","pAppleLink":"นโยบายความเป็นส่วนตัวของ Apple","pConH":"ติดต่อ","pConP":"ข้อสงสัย:"},"vi":{"title":"Rawcookr — Ứng dụng tráng ảnh RAW gọn nhẹ cho người sáng tạo","desc":"Đăng nhanh hơn. Che mọi khuôn mặt chỉ bằng một cú nhấp, phủ lên ảnh chất phim của riêng bạn, mà vẫn giữ đủ công cụ chỉnh sửa thực thụ — với mức giá nhẹ nhàng.","tagline":"Ứng dụng tráng ảnh RAW gọn nhẹ cho người sáng tạo","sub":"Đăng nhanh hơn. Che mọi khuôn mặt chỉ bằng một cú nhấp, phủ lên ảnh chất phim của riêng bạn, mà vẫn giữ đủ công cụ chỉnh sửa thực thụ — với mức giá nhẹ nhàng.","badge":"Đã có trên Mac App Store","badgeNote":"Dùng thử miễn phí 7 ngày · macOS 14 trở lên","cta":"Tải trên Mac App Store","whyH":"Vì sao chọn Rawcookr","whyLead":"Buổi chụp kết thúc là lúc công việc bắt đầu: che người lạ, tìm màu, xóa vị trí, đổi cỡ để tải lên. Bốn ứng dụng, một buổi chiều trôi qua, và khoảnh khắc đã nguội. Rawcookr gom tất cả về một chỗ, <strong>để bức ảnh được đăng khi nó còn quan trọng với bạn</strong>. Làm cho những người đăng thường xuyên, và định giá sao cho bạn không phải cân nhắc.","f1h":"Khuôn mặt và biển số, tự động làm mờ","f1p":"Rawcookr tìm những khuôn mặt lạ và biển số xe trong ảnh quán cà phê, ảnh du lịch và ảnh đường phố của bạn, rồi làm mờ hoặc ô vuông hóa. Việc nhận diện chạy trên <strong>tệp ở độ phân giải gốc</strong> chứ không phải ảnh xem trước đã thu nhỏ, nên cả những khuôn mặt nhỏ ở hậu cảnh cũng không lọt. Mỗi vùng tìm được đều bật tắt riêng, và bạn có thể tự vẽ thêm.","f1w":"Toàn bộ việc nhận diện diễn ra trên máy Mac của bạn. Ảnh không bao giờ rời khỏi máy.","f2h":"Không khí điện ảnh trong một kính lọc sương","f2p":"Phiên bản số của những kính lọc khuếch tán quang học đắt đỏ. Ánh sáng lan ra dịu dàng, vùng sáng tan chảy, và thanh chỉnh cường độ theo nấc đưa bạn từ một lớp sương mỏng đến vẻ điện ảnh rõ rệt. Chế độ cổ điển còn để quầng sáng lan cả vào vùng tối.","f2w":"Vặn kính lọc lên ống kính là không quay lại được. Ở đây bạn có thể đổi ý bất cứ lúc nào — và sẽ còn thêm nhiều hiệu ứng kính lọc quang học nữa.","f3h":"Công thức phim giữ lại một ký ức","f3p":"Đặt lên ảnh chất phim bạn yêu thích chỉ bằng một cú nhấp, rồi nắn tông, màu, hạt và sắc ám cho đến khi nó thành <strong>một cuốn phim của riêng bạn</strong>. Đăng ký một LUT (.cube) sẵn có thành phim, hoặc chỉ giữ lại màu bạn vừa tinh chỉnh và lưu thành phim mới.","f3w":"Xuất cả cuốn sổ công thức thành một tệp duy nhất để gửi cho bạn bè hay người theo dõi. Những cuốn phim tự tạo mà công thức cần đều đi kèm bên trong, nên màu lên đúng như vậy trên màn hình của họ.","f4h":"Bên dưới là một bộ tráng RAW nghiêm túc","f4p":"Phơi sáng, tương phản, phục hồi vùng sáng và vùng tối, cân bằng trắng, cùng đường cong tông, sắc độ và bão hòa tám dải, mức sáng và cân bằng màu ba vùng. Khử viền tím và xanh lá, chỉnh cục bộ bằng mặt nạ tuyến tính, tỏa tròn và cọ, sửa méo ống kính và cân đường chân trời — đều có đủ.","f4w":"Tệp gốc của bạn không bao giờ bị sửa. Mọi chỉnh sửa được giữ riêng, nên bạn luôn quay về được điểm xuất phát.","f5h":"Ngày tháng, in trên khung hình","f5p":"Như lưng máy in ngày của máy phim, Rawcookr in ngày chụp ở góc ảnh. Ngày được đọc từ chính thông tin chụp của tệp nên không thể bịa ra — bạn chỉ chọn thứ tự các con số.","f5w":"Những chữ số hổ phách trên ảnh phim ngày trước, tái hiện đến cả độ nghiêng.","finH":"Phần hoàn thiện nghĩ sẵn cho việc đăng tải","finLead":"Những việc vặt sau khi tráng ảnh, đã có chỗ lo.","c1h":"Xóa dữ liệu vị trí","c1p":"Tọa độ GPS được gỡ khi xuất, nên nhà bạn và những nơi bạn hay lui tới không đi theo bức ảnh.","c2h":"Cỡ vừa để tải lên","c2p":"Thu nhỏ theo phần trăm, chiều rộng hoặc cạnh dài trong một lượt. Không bao giờ phóng lớn hơn ảnh gốc.","c3h":"Đúng định dạng bạn cần","c3p":"JPEG, HEIF, PNG, WebP và TIFF 16-bit, chất lượng đặt từ 1 đến 100%.","c4h":"Cả loạt cùng lúc","c4p":"Mỗi ảnh đã chọn được xuất kèm chỉnh sửa riêng, và thư mục sẽ mở sẵn khi xong.","c5h":"Thêm khung","c5p":"Vuông, 4:5, 16:9 và hơn nữa — thêm viền để bảng tin không cắt mất bố cục của bạn.","c6h":"Một ảnh, nhiều phiên bản","c6p":"Tráng cùng một khung hình theo vài hướng rồi đặt cạnh nhau mà so.","tmH":"Bớt thời gian chọn lựa, thêm thời gian bấm máy","tmLead":"Trả lại những giờ tan biến trước và sau khi tráng ảnh.","t1h":"Xem trước tức thì","t1p":"Mở thư mục là ảnh thu nhỏ hiện ra ngay. Chấm sao, gắn cờ và lọc xuống còn những tấm đáng giá.","t2h":"Thiết lập sẵn nhìn thấy được","t2p":"Thiết lập sẵn đã lưu hiện ra ngay trên bức ảnh trước mặt bạn, không chỉ là một danh sách tên.","t3h":"Sao chép và dán chỉnh sửa","t3p":"Mang vẻ ngoài bạn dựng trên một tấm sang mọi tấm còn lại của cùng bối cảnh.","t4h":"Xem tập trung","t4p":"Ẩn mọi bảng điều khiển và để ảnh chiếm cả màn hình. Không gì làm bạn phân tâm khi đang xét màu.","gkH":"Có thể bạn muốn biết","sFilesT":"Tệp hỗ trợ","sFiles":"RAW của các máy không gương lật và DSLR phổ biến (DNG, RAF, ARW, CR3, NEF, RW2, ORF, PEF và nhiều loại khác), cùng JPEG, HEIF, PNG và TIFF","sReqT":"Yêu cầu","sReq":"macOS 14 trở lên · Apple Silicon","sProcT":"Xử lý","sProc":"Mọi thứ chạy trên máy Mac của bạn. Không phải tạo tài khoản, không có gì tải lên đám mây.","sAppT":"Giao diện","sApp":"Chế độ tối và chế độ sáng","prH":"Giá","prLead":"Dùng thử trước, quyết định sau.","prAmount":"₫99.000","prUnit":" / tháng","prAlt":"₫999.000 khi trả theo năm · gồm mọi tính năng","prTrial":"Dùng thử miễn phí 7 ngày","prNote":"","fPrivacy":"Chính sách quyền riêng tư","fContact":"Liên hệ","fCopy":"© 2026 Slowsalmon. Bảo lưu mọi quyền.<br> Tên và màu của các kiểu phim do Rawcookr tự tạo, không liên quan đến bất kỳ hãng máy ảnh hay hãng phim nào.","pTitle":"Chính sách quyền riêng tư của Rawcookr","pEff":"Hiệu lực: tháng 7 năm 2026 · Nhà phát triển: Slowsalmon","pSumH":"Tóm tắt","pSumP":"<strong>Rawcookr không thu thập bất kỳ dữ liệu cá nhân nào.</strong>","pProcH":"Xử lý dữ liệu","pProcP":"Toàn bộ việc xử lý ảnh trong Rawcookr — tráng RAW, chỉnh sửa và làm mờ riêng tư, gồm cả nhận diện tự động khuôn mặt và biển số — diễn ra hoàn toàn trên máy Mac của bạn. Ảnh, nội dung chỉnh sửa và thông tin tệp không bao giờ được gửi đến nhà phát triển hay bên thứ ba. Việc nhận diện khuôn mặt dùng khung Vision chạy ngay trên máy của Apple; không có gì được gửi qua mạng.","pNoH":"Những gì chúng tôi không thu thập","pNoP":"Không có tài khoản người dùng, không có công cụ phân tích, không có mã nhận dạng quảng cáo và không có công nghệ theo dõi.","pSubH":"Đăng ký","pSubP":"Việc đăng ký và dùng thử miễn phí do Apple xử lý qua App Store. Nhà phát triển không bao giờ nhận được thông tin thanh toán hay thông tin nhận dạng cá nhân của bạn. Xem {link} để biết chi tiết.","pAppleLink":"Chính sách quyền riêng tư của Apple","pConH":"Liên hệ","pConP":"Thắc mắc:"},"id":{"title":"Rawcookr — Editor RAW yang ringkas untuk kreator","desc":"Posting lebih cepat. Buramkan setiap wajah dengan satu klik, beri foto nuansa film khas Anda, dan tetap punya perangkat penyuntingan yang sesungguhnya — dengan harga yang tetap ringan.","tagline":"Editor RAW yang ringkas untuk kreator","sub":"Posting lebih cepat. Buramkan setiap wajah dengan satu klik, beri foto nuansa film khas Anda, dan tetap punya perangkat penyuntingan yang sesungguhnya — dengan harga yang tetap ringan.","badge":"Sudah tersedia di Mac App Store","badgeNote":"Uji coba gratis 7 hari · macOS 14 atau lebih baru","cta":"Unduh di Mac App Store","whyH":"Mengapa Rawcookr","whyLead":"Pemotretan selesai, pekerjaan baru dimulai: buramkan orang asing, cari warnanya, hapus lokasinya, ubah ukurannya untuk diunggah. Empat aplikasi, satu sore hilang, dan momennya sudah dingin. Rawcookr menaruh semuanya di satu tempat, <strong>agar foto naik selagi masih berarti bagi Anda</strong>. Dibuat untuk orang yang sering memposting, dengan harga yang tak pernah jadi bahan pertimbangan.","f1h":"Wajah dan pelat nomor, otomatis diburamkan","f1p":"Rawcookr menemukan wajah asing dan pelat nomor kendaraan di foto kafe, perjalanan, dan jalanan Anda, lalu memburamkan atau memikselkannya. Deteksi berjalan pada <strong>berkas beresolusi penuh</strong>, bukan pratinjau yang diperkecil, sehingga wajah kecil jauh di latar pun tertangkap. Setiap area yang ditemukan bisa dinyalakan atau dimatikan sendiri-sendiri, dan Anda bisa menggambar area sendiri.","f1w":"Seluruh deteksi berlangsung di Mac Anda. Foto Anda tidak pernah meninggalkan perangkat.","f2h":"Udara sinema dalam filter kabut","f2p":"Versi digital dari filter difusi optik yang harganya selangit. Cahaya merekah lembut, sorotan meleleh, dan pengatur kekuatan bertingkat membawa Anda dari kabut tipis sampai tampilan sinematik yang jelas. Mode klasik membiarkan cahayanya menyebar sampai ke bayangan.","f2w":"Filter yang sudah dipasang di lensa tak bisa ditarik kembali. Di sini Anda boleh berubah pikiran kapan saja — dan efek filter optik lainnya sedang dalam perjalanan.","f3h":"Resep film yang menyimpan kenangan","f3p":"Bubuhkan tampilan film kesayangan pada foto dengan satu klik, lalu bentuk nada, warna, butiran, dan coraknya sampai menjadi <strong>film milik Anda sendiri</strong>. Daftarkan LUT (.cube) yang sudah Anda punya sebagai film, atau simpan hanya warna yang baru Anda atur sebagai film baru.","f3w":"Ekspor buku resep yang sudah jadi sebagai satu berkas untuk dibagikan ke teman atau pengikut. Film buatan sendiri yang dipakai sebuah resep ikut di dalamnya, jadi warnanya mendarat sama di layar mereka.","f4h":"Di bawahnya, pengolahan RAW yang serius","f4p":"Eksposur, kontras, pemulihan sorotan dan bayangan serta white balance, ditambah kurva nada, rona dan saturasi delapan pita, level, dan keseimbangan warna tiga arah. Penghapusan fringing ungu dan hijau, penyesuaian lokal lewat masker gradien, radial, dan kuas, koreksi distorsi lensa, serta pelurusan cakrawala — semuanya ada.","f4w":"Berkas asli Anda tidak pernah diubah. Setiap suntingan disimpan terpisah, jadi Anda selalu bisa kembali ke titik awal.","f5h":"Tanggal, tertulis di bingkai","f5p":"Seperti databack kamera film, Rawcookr mencetak tanggal pemotretan di sudut foto. Tanggalnya dibaca dari informasi pemotretan berkas itu sendiri sehingga tidak bisa dikarang — yang Anda pilih hanyalah urutan angkanya.","f5w":"Angka kuning ambar pada cetakan film lama, ditiru sampai ke kemiringannya.","finH":"Sentuhan akhir yang dirancang untuk diunggah","finLead":"Pekerjaan kecil setelah mengolah foto, sudah diurus.","c1h":"Data lokasi dihapus","c1p":"Koordinat GPS dihapus saat ekspor, jadi rumah dan tempat langganan Anda tidak ikut bepergian bersama foto.","c2h":"Ukuran siap unggah","c2p":"Perkecil berdasarkan persentase, lebar, atau sisi panjang sekaligus. Tidak pernah diperbesar melebihi aslinya.","c3h":"Format yang Anda butuhkan","c3p":"JPEG, HEIF, PNG, WebP, dan TIFF 16-bit, dengan kualitas dari 1 sampai 100%.","c4h":"Sekaligus satu kumpulan","c4p":"Setiap foto terpilih diekspor dengan suntingannya masing-masing, dan foldernya dibukakan begitu selesai.","c5h":"Beri bingkai","c5p":"Persegi, 4:5, 16:9, dan lainnya — tambahkan tepi agar linimasa tidak memotong komposisi Anda.","c6h":"Satu foto, banyak versi","c6p":"Olah bingkai yang sama dengan beberapa cara dan bandingkan berdampingan.","tmH":"Lebih sedikit waktu memilih, lebih banyak waktu memotret","tmLead":"Jam-jam yang hilang sebelum dan sesudah mengolah foto, dikembalikan.","t1h":"Pratinjau seketika","t1p":"Buka folder dan gambar mini langsung muncul. Beri peringkat, tandai, dan saring sampai tersisa yang penting.","t2h":"Prasetel yang terlihat","t2p":"Prasetel tersimpan ditampilkan sudah diterapkan pada foto di depan Anda, bukan sekadar daftar nama.","t3h":"Salin dan tempel suntingan","t3p":"Pindahkan tampilan yang Anda bangun pada satu bingkai ke semua foto lain dari adegan yang sama.","t4h":"Tampilan fokus","t4p":"Sembunyikan semua panel dan penuhi layar dengan foto. Tak ada yang mengganggu saat Anda menilai warna.","gkH":"Perlu diketahui","sFilesT":"Berkas yang didukung","sFiles":"RAW dari kamera mirrorless dan DSLR utama (DNG, RAF, ARW, CR3, NEF, RW2, ORF, PEF, dan lainnya), ditambah JPEG, HEIF, PNG, dan TIFF","sReqT":"Kebutuhan sistem","sReq":"macOS 14 atau lebih baru · Apple Silicon","sProcT":"Pemrosesan","sProc":"Semuanya berjalan di Mac Anda. Tidak ada akun yang perlu dibuat, tidak ada yang diunggah ke awan.","sAppT":"Tampilan","sApp":"Mode gelap dan terang","prH":"Harga","prLead":"Coba dulu, putuskan kemudian.","prAmount":"Rp 49.000","prUnit":" / bulan","prAlt":"Rp 499.000 ditagih per tahun · semua fitur termasuk","prTrial":"Uji coba gratis 7 hari","prNote":"","fPrivacy":"Kebijakan Privasi","fContact":"Hubungi kami","fCopy":"© 2026 Slowsalmon. Hak cipta dilindungi.<br> Nama dan warna gaya film adalah kreasi Rawcookr sendiri dan tidak berafiliasi dengan produsen kamera atau film mana pun.","pTitle":"Kebijakan Privasi Rawcookr","pEff":"Berlaku: Juli 2026 · Pengembang: Slowsalmon","pSumH":"Ringkasan","pSumP":"<strong>Rawcookr tidak mengumpulkan data pribadi apa pun.</strong>","pProcH":"Pemrosesan Data","pProcP":"Seluruh pemrosesan foto di Rawcookr — pengolahan RAW, penyuntingan, dan buram privasi termasuk deteksi otomatis wajah serta pelat nomor — berlangsung sepenuhnya di Mac Anda. Foto, suntingan, dan informasi berkas Anda tidak pernah dikirim ke pengembang atau pihak ketiga mana pun. Deteksi wajah memakai kerangka kerja Vision milik Apple yang berjalan di perangkat; tidak ada yang dikirim lewat jaringan.","pNoH":"Yang Tidak Kami Kumpulkan","pNoP":"Tidak ada akun pengguna, tidak ada analitik, tidak ada pengenal iklan, dan tidak ada teknologi pelacakan.","pSubH":"Langganan","pSubP":"Langganan dan uji coba gratis diproses oleh Apple melalui App Store. Pengembang tidak pernah menerima rincian pembayaran atau informasi yang mengidentifikasi Anda. Lihat {link} untuk keterangan lebih lanjut.","pAppleLink":"Kebijakan Privasi Apple","pConH":"Kontak","pConP":"Pertanyaan:"}};
+var HTML_LANG = {"zh":"zh-Hans"};
+function pickLang() {
+  try {
+    var saved = localStorage.getItem('rawcookr-site-lang');
+    if (saved && I18N[saved]) return saved;
+  } catch (e) {}
+  var list = navigator.languages || [navigator.language || 'en'];
+  for (var i = 0; i < list.length; i++) {
+    var tag = String(list[i]).toLowerCase();
+    if (tag.indexOf('zh') === 0) return 'zh';
+    var base = tag.split('-')[0];
+    if (I18N[base]) return base;
+  }
+  return 'en';
 }
-(function () {
-  var saved = null;
-  try { saved = localStorage.getItem('rawcookr-site-lang'); } catch (e) {}
-  // 기본은 영문 — 이전에 고른 언어가 있으면 그것을 따른다
-  setLang(saved === 'ko' ? 'ko' : 'en');
-})();
+function setLang(code) {
+  if (!I18N[code]) code = 'en';
+  var t = I18N[code];
+  document.querySelectorAll('[data-i18n]').forEach(function (el) {
+    var v = t[el.dataset.i18n];
+    if (v !== undefined) el.innerHTML = v;
+  });
+  document.documentElement.lang = HTML_LANG[code] || code;
+  if (t.title) document.title = t.title;
+  var d = document.querySelector('meta[name="description"]');
+  if (d && t.desc) d.setAttribute('content', t.desc);
+  var sel = document.getElementById('lang');
+  if (sel) sel.value = code;
+  try { localStorage.setItem('rawcookr-site-lang', code); } catch (e) {}
+  if (typeof afterLang === 'function') afterLang(code, t);
+}
+
+function afterLang(code, t) {
+  var cta = document.getElementById('cta');
+  if (APP_STORE_URL) { cta.href = APP_STORE_URL; cta.style.display = 'inline-block'; }
+  var note = document.querySelector('.price .note');
+  if (note) note.style.display = t.prNote ? 'block' : 'none';
+}
+setLang(pickLang());
 </script>
 
 </body>
