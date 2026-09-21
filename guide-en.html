@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rawcookr User Guide</title>
+<meta name="description" content="Every feature of Rawcookr and how to use it — film recipes, privacy blur, mist, local adjustments, exporting and keyboard shortcuts.">
+<meta property="og:title" content="Rawcookr User Guide">
+<meta property="og:description" content="Every feature of Rawcookr and how to use it, section by section.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://rawcookr.slowsalmon.com/guide-en.html">
+<link rel="canonical" href="https://rawcookr.slowsalmon.com/guide-en.html">
+<link rel="icon" href="icon.png">
+<style>
+  :root {
+    --cream: #F8F5EB;
+    --ink: #1E1B16;
+    --muted: #6B6459;
+    --blue: #0055B8;
+    --blue-soft: #E8EFFA;
+    --lemon: #F2C100;
+    --line: #E4DCC9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                 "Pretendard", "Noto Sans KR", sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--blue); }
+
+  /* ── 상단 바 ── */
+  .topbar {
+    position: sticky; top: 0; z-index: 30;
+    background: rgba(248,245,235,0.94);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 1180px; margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .topbar img { width: 30px; height: 30px; border-radius: 7px; }
+  .topbar .name { font-weight: 800; letter-spacing: -0.01em; }
+  .topbar .name a { color: var(--ink); text-decoration: none; }
+  .topbar .sep { color: var(--line); }
+  .topbar .where { color: var(--muted); font-size: 0.95em; }
+  .topbar .spacer { flex: 1; }
+  .topbar .home { font-size: 0.9em; font-weight: 600; text-decoration: none; }
+  #menubtn {
+    display: none; font: inherit; font-size: 0.85em; font-weight: 700;
+    background: #fff; color: var(--ink); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 14px; cursor: pointer;
+  }
+  #lang {
+    font: inherit; font-size: 0.82em; font-weight: 600; color: var(--ink);
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 5px 28px 5px 12px; cursor: pointer;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%236B6459'/></svg>");
+    background-repeat: no-repeat; background-position: right 11px center;
+  }
+
+  /* ── 레이아웃 ── */
+  .shell { max-width: 1180px; margin: 0 auto; padding: 0 24px; display: flex; gap: 48px; }
+  nav.toc {
+    flex: none; width: 258px; padding: 36px 0 80px;
+    position: sticky; top: 55px; align-self: flex-start;
+    max-height: calc(100vh - 55px); overflow-y: auto;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; }
+  nav.toc > ol > li { margin-bottom: 2px; }
+  nav.toc .grp {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    font: inherit; font-size: 0.78em; font-weight: 800; letter-spacing: 0.06em;
+    color: var(--muted); text-transform: uppercase;
+    background: none; border: 0; cursor: pointer; text-align: left;
+    padding: 8px 10px; margin-left: -10px; border-radius: 7px;
+  }
+  nav.toc .grp:hover { background: #fff; color: var(--ink); }
+  nav.toc .caret {
+    flex: none; width: 6px; height: 6px; margin-top: -2px;
+    border-right: 1.8px solid currentColor; border-bottom: 1.8px solid currentColor;
+    transform: rotate(-45deg); transition: transform 0.18s ease;
+  }
+  nav.toc li.open > .grp { color: var(--ink); }
+  nav.toc li.open > .grp .caret { transform: rotate(45deg); margin-top: -4px; }
+  nav.toc .items {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease;
+  }
+  nav.toc li.open > .items { grid-template-rows: 1fr; }
+  nav.toc .items > div { overflow: hidden; }
+  nav.toc a {
+    display: block; padding: 3px 10px 3px 28px; margin-left: -10px;
+    color: #443E36; text-decoration: none; font-size: 0.93em;
+    border-radius: 7px; line-height: 1.6;
+  }
+  nav.toc a:hover { background: #fff; }
+  nav.toc a.on { background: var(--blue-soft); color: var(--blue); font-weight: 700; }
+  nav.toc .items > div > :last-child { margin-bottom: 10px; }
+  @media (prefers-reduced-motion: reduce) {
+    nav.toc .items, nav.toc .caret { transition: none; }
+  }
+
+  main { flex: 1; min-width: 0; padding: 36px 0 120px; max-width: 720px; }
+  main h1 { font-size: 2.5em; margin: 0 0 10px; letter-spacing: -0.02em; }
+  main > .lead { color: var(--muted); font-size: 1.08em; margin: 0 0 8px; }
+
+  section { padding-top: 52px; }
+  section > h2 {
+    font-size: 1.62em; margin: 0 0 6px; letter-spacing: -0.01em;
+    padding-top: 28px; border-top: 1px solid var(--line);
+  }
+  section.first > h2 { border-top: none; padding-top: 0; }
+  h3 { font-size: 1.16em; margin: 34px 0 8px; }
+  h4 { font-size: 1.0em; margin: 22px 0 4px; }
+  p { margin: 0 0 14px; color: #443E36; }
+  ul, ol.steps { margin: 0 0 16px; padding-left: 22px; color: #443E36; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--ink); }
+
+  .kbd {
+    display: inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em; background: #fff; border: 1px solid var(--line);
+    border-bottom-width: 2px; border-radius: 6px; padding: 1px 7px;
+    color: var(--ink); white-space: nowrap;
+  }
+  .path {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.88em; background: #fff; border: 1px solid var(--line);
+    border-radius: 6px; padding: 1px 7px;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 20px; font-size: 0.95em; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 0.82em; letter-spacing: 0.04em; color: var(--muted); text-transform: uppercase; font-weight: 700; }
+  td:first-child { white-space: nowrap; font-weight: 600; }
+  table.wide td:first-child { white-space: normal; }
+
+  .note, .tip, .warn {
+    border-radius: 12px; padding: 14px 18px; margin: 18px 0;
+    font-size: 0.96em; line-height: 1.75;
+  }
+  .note { background: #fff; border: 1px solid var(--line); }
+  .tip  { background: var(--blue-soft); }
+  .warn { background: #FFF6DC; }
+  .note p:last-child, .tip p:last-child, .warn p:last-child { margin-bottom: 0; }
+  .note b, .tip b, .warn b { display: block; margin-bottom: 2px; }
+
+  .pill {
+    display: inline-block; background: var(--blue-soft); color: var(--blue);
+    border-radius: 999px; padding: 2px 11px; font-size: 0.8em; font-weight: 700;
+    vertical-align: middle;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); margin-top: 40px;
+    padding: 40px 24px 70px; text-align: center; color: var(--muted); font-size: 0.92em;
+  }
+  footer a { font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .shell { display: block; padding: 0 20px; }
+    #menubtn { display: block; }
+    nav.toc {
+      display: none; width: auto; position: static; max-height: none;
+      padding: 18px 0 6px; border-bottom: 1px solid var(--line);
+    }
+    nav.toc.open { display: block; }
+    main { padding-top: 26px; max-width: none; }
+    main h1 { font-size: 2em; }
+    .topbar .where { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <img src="icon.png" alt="">
+    <span class="name"><a href="./">Rawcookr</a></span>
+    <span class="sep">/</span>
+    <span class="where">User Guide</span>
+    <span class="spacer"></span>
+    <button id="menubtn" type="button">Contents</button>
+    <select id="lang" aria-label="Language">
+      <option value="ko">한국어</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+      <option value="zh-Hans">中文（简体）</option>
+      <option value="de">Deutsch</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="th">ไทย</option>
+      <option value="vi">Tiếng Việt</option>
+      <option value="id">Bahasa Indonesia</option>
+    </select>
+    <a class="home" href="./">Home</a>
+  </div>
+</div>
+
+<div class="shell">
+
+<nav class="toc" id="toc">
+  <ol>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Getting started</button>
+      <div class="items"><div>
+        <a href="#screen">The two windows</a>
+        <a href="#open">Opening photos</a>
+        <a href="#originals">Your originals are left alone</a>
+        <a href="#subscription">Subscription and free trial</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Choosing photos</button>
+      <div class="items"><div>
+        <a href="#library">Folders and thumbnails</a>
+        <a href="#rating">Ratings and flags</a>
+        <a href="#batch">Moving edits across</a>
+        <a href="#versions">For developing the same photo two ways and comparing them side by side. Nothing is copied, so not a single byte more is used on disk.</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>The editing window</button>
+      <div class="items"><div>
+        <a href="#canvas">Action</a>
+        <a href="#inspect">Original view <span class="kbd">M</span></a>
+        <a href="#compare">Puts two photos side by side. For choosing between two takes on the same scene, or comparing versions.</a>
+        <a href="#sections">The right panel is divided into sections. Each one folds away, and you can change their order.</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Adjustments</button>
+      <div class="items"><div>
+        <a href="#presets">Saves <strong>every edit value</strong> on the current photo as one piece, ready to drop onto another photo. Film, tone and local adjustments are all in there.</a>
+        <a href="#film">The heart of Rawcookr. Pick a built-in film, then work the tone and colour on top of it.</a>
+        <a href="#wb">Sets the colour temperature. With a RAW file you can keep what the camera recorded or change it yourself.</a>
+        <a href="#light">The basic section for brightness and contrast. Most photos are nearly finished right here.</a>
+        <a href="#curve">Draw the brightness mapping yourself. It reaches detail the sliders cannot.</a>
+        <a href="#hsl">Splits colour into twelve bands and handles them one at a time.</a>
+        <a href="#levels">Sets the input and output range by hand. Simpler than the tone curve, and quicker when you want the black and white points in an exact place.</a>
+        <a href="#colorgrade">Puts a different colour into the dark, middle and bright parts. The usual approach in cinema grading.</a>
+        <a href="#selective">Splits colour into nine ranges and corrects each by adding or removing cyan, magenta, yellow and black. It comes from print, and it catches the subtle casts that hue and saturation cannot.</a>
+        <a href="#local">Puts a correction into part of the photo only. Make a mask, then adjust inside it. The masks you make are listed in the <a href="#layers">Layers</a> section as well, so they sit alongside the layers you have stacked.</a>
+        <a href="#layers">Stacks layers on top of the developed photo. An adjustment layer re-works what is underneath, a solid colour layer covers it, and a masked layer only touches the part you mark.</a>
+        <a href="#detail">Sharpness and noise. Judge this section <strong>at 100%</strong>.</a>
+        <a href="#effects">Vignette</a>
+        <a href="#defringe">Clears the colour smearing a lens leaves behind. Two different causes are handled separately.</a>
+        <a href="#mist">A digital take on the optical diffusion filter you screw onto a lens. Highlights bloom softly, contrast eases, and skin turns gentle.</a>
+        <a href="#privacy">Covers the faces and licence plates of people who happened to be in the photo.</a>
+        <a href="#frame">Putting a margin around a photo to fit a set ratio is now <a href="#mount">Mount</a>'s job. Put one photo on the board, choose the aspect and the <strong>border</strong>, and you get what the old frame did — with gap, corners and background colour as well.</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Mount</button>
+      <div class="items"><div>
+        <a href="#mount">Mount is a workspace where several photos go onto one board and become a single image. When you post to social media, a blog or a website, you can show several frames as one piece rather than separately.</a>
+        <a href="#mount-split">Switch <strong>Split</strong> on and the board is divided into a grid. Choose how many rows and columns; up to 5 × 5.</a>
+        <a href="#mount-free">Switch <strong>Split</strong> off and the cells disappear; photos go anywhere you like on the board.</a>
+        <a href="#mount-look">Gap, border, corners</a>
+        <a href="#mount-export">Saving and exporting</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Finishing up</button>
+      <div class="items"><div>
+        <a href="#crop">Cropping and rotating</a>
+        <a href="#export">Exporting</a>
+        <a href="#customfilm">Making your own film</a>
+        <a href="#prefs">Settings</a>
+        <a href="#shortcuts">Keyboard shortcuts</a>
+        <a href="#trouble">Common questions</a>
+      </div></div>
+    </li>
+  </ol>
+</nav>
+
+<main>
+
+<h1>Rawcookr User Guide</h1>
+<p class="lead">Develop the photo, cover the people in it, give it the colour you want, and export it ready to post. Every feature, section by section.</p>
+<p class="lead" style="font-size:0.95em">macOS 14 or later · Version 1.1</p>
+
+<!-- ══════════ 시작하기 ══════════ -->
+
+<section class="first" id="screen">
+<h2>The two windows</h2>
+<p>Rawcookr has two windows.</p>
+
+<h3>Library</h3>
+<p>Where you pick a folder and look through your photos. The folder list is on the left, the thumbnail grid in the middle. Rate and flag here, and export a whole selection at once.</p>
+
+<h3>Mount</h3>
+<p>Where several photos go onto one board and become a single image. See <a href="#mount">Putting photos on the board</a>.</p>
+
+<h3>Editing</h3>
+<p>Where you actually work on one photo. The photo sits in the middle, the adjustment panel on the right, the filmstrip below. Double-click a photo in the library, or press <span class="kbd">Return</span>. <span class="kbd">Esc</span> takes you back.</p>
+
+<div class="tip">
+<b>When you want more room</b>
+<p><span class="kbd">⌘F</span> hides the filmstrip, and <span class="kbd">⌃⌘F</span> shows the photo alone, full screen. <span class="kbd">.</span> collapses every section in the right panel and <span class="kbd">,</span> opens them all.</p>
+</div>
+</section>
+
+<section id="open">
+<h2>Opening photos</h2>
+
+<h3>Open a folder</h3>
+<p><strong>File → Open Folder</strong> (<span class="kbd">⌘O</span>) picks the folder your photos are in. Folders you have opened stay in the sidebar on the left, ready for next time. To take one out, right-click its name and choose <strong>Remove from sidebar</strong>. Subfolders are listed too.</p>
+
+<h3>Straight from the Finder</h3>
+<p>Right-click a photo in the Finder and choose <strong>Open With → Rawcookr</strong>. The folder it lives in is added to the library and the editing window opens on that photo.</p>
+
+<h3>Formats it reads</h3>
+<table>
+  <tr><th>Kind</th><th>Extensions</th></tr>
+  <tr><td>RAW</td><td>RAF · DNG · CR2 · CR3 · CRW · NEF · NRW · ARW · SR2 · SRF · RW2 · RAW · RWL · PEF · ORF · 3FR · FFF · IIQ</td></tr>
+  <tr><td>Others</td><td>JPG · JPEG · PNG · HEIC · HEIF · HIF · TIFF · TIF</td></tr>
+</table>
+<p>RAW development uses the engine built into macOS. A very recent camera model may need a macOS update before its files will open.</p>
+</section>
+
+<section id="originals">
+<h2>Your originals are left alone</h2>
+<p>Rawcookr never writes to the original file. Your edits go into a small settings file of their own. Open the original in another app and it is exactly as it was.</p>
+<p>Where those settings live is up to you, in <strong>Settings</strong>.</p>
+<table class="wide">
+  <tr><th>Choice</th><th>What it means</th></tr>
+  <tr><td>Managed in the app folder <span class="pill">default</span></td><td>Your photo folder stays clean. Handy when you pass the folder on to someone else as it is.</td></tr>
+  <tr><td>Beside the original file</td><td>Photo and settings always travel together. Move the whole external drive to another Mac and your edits come along.</td></tr>
+</table>
+<p>You can also write your edits out to a file and read them back in. <strong>Save settings</strong> and <strong>Apply settings</strong> in the editing window use a <span class="path">.rawcookr-settings.json</span> file.</p>
+</section>
+
+<section id="subscription">
+<h2>Subscription and free trial</h2>
+<p>Rawcookr is a subscription app. <strong>Seven days free</strong> with everything unlocked, then monthly or yearly. There is no higher tier and nothing is sold separately — everything in this guide is included.</p>
+<p>Manage or cancel the subscription in your App Store account settings. Cancel before the trial ends and you are not charged.</p>
+<div class="note">
+<b>If you changed Macs</b>
+<p>Sign in to the App Store with the same Apple Account and open the app; the subscription is recognised automatically. If it isn't, press <strong>Restore Purchases</strong> on the subscription screen.</p>
+</div>
+</section>
+
+<!-- ══════════ 사진 고르기 ══════════ -->
+
+<section id="library">
+<h2>Folders and thumbnails</h2>
+<p>In the library, one folder fills the window. Pick a folder in the sidebar on the left and its photos are laid out in a grid.</p>
+
+<h3>Looking through</h3>
+<ul>
+  <li>The slider at the top right changes the thumbnail size.</li>
+  <li>Arrow keys move between photos.</li>
+  <li><span class="kbd">Return</span> opens the editing window.</li>
+  <li><span class="kbd">Space</span> shows the photo large. Press it again or <span class="kbd">Esc</span> to close, and <span class="kbd">Return</span> while it is large starts developing it. The file name appears underneath.</li>
+</ul>
+
+<h3>Selecting</h3>
+<ul>
+  <li>Click for one, <span class="kbd">⇧</span>+click for a range, <span class="kbd">⌘</span>+click to add one at a time.</li>
+  <li>Drag on an empty area to sweep up several at once.</li>
+  <li><span class="kbd">⌘A</span> selects them all.</li>
+</ul>
+
+<h3>Working with files</h3>
+<p>Right-click a thumbnail for this menu.</p>
+<table class="wide">
+  <tr><th>Item</th><th>What it does</th></tr>
+  <tr><td>Reveal in Finder</td><td>Opens the folder the original file is in.</td></tr>
+  <tr><td>Rename</td><td>Renames the original file. One photo at a time.</td></tr>
+  <tr><td>Duplicate</td><td>Makes a second copy of the original file.</td></tr>
+  <tr><td>Move to another folder</td><td>Moves the selected photos elsewhere. Their edit settings go with them.</td></tr>
+  <tr><td>Move to Trash</td><td>Puts the original in the Trash. Take it back out of the Finder's Trash to undo.</td></tr>
+</table>
+</section>
+
+<section id="rating">
+<h2>Ratings and flags</h2>
+<p>For sorting the keepers out of a big shoot. You can rate from the library or the editing window.</p>
+<table>
+  <tr><th>Key</th><th>What it does</th></tr>
+  <tr><td><span class="kbd">1</span>~<span class="kbd">5</span></td><td>Set a star rating</td></tr>
+  <tr><td>Flag / unflag</td><td>In the library this goes to every selected photo at once. Afterwards, the filter at the top of the window can show <strong>flagged only</strong>, or a rating and above. Ratings and flags live with your edits, so the original file is untouched.</td></tr>
+</table>
+<p>Several at a time</p>
+</section>
+
+<section id="batch">
+<h2>Moving edits across</h2>
+
+<h3>Once one photo looks right, its values can go straight onto another.</h3>
+<p><span class="kbd">⌘⇧C</span> on the photo you like — copy edits</p>
+<ol class="steps">
+  <li>Open the photo you want it on and press <span class="kbd">⌘⇧V</span> — paste edits</li>
+  <li>Pasting goes into <strong>the one photo currently open</strong>. To carry it further, press <span class="kbd">→</span> for the next photo and <span class="kbd">⌘⇧V</span> again.</li>
+</ol>
+<p>Anything tied to a position — privacy blur areas, fringe-brush strokes, the crop, local adjustment masks — is not carried over; the receiving photo keeps its own. Faces sit in different places in every photo, so that is the right behaviour.</p>
+<p>Exporting a batch</p>
+
+<h3>With several photos selected, <span class="kbd">⌘E</span> exports them all with the same settings. See <a href="#export">Exporting</a>.</h3>
+<p>Pasting edits cannot be undone. Try it on one photo before you send it through a whole selection.</p>
+
+<div class="warn">
+<b>Careful</b>
+<p>Versions</p>
+</div>
+</section>
+
+<section id="versions">
+<h2>For developing the same photo two ways and comparing them side by side. Nothing is copied, so not a single byte more is used on disk.</h2>
+<p><strong>File → Develop as new version</strong> (<span class="kbd">⌘G</span>) in the editing window keeps your current edits and adds an untouched copy alongside them. It appears in the filmstrip numbered <strong>V2</strong>, <strong>V3</strong> and so on.</p>
+<p>Deleting a version leaves the original file in place. That is what "the original file stays" means when you are asked to confirm.</p>
+<p>Zooming and panning</p>
+</section>
+
+<!-- ══════════ 현상 화면 ══════════ -->
+
+<section id="canvas">
+<h2>Action</h2>
+<table>
+  <tr><th><span class="kbd">⌘=</span></th><th>What it does</th></tr>
+  <tr><td>Zoom in</td><td><span class="kbd">⌘-</span></td></tr>
+  <tr><td>Zoom out</td><td><span class="kbd">⌘0</span></td></tr>
+  <tr><td>Fit to screen</td><td><span class="kbd">⌘1</span></td></tr>
+  <tr><td>100% — actual pixels</td><td><span class="kbd">Space</span> + drag</td></tr>
+  <tr><td>Push the photo around</td><td>Trackpad pinch</td></tr>
+  <tr><td>Zoom in and out</td><td>Two-finger trackpad scroll</td></tr>
+  <tr><td>Pan</td><td><span class="kbd">O</span></td></tr>
+  <tr><td>Show / hide the zoom bar</td><td>Anything you have to judge pixel by pixel — sharpness, grain — needs <span class="kbd">⌘1</span> and 100%. Below that the photo is drawn smaller to fit the window, so what you see is not what you get.</td></tr>
+</table>
+<p>Comparing with the original, and the clipping warning</p>
+</section>
+
+<section id="inspect">
+<h2>Original view <span class="kbd">M</span></h2>
+
+<h3>Shows the photo before your edits for as long as you hold the key. The quickest way to check whether you have actually improved anything.</h3>
+<p>Clipping warning <span class="kbd">J</span></p>
+
+<h3>Areas blown to pure white are covered in red, areas crushed to pure black in blue.</h3>
+<p>A single channel reaching the end — a bright red petal, say — still has colour left in it, so it is not warned about. Only <strong>places where all three channels have hit the end and the information is really gone</strong> are marked. If a clipping notice appears over the photo, click it to switch the warning on and off.</p>
+<p>Histogram</p>
+
+<h3>The histogram in the right panel shows how the brightness is spread. Piled against the left edge means the dark end is being cut off; against the right edge, the bright end.</h3>
+<p>Compare view</p>
+</section>
+
+<section id="compare">
+<h2>Puts two photos side by side. For choosing between two takes on the same scene, or comparing versions.</h2>
+<p>Press <strong>Compare</strong> in the toolbar.</p>
+<ol class="steps">
+  <li>The current photo goes on the left; pick the one to compare on the right.</li>
+  <li>Match the zoom and the two move together, so you see the same part at the same size.</li>
+  <li>Working with the adjustment sections</li>
+</ol>
+</section>
+
+<section id="sections">
+<h2>The right panel is divided into sections. Each one folds away, and you can change their order.</h2>
+<p>Switching one off</p>
+
+<h3>The switch beside a section's title draws the photo with that section's values back at their defaults. <strong>Nothing is erased</strong> — switch it on again and everything returns. Useful for asking "is this section actually helping?"</h3>
+<p>Open, close, reorder</p>
+
+<h3><span class="kbd">,</span> opens every section · <span class="kbd">.</span> closes them all</h3>
+<ul>
+  <li>Drag a section's title to move it. The order you set is kept for next time.</li>
+  <li>Going back</li>
+</ul>
+
+<h3>Double-click a slider's name and that one value returns to its default.</h3>
+<ul>
+  <li>The reset button beside a section title clears that whole section.</li>
+  <li><span class="kbd">⌥⌘R</span> — clears every edit on the photo.</li>
+  <li>Hold <span class="kbd">⌥</span> while dragging a slider for finer steps. You can also click the number and type a value.</li>
+</ul>
+
+<div class="tip">
+<b>Finer slider control</b>
+<p>Presets</p>
+</div>
+</section>
+
+
+<!-- ══════════ 조정 항목 ══════════ -->
+
+<section id="presets">
+<h2>Saves <strong>every edit value</strong> on the current photo as one piece, ready to drop onto another photo. Film, tone and local adjustments are all in there.</h2>
+<p>Making one</p>
+
+<h3>Get one photo looking the way you want.</h3>
+<ol class="steps">
+  <li>Press <strong>+</strong> in the Presets section and give it a name.</li>
+  <li>Saving under the same name overwrites it.</li>
+  <li>Using one</li>
+</ol>
+
+<h3>The preset list shows each preset as a small picture of your current photo with that preset on it. Click to apply. The thumbnail size can be <strong>Tiny · Small · Large</strong>.</h3>
+<p>A <strong>film</strong> is one colour transform. A <strong>preset</strong> is the whole edit, film included. Reuse just "that colour" with a film; reuse "everything that made this photo" with a preset.</p>
+
+<div class="tip">
+<b>Preset or film?</b>
+<p>Film Recipe</p>
+</div>
+</section>
+
+<section id="film">
+<h2>The heart of Rawcookr. Pick a built-in film, then work the tone and colour on top of it.</h2>
+<p>Choosing a film</p>
+
+<h3>The film icon at the top of the section opens a list grouped by family.</h3>
+<p>Family</p>
+<table class="wide">
+  <tr><th>Count</th><th>Character</th><th>F.film</th></tr>
+  <tr><td>11</td><td>Standard · Vivid · Soft · Vintage Chrome · Natural · Portrait High/Standard · Cool Negative · Retro Negative · Cinema · Bleach Bypass</td><td>KoD</td></tr>
+  <tr><td>5</td><td>Portrait 400 · Daily 200 · Fine 100 · Chrome 64 · Mono 400</td><td>R.co</td></tr>
+  <tr><td>6</td><td>Positive · Negative · Retro · Cinema Yellow · Cinema Green · High-Con Mono</td><td>IlFd</td></tr>
+  <tr><td>2</td><td>Mono 400 · Fine 50</td><td>Classic</td></tr>
+  <tr><td>3</td><td>Tungsten 800T · Classic Daily 400 · Cross Process</td><td>Black & white</td></tr>
+  <tr><td>9</td><td>Four Mono Fine looks (no filter / Ye / R / G) · four Mono looks · Sepia</td><td>Your own <strong>custom films</strong> join them here. See <a href="#customfilm">Making your own film</a>.</td></tr>
+</table>
+<p>Every film is a colour transform Rawcookr made itself, under a name of its own. None of them is tied to any manufacturer's product.</p>
+
+<div class="note">
+<b>About the names</b>
+<p>Adjustments on a colour film</p>
+</div>
+
+<h3>Range</h3>
+<table>
+  <tr><th>Item</th><th>Highlight tone</th><th>What it does</th></tr>
+  <tr><td>−2 ~ +12</td><td>Contrast at the bright end. Up is harder, down is softer.</td><td>Shadow tone</td></tr>
+  <tr><td>−2 ~ +4</td><td>Contrast at the dark end.</td><td>Color</td></tr>
+  <tr><td>−4 ~ +4</td><td>Saturation across the whole film.</td><td>Hue</td></tr>
+  <tr><td>Turns every colour one way. Three degrees per step.</td><td>Saturation across the whole film.</td><td>Raises or lowers the middle brightness.</td></tr>
+  <tr><td>Key</td><td>Saturation across the whole film.</td><td>Contrast</td></tr>
+  <tr><td>Widens the contrast around the centre.</td><td>Saturation across the whole film.</td><td>Clarity</td></tr>
+  <tr><td>−5 ~ +5</td><td>Texture. Negative is softer, positive is crisper.</td><td>Sharpness</td></tr>
+  <tr><td>How sharp the film itself is. Negative blurs.</td><td>Saturation across the whole film.</td><td>Shading</td></tr>
+  <tr><td>Light falling off at the edges. Positive darkens the corners.</td><td>Saturation across the whole film.</td><td>WB shift R · B</td></tr>
+  <tr><td>−9 ~ +9</td><td>Nudges red and blue a little to tilt the colour.</td><td>Adjustments on a black-and-white film</td></tr>
+</table>
+
+<h3>Instead of the colour items you get <strong>Toning WC</strong> and <strong>Toning MG</strong> (each −18 ~ +18). WC runs between warm and cool, MG between magenta and green. Together they reach anything from sepia to a cold teal tone.</h3>
+<p>Grain</p>
+
+<h3>Lays film grain over the photo. Strength is <strong>Off · Weak · Strong</strong>, size is <strong>Small · Large</strong>. With strength off, size is locked.</h3>
+<p>Grain works pixel by pixel, so at fit-to-window it is all but invisible. Judge it at 100% with <span class="kbd">⌘1</span>.</p>
+
+<div class="tip">
+<b>Judge grain at 100%</b>
+<p>White Balance</p>
+</div>
+</section>
+
+<section id="wb">
+<h2>Sets the colour temperature. With a RAW file you can keep what the camera recorded or change it yourself.</h2>
+<p>Temperature</p>
+<table>
+  <tr><th>Item</th><th>Highlight tone</th><th>What it does</th></tr>
+  <tr><td>2000 ~ 12000 K</td><td>Down goes blue, up goes yellow.</td><td>Tint</td></tr>
+  <tr><td>−100 ~ +100</td><td>Runs between green and magenta. Useful under fluorescent light.</td><td>Setting it with the eyedropper</td></tr>
+</table>
+
+<h3>Press the eyedropper, then click <strong>something in the photo that ought to be neutral grey</strong>. Temperature and tint are set so that spot turns grey. A white wall, grey asphalt or the shaded part of a white shirt make good references. Click something that is genuinely coloured and it will go the wrong way.</h3>
+<p>Colour sweep</p>
+
+<h3>The brush icon to the left of the eyedropper. Click to open a colour map, click again to close it. Press and drag to set it while you watch, and a map left open can be picked up and moved.</h3>
+<p>Left and right is temperature — warmer to the right.</p>
+<ul>
+  <li>Up and down is tint — drag up for magenta, down for green.</li>
+  <li>Hold <span class="kbd">⌥</span> while dragging for finer steps.</li>
+  <li>A RAW file starts with what the camera recorded. The reset button on the section title returns you to exactly that state.</li>
+</ul>
+<p>Light</p>
+</section>
+
+<section id="light">
+<h2>The basic section for brightness and contrast. Most photos are nearly finished right here.</h2>
+<p>Exposure</p>
+<table>
+  <tr><th>Item</th><th>Highlight tone</th><th>What it does</th></tr>
+  <tr><td>−3 ~ +3 EV</td><td>Overall brightness. Applied during RAW decoding, so this is the cleanest way to change it.</td><td>The difference between light and dark.</td></tr>
+  <tr><td>Widens the contrast around the centre.</td><td>Runs between green and magenta. Useful under fluorescent light.</td><td>Highlights</td></tr>
+  <tr><td>Pulls a blown sky or light source back down. The headroom kept by extended dynamic range is what gets drawn on here.</td><td>Runs between green and magenta. Useful under fluorescent light.</td><td>Shadows</td></tr>
+  <tr><td>Lifts the texture out of the shade.</td><td>Runs between green and magenta. Useful under fluorescent light.</td><td>Whites</td></tr>
+  <tr><td>Where the bright end sits.</td><td>Runs between green and magenta. Useful under fluorescent light.</td><td>Blacks</td></tr>
+  <tr><td>Where the dark end sits. Lifted a little, it gives a film-like feel.</td><td>Runs between green and magenta. Useful under fluorescent light.</td><td>Definition</td></tr>
+  <tr><td>Contrast in mid-sized texture. Negative smooths skin, positive brings out cloud and brickwork.</td><td>Runs between green and magenta. Useful under fluorescent light.</td><td>Saturation</td></tr>
+  <tr><td>Every colour, evenly.</td><td>Runs between green and magenta. Useful under fluorescent light.</td><td>Vibrance</td></tr>
+  <tr><td>Raises the paler colours first. It leaves skin tones alone, so it is safe on people.</td><td>Runs between green and magenta. Useful under fluorescent light.</td><td>Fade</td></tr>
+  <tr><td>0 ~ 100</td><td>Lifts the blacks for a washed-out look.</td><td>These two do not multiply the whole photo by one number. They pick out the bright parts only, or the dark parts only, while holding the edges. Bring a sky down and the mid-tones right beside it stay put, with no white halo along the boundary.</td></tr>
+</table>
+
+<div class="note">
+<b>Highlights and Shadows work locally</b>
+<p>Tone Curve</p>
+</div>
+</section>
+
+<section id="curve">
+<h2>Draw the brightness mapping yourself. It reaches detail the sliders cannot.</h2>
+<p>How to use it</p>
+
+<h3>Click on the line to add a point, drag to move it.</h3>
+<ul>
+  <li>Drag a point off the edge to delete it.</li>
+  <li><strong>RGB</strong> is overall brightness; <strong>R · G · B</strong> are the individual channels. Working a channel on its own shifts the colour, which is what you want when building a look.</li>
+  <li>Bowed up in the middle is brighter; an S shape raises contrast.</li>
+  <li><strong>Reset this channel</strong> straightens only the curve you are looking at.</li>
+  <li>Three eyedroppers</li>
+</ul>
+
+<h3>Click a reference point in the photo and the curve is set for you. All three of R, G and B move <strong>together</strong> so that spot becomes the reference colour.</h3>
+<p>Eyedropper</p>
+<table class="wide">
+  <tr><th>What to click</th><th>Black point</th></tr>
+  <tr><td>Somewhere that should be pure black. The deepest shadow.</td><td>Neutral gray</td></tr>
+  <tr><td>Somewhere that should be neutral. Grey concrete, colourless clothing.</td><td>White point</td></tr>
+  <tr><td>Somewhere that should be pure white. White paper, a white wall.</td><td>Click all three in turn and colour balance and contrast fall into place at once. The fastest way to bring a badly shifted photo back to normal.</td></tr>
+</table>
+<p>Hue & Saturation</p>
+</section>
+
+<section id="hsl">
+<h2>Splits colour into twelve bands and handles them one at a time.</h2>
+<p><strong>Red · Orange · Yellow · Yellow Green · Green · Emerald · Cyan · Sky · Blue · Violet · Magenta · Pink</strong> — every 30°, covering the wheel evenly.</p>
+<p>−30 ~ +30</p>
+<table>
+  <tr><th>Item</th><th>Highlight tone</th><th>What it does</th></tr>
+  <tr><td>Turns every colour one way. Three degrees per step.</td><td>Turns that colour towards its neighbour.</td><td>That colour alone, deeper or paler.</td></tr>
+  <tr><td>Every colour, evenly.</td><td>Runs between green and magenta. Useful under fluorescent light.</td><td>Luminance</td></tr>
+  <tr><td>That colour alone, lighter or darker.</td><td>Runs between green and magenta. Useful under fluorescent light.</td><td>Picking straight off the colour map</td></tr>
+</table>
+
+<h3><strong>Press and hold</strong> a colour chip, then drag, and a map opens up.</h3>
+<p>Drag sideways for <strong>hue</strong></p>
+<ul>
+  <li>Drag up and down for <strong>saturation</strong></li>
+  <li>Hold <span class="kbd">⌘</span> and drag up and down for <strong>luminance</strong></li>
+  <li>One movement finds the spot you want, instead of going back and forth between three sliders.</li>
+</ul>
+<p>A deeper sky — raise saturation on blue and sky, lower the luminance. Calmer greens — lower green's saturation and nudge its hue towards yellow. Natural skin — take orange's saturation down a little and its luminance up a little.</p>
+
+<div class="tip">
+<b>Everyday moves</b>
+<p>Levels</p>
+</div>
+</section>
+
+<section id="levels">
+<h2>Sets the input and output range by hand. Simpler than the tone curve, and quicker when you want the black and white points in an exact place.</h2>
+<p>Input black</p>
+<table>
+  <tr><th>Item</th><th>Highlight tone</th><th>What it does</th></tr>
+  <tr><td>0 ~ 0.9</td><td>Everything darker than this becomes black.</td><td>Input white</td></tr>
+  <tr><td>0.1 ~ 1</td><td>Everything brighter than this becomes white.</td><td>Gamma</td></tr>
+  <tr><td>0.2 ~ 3</td><td>Output black</td><td>Contrast</td></tr>
+  <tr><td>How bright the darkest point ends up. Raise it for a washed look.</td><td>Everything darker than this becomes black.</td><td>Output white</td></tr>
+  <tr><td>How bright the brightest point ends up. Lower it and the whites are held down.</td><td>Everything brighter than this becomes white.</td><td>Turn the clipping warning on with <span class="kbd">J</span> while you tighten the input end. You will see exactly where information starts disappearing.</td></tr>
+</table>
+<p>Three-Way Color Balance</p>
+</section>
+
+<section id="colorgrade">
+<h2>Puts a different colour into the dark, middle and bright parts. The usual approach in cinema grading.</h2>
+<p>Drag the centre of a colour wheel to set direction and strength. Nearer the centre is weaker.</p>
+<ul>
+  <li><strong>Luminance</strong> and <strong>saturation</strong> for each band (−100 ~ +100) are set separately.</li>
+  <li>Splitting saturation by band lets you keep the shadows calm while only the bright parts come alive.</li>
+</ul>
+<p>Push the shadows towards teal and the highlights towards orange, gently, and you have the familiar cinema look. The two sit opposite each other on the wheel, which is what lifts a person off the background. The trick is to use very little.</p>
+<div class="tip">
+<b>One classic recipe</b>
+<p>Selective Color</p>
+</div>
+</section>
+
+<section id="selective">
+<h2>Splits colour into nine ranges and corrects each by adding or removing cyan, magenta, yellow and black. It comes from print, and it catches the subtle casts that hue and saturation cannot.</h2>
+<p>The ranges</p>
+
+<h3>Six colours — <strong>reds · yellows · greens · cyans · blues · magentas</strong> — and three brightness bands, <strong>whites · neutrals · blacks</strong>. Ranges you have already changed are marked in the list.</h3>
+<p>Cyan</p>
+
+<table>
+  <tr><th>Item</th><th>Highlight tone</th><th>What it does</th></tr>
+  <tr><td>Up adds cyan, down goes towards red.</td><td>Runs between green and magenta. Useful under fluorescent light.</td><td>Magenta</td></tr>
+  <tr><td>Up is magenta, down goes towards green.</td><td>Runs between green and magenta. Useful under fluorescent light.</td><td>Yellow</td></tr>
+  <tr><td>Up is yellow, down goes towards blue.</td><td>Runs between green and magenta. Useful under fluorescent light.</td><td>Black</td></tr>
+  <tr><td>Darkens or lightens that range.</td><td>Runs between green and magenta. Useful under fluorescent light.</td><td>Relative and absolute</td></tr>
+</table>
+
+<h3>Method</h3>
+<table class="wide">
+  <tr><th>Relative</th><th>What it means</th></tr>
+  <tr><td>Changes each amount by a percentage of what is already there. Where the colour isn't present nothing happens, so pure white stays untouched. Safer in most cases.</td><td>Absolute</td></tr>
+  <tr><td>Adds the amount outright. A bigger, surer change, but it turns coarse more easily.</td><td>Skin reading too red — raise cyan a little in the <strong>reds</strong>. A murky sky — raise black a little in the <strong>blues</strong> to deepen it. A white wall coming out yellow — lower yellow in the <strong>whites</strong>.</td></tr>
+</table>
+
+<div class="tip">
+<b>Everyday moves</b>
+<p>Local Adjustments</p>
+</div>
+</section>
+
+<section id="local">
+<h2>Puts a correction into part of the photo only. Make a mask, then adjust inside it. The masks you make are listed in the <a href="#layers">Layers</a> section as well, so they sit alongside the layers you have stacked.</h2>
+<p>Three kinds of mask</p>
+
+<h3>Kind</h3>
+<table class="wide">
+  <tr><th>How to make it</th><th>Where it helps</th><th>Linear</th></tr>
+  <tr><td>Drag across the photo in one direction. The start is 100%, the end 0%.</td><td>Bringing a sky down or a foreground up</td><td>Radial</td></tr>
+  <tr><td>Draw an ellipse. Inside is 100%, the edge 0%.</td><td>Bringing out a person or a subject</td><td>Brush</td></tr>
+  <tr><td>Paint the area yourself.</td><td>Shapes that are not regular</td><td><strong>Feather</strong> (0 ~ 1) — how soft the edge is. 0 is hard, 1 spreads very gently.</td></tr>
+</table>
+<ul>
+  <li><strong>Brush size</strong> (20 ~ 600)</li>
+  <li><strong>Invert mask</strong> — the correction goes into <em>everything else</em> instead.</li>
+  <li>You can make several masks and switch each one on and off.</li>
+  <li>What you can adjust inside a mask</li>
+</ul>
+
+<h3>−2 ~ +2 EV</h3>
+<table>
+  <tr><th>Item</th><th>Highlight tone</th></tr>
+  <tr><td>−3 ~ +3 EV</td><td>Contrast · Highlights · Shadows</td></tr>
+  <tr><td>each −100 ~ +100</td><td>Saturation · Clarity</td></tr>
+  <tr><td>Warmth · Tint</td><td>Saturation · Clarity</td></tr>
+  <tr><td>Layers</td><td>Saturation · Clarity</td></tr>
+</table>
+</section>
+
+<section id="layers">
+<h2>Stacks layers on top of the developed photo. An adjustment layer re-works what is underneath, a solid colour layer covers it, and a masked layer only touches the part you mark.</h2>
+<p>Three kinds of layer</p>
+
+<h3>Adjustment</h3>
+<table class="wide">
+  <tr><th>How to make it</th><th>What it does</th></tr>
+  <tr><td>Another round of Light, Tone Curve, Levels, Hue & Saturation, Three-Way Color Balance, plus black & white and invert. For when you want the same adjustment twice, at different strengths.</td><td>Solid Color</td></tr>
+  <tr><td>Covers everything in a colour you pick. Paired with a blend mode it becomes a colour filter.</td><td>Mask</td></tr>
+  <tr><td>Applies only where you marked with a linear, radial or brush mask. The same masks as local adjustments.</td><td>Masked layers are applied to the photo first; the layers above them stack on that result.</td></tr>
+</table>
+<p>Blend modes</p>
+
+<h3>There are sixteen.</h3>
+<p>Group</p>
+<table class="wide">
+  <tr><th>Basic</th><th>Relative</th></tr>
+  <tr><td>Normal</td><td>Darker</td></tr>
+  <tr><td>Multiply · Color Burn · Darken</td><td>Lighter</td></tr>
+  <tr><td>Screen · Color Dodge · Lighten</td><td>Contrast</td></tr>
+  <tr><td>Overlay · Soft Light · Hard Light</td><td>Difference</td></tr>
+  <tr><td>Difference · Exclusion</td><td>Colour components</td></tr>
+  <tr><td>Hue · Saturation · Color · Luminosity</td><td>Strength is set with <strong>opacity</strong>.</td></tr>
+</table>
+<p>Keeping it tidy</p>
+
+<h3><strong>Show this layer</strong> — the eye icon switches it off and on.</h3>
+<ul>
+  <li><strong>Move up · Move down</strong> — change the stacking order.</li>
+  <li><strong>Merge into the layer below</strong> — joins two into one. Each layer's settings are kept as they were.</li>
+  <li><strong>Unmerge</strong> — takes a merged layer apart again.</li>
+  <li><strong>Delete this layer</strong></li>
+  <li>Add one solid colour layer and set its blend mode to <strong>Color</strong>: brightness stays where it is and only the colour covers the photo. Set the strength with opacity and you get something close to film toning.</li>
+</ul>
+
+<div class="tip">
+<b>The simplest way to tint a photo</b>
+<p>Detail</p>
+</div>
+</section>
+
+<section id="detail">
+<h2>Sharpness and noise. Judge this section <strong>at 100%</strong>.</h2>
+<p>Sharpness during RAW decoding. 0 is the macOS default; the steps add to or subtract from it.</p>
+<table>
+  <tr><th>Item</th><th>Highlight tone</th><th>What it does</th></tr>
+  <tr><td>How sharp the film itself is. Negative blurs.</td><td>Saturation across the whole film.</td><td>Color NR</td></tr>
+  <tr><td>Holds down colour blotches. 0 is the default. Raise it at high ISO.</td><td>Saturation across the whole film.</td><td>Sharpen</td></tr>
+  <tr><td>0 ~ 300 %</td><td>An unsharp mask applied after developing. Separate from the sharpness above.</td><td>Radius</td></tr>
+  <tr><td>0.5 ~ 5 px</td><td>How wide the sharpening works. Smaller catches fine texture, larger the broad outlines.</td><td>Sharpening only touches the brightness channel, so colour edges do not bleed.</td></tr>
+</table>
+<p>Effects</p>
+</section>
+
+<section id="effects">
+<h2>Vignette</h2>
+
+<h3><strong>Vignette</strong> (−100 ~ +100): negative darkens the edges, positive brightens them. <strong>Midpoint</strong> (0 ~ 100) is how far out the effect starts. Lower it and it reaches closer to the centre.</h3>
+<p>Monochrome · Invert</p>
+
+<h3><strong>Monochrome</strong> — drops the colour and goes black and white.</h3>
+<ul>
+  <li><strong>Invert (negative)</strong> — flips brightness and colour. For turning a scanned film negative back into a positive.</li>
+  <li>External LUTs</li>
+</ul>
+
+<h3>Loads a <span class="path">.cube</span> file of your own and applies it. <strong>LUT strength</strong> (0 ~ 100) sets how far it goes.</h3>
+<p>There are two more tools here.</p>
+<p>Button</p>
+<table class="wide">
+  <tr><th>Apply as LUT (.cube)…</th><th>What it does</th></tr>
+  <tr><td>Applies the LUT you pick as it is.</td><td>Convert to adjustments and load…</td></tr>
+  <tr><td>Works out what the LUT does and unpacks it into <em>slider values</em> — tone curves, saturation, HSL and three-way colour balance. Once unpacked you can keep working on it.</td><td>Fringe Removal</td></tr>
+</table>
+</section>
+
+<section id="defringe">
+<h2>Clears the colour smearing a lens leaves behind. Two different causes are handled separately.</h2>
+<p>Lateral chromatic aberration</p>
+
+<h3>The lens focuses red, green and blue at <strong>slightly different sizes</strong>, so cyan and magenta bands appear towards the edges of the frame. Taking the colour out cannot remove them — the <strong>shifted channels have to be put back where they belong</strong>.</h3>
+<p>Switch it on and the photo is analysed to find the amount automatically.</p>
+<ul>
+  <li><strong>Red scale</strong> and <strong>Blue scale</strong> (0.994 ~ 1.006) let you fine-tune it yourself.</li>
+  <li><strong>Measure again</strong> recalculates from the current photo.</li>
+  <li>Fringe removal</li>
+</ul>
+
+<h3>Clears the purple, green and crimson edges left along a strong backlit boundary.</h3>
+<p>Remove purple · Remove green · Remove red</p>
+<table>
+  <tr><th>Item</th><th>Highlight tone</th></tr>
+  <tr><td>each 0 ~ 3</td><td>Switch on <strong>Only where the brush paints</strong> and the correction works only where you have painted. Applied to the whole photo it fades things that were genuinely that colour — a purple flower, a red sign — so painting just the problem areas is safer.</td></tr>
+</table>
+<ul>
+  <li><strong>Brush size</strong> is 10 ~ 300.</li>
+  <li><strong>Hide the painted areas</strong> takes the marks off for a moment so you see only the result.</li>
+  <li><strong>Undo last</strong> and <strong>Clear all</strong> take it back.</li>
+  <li>Mist</li>
+</ul>
+</section>
+
+<section id="mist">
+<h2>A digital take on the optical diffusion filter you screw onto a lens. Highlights bloom softly, contrast eases, and skin turns gentle.</h2>
+<p>Level</p>
+<table>
+  <tr><th>Feel</th><th>Off</th></tr>
+  <tr><td>Switched off</td><td>1/8</td></tr>
+  <tr><td>The weakest. Easy to live with on a portrait.</td><td>1/4</td></tr>
+  <tr><td>The softness starts to register.</td><td>1/2</td></tr>
+  <tr><td>Light sources clearly spread, in night scenes and backlight.</td><td>1</td></tr>
+  <tr><td>The strongest. The mood changes a great deal.</td><td>Switch on <strong>Diffuse shadows</strong> and the light spreads into the dark parts as well, not just the bright ones — much like an old darkroom print.</td></tr>
+</table>
+<p>Mist needs light to work with. It shows where there is a light source, a bright sky or backlit hair; on a flat, overcast photo it only lowers contrast.</p>
+<p>Privacy Blur</p>
+</section>
+
+<section id="privacy">
+<h2>Covers the faces and licence plates of people who happened to be in the photo.</h2>
+<p>Finding them automatically</p>
+
+<h3>Open a photo and faces and plates are found and marked as regions. Detection runs on the <strong>full-resolution file</strong>, so it catches small faces that a downscaled preview would have smeared away.</h3>
+<p>The regions found are listed and can be switched on and off one at a time. Anyone who doesn't need covering — the friend you were with — can simply be switched off.</p>
+<p>Drawing your own</p>
+
+<h3>Press <strong>Draw a blur area</strong>.</h3>
+<ol class="steps">
+  <li>Drag on the photo to make a region.</li>
+  <li>Draw as many as you like in a row; press the button again when you are done.</li>
+  <li>To move the photo while drawing, hold <span class="kbd">Space</span> and drag.</li>
+</ol>
+<p>Shape and strength</p>
+
+<h3>Options</h3>
+<table>
+  <tr><th>Item</th><th>Blur / Pixelate</th></tr>
+  <tr><td>Relative</td><td>Shape</td></tr>
+  <tr><td>Rectangle / Ellipse</td><td>Strength</td></tr>
+  <tr><td>0.4 ~ 2.0</td><td>An ellipse suits a face; a rectangle suits plates and signs.</td></tr>
+</table>
+<p>Automatic detection can miss a face in profile, behind a mask, or in deep shadow. If the photo is going public, take one pass at 100% with <span class="kbd">⌘1</span> before you export.</p>
+
+<div class="warn">
+<b>Check before you publish</b>
+<p>Date Stamp</p>
+</div>
+</section>
+
+<section id="frame">
+<h2>Putting a margin around a photo to fit a set ratio is now <a href="#mount">Mount</a>'s job. Put one photo on the board, choose the aspect and the <strong>border</strong>, and you get what the old frame did — with gap, corners and background colour as well.</h2>
+
+<div class="note">
+<b>Frames moved to Mount</b>
+<p>The <strong>Date Stamp</strong> button in the Film Recipe section opens its settings.</p>
+</div>
+
+<h3>Putting a margin around a photo to fit a set ratio is now <a href="#mount">Mount</a>'s job. Put one photo on the board, choose the aspect and the <strong>border</strong>, and you get what the old frame did — with gap, corners and background colour as well.</h3>
+<p>Prints the capture date in the bottom right, like a film camera's data back. The digits are drawn as seven segments, so they look the same on any Mac.</p>
+<p>The date is read from the photo's capture information. The order the parts appear in can be chosen.</p>
+<p>The stamp goes on before the film simulation. It therefore takes film, tone, grain and mist <strong>exactly</strong> as the photo does, and reads as exposed together with it rather than typed on afterwards.</p>
+<p>Putting photos on the board</p>
+</section>
+
+
+<!-- ══════════ 마운트 ══════════ -->
+
+<section id="mount">
+<h2>Mount is a workspace where several photos go onto one board and become a single image. When you post to social media, a blog or a website, you can show several frames as one piece rather than separately.</h2>
+<p>Getting started</p>
+
+<h3>Choose <strong>Mount</strong> in the tabs at the top.</h3>
+<ul>
+  <li>Drag photos in from the <strong>photo drawer</strong> on the left. If the drawer is empty, pick a folder with <strong>Open a photo folder</strong>.</li>
+  <li>You can also click an empty cell and point at a file with <strong>Choose photo…</strong>.</li>
+  <li><strong>Mount this photo</strong> in the editing window sends the photo you were looking at straight to the board. From the library, select several and use <strong>Send to Mount</strong>.</li>
+  <li>The drawer folds away with its icon.</li>
+</ul>
+<p>The size of the board</p>
+
+<h3>Aspect</h3>
+<table>
+  <tr><th>Item</th><th>Blur / Pixelate</th></tr>
+  <tr><td>Original ratio · 1:1 · 4:5 · 5:4 · 2:3 · 3:2 · 3:4 · 4:3 · 9:16 · 16:9 · 1.91:1</td><td>Resolution</td></tr>
+  <tr><td>1080 · 1440 · 2048 · 4096 (pixels wide)</td><td><strong>Original ratio</strong> takes the proportions of the first photo. Handy when you only want a border, like a picture frame.</td></tr>
+</table>
+<p>Splitting into cells</p>
+</section>
+
+<section id="mount-split">
+<h2>Switch <strong>Split</strong> on and the board is divided into a grid. Choose how many rows and columns; up to 5 × 5.</h2>
+<p>Working the cells</p>
+
+<h3>Drag the divider between cells to change their sizes. <strong>Reset the split ratios</strong> makes them even again.</h3>
+<ul>
+  <li>Right-click a divider for <strong>Move Divider</strong> and <strong>Remove Divider</strong>.</li>
+  <li>Drag a photo onto another cell and the two swap places.</li>
+  <li>Fitting a photo inside its cell</li>
+</ul>
+
+<h3>A photo in a cell is cropped to fill it. Which part shows is up to you.</h3>
+<p>Drag the photo to move what is visible.</p>
+<ul>
+  <li>Scroll or pinch to zoom in and out.</li>
+  <li><strong>Reset crop</strong> puts it back where it started.</li>
+  <li><strong>Remove photo</strong> empties that cell.</li>
+  <li>Free placement</li>
+</ul>
+</section>
+
+<section id="mount-free">
+<h2>Switch <strong>Split</strong> off and the cells disappear; photos go anywhere you like on the board.</h2>
+<p>Placing and moving</p>
+
+<h3>Drag to move, take a corner to resize, and rotate.</h3>
+<ul>
+  <li>While you drag, a photo <strong>snaps</strong> to the others and to the board's edges so things line up.</li>
+  <li>The <strong>Grid</strong> button turns on a guide grid. Press again for a finer one, then off.</li>
+  <li>Stacking order</li>
+</ul>
+
+<h3>Right-click a photo to change it — <strong>Bring to Front · Bring Forward · Send Backward · Send to Back</strong>. The same menu has <strong>Reset crop</strong>, <strong>Reset rotation</strong> and <strong>Remove photo</strong>.</h3>
+<p>Buttons that help</p>
+
+<h3>Scatter</h3>
+<table class="wide">
+  <tr><th>Apply as LUT (.cube)…</th><th>What it does</th></tr>
+  <tr><td>Scatters the photos across the board. A useful starting point.</td><td>Even out</td></tr>
+  <tr><td>Tidies the sizes and spacing.</td><td>Clear</td></tr>
+  <tr><td>Takes every photo off the board.</td><td>Panels — work joined up, export cut apart</td></tr>
+</table>
+
+<h3>Set <strong>Panels</strong> to 2 or more and the aspect you chose is repeated sideways that many times into one board. Compose on the joined-up image, and on export it is cut back apart and saved <strong>numbered from the left</strong>.</h3>
+<p>This is how you make a multi-image social post look continuous rather than broken into pieces. Up to twelve panels.</p>
+<p>Gap · Border · Corners</p>
+</section>
+
+<section id="mount-look">
+<h2>Gap</h2>
+<table>
+  <tr><th>Item</th><th>Highlight tone</th><th>What it does</th></tr>
+  <tr><td>0 ~ 80</td><td>The space between one photo and the next.</td><td>Border</td></tr>
+  <tr><td>0 ~ 120</td><td>The margin at the edge of the board.</td><td>Corners</td></tr>
+  <tr><td>0 ~ 120</td><td>The margin at the edge of the board.</td><td>Rounds the photo corners. 0 leaves them square.</td></tr>
+  <tr><td>Background color</td><td>Any colour</td><td>Fills the gaps and the margin.</td></tr>
+</table>
+<p>The numbers are based on 1080px across. Raise the resolution and the proportions on screen stay the same.</p>
+
+<h3>Viewing</h3>
+<ul>
+  <li><strong>Fit</strong> — shows the whole board within the window.</li>
+  <li><strong>100%</strong> — the exported pixels as they are. For checking the size it will actually be saved at.</li>
+  <li>Zoomed in, drag to push the board around.</li>
+</ul>
+</section>
+
+<section id="mount-export">
+<h2>Saving and exporting</h2>
+
+<h3>Saving the work</h3>
+<p>Keep an arrangement in a file and carry on with it later.</p>
+<table>
+  <tr><td><span class="kbd">⌘S</span></td><td>Save Mount</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>Save Mount As…</td></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Open Mount (in the Mount tab, ⌘O opens a saved arrangement)</td></tr>
+</table>
+<p>If there is unsaved work you are asked before you switch tabs or quit. Undo covers everything — adding photos, moving them, reordering them.</p>
+
+<h3>Exporting as an image</h3>
+<p>Opens with <span class="kbd">⌘E</span>.</p>
+<table class="wide">
+  <tr><th>Item</th><th>Details</th></tr>
+  <tr><td>Format</td><td>The same as exporting from the editing window. Quality and PNG bit depth are set here too.</td></tr>
+  <tr><td>Size</td><td>Keeps the board's resolution or reduces it.</td></tr>
+  <tr><td>Cutting it apart</td><td>In free placement with panels set to 2 or more, choose whether to save one image or cut it into that many. Cut, they are numbered from the left.</td></tr>
+  <tr><td>Destination</td><td>The original folder or one you choose.</td></tr>
+  <tr><td>File name</td><td>Follows the name of the first photo on the board. A suffix can be added.</td></tr>
+</table>
+</section>
+
+<!-- ══════════ 마무리 ══════════ -->
+
+<section id="crop">
+<h2>Cropping and rotating</h2>
+<p><span class="kbd">C</span> goes into crop and rotate mode, <span class="kbd">A</span> back to colour adjustment.</p>
+
+<h3>Cropping</h3>
+<ul>
+  <li>Drag the corners and sides to set the area. Drag inside and the whole crop frame moves.</li>
+  <li>The ratio can be locked — <strong>Free · Original · 1:1 · 3:2 · 2:3 · 4:3 · 3:4 · 16:9 · 4:5</strong></li>
+</ul>
+
+<h3>Straightening</h3>
+<p><strong>Angle</strong> (−45° ~ +45°) sets a tilted horizon right. Rotating leaves empty corners, so the photo is enlarged a little to fill them.</p>
+
+<h3>Distortion</h3>
+<p><strong>Distortion</strong> (−100 ~ +100) straightens lines the lens has bent. Barrel distortion, bulging outward on a wide angle, is the negative side; pincushion, pinched inward on a telephoto, is the positive side. Line it up against something that ought to be straight, like a building or a horizon.</p>
+
+<h3>Rotating and flipping</h3>
+<ul>
+  <li>Rotate 90° left · Rotate 90° right</li>
+  <li>Flip horizontally · Flip vertically</li>
+</ul>
+<p>Cropping and rotating are applied first of all. Blur areas and brush strokes added afterwards therefore sit <strong>relative to the cropped photo</strong>.</p>
+</section>
+
+<section id="export">
+<h2>Exporting</h2>
+<p>Opens with <span class="kbd">⌘E</span>. With several photos selected, all of them are saved with the same settings. <span class="kbd">Return</span> inside the window starts it.</p>
+
+<h3>Format</h3>
+<table class="wide">
+  <tr><th>Format</th><th>Linear</th></tr>
+  <tr><td>JPEG</td><td>The safe choice. Social media, the web, email.</td></tr>
+  <tr><td>HEIF</td><td>Smaller files at the same quality. For passing between Apple devices.</td></tr>
+  <tr><td>PNG</td><td>Saved without loss. 8-bit or 16-bit. Large files.</td></tr>
+  <tr><td>WebP</td><td>Smaller than JPEG for the web.</td></tr>
+  <tr><td>TIFF (8bit)</td><td>For handing off to another editing app. Widely compatible.</td></tr>
+  <tr><td>TIFF (16bit)</td><td>For handing off with as much tonal detail as possible. Printing, or further work.</td></tr>
+</table>
+<p>Formats that use lossy compression let you set the <strong>quality</strong>. The default is 95%, and higher means a bigger file. There is rarely a reason to go below 90% for ordinary use.</p>
+
+<h3>Resizing</h3>
+<p>Three ways to go about it.</p>
+<table>
+  <tr><th>Relative</th><th>What you set</th></tr>
+  <tr><td>Scale</td><td>A proportion of the original</td></tr>
+  <tr><td>Width px</td><td>The width in pixels</td></tr>
+  <tr><td>Long edge px</td><td>The longer of the two sides, in pixels</td></tr>
+</table>
+<p>Whichever you use, <strong>nothing is enlarged beyond the original.</strong> Inventing pixels that were never there only costs quality.</p>
+
+<h3>Metadata</h3>
+<p>The <strong>Metadata</strong> tab in the export window chooses what stays in the file, item by item. Checked items are removed from the exported file.</p>
+<table class="wide">
+  <tr><th>Item</th><th>What it holds</th></tr>
+  <tr><td>Capture settings</td><td>Exposure · ISO · aperture</td></tr>
+  <tr><td>Camera and lens</td><td>Make · model · serial number</td></tr>
+  <tr><td>Date and time taken</td><td>When it was taken</td></tr>
+  <tr><td>Location (GPS)</td><td>The coordinates of the place</td></tr>
+  <tr><td>Creator and copyright</td><td>Author · copyright notice</td></tr>
+  <tr><td>Description and keywords</td><td>The text and tags attached to the photo</td></tr>
+  <tr><td>Editing software</td><td>Which app made it. The film name Rawcookr records sits here too, so it goes with it.</td></tr>
+  <tr><td>Maker notes</td><td>What the camera records for itself</td></tr>
+</table>
+<p><strong>Remove all</strong> switches them off in one go. If the photo is going public, leaving out <strong>Location (GPS)</strong> at the very least is the safe move. Coordinates alone give away where you live and work.</p>
+
+<h3>Other settings</h3>
+<table class="wide">
+  <tr><th>Item</th><th>What it does</th></tr>
+  <tr><td>Filename suffix</td><td>Text added after the file name. The default is <span class="path">_developed</span>. It keeps the name from clashing with the original.</td></tr>
+  <tr><td>Destination</td><td>Leave it in the original folder or point somewhere else.</td></tr>
+  <tr><td>Open the destination folder in Finder</td><td>Opens that folder in the Finder once saving is done.</td></tr>
+  <tr><td>Close this window</td><td>The window closes by itself when the export finishes. Handy when you are exporting batch after batch.</td></tr>
+</table>
+<p>Save as TIFF and the film name you used is recorded in the file's description as well.</p>
+
+<div class="note">
+<b>If the exported colour looks different</b>
+<p>Most often the app you are viewing in does not read the colour profile. Try the Finder preview or a web browser. Rawcookr exports sRGB, which looks the same nearly everywhere.</p>
+</div>
+</section>
+
+<section id="customfilm">
+<h2>Making your own film</h2>
+<p>There are two ways to add one of your own to the film list.</p>
+
+<p>Both are in the menu that appears when you choose the <strong>Custom</strong> family in the Film Recipe section.</p>
+
+<h3>A LUT you already have, as a film</h3>
+<ol class="steps">
+  <li>Press <strong>LUT to FILM…</strong> in the Custom menu.</li>
+  <li>Pick a <span class="path">.cube</span> file.</li>
+  <li>Give it a name and it joins the film list.</li>
+</ol>
+<p>A black-and-white LUT is recognised as a black-and-white film, so you get the mono-only adjustments such as Toning WC and MG.</p>
+
+<h3>A colour you tuned, as a film</h3>
+<p>Once you have built a colour you like with the tone curve, HSL and colour balance, <strong>Save color as film…</strong> in the same menu takes just that colour transform and stores it.</p>
+<p><strong>Export film as LUT</strong> writes a film out to a <span class="path">.cube</span> file. It will work in other apps too.</p>
+
+<h3>Sharing a recipe book</h3>
+<p>Bundles your films and presets into a single <span class="path">.rawb</span> file. Whoever receives it takes the lot in one go with <strong>Import recipe book</strong>.</p>
+<p>For sharing a look between people using the same gear, or moving your whole setup to a new Mac.</p>
+</section>
+
+<section id="prefs">
+<h2>Settings</h2>
+<table class="wide">
+  <tr><th>Item</th><th>Details</th></tr>
+  <tr><td>Where edits are stored</td><td><strong>Managed in the app folder</strong> (default) or <strong>beside the original file</strong>. See <a href="#originals">Your originals are left alone</a>.</td></tr>
+  <tr><td>Background</td><td>How bright it is behind the photo in the editing window. Keeping it dark makes the photo's own brightness easier to judge.</td></tr>
+  <tr><td>Preset thumbnail size</td><td>The preview size in the preset list. Tiny · Small · Large.</td></tr>
+</table>
+<p>The app's own light and dark appearance is set with <span class="kbd">⌘⇧9</span> and <span class="kbd">⌘⇧0</span>.</p>
+</section>
+
+<section id="shortcuts">
+<h2>Keyboard shortcuts</h2>
+<p>Which keys work depends on the mode. Keys that work in all three are repeated in each table, so you only need the table for the mode you are in.</p>
+
+<h3>In any mode</h3>
+<table>
+  <tr><td><span class="kbd">⌘E</span></td><td>Exporting</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Close (closes the photo while editing)</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Rawcookr Help</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span></td><td>Dark Mode</td></tr>
+  <tr><td><span class="kbd">⌘⇧0</span></td><td>Light Mode</td></tr>
+  <tr><td><span class="kbd">⌘Q</span></td><td>Quit — you are asked if a mount has unsaved work</td></tr>
+</table>
+
+<h3>Library</h3>
+<table>
+  <tr><th>Key</th><th>What it does</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Open a folder</td></tr>
+  <tr><td><span class="kbd">⌘R</span></td><td>Re-read the folder</td></tr>
+  <tr><td><span class="kbd">⌘A</span></td><td>Select all</td></tr>
+  <tr><td><span class="kbd">←</span> <span class="kbd">→</span> <span class="kbd">↑</span> <span class="kbd">↓</span></td><td>Move around the grid</td></tr>
+  <tr><td><span class="kbd">Space</span></td><td>Show large (press again to close)</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>Take the selected photo into the editing window</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>Close the large view</td></tr>
+  <tr><td><span class="kbd">1</span>~<span class="kbd">5</span></td><td>Rate the selected photos — all of them at once</td></tr>
+  <tr><td>Flag / unflag</td><td>Flag / unflag — all of them at once</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>Develop as new version</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>Show / hide the sidebar</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>Show / hide the folder tree</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>Show / hide file info</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>Export every selected photo</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Close the window</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Help</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Dark Mode · Light Mode</td></tr>
+</table>
+
+<h3>Editing</h3>
+<h4>Viewing</h4>
+<table>
+  <tr><th>Key</th><th>What it does</th></tr>
+  <tr><td><span class="kbd">⌘=</span> · <span class="kbd">⌘-</span></td><td>Zoom in · Zoom out</td></tr>
+  <tr><td>Fit to screen</td><td><span class="kbd">⌘1</span></td></tr>
+  <tr><td>100% — actual pixels</td><td>100% (actual pixels)</td></tr>
+  <tr><td>Push the photo around</td><td>Push the photo around</td></tr>
+  <tr><td><span class="kbd">M</span></td><td>Original view (while held)</td></tr>
+  <tr><td><span class="kbd">J</span></td><td>Clipping warning on / off</td></tr>
+  <tr><td>Show / hide the zoom bar</td><td>Anything you have to judge pixel by pixel — sharpness, grain — needs <span class="kbd">⌘1</span> and 100%. Below that the photo is drawn smaller to fit the window, so what you see is not what you get.</td></tr>
+  <tr><td><span class="kbd">,</span> · <span class="kbd">.</span></td><td>Open · close every adjustment section</td></tr>
+  <tr><td><span class="kbd">⌘F</span></td><td>Show / hide the filmstrip</td></tr>
+  <tr><td><span class="kbd">⌃⌘F</span></td><td>Enter / leave focus view (full screen)</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>Show / hide the sidebar</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>Show / hide the folder tree</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>Show / hide file info</td></tr>
+</table>
+
+<h4>Editing</h4>
+<table>
+  <tr><th>Key</th><th>What it does</th></tr>
+  <tr><td><span class="kbd">C</span></td><td>Crop / rotate mode</td></tr>
+  <tr><td><span class="kbd">A</span></td><td>Back to colour adjustment mode</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>Confirm the crop and leave crop mode</td></tr>
+  <tr><td><span class="kbd">⌘⇧C</span></td><td>Copy edits</td></tr>
+  <tr><td><span class="kbd">⌘⇧V</span></td><td>Paste edits</td></tr>
+  <tr><td><span class="kbd">⌥⌘R</span></td><td>Clear every edit on this photo</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>Develop as new version</td></tr>
+</table>
+
+<h4>Selecting and moving</h4>
+<table>
+  <tr><th>Key</th><th>What it does</th></tr>
+  <tr><td><span class="kbd">←</span> · <span class="kbd">→</span></td><td>Previous · next photo (not while cropping)</td></tr>
+  <tr><td><span class="kbd">1</span>~<span class="kbd">5</span></td><td>Rating</td></tr>
+  <tr><td>Flag / unflag</td><td>In the library this goes to every selected photo at once. Afterwards, the filter at the top of the window can show <strong>flagged only</strong>, or a rating and above. Ratings and flags live with your edits, so the original file is untouched.</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>Close the photo and go back to the library (cancels the crop while cropping)</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>Exporting</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Close the photo</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Help</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Dark Mode · Light Mode</td></tr>
+</table>
+
+<h3>Mount</h3>
+<table>
+  <tr><th>Key</th><th>What it does</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Open Mount — in this mode ⌘O opens a saved arrangement, not a folder</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>Save Mount</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>Save Mount As…</td></tr>
+  <tr><td><span class="kbd">⌘Z</span></td><td>Undo — adding photos, moving them, reordering them</td></tr>
+  <tr><td><span class="kbd">⇧⌘Z</span></td><td>Redo</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>Export the board as an image</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Close the window</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Help</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Dark Mode · Light Mode</td></tr>
+</table>
+
+</section>
+
+<section id="trouble">
+<h2>Common questions</h2>
+
+<h4>A RAW file won't open</h4>
+<p>RAW development uses the engine built into macOS, so a very recent camera model needs macOS to be updated first. Check <strong>System Settings → General → Software Update</strong>. If it still won't open, try saving as DNG in the camera, or <a href="mailto:rawcookr@slowsalmon.com">let us know</a>.</p>
+
+<h4>Thumbnails are slow to appear</h4>
+<p>The first time you open a folder, a preview has to be built for every photo, which takes a moment. After that it is quick. If a folder holds a very large number of photos, splitting it into subfolders is more comfortable.</p>
+
+<h4>Sharpness or grain doesn't seem to be applied</h4>
+<p>At fit-to-window the photo is drawn smaller, so pixel-level effects are invisible. Check at 100% with <span class="kbd">⌘1</span>.</p>
+
+<h4>My edits have disappeared</h4>
+<p>Edits live in a file separate from the original. If you had set them to be stored <strong>beside the original file</strong>, moving only the photos elsewhere may have left the settings behind. Use <strong>Move to another folder</strong> inside the app and the settings move too.</p>
+
+<h4>The subscription isn't recognised</h4>
+<p>Check that you are signed in to the App Store with the same Apple Account, then press <strong>Restore Purchases</strong> on the subscription screen.</p>
+
+<h4>A face is still showing</h4>
+<p>Automatic detection can miss a face in profile, behind a mask, or in deep shadow. Draw a region over it yourself, and take one pass at 100% before you publish.</p>
+
+<h4>My mount work has disappeared</h4>
+<p>A mount is not written to a file until you save it. Save first with <span class="kbd">⌘S</span>. If you try to switch tabs or quit without saving, you are asked.</p>
+
+<h4>If none of this helps</h4>
+<p>Write to <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a>. Telling us which Mac you use, and which file from which camera, helps us find it far more quickly.</p>
+</section>
+
+</main>
+</div>
+<footer>
+  <p><a href="./">Rawcookr home</a> · <a href="privacy.html">Privacy Policy</a> · <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a></p>
+</footer>
+<script>
+  // ── 언어 전환 ──
+  (function () {
+    const sel = document.getElementById('lang');
+    const cur = document.documentElement.lang || 'ko';
+    sel.value = cur;
+    sel.addEventListener('change', () => {
+      const v = sel.value;
+      location.href = (v === 'ko' ? 'guide.html' : 'guide-' + v + '.html') + location.hash;
+    });
+  })();
+
+  const toc = document.getElementById('toc');
+  document.getElementById('menubtn')
+    .addEventListener('click', () => toc.classList.toggle('open'));
+
+  const groups = [...toc.querySelectorAll('li')];
+  const links  = [...toc.querySelectorAll('a')];
+  const linkOf  = new Map(links.map(a => [a.hash.slice(1), a]));
+  const groupOf = new Map(links.map(a => [a.hash.slice(1), a.closest('li')]));
+
+  function openOnly(li) {
+    groups.forEach(g => g.classList.toggle('open', g === li));
+  }
+
+  // 묶음 제목을 누르면 그 묶음만 펼치고, 이미 펼쳐져 있으면 접는다
+  groups.forEach(li => {
+    li.querySelector('.grp').addEventListener('click', () => {
+      openOnly(li.classList.contains('open') ? null : li);
+    });
+  });
+
+  // 좁은 화면에서는 항목을 누르면 목차를 닫는다
+  links.forEach(a => a.addEventListener('click', () => toc.classList.remove('open')));
+
+  function highlight(id) {
+    const a = linkOf.get(id);
+    if (!a || a.classList.contains('on')) return;
+    links.forEach(x => x.classList.remove('on'));
+    a.classList.add('on');
+    const li = groupOf.get(id);
+    if (li && !li.classList.contains('open')) openOnly(li);
+  }
+
+  // 화면에 걸쳐 있는 섹션 가운데 가장 위의 것을 현재 위치로 본다
+  const sections = [...document.querySelectorAll('section[id]')];
+  const visible = new Set();
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => en.isIntersecting ? visible.add(en.target) : visible.delete(en.target));
+    let best = null;
+    visible.forEach(el => {
+      if (!best || el.getBoundingClientRect().top < best.getBoundingClientRect().top) best = el;
+    });
+    if (best) highlight(best.id);
+  }, { rootMargin: '-70px 0px -70% 0px' });
+  sections.forEach(el => obs.observe(el));
+
+  // 주소에 #항목이 붙어 있으면 그 묶음을 열고 시작, 아니면 첫 묶음
+  const start = location.hash.slice(1);
+  if (start && groupOf.has(start)) highlight(start);
+  else groups[0].classList.add('open');
+</script>
+</body>
+</html>

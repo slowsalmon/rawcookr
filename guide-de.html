@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rawcookr Benutzerhandbuch</title>
+<meta name="description" content="Jede Funktion von Rawcookr und wie man sie nutzt — Filmrezepte, Unkenntlichmachen, Mist, lokale Korrekturen, Export und Tastaturkurzbefehle.">
+<meta property="og:title" content="Rawcookr Benutzerhandbuch">
+<meta property="og:description" content="Jede Funktion von Rawcookr und wie man sie nutzt, Abschnitt für Abschnitt.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://rawcookr.slowsalmon.com/guide-de.html">
+<link rel="canonical" href="https://rawcookr.slowsalmon.com/guide-de.html">
+<link rel="icon" href="icon.png">
+<style>
+  :root {
+    --cream: #F8F5EB;
+    --ink: #1E1B16;
+    --muted: #6B6459;
+    --blue: #0055B8;
+    --blue-soft: #E8EFFA;
+    --lemon: #F2C100;
+    --line: #E4DCC9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                 "Pretendard", "Noto Sans KR", sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--blue); }
+
+  /* ── 상단 바 ── */
+  .topbar {
+    position: sticky; top: 0; z-index: 30;
+    background: rgba(248,245,235,0.94);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 1180px; margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .topbar img { width: 30px; height: 30px; border-radius: 7px; }
+  .topbar .name { font-weight: 800; letter-spacing: -0.01em; }
+  .topbar .name a { color: var(--ink); text-decoration: none; }
+  .topbar .sep { color: var(--line); }
+  .topbar .where { color: var(--muted); font-size: 0.95em; }
+  .topbar .spacer { flex: 1; }
+  .topbar .home { font-size: 0.9em; font-weight: 600; text-decoration: none; }
+  #menubtn {
+    display: none; font: inherit; font-size: 0.85em; font-weight: 700;
+    background: #fff; color: var(--ink); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 14px; cursor: pointer;
+  }
+  #lang {
+    font: inherit; font-size: 0.82em; font-weight: 600; color: var(--ink);
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 5px 28px 5px 12px; cursor: pointer;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%236B6459'/></svg>");
+    background-repeat: no-repeat; background-position: right 11px center;
+  }
+
+  /* ── 레이아웃 ── */
+  .shell { max-width: 1180px; margin: 0 auto; padding: 0 24px; display: flex; gap: 48px; }
+  nav.toc {
+    flex: none; width: 258px; padding: 36px 0 80px;
+    position: sticky; top: 55px; align-self: flex-start;
+    max-height: calc(100vh - 55px); overflow-y: auto;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; }
+  nav.toc > ol > li { margin-bottom: 2px; }
+  nav.toc .grp {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    font: inherit; font-size: 0.78em; font-weight: 800; letter-spacing: 0.06em;
+    color: var(--muted); text-transform: uppercase;
+    background: none; border: 0; cursor: pointer; text-align: left;
+    padding: 8px 10px; margin-left: -10px; border-radius: 7px;
+  }
+  nav.toc .grp:hover { background: #fff; color: var(--ink); }
+  nav.toc .caret {
+    flex: none; width: 6px; height: 6px; margin-top: -2px;
+    border-right: 1.8px solid currentColor; border-bottom: 1.8px solid currentColor;
+    transform: rotate(-45deg); transition: transform 0.18s ease;
+  }
+  nav.toc li.open > .grp { color: var(--ink); }
+  nav.toc li.open > .grp .caret { transform: rotate(45deg); margin-top: -4px; }
+  nav.toc .items {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease;
+  }
+  nav.toc li.open > .items { grid-template-rows: 1fr; }
+  nav.toc .items > div { overflow: hidden; }
+  nav.toc a {
+    display: block; padding: 3px 10px 3px 28px; margin-left: -10px;
+    color: #443E36; text-decoration: none; font-size: 0.93em;
+    border-radius: 7px; line-height: 1.6;
+  }
+  nav.toc a:hover { background: #fff; }
+  nav.toc a.on { background: var(--blue-soft); color: var(--blue); font-weight: 700; }
+  nav.toc .items > div > :last-child { margin-bottom: 10px; }
+  @media (prefers-reduced-motion: reduce) {
+    nav.toc .items, nav.toc .caret { transition: none; }
+  }
+
+  main { flex: 1; min-width: 0; padding: 36px 0 120px; max-width: 720px; }
+  main h1 { font-size: 2.5em; margin: 0 0 10px; letter-spacing: -0.02em; }
+  main > .lead { color: var(--muted); font-size: 1.08em; margin: 0 0 8px; }
+
+  section { padding-top: 52px; }
+  section > h2 {
+    font-size: 1.62em; margin: 0 0 6px; letter-spacing: -0.01em;
+    padding-top: 28px; border-top: 1px solid var(--line);
+  }
+  section.first > h2 { border-top: none; padding-top: 0; }
+  h3 { font-size: 1.16em; margin: 34px 0 8px; }
+  h4 { font-size: 1.0em; margin: 22px 0 4px; }
+  p { margin: 0 0 14px; color: #443E36; }
+  ul, ol.steps { margin: 0 0 16px; padding-left: 22px; color: #443E36; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--ink); }
+
+  .kbd {
+    display: inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em; background: #fff; border: 1px solid var(--line);
+    border-bottom-width: 2px; border-radius: 6px; padding: 1px 7px;
+    color: var(--ink); white-space: nowrap;
+  }
+  .path {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.88em; background: #fff; border: 1px solid var(--line);
+    border-radius: 6px; padding: 1px 7px;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 20px; font-size: 0.95em; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 0.82em; letter-spacing: 0.04em; color: var(--muted); text-transform: uppercase; font-weight: 700; }
+  td:first-child { white-space: nowrap; font-weight: 600; }
+  table.wide td:first-child { white-space: normal; }
+
+  .note, .tip, .warn {
+    border-radius: 12px; padding: 14px 18px; margin: 18px 0;
+    font-size: 0.96em; line-height: 1.75;
+  }
+  .note { background: #fff; border: 1px solid var(--line); }
+  .tip  { background: var(--blue-soft); }
+  .warn { background: #FFF6DC; }
+  .note p:last-child, .tip p:last-child, .warn p:last-child { margin-bottom: 0; }
+  .note b, .tip b, .warn b { display: block; margin-bottom: 2px; }
+
+  .pill {
+    display: inline-block; background: var(--blue-soft); color: var(--blue);
+    border-radius: 999px; padding: 2px 11px; font-size: 0.8em; font-weight: 700;
+    vertical-align: middle;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); margin-top: 40px;
+    padding: 40px 24px 70px; text-align: center; color: var(--muted); font-size: 0.92em;
+  }
+  footer a { font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .shell { display: block; padding: 0 20px; }
+    #menubtn { display: block; }
+    nav.toc {
+      display: none; width: auto; position: static; max-height: none;
+      padding: 18px 0 6px; border-bottom: 1px solid var(--line);
+    }
+    nav.toc.open { display: block; }
+    main { padding-top: 26px; max-width: none; }
+    main h1 { font-size: 2em; }
+    .topbar .where { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <img src="icon.png" alt="">
+    <span class="name"><a href="./">Rawcookr</a></span>
+    <span class="sep">/</span>
+    <span class="where">Benutzerhandbuch</span>
+    <span class="spacer"></span>
+    <button id="menubtn" type="button">Inhalt</button>
+    <select id="lang" aria-label="Language">
+      <option value="ko">한국어</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+      <option value="zh-Hans">中文（简体）</option>
+      <option value="de">Deutsch</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="th">ไทย</option>
+      <option value="vi">Tiếng Việt</option>
+      <option value="id">Bahasa Indonesia</option>
+    </select>
+    <a class="home" href="./">Zur Startseite</a>
+  </div>
+</div>
+
+<div class="shell">
+
+<nav class="toc" id="toc">
+  <ol>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Erste Schritte</button>
+      <div class="items"><div>
+        <a href="#screen">Die beiden Fenster</a>
+        <a href="#open">Fotos öffnen</a>
+        <a href="#originals">Deine Originale bleiben unberührt</a>
+        <a href="#subscription">Abonnement und kostenloser Test</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Fotos auswählen</button>
+      <div class="items"><div>
+        <a href="#library">Ordner und Miniaturen</a>
+        <a href="#rating">Bewertungen und Markierungen</a>
+        <a href="#batch">Mehrere auf einmal</a>
+        <a href="#versions">Versionen</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Das Bearbeitungsfenster</button>
+      <div class="items"><div>
+        <a href="#canvas">Zoomen und Verschieben</a>
+        <a href="#inspect">Vergleich mit dem Original und die Beschnittwarnung</a>
+        <a href="#compare">Vergleichsansicht</a>
+        <a href="#sections">Mit den Korrekturbereichen arbeiten</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Korrekturen</button>
+      <div class="items"><div>
+        <a href="#presets">Vorgaben</a>
+        <a href="#film">Filmrezept</a>
+        <a href="#wb">Weißabgleich</a>
+        <a href="#light">Licht</a>
+        <a href="#curve">Gradationskurve</a>
+        <a href="#hsl">Farbton & Sättigung</a>
+        <a href="#levels">Tonwertkorrektur</a>
+        <a href="#colorgrade">Drei-Wege-Farbbalance</a>
+        <a href="#selective">Selektive Farbe</a>
+        <a href="#local">Lokale Korrekturen</a>
+        <a href="#layers">Ebenen</a>
+        <a href="#detail">Details</a>
+        <a href="#effects">Effekte</a>
+        <a href="#defringe">Saumentfernung</a>
+        <a href="#mist">Mist</a>
+        <a href="#privacy">Unkenntlich machen</a>
+        <a href="#frame">Datumsaufdruck</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Montage</button>
+      <div class="items"><div>
+        <a href="#mount">Fotos auf die Platte legen</a>
+        <a href="#mount-split">In Felder teilen</a>
+        <a href="#mount-free">Freie Platzierung</a>
+        <a href="#mount-look">Abstand · Rand · Ecken</a>
+        <a href="#mount-export">Sichern und exportieren</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Zum Schluss</button>
+      <div class="items"><div>
+        <a href="#crop">Beschneiden und Drehen</a>
+        <a href="#export">Exportieren</a>
+        <a href="#customfilm">Einen eigenen Film machen</a>
+        <a href="#prefs">Einstellungen</a>
+        <a href="#shortcuts">Tastaturkurzbefehle</a>
+        <a href="#trouble">Häufige Fragen</a>
+      </div></div>
+    </li>
+  </ol>
+</nav>
+
+<main>
+
+<h1>Rawcookr Benutzerhandbuch</h1>
+<p class="lead">Das Foto entwickeln, die Menschen darauf verdecken, ihm die gewünschte Farbe geben und es fertig zum Posten exportieren. Jede Funktion, Abschnitt für Abschnitt.</p>
+<p class="lead" style="font-size:0.95em">macOS 14 oder neuer · Stand Version 1.1</p>
+
+<!-- ══════════ 시작하기 ══════════ -->
+
+<section class="first" id="screen">
+<h2>Die beiden Fenster</h2>
+<p>Rawcookr hat zwei Fenster.</p>
+
+<h3>Mediathek</h3>
+<p>Hier wählst du einen Ordner und siehst deine Fotos durch. Links die Ordnerliste, in der Mitte das Raster der Miniaturen. Hier bewertest und markierst du, und exportierst eine ganze Auswahl auf einmal.</p>
+
+<h3>Montage</h3>
+<p>Hier kommen mehrere Fotos auf eine Platte und werden zu einem einzigen Bild. Siehe <a href="#mount">Fotos auf die Platte legen</a>.</p>
+
+<h3>Bearbeiten</h3>
+<p>Hier arbeitest du wirklich an einem Foto. Das Foto in der Mitte, rechts die Korrekturpalette, unten der Filmstreifen. Doppelklicke ein Foto in der Mediathek oder drücke <span class="kbd">Return</span>. Mit <span class="kbd">Esc</span> geht es zurück.</p>
+
+<div class="tip">
+<b>Wenn du mehr Platz willst</b>
+<p><span class="kbd">⌘F</span> blendet den Filmstreifen aus, <span class="kbd">⌃⌘F</span> zeigt allein das Foto im Vollbild. <span class="kbd">.</span> klappt alle Bereiche der rechten Palette zu, <span class="kbd">,</span> öffnet sie alle.</p>
+</div>
+</section>
+
+<section id="open">
+<h2>Fotos öffnen</h2>
+
+<h3>Ordner öffnen</h3>
+<p><strong>Ablage → Ordner öffnen</strong> (<span class="kbd">⌘O</span>) wählt den Ordner mit deinen Fotos. Einmal geöffnete Ordner bleiben in der Seitenleiste links und sind beim nächsten Mal sofort da. Zum Entfernen klicke mit der rechten Maustaste auf den Ordnernamen und wähle <strong>Aus Seitenleiste entfernen</strong>. Unterordner werden mit aufgeführt.</p>
+
+<h3>Direkt aus dem Finder</h3>
+<p>Klicke im Finder mit der rechten Maustaste auf ein Foto und wähle <strong>Öffnen mit → Rawcookr</strong>. Der Ordner, in dem die Datei liegt, wird der Mediathek hinzugefügt und das Bearbeitungsfenster öffnet sich sofort.</p>
+
+<h3>Unterstützte Formate</h3>
+<table>
+  <tr><th>Art</th><th>Endungen</th></tr>
+  <tr><td>RAW</td><td>RAF · DNG · CR2 · CR3 · CRW · NEF · NRW · ARW · SR2 · SRF · RW2 · RAW · RWL · PEF · ORF · 3FR · FFF · IIQ</td></tr>
+  <tr><td>Andere</td><td>JPG · JPEG · PNG · HEIC · HEIF · HIF · TIFF · TIF</td></tr>
+</table>
+<p>Die RAW-Entwicklung nutzt die in macOS eingebaute RAW-Engine. Sehr neue Kameramodelle brauchen mitunter erst ein macOS-Update.</p>
+</section>
+
+<section id="originals">
+<h2>Deine Originale bleiben unberührt</h2>
+<p>Rawcookr schreibt nie in die Originaldatei. Deine Werte landen in einer eigenen kleinen Einstellungsdatei. Öffnest du das Original in einer anderen App, ist es genau wie vorher.</p>
+<p>Wo diese Einstellungen liegen, bestimmst du in den <strong>Einstellungen</strong>.</p>
+<table class="wide">
+  <tr><th>Wahl</th><th>Bedeutung</th></tr>
+  <tr><td>Im App-Ordner verwaltet <span class="pill">Standard</span></td><td>Dein Fotoordner bleibt sauber. Praktisch, wenn du ihn so weitergibst, wie er ist.</td></tr>
+  <tr><td>Neben der Originaldatei</td><td>Foto und Einstellungen reisen immer zusammen. Nimm die ganze externe Festplatte an einen anderen Mac mit und deine Bearbeitungen kommen mit.</td></tr>
+</table>
+<p>Du kannst deine Bearbeitungen auch in eine Datei schreiben und wieder einlesen. <strong>Einstellungen sichern</strong> und <strong>Einstellungen anwenden</strong> im Bearbeitungsfenster nutzen eine <span class="path">.rawcookr-settings.json</span>-Datei.</p>
+</section>
+
+<section id="subscription">
+<h2>Abonnement und kostenloser Test</h2>
+<p>Rawcookr ist eine Abo-App. <strong>Sieben Tage kostenlos</strong> mit allem freigeschaltet, danach monatlich oder jährlich. Es gibt keine höhere Stufe und nichts wird separat verkauft — alles in diesem Handbuch ist enthalten.</p>
+<p>Verwaltung und Kündigung laufen über die Einstellungen deines App-Store-Accounts. Kündigst du vor Ende des Testzeitraums, wird nichts berechnet.</p>
+<div class="note">
+<b>Wenn du den Mac gewechselt hast</b>
+<p>Melde dich mit demselben Apple-Account im App Store an und öffne die App; das Abonnement wird automatisch erkannt. Falls nicht, drücke <strong>Käufe wiederherstellen</strong> auf dem Abo-Bildschirm.</p>
+</div>
+</section>
+
+<!-- ══════════ 사진 고르기 ══════════ -->
+
+<section id="library">
+<h2>Ordner und Miniaturen</h2>
+<p>In der Mediathek füllt ein Ordner das Fenster. Wähle links in der Seitenleiste einen Ordner und seine Fotos legen sich in ein Raster.</p>
+
+<h3>Durchsehen</h3>
+<ul>
+  <li>Der Regler oben rechts ändert die Größe der Miniaturen.</li>
+  <li>Die Pfeiltasten bewegen dich zwischen den Fotos.</li>
+  <li><span class="kbd">Return</span> öffnet das Bearbeitungsfenster.</li>
+  <li><span class="kbd">Space</span> zeigt das Foto groß. Noch einmal drücken oder <span class="kbd">Esc</span> schließt es; <span class="kbd">Return</span> in der großen Ansicht entwickelt dieses Foto. Der Dateiname steht darunter.</li>
+</ul>
+
+<h3>Auswählen</h3>
+<ul>
+  <li>Klick für eines, <span class="kbd">⇧</span>+Klick für einen Bereich, <span class="kbd">⌘</span>+Klick zum einzelnen Hinzufügen.</li>
+  <li>Ziehe über eine leere Fläche, um mit einem Rechteck mehrere auf einmal einzusammeln.</li>
+  <li><span class="kbd">⌘A</span> wählt alle aus.</li>
+</ul>
+
+<h3>Mit Dateien arbeiten</h3>
+<p>Dieses Menü erscheint beim Rechtsklick auf eine Miniatur.</p>
+<table class="wide">
+  <tr><th>Eintrag</th><th>Was es tut</th></tr>
+  <tr><td>Im Finder zeigen</td><td>Öffnet den Ordner, in dem die Originaldatei liegt.</td></tr>
+  <tr><td>Umbenennen</td><td>Benennt die Originaldatei um. Nur für ein Foto auf einmal.</td></tr>
+  <tr><td>Duplizieren</td><td>Legt eine zweite Kopie der Originaldatei an.</td></tr>
+  <tr><td>In anderen Ordner bewegen</td><td>Verschiebt die ausgewählten Fotos woandershin. Die Bearbeitungseinstellungen gehen mit.</td></tr>
+  <tr><td>In den Papierkorb legen</td><td>Legt das Original in den Papierkorb. Zum Rückgängigmachen holst du es aus dem Papierkorb im Finder zurück.</td></tr>
+</table>
+</section>
+
+<section id="rating">
+<h2>Bewertungen und Markierungen</h2>
+<p>Zum Aussortieren der guten Aufnahmen aus einem großen Shooting. Du kannst in der Mediathek wie im Bearbeitungsfenster bewerten.</p>
+<table>
+  <tr><th>Taste</th><th>Was es tut</th></tr>
+  <tr><td><span class="kbd">1</span>–<span class="kbd">5</span></td><td>Sterne vergeben</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>Markieren / Markierung entfernen</td></tr>
+</table>
+<p>In der Mediathek gilt das auf einmal für alle ausgewählten Fotos. Danach kann der Filter oben im Fenster <strong>nur markierte</strong> zeigen, oder eine Bewertung und darüber. Bewertungen und Markierungen liegen bei deinen Bearbeitungen, die Originaldatei bleibt also unberührt.</p>
+</section>
+
+<section id="batch">
+<h2>Mehrere auf einmal</h2>
+
+<h3>Bearbeitungen übertragen</h3>
+<p>Sieht ein Foto erst einmal richtig aus, gehen seine Werte direkt auf ein anderes über.</p>
+<ol class="steps">
+  <li><span class="kbd">⌘⇧C</span> auf dem Foto, das dir gefällt — Bearbeitung kopieren</li>
+  <li>Öffne das Foto, auf das sie soll, und drücke <span class="kbd">⌘⇧V</span> — Bearbeitung einsetzen</li>
+</ol>
+<p>Das Einsetzen geht in <strong>das eine gerade geöffnete Foto</strong>. Um weiterzugehen, drücke <span class="kbd">→</span> für das nächste Foto und noch einmal <span class="kbd">⌘⇧V</span>.</p>
+<p>Was an eine Position gebunden ist — Unkenntlich-Bereiche, Pinselstriche der Saumentfernung, der Beschnitt, Masken lokaler Korrekturen — wird nicht übertragen; das empfangende Foto behält seine eigenen. In jedem Foto sitzen die Gesichter anderswo, so ist es richtig.</p>
+
+<h3>Eine ganze Auswahl exportieren</h3>
+<p>Sind mehrere Fotos ausgewählt, exportiert <span class="kbd">⌘E</span> sie alle mit denselben Einstellungen. Siehe <a href="#export">Exportieren</a>.</p>
+
+<div class="warn">
+<b>Vorsicht</b>
+<p>Das Einsetzen einer Bearbeitung lässt sich nicht widerrufen. Probiere es an einem Foto, bevor du es durch eine ganze Auswahl schickst.</p>
+</div>
+</section>
+
+<section id="versions">
+<h2>Versionen</h2>
+<p>Um dasselbe Foto auf zwei Arten zu entwickeln und nebeneinander zu vergleichen. Es wird nichts kopiert, kein einziges Byte mehr auf der Festplatte.</p>
+<p><strong>Ablage → Als neue Version entwickeln</strong> (<span class="kbd">⌘G</span>) im Bearbeitungsfenster behält deine aktuellen Werte und legt daneben eine unberührte Kopie an. Im Filmstreifen erscheint sie nummeriert als <strong>V2</strong>, <strong>V3</strong> und so fort.</p>
+<p>Eine Version zu löschen lässt die Originaldatei an Ort und Stelle. Das meint „die Originaldatei bleibt erhalten“ in der Rückfrage.</p>
+</section>
+
+<!-- ══════════ 현상 화면 ══════════ -->
+
+<section id="canvas">
+<h2>Zoomen und Verschieben</h2>
+<table>
+  <tr><th>Aktion</th><th>Was es tut</th></tr>
+  <tr><td><span class="kbd">⌘=</span></td><td>Vergrößern</td></tr>
+  <tr><td><span class="kbd">⌘-</span></td><td>Verkleinern</td></tr>
+  <tr><td><span class="kbd">⌘0</span></td><td>Ins Fenster einpassen</td></tr>
+  <tr><td><span class="kbd">⌘1</span></td><td>100 % — echte Pixel</td></tr>
+  <tr><td><span class="kbd">Space</span> + Ziehen</td><td>Das Foto verschieben</td></tr>
+  <tr><td>Trackpad-Pinch</td><td>Vergrößern und verkleinern</td></tr>
+  <tr><td>Zwei-Finger-Scrollen auf dem Trackpad</td><td>Verschieben</td></tr>
+  <tr><td><span class="kbd">O</span></td><td>Zoomleiste ein-/ausblenden</td></tr>
+</table>
+<p>Alles, was Pixel für Pixel beurteilt werden muss — Schärfe, Korn — braucht <span class="kbd">⌘1</span> und 100 %. Darunter wird das Foto verkleinert ins Fenster gezeichnet, du siehst also nicht, was du bekommst.</p>
+</section>
+
+<section id="inspect">
+<h2>Vergleich mit dem Original und die Beschnittwarnung</h2>
+
+<h3>Originalansicht <span class="kbd">M</span></h3>
+<p>Zeigt das Foto vor deinen Änderungen, solange du die Taste hältst. Der schnellste Weg zu prüfen, ob es wirklich besser geworden ist.</p>
+
+<h3>Beschnittwarnung <span class="kbd">J</span></h3>
+<p>Zu reinem Weiß ausgefressene Stellen werden rot überdeckt, zu reinem Schwarz abgesoffene blau.</p>
+<p>Erreicht nur ein Kanal das Ende — etwa ein leuchtend rotes Blütenblatt — steckt noch Farbe darin, davor wird nicht gewarnt. Markiert werden nur <strong>Stellen, an denen alle drei Kanäle am Anschlag sind und die Information wirklich fehlt</strong>. Erscheint über dem Foto ein Hinweis auf Beschnitt, schaltet ein Klick darauf die Warnung ein und aus.</p>
+
+<h3>Histogramm</h3>
+<p>Das Histogramm in der rechten Palette zeigt, wie die Helligkeit verteilt ist. Türmt es sich am linken Rand, wird das dunkle Ende abgeschnitten; am rechten Rand das helle.</p>
+</section>
+
+<section id="compare">
+<h2>Vergleichsansicht</h2>
+<p>Stellt zwei Fotos nebeneinander. Um zwischen zwei Fassungen derselben Szene zu wählen oder Versionen zu vergleichen.</p>
+<ol class="steps">
+  <li>Drücke <strong>Vergleichen</strong> in der Symbolleiste.</li>
+  <li>Links steht das aktuelle Foto, rechts wählst du das zu vergleichende.</li>
+  <li>Gleichst du den Zoom an, bewegen sich beide zusammen und du siehst dieselbe Stelle in derselben Größe.</li>
+</ol>
+</section>
+
+<section id="sections">
+<h2>Mit den Korrekturbereichen arbeiten</h2>
+<p>Die rechte Palette ist in Bereiche unterteilt. Jeder klappt zu, und ihre Reihenfolge lässt sich ändern.</p>
+
+<h3>Einen Bereich ausschalten</h3>
+<p>Der Schalter neben dem Titel eines Bereichs zeichnet das Foto mit dessen Werten auf den Standardwerten. <strong>Nichts wird gelöscht</strong> — schaltest du ihn wieder ein, ist alles zurück. Nützlich für die Frage „hilft dieser Bereich überhaupt?“</p>
+
+<h3>Öffnen, schließen, umordnen</h3>
+<ul>
+  <li><span class="kbd">,</span> öffnet alle Bereiche · <span class="kbd">.</span> schließt sie alle</li>
+  <li>Ziehe den Titel eines Bereichs, um ihn zu verschieben. Die Reihenfolge bleibt beim nächsten Mal erhalten.</li>
+</ul>
+
+<h3>Zurücksetzen</h3>
+<ul>
+  <li>Ein Doppelklick auf den Namen eines Reglers stellt diesen einen Wert auf den Standard zurück.</li>
+  <li>Der Zurücksetzen-Knopf neben einem Bereichstitel leert den ganzen Bereich.</li>
+  <li><span class="kbd">⌥⌘R</span> — setzt jede Bearbeitung am Foto zurück.</li>
+</ul>
+
+<div class="tip">
+<b>Feinere Reglerschritte</b>
+<p>Halte <span class="kbd">⌥</span> beim Ziehen eines Reglers für feinere Schritte. Du kannst die Zahl auch anklicken und einen Wert eintippen.</p>
+</div>
+</section>
+
+
+<!-- ══════════ 조정 항목 ══════════ -->
+
+<section id="presets">
+<h2>Vorgaben</h2>
+<p>Sichert <strong>alle Bearbeitungswerte</strong> des aktuellen Fotos als ein Stück, bereit für ein anderes Foto. Film, Tonwerte und lokale Korrekturen sind alle dabei.</p>
+
+<h3>Anlegen</h3>
+<ol class="steps">
+  <li>Bring ein Foto so hin, wie du es willst.</li>
+  <li>Drücke <strong>+</strong> im Bereich Vorgaben und gib einen Namen ein.</li>
+  <li>Unter demselben Namen zu sichern überschreibt sie.</li>
+</ol>
+
+<h3>Verwenden</h3>
+<p>Die Vorgabenliste zeigt jede Vorgabe als kleines Bild deines aktuellen Fotos mit dieser Vorgabe darauf. Ein Klick wendet sie an. Die Miniaturgröße kann <strong>Sehr klein · Klein · Groß</strong> sein.</p>
+
+<div class="tip">
+<b>Vorgabe oder Film?</b>
+<p>Ein <strong>Film</strong> ist eine Farbumwandlung. Eine <strong>Vorgabe</strong> ist die ganze Bearbeitung, Film eingeschlossen. Nur „diese Farbe“ wiederverwenden? Dann ein Film. „Alles, was dieses Foto ausmacht“? Dann eine Vorgabe.</p>
+</div>
+</section>
+
+<section id="film">
+<h2>Filmrezept</h2>
+<p>Das Herz von Rawcookr. Wähle einen eingebauten Film und arbeite Tonwert und Farbe darauf.</p>
+
+<h3>Einen Film wählen</h3>
+<p>Das Filmsymbol oben im Bereich öffnet eine nach Familien gruppierte Liste.</p>
+<table class="wide">
+  <tr><th>Familie</th><th>Anzahl</th><th>Charakter</th></tr>
+  <tr><td>F.film</td><td>11</td><td>Standard · Vivid · Soft · Vintage Chrome · Natural · Portrait Hoch/Standard · Cool Negative · Retro Negative · Cinema · Bleach Bypass</td></tr>
+  <tr><td>KoD</td><td>5</td><td>Portrait 400 · Daily 200 · Fine 100 · Chrome 64 · Mono 400</td></tr>
+  <tr><td>R.co</td><td>6</td><td>Positive · Negative · Retro · Cinema Yellow · Cinema Green · High-Con Mono</td></tr>
+  <tr><td>IlFd</td><td>2</td><td>Mono 400 · Fine 50</td></tr>
+  <tr><td>Klassisch</td><td>3</td><td>Tungsten 800T · Classic Daily 400 · Cross Process</td></tr>
+  <tr><td>Schwarzweiß</td><td>9</td><td>Vier Mono-Fine-Looks (ohne Filter / Ye / R / G) · vier Mono-Looks · Sepia</td></tr>
+</table>
+<p>Deine eigenen <strong>benutzerdefinierten Filme</strong> kommen hier dazu. Siehe <a href="#customfilm">Einen eigenen Film machen</a>.</p>
+
+<div class="note">
+<b>Über die Namen</b>
+<p>Jeder Film ist eine Farbumwandlung, die Rawcookr selbst gebaut hat, unter einem eigenen Namen. Keiner davon hängt am Produkt irgendeines Herstellers.</p>
+</div>
+
+<h3>Regler eines Farbfilms</h3>
+<table>
+  <tr><th>Eintrag</th><th>Bereich</th><th>Was es tut</th></tr>
+  <tr><td>Lichter-Tonwert</td><td>−2 bis +12</td><td>Kontrast im hellen Bereich. Hoch ist härter, runter weicher.</td></tr>
+  <tr><td>Schatten-Tonwert</td><td>−2 bis +4</td><td>Kontrast im dunklen Bereich.</td></tr>
+  <tr><td>Farbe</td><td>−4 bis +4</td><td>Sättigung über den ganzen Film.</td></tr>
+  <tr><td>Farbton</td><td>−4 bis +4</td><td>Dreht jede Farbe in eine Richtung. Drei Grad pro Stufe.</td></tr>
+  <tr><td>Taste</td><td>−4 bis +4</td><td>Hebt oder senkt die mittlere Helligkeit.</td></tr>
+  <tr><td>Kontrast</td><td>−4 bis +4</td><td>Weitet den Kontrast um die Mitte.</td></tr>
+  <tr><td>Klarheit</td><td>−5 bis +5</td><td>Textur. Negativ ist weicher, positiv knackiger.</td></tr>
+  <tr><td>Schärfe</td><td>−4 bis +4</td><td>Wie scharf der Film selbst ist. Negativ weicht auf.</td></tr>
+  <tr><td>Abschattung</td><td>−4 bis +4</td><td>Lichtabfall zu den Rändern. Positiv dunkelt die Ecken ab.</td></tr>
+  <tr><td>WB-Verschiebung R · B</td><td>−9 bis +9</td><td>Schiebt Rot und Blau ein wenig, um die Farbe zu kippen.</td></tr>
+</table>
+
+<h3>Regler eines Schwarzweißfilms</h3>
+<p>Statt der Farbwerte gibt es <strong>Tonung WC</strong> und <strong>Tonung MG</strong> (je −18 bis +18). WC läuft zwischen warm und kühl, MG zwischen Magenta und Grün. Zusammen erreichen sie alles von Sepia bis zu einem kalten Blaugrün.</p>
+
+<h3>Korn</h3>
+<p>Legt Filmkorn über das Foto. Die Stärke ist <strong>Aus · Schwach · Stark</strong>, die Größe <strong>Klein · Groß</strong>. Bei ausgeschalteter Stärke ist die Größe gesperrt.</p>
+
+<div class="tip">
+<b>Korn bei 100 % beurteilen</b>
+<p>Korn arbeitet Pixel für Pixel, beim Einpassen ins Fenster ist es also kaum zu sehen. Beurteile es bei 100 % mit <span class="kbd">⌘1</span>.</p>
+</div>
+</section>
+
+<section id="wb">
+<h2>Weißabgleich</h2>
+<p>Setzt die Farbtemperatur. Bei einer RAW-Datei kannst du behalten, was die Kamera aufgezeichnet hat, oder es selbst ändern.</p>
+<table>
+  <tr><th>Eintrag</th><th>Bereich</th><th>Was es tut</th></tr>
+  <tr><td>Temperatur</td><td>2000 – 12000 K</td><td>Runter wird blau, hoch wird gelb.</td></tr>
+  <tr><td>Tönung</td><td>−100 bis +100</td><td>Läuft zwischen Grün und Magenta. Nützlich unter Leuchtstofflicht.</td></tr>
+</table>
+
+<h3>Mit der Pipette setzen</h3>
+<p>Drücke die Pipette und klicke dann <strong>etwas im Foto, das neutralgrau sein sollte</strong>. Temperatur und Tönung werden so gesetzt, dass diese Stelle grau wird. Eine weiße Wand, grauer Asphalt oder der beschattete Teil eines weißen Hemds sind gute Referenzen. Klickst du etwas wirklich Farbiges an, geht es in die falsche Richtung.</p>
+
+<h3>Farb-Sweep</h3>
+<p>Das Pinselsymbol links von der Pipette. Ein Klick öffnet eine Farbkarte, ein weiterer schließt sie. Gedrückt gezogen stellst du ein, während du zusiehst, und eine offen gelassene Karte lässt sich aufnehmen und verschieben.</p>
+<ul>
+  <li>Links und rechts ist die Temperatur — nach rechts wärmer.</li>
+  <li>Oben und unten ist die Tönung — nach oben Magenta, nach unten Grün.</li>
+  <li>Halte <span class="kbd">⌥</span> beim Ziehen für feinere Schritte.</li>
+</ul>
+<p>Eine RAW-Datei beginnt mit dem, was die Kamera aufgezeichnet hat. Der Zurücksetzen-Knopf am Bereichstitel bringt dich genau in diesen Zustand zurück.</p>
+</section>
+
+<section id="light">
+<h2>Licht</h2>
+<p>Der Grundbereich für Helligkeit und Kontrast. Die meisten Fotos sind hier schon fast fertig.</p>
+<table>
+  <tr><th>Eintrag</th><th>Bereich</th><th>Was es tut</th></tr>
+  <tr><td>Belichtung</td><td>−3 bis +3 EV</td><td>Die Gesamthelligkeit. Wird beim RAW-Decodieren angewendet, das ist der sauberste Weg.</td></tr>
+  <tr><td>Kontrast</td><td>−100 bis +100</td><td>Der Unterschied zwischen hell und dunkel.</td></tr>
+  <tr><td>Lichter</td><td>−100 bis +100</td><td>Holt einen ausgefressenen Himmel oder eine Lichtquelle zurück. Der von der erweiterten Dynamik aufgehobene Spielraum wird hier angezapft.</td></tr>
+  <tr><td>Schatten</td><td>−100 bis +100</td><td>Hebt die Textur aus dem Schatten.</td></tr>
+  <tr><td>Weiß</td><td>−100 bis +100</td><td>Wo das helle Ende sitzt.</td></tr>
+  <tr><td>Schwarz</td><td>−100 bis +100</td><td>Wo das dunkle Ende sitzt. Leicht angehoben gibt es einen filmischen Eindruck.</td></tr>
+  <tr><td>Definition</td><td>−100 bis +100</td><td>Kontrast in mittelgroßer Textur. Negativ glättet Haut, positiv holt Wolken und Backstein heraus.</td></tr>
+  <tr><td>Sättigung</td><td>−100 bis +100</td><td>Jede Farbe, gleichmäßig.</td></tr>
+  <tr><td>Dynamik</td><td>−100 bis +100</td><td>Hebt zuerst die blasseren Farben. Hauttöne bleiben weitgehend verschont, also sicher bei Menschen.</td></tr>
+  <tr><td>Verblassen</td><td>0 – 100</td><td>Hebt das Schwarz für einen ausgewaschenen Look.</td></tr>
+</table>
+
+<div class="note">
+<b>Lichter und Schatten arbeiten lokal</b>
+<p>Diese beiden multiplizieren nicht das ganze Foto mit einer Zahl. Sie greifen nur die hellen oder nur die dunklen Teile heraus und halten dabei die Kanten. Zieh einen Himmel herunter und die Mitteltöne direkt daneben bleiben, ohne weißen Saum an der Grenze.</p>
+</div>
+</section>
+
+<section id="curve">
+<h2>Gradationskurve</h2>
+<p>Zeichne die Helligkeitszuordnung selbst. Sie erreicht Feinheiten, an die die Regler nicht herankommen.</p>
+
+<h3>Bedienung</h3>
+<ul>
+  <li>Klicke auf die Linie, um einen Punkt zu setzen, und ziehe ihn.</li>
+  <li>Ziehe einen Punkt über den Rand hinaus, um ihn zu löschen.</li>
+  <li><strong>RGB</strong> ist die Gesamthelligkeit; <strong>R · G · B</strong> sind die einzelnen Kanäle. Einen Kanal allein zu bearbeiten verschiebt die Farbe — genau das willst du beim Bauen eines Looks.</li>
+  <li>In der Mitte nach oben gewölbt wird heller, eine S-Form hebt den Kontrast.</li>
+  <li><strong>Nur diesen Kanal zurücksetzen</strong> begradigt allein die Kurve, die du gerade siehst.</li>
+</ul>
+
+<h3>Drei Pipetten</h3>
+<p>Klicke einen Referenzpunkt im Foto an, und die Kurve wird für dich gesetzt. R, G und B bewegen sich <strong>gemeinsam</strong>, damit diese Stelle zur Referenzfarbe wird.</p>
+<table class="wide">
+  <tr><th>Pipette</th><th>Worauf klicken</th></tr>
+  <tr><td>Schwarzpunkt</td><td>Etwas, das reines Schwarz sein sollte. Der tiefste Schatten.</td></tr>
+  <tr><td>Neutralgrau</td><td>Etwas, das neutral sein sollte. Grauer Beton, farblose Kleidung.</td></tr>
+  <tr><td>Weißpunkt</td><td>Etwas, das reines Weiß sein sollte. Weißes Papier, eine weiße Wand.</td></tr>
+</table>
+<p>Klicke alle drei nacheinander an und Farbbalance wie Kontrast sitzen auf einen Schlag. Der schnellste Weg, ein stark verschobenes Foto wieder auf Normal zu bringen.</p>
+</section>
+
+<section id="hsl">
+<h2>Farbton & Sättigung</h2>
+<p>Teilt Farbe in zwölf Bänder und behandelt sie einzeln.</p>
+<p><strong>Rot · Orange · Gelb · Gelbgrün · Grün · Smaragd · Cyan · Himmelblau · Blau · Violett · Magenta · Rosa</strong> — alle 30°, gleichmäßig über den Kreis.</p>
+<table>
+  <tr><th>Eintrag</th><th>Bereich</th><th>Was es tut</th></tr>
+  <tr><td>Farbton</td><td>−30 bis +30</td><td>Dreht diese Farbe zu ihrem Nachbarn hin.</td></tr>
+  <tr><td>Sättigung</td><td>−100 bis +100</td><td>Nur diese Farbe, kräftiger oder blasser.</td></tr>
+  <tr><td>Helligkeit</td><td>−100 bis +100</td><td>Nur diese Farbe, heller oder dunkler.</td></tr>
+</table>
+
+<h3>Direkt von der Farbkarte wählen</h3>
+<p><strong>Halte</strong> ein Farbfeld gedrückt und ziehe, dann öffnet sich eine Karte.</p>
+<ul>
+  <li>Seitwärts ziehen für den <strong>Farbton</strong></li>
+  <li>Auf und ab ziehen für die <strong>Sättigung</strong></li>
+  <li>Mit <span class="kbd">⌘</span> auf und ab ziehen für die <strong>Helligkeit</strong></li>
+</ul>
+<p>Eine Bewegung findet die Stelle, statt zwischen drei Reglern hin und her zu springen.</p>
+
+<div class="tip">
+<b>Alltägliche Griffe</b>
+<p>Ein tieferer Himmel — Sättigung bei Blau und Himmelblau hoch, Helligkeit runter. Ruhigere Grüntöne — Sättigung von Grün runter und den Farbton leicht Richtung Gelb. Natürliche Haut — Sättigung von Orange etwas runter, Helligkeit etwas hoch.</p>
+</div>
+</section>
+
+<section id="levels">
+<h2>Tonwertkorrektur</h2>
+<p>Setzt Eingangs- und Ausgangsbereich von Hand. Schlichter als die Gradationskurve und schneller, wenn Schwarz- und Weißpunkt genau sitzen sollen.</p>
+<table>
+  <tr><th>Eintrag</th><th>Bereich</th><th>Was es tut</th></tr>
+  <tr><td>Eingang Schwarz</td><td>0 – 0,9</td><td>Alles Dunklere wird schwarz.</td></tr>
+  <tr><td>Eingang Weiß</td><td>0,1 – 1</td><td>Alles Hellere wird weiß.</td></tr>
+  <tr><td>Gamma</td><td>0,2 – 3</td><td>Hebt oder senkt die mittlere Helligkeit.</td></tr>
+  <tr><td>Ausgang Schwarz</td><td>0 – 0,9</td><td>Wie hell der dunkelste Punkt endet. Angehoben wirkt es ausgewaschen.</td></tr>
+  <tr><td>Ausgang Weiß</td><td>0,1 – 1</td><td>Wie hell der hellste Punkt endet. Abgesenkt werden die Lichter gehalten.</td></tr>
+</table>
+<p>Schalte die Beschnittwarnung mit <span class="kbd">J</span> ein, während du das Eingangsende enger ziehst. Du siehst genau, wo Information zu verschwinden beginnt.</p>
+</section>
+
+<section id="colorgrade">
+<h2>Drei-Wege-Farbbalance</h2>
+<p>Legt in dunkle, mittlere und helle Partien je eine andere Farbe. Der übliche Weg beim Kino-Grading.</p>
+<ul>
+  <li>Ziehe die Mitte eines Farbrads für Richtung und Stärke. Näher an der Mitte ist schwächer.</li>
+  <li><strong>Helligkeit</strong> und <strong>Sättigung</strong> je Band (−100 bis +100) werden getrennt eingestellt.</li>
+</ul>
+<p>Die Sättigung nach Bändern zu trennen hält die Schatten ruhig, während nur die hellen Partien aufleben.</p>
+<div class="tip">
+<b>Ein Klassiker</b>
+<p>Schiebe die Schatten sachte Richtung Blaugrün und die Lichter Richtung Orange, und du hast den vertrauten Kino-Look. Die beiden stehen sich auf dem Rad gegenüber, das hebt eine Person vom Hintergrund ab. Der Trick ist, sehr wenig zu nehmen.</p>
+</div>
+</section>
+
+<section id="selective">
+<h2>Selektive Farbe</h2>
+<p>Teilt Farbe in neun Bereiche und korrigiert jeden, indem Cyan, Magenta, Gelb und Schwarz zugegeben oder abgezogen werden. Es kommt aus dem Druck und erwischt die feinen Stiche, an die Farbton und Sättigung nicht herankommen.</p>
+
+<h3>Die Bereiche</h3>
+<p>Sechs Farben — <strong>Rot · Gelb · Grün · Cyan · Blau · Magenta</strong> — und drei Helligkeitsbänder, <strong>Weiß · Neutraltöne · Schwarz</strong>. Bereiche, die du bereits geändert hast, sind in der Liste markiert.</p>
+
+<table>
+  <tr><th>Eintrag</th><th>Bereich</th><th>Was es tut</th></tr>
+  <tr><td>Cyan</td><td>−100 bis +100</td><td>Hoch gibt Cyan dazu, runter geht Richtung Rot.</td></tr>
+  <tr><td>Magenta</td><td>−100 bis +100</td><td>Hoch ist Magenta, runter geht Richtung Grün.</td></tr>
+  <tr><td>Gelb</td><td>−100 bis +100</td><td>Hoch ist Gelb, runter geht Richtung Blau.</td></tr>
+  <tr><td>Schwarz</td><td>−100 bis +100</td><td>Dunkelt diesen Bereich ab oder hellt ihn auf.</td></tr>
+</table>
+
+<h3>Relativ und absolut</h3>
+<table class="wide">
+  <tr><th>Methode</th><th>Bedeutung</th></tr>
+  <tr><td>Relativ</td><td>Ändert jeden Anteil um einen Prozentsatz dessen, was schon da ist. Wo die Farbe fehlt, passiert nichts, reines Weiß bleibt also unberührt. In den meisten Fällen sicherer.</td></tr>
+  <tr><td>Absolut</td><td>Gibt den Betrag unmittelbar dazu. Eine größere, sicherere Änderung, die aber leichter grob wird.</td></tr>
+</table>
+
+<div class="tip">
+<b>Alltägliche Griffe</b>
+<p>Haut zu rot — in <strong>Rot</strong> etwas Cyan anheben. Trüber Himmel — in <strong>Blau</strong> etwas Schwarz anheben, das vertieft ihn. Weiße Wand kommt gelb heraus — in <strong>Weiß</strong> das Gelb absenken.</p>
+</div>
+</section>
+
+<section id="local">
+<h2>Lokale Korrekturen</h2>
+<p>Bringt eine Korrektur nur in einen Teil des Fotos. Erstelle eine Maske und stelle darin ein. Die Masken erscheinen auch im Bereich <a href="#layers">Ebenen</a> und liegen damit neben den gestapelten Ebenen.</p>
+
+<h3>Drei Arten von Masken</h3>
+<table class="wide">
+  <tr><th>Art</th><th>Wie sie entsteht</th><th>Wofür sie taugt</th></tr>
+  <tr><td>Verlauf</td><td>Ziehe in eine Richtung über das Foto. Der Anfang ist 100 %, das Ende 0 %.</td><td>Einen Himmel senken oder einen Vordergrund heben</td></tr>
+  <tr><td>Radial</td><td>Zeichne eine Ellipse. Innen 100 %, am Rand 0 %.</td><td>Eine Person oder ein Motiv herausholen</td></tr>
+  <tr><td>Pinsel</td><td>Male den Bereich selbst aus.</td><td>Formen, die nicht regelmäßig sind</td></tr>
+</table>
+<ul>
+  <li><strong>Weiche Kante</strong> (0 – 1) — wie weich der Rand ist. 0 ist hart, 1 läuft sehr sanft aus.</li>
+  <li><strong>Pinselgröße</strong> (20 – 600)</li>
+  <li><strong>Maske umkehren</strong> — die Korrektur geht stattdessen in <em>alles andere</em>.</li>
+  <li>Du kannst mehrere Masken anlegen und jede einzeln ein- und ausschalten.</li>
+</ul>
+
+<h3>Was sich in einer Maske einstellen lässt</h3>
+<table>
+  <tr><th>Eintrag</th><th>Bereich</th></tr>
+  <tr><td>Belichtung</td><td>−2 bis +2 EV</td></tr>
+  <tr><td>Kontrast · Lichter · Schatten</td><td>je −100 bis +100</td></tr>
+  <tr><td>Sättigung · Klarheit</td><td>je −100 bis +100</td></tr>
+  <tr><td>Wärme · Tönung</td><td>je −100 bis +100</td></tr>
+</table>
+</section>
+
+<section id="layers">
+<h2>Ebenen</h2>
+<p>Stapelt Ebenen über dem entwickelten Foto. Eine Korrekturebene überarbeitet, was darunter liegt, eine Volltonfarbenebene deckt es zu, und eine maskierte Ebene rührt nur an, was du markiert hast.</p>
+
+<h3>Drei Arten von Ebenen</h3>
+<table class="wide">
+  <tr><th>Art</th><th>Was es tut</th></tr>
+  <tr><td>Korrektur</td><td>Eine weitere Runde Licht, Gradationskurve, Tonwertkorrektur, Farbton & Sättigung, Drei-Wege-Farbbalance, dazu Schwarzweiß und Umkehren. Für den Fall, dass du dieselbe Korrektur zweimal willst, in verschiedener Stärke.</td></tr>
+  <tr><td>Volltonfarbe</td><td>Deckt alles mit einer Farbe deiner Wahl zu. Mit einem Mischmodus wird daraus ein Farbfilter.</td></tr>
+  <tr><td>Maske</td><td>Wirkt nur dort, wo du mit Verlaufs-, Radial- oder Pinselmaske markiert hast. Dieselben Masken wie bei lokalen Korrekturen.</td></tr>
+</table>
+<p>Maskierte Ebenen werden zuerst auf das Foto angewendet; die Ebenen darüber stapeln sich auf diesem Ergebnis.</p>
+
+<h3>Mischmodi</h3>
+<p>Es gibt sechzehn.</p>
+<table class="wide">
+  <tr><th>Gruppe</th><th>Methode</th></tr>
+  <tr><td>Basis</td><td>Normal</td></tr>
+  <tr><td>Abdunkeln</td><td>Multiplizieren · Farbig nachbelichten · Abdunkeln</td></tr>
+  <tr><td>Aufhellen</td><td>Negativ multiplizieren · Farbig abwedeln · Aufhellen</td></tr>
+  <tr><td>Kontrast</td><td>Ineinanderkopieren · Weiches Licht · Hartes Licht</td></tr>
+  <tr><td>Differenz</td><td>Differenz · Ausschluss</td></tr>
+  <tr><td>Farbanteile</td><td>Farbton · Sättigung · Farbe · Luminanz</td></tr>
+</table>
+<p>Die Stärke stellst du über die <strong>Deckkraft</strong> ein.</p>
+
+<h3>Ordnung halten</h3>
+<ul>
+  <li><strong>Diese Ebene anzeigen</strong> — das Augensymbol schaltet sie aus und ein.</li>
+  <li><strong>Nach oben · Nach unten</strong> — ändert die Stapelreihenfolge.</li>
+  <li><strong>Mit darunterliegender Ebene verbinden</strong> — macht aus zweien eine. Die Einstellungen jeder Ebene bleiben, wie sie waren.</li>
+  <li><strong>Verbindung lösen</strong> — nimmt eine verbundene Ebene wieder auseinander.</li>
+  <li><strong>Diese Ebene löschen</strong></li>
+</ul>
+
+<div class="tip">
+<b>Der einfachste Weg, ein Foto einzufärben</b>
+<p>Lege eine Volltonfarbenebene an und stelle ihren Mischmodus auf <strong>Farbe</strong>: die Helligkeit bleibt, nur die Farbe legt sich über das Foto. Mit der Deckkraft eingestellt kommst du nahe an eine Filmtonung.</p>
+</div>
+</section>
+
+<section id="detail">
+<h2>Details</h2>
+<p>Schärfe und Rauschen. Beurteile diesen Bereich <strong>bei 100 %</strong>.</p>
+<table>
+  <tr><th>Eintrag</th><th>Bereich</th><th>Was es tut</th></tr>
+  <tr><td>Schärfe</td><td>−4 bis +4</td><td>Schärfe beim RAW-Decodieren. 0 ist der macOS-Standard; die Stufen kommen dazu oder gehen davon ab.</td></tr>
+  <tr><td>Farbrauschen</td><td>−4 bis +4</td><td>Hält Farbflecken in Schach. 0 ist der Standard. Bei hoher ISO anheben.</td></tr>
+  <tr><td>Scharfzeichnen</td><td>0 – 300 %</td><td>Eine Unscharfmaske nach dem Entwickeln. Unabhängig von der Schärfe oben.</td></tr>
+  <tr><td>Radius</td><td>0,5 – 5 px</td><td>Wie breit das Scharfzeichnen wirkt. Kleiner greift feine Textur, größer die groben Umrisse.</td></tr>
+</table>
+<p>Das Scharfzeichnen rührt nur an den Helligkeitskanal, Farbkanten laufen also nicht aus.</p>
+</section>
+
+<section id="effects">
+<h2>Effekte</h2>
+
+<h3>Vignette</h3>
+<p><strong>Vignette</strong> (−100 bis +100): negativ dunkelt die Ränder ab, positiv hellt sie auf. <strong>Mittelpunkt</strong> (0 – 100) ist, wie weit außen der Effekt beginnt. Abgesenkt reicht er näher an die Mitte.</p>
+
+<h3>Monochrom · Umkehren</h3>
+<ul>
+  <li><strong>Monochrom</strong> — nimmt die Farbe heraus, es wird schwarzweiß.</li>
+  <li><strong>Umkehren (Negativ)</strong> — kippt Helligkeit und Farbe. Um ein eingescanntes Filmnegativ wieder zum Positiv zu machen.</li>
+</ul>
+
+<h3>Externe LUTs</h3>
+<p>Lädt eine eigene <span class="path">.cube</span>-Datei und wendet sie an. <strong>LUT-Stärke</strong> (0 – 100) bestimmt, wie weit sie geht.</p>
+<p>Hier gibt es zwei weitere Werkzeuge.</p>
+<table class="wide">
+  <tr><th>Knopf</th><th>Was es tut</th></tr>
+  <tr><td>Als LUT anwenden (.cube)…</td><td>Wendet die gewählte LUT so an, wie sie ist.</td></tr>
+  <tr><td>In Korrekturen umwandeln und laden…</td><td>Ermittelt, was die LUT tut, und packt sie in <em>Reglerwerte</em> aus — Gradationskurven, Sättigung, HSL und Drei-Wege-Farbbalance. Einmal ausgepackt, kannst du weiter daran arbeiten.</td></tr>
+</table>
+</section>
+
+<section id="defringe">
+<h2>Saumentfernung</h2>
+<p>Räumt die Farbverschmierung auf, die ein Objektiv hinterlässt. Zwei verschiedene Ursachen, getrennt behandelt.</p>
+
+<h3>Laterale chromatische Aberration</h3>
+<p>Das Objektiv bildet Rot, Grün und Blau in <strong>leicht unterschiedlicher Größe</strong> ab, zum Bildrand hin entstehen deshalb cyan- und magentafarbene Bänder. Die Farbe herauszunehmen hilft nicht — die <strong>verschobenen Kanäle müssen zurückgesetzt werden</strong>.</p>
+<ul>
+  <li>Eingeschaltet wird das Foto analysiert und der Betrag automatisch bestimmt.</li>
+  <li><strong>Rot-Skalierung</strong> und <strong>Blau-Skalierung</strong> (0,994 – 1,006) erlauben die Feinabstimmung von Hand.</li>
+  <li><strong>Erneut messen</strong> rechnet mit dem aktuellen Foto neu.</li>
+</ul>
+
+<h3>Saumentfernung</h3>
+<p>Räumt die violetten, grünen und roten Säume an einer hart gegenlichtigen Kante weg.</p>
+<table>
+  <tr><th>Eintrag</th><th>Bereich</th></tr>
+  <tr><td>Violett entfernen · Grün entfernen · Rot entfernen</td><td>je 0 – 3</td></tr>
+</table>
+<ul>
+  <li>Schalte <strong>Nur wo der Pinsel malt</strong> ein und die Korrektur wirkt nur dort, wo du gemalt hast. Aufs ganze Foto angewendet bleicht sie aus, was wirklich diese Farbe hatte — eine violette Blüte, ein rotes Schild — daher ist es sicherer, nur die Problemstellen zu malen.</li>
+  <li>Die <strong>Pinselgröße</strong> reicht von 10 bis 300.</li>
+  <li><strong>Bemalte Bereiche ausblenden</strong> nimmt die Markierungen kurz weg, damit nur das Ergebnis zu sehen ist.</li>
+  <li><strong>Letzten Strich widerrufen</strong> und <strong>Alles löschen</strong> nehmen es zurück.</li>
+</ul>
+</section>
+
+<section id="mist">
+<h2>Mist</h2>
+<p>Eine digitale Fassung des optischen Diffusionsfilters, den man aufs Objektiv schraubt. Lichter blühen sanft auf, der Kontrast lässt nach, Haut wird weich.</p>
+<table>
+  <tr><th>Stufe</th><th>Wirkung</th></tr>
+  <tr><td>Aus</td><td>Ausgeschaltet</td></tr>
+  <tr><td>1/8</td><td>Die schwächste. Bei einem Porträt unbedenklich.</td></tr>
+  <tr><td>1/4</td><td>Die Weichheit wird sichtbar.</td></tr>
+  <tr><td>1/2</td><td>Lichtquellen laufen deutlich auseinander, in Nachtszenen und Gegenlicht.</td></tr>
+  <tr><td>1</td><td>Die stärkste. Die Stimmung ändert sich erheblich.</td></tr>
+</table>
+<p>Schalte <strong>Schatten mitdiffundieren</strong> ein und das Licht breitet sich auch in den dunklen Partien aus, nicht nur in den hellen — sehr wie ein alter Abzug aus der Dunkelkammer.</p>
+<p>Mist braucht Licht, mit dem es arbeiten kann. Es zeigt sich, wo eine Lichtquelle, ein heller Himmel oder gegenlichtiges Haar ist; auf einem flachen, bedeckten Foto senkt es nur den Kontrast.</p>
+</section>
+
+<section id="privacy">
+<h2>Unkenntlich machen</h2>
+<p>Verdeckt Gesichter und Kennzeichen von Menschen, die zufällig mit im Bild waren.</p>
+
+<h3>Automatisch finden</h3>
+<p>Öffnest du ein Foto, werden Gesichter und Kennzeichen gefunden und als Bereiche markiert. Die Erkennung läuft auf der <strong>Datei in voller Auflösung</strong> und erwischt daher kleine Gesichter, die eine verkleinerte Vorschau verschmiert hätte.</p>
+<p>Die gefundenen Bereiche stehen in einer Liste und lassen sich einzeln ein- und ausschalten. Wer nicht verdeckt werden muss — die Freundin, mit der du unterwegs warst — wird einfach ausgeschaltet.</p>
+
+<h3>Selbst zeichnen</h3>
+<ol class="steps">
+  <li>Drücke <strong>Unkenntlich-Bereich zeichnen</strong>.</li>
+  <li>Ziehe über das Foto, um einen Bereich anzulegen.</li>
+  <li>Zeichne beliebig viele hintereinander; drücke den Knopf erneut, wenn du fertig bist.</li>
+</ol>
+<p>Um das Foto beim Zeichnen zu verschieben, halte <span class="kbd">Space</span> und ziehe.</p>
+
+<h3>Form und Stärke</h3>
+<table>
+  <tr><th>Eintrag</th><th>Auswahl</th></tr>
+  <tr><td>Methode</td><td>Weichzeichnen / Verpixeln</td></tr>
+  <tr><td>Form</td><td>Rechteck / Ellipse</td></tr>
+  <tr><td>Stärke</td><td>0,4 – 2,0</td></tr>
+</table>
+<p>Eine Ellipse passt zu einem Gesicht, ein Rechteck zu Kennzeichen und Schildern.</p>
+
+<div class="warn">
+<b>Prüfe es vor dem Veröffentlichen</b>
+<p>Die automatische Erkennung kann ein Gesicht im Profil, hinter einer Maske oder im tiefen Schatten übersehen. Geht das Foto an die Öffentlichkeit, schau es vor dem Export einmal bei 100 % mit <span class="kbd">⌘1</span> durch.</p>
+</div>
+</section>
+
+<section id="frame">
+<h2>Datumsaufdruck</h2>
+
+<div class="note">
+<b>Rahmen sind zur Montage gewandert</b>
+<p>Einen Rand um ein Foto zu legen, damit es ein festes Verhältnis bekommt, ist jetzt Sache der <a href="#mount">Montage</a>. Leg ein Foto auf die Platte, wähle Seitenverhältnis und <strong>Rand</strong>, und du hast, was der alte Rahmen konnte — dazu Abstand, Ecken und Hintergrundfarbe.</p>
+</div>
+
+<h3>Datumsaufdruck</h3>
+<p>Der Knopf <strong>Datumsaufdruck</strong> im Bereich Filmrezept öffnet die Einstellungen.</p>
+<p>Druckt das Aufnahmedatum unten rechts ins Bild, wie der Datenrücken einer Filmkamera. Die Ziffern werden als sieben Segmente gezeichnet und sehen auf jedem Mac gleich aus.</p>
+<p>Das Datum wird aus den Aufnahmeinformationen gelesen. Die Reihenfolge der Bestandteile ist wählbar.</p>
+<p>Der Aufdruck kommt vor die Filmsimulation. Er bekommt Film, Tonwert, Korn und Mist daher <strong>genau so</strong> ab wie das Foto und liest sich als mitbelichtet statt nachträglich aufgesetzt.</p>
+</section>
+
+
+<!-- ══════════ 마운트 ══════════ -->
+
+<section id="mount">
+<h2>Fotos auf die Platte legen</h2>
+<p>Die Montage ist ein Arbeitsbereich, in dem mehrere Fotos auf eine Platte kommen und ein einziges Bild werden. Beim Posten in einem Feed, einem Blog oder auf einer Website zeigst du mehrere Aufnahmen als ein Stück statt einzeln.</p>
+
+<h3>Loslegen</h3>
+<ul>
+  <li>Wähle oben im Tab <strong>Montage</strong>.</li>
+  <li>Zieh Fotos aus der <strong>Fotoschublade</strong> links herein. Ist die Schublade leer, wähle mit <strong>Fotoordner öffnen</strong> einen Ordner.</li>
+  <li>Du kannst auch ein leeres Feld anklicken und mit <strong>Foto wählen…</strong> eine Datei angeben.</li>
+  <li><strong>Dieses Foto montieren</strong> im Bearbeitungsfenster schickt das Foto, das du gerade ansiehst, direkt auf die Platte. Aus der Mediathek wählst du mehrere aus und nimmst <strong>An Montage senden</strong>.</li>
+</ul>
+<p>Die Schublade klappt über ihr Symbol zu.</p>
+
+<h3>Die Größe der Platte</h3>
+<table>
+  <tr><th>Eintrag</th><th>Auswahl</th></tr>
+  <tr><td>Seitenverhältnis</td><td>Originalverhältnis · 1:1 · 4:5 · 5:4 · 2:3 · 3:2 · 3:4 · 4:3 · 9:16 · 16:9 · 1,91:1</td></tr>
+  <tr><td>Auflösung</td><td>1080 · 1440 · 2048 · 4096 (Pixel breit)</td></tr>
+</table>
+<p><strong>Originalverhältnis</strong> nimmt die Proportionen des ersten Fotos. Praktisch, wenn du nur einen Rand willst, wie bei einem Bilderrahmen.</p>
+</section>
+
+<section id="mount-split">
+<h2>In Felder teilen</h2>
+<p>Schalte <strong>Teilen</strong> ein und die Platte wird in ein Raster zerlegt. Wähle, wie viele Zeilen und Spalten; bis zu 5 × 5.</p>
+
+<h3>Mit den Feldern arbeiten</h3>
+<ul>
+  <li>Zieh die Trennlinie zwischen Feldern, um ihre Größen zu ändern. <strong>Teilungsverhältnisse zurücksetzen</strong> macht sie wieder gleich.</li>
+  <li>Rechtsklick auf eine Trennlinie bietet <strong>Trennlinie verschieben</strong> und <strong>Trennlinie entfernen</strong>.</li>
+  <li>Zieh ein Foto auf ein anderes Feld und die beiden tauschen den Platz.</li>
+</ul>
+
+<h3>Ein Foto im Feld einpassen</h3>
+<p>Ein Foto im Feld wird beschnitten, um es zu füllen. Welcher Teil zu sehen ist, bestimmst du.</p>
+<ul>
+  <li>Zieh das Foto, um das Sichtbare zu verschieben.</li>
+  <li>Scrolle oder pinche, um zu zoomen.</li>
+  <li><strong>Beschnitt zurücksetzen</strong> stellt den Anfangszustand her.</li>
+  <li><strong>Foto entfernen</strong> leert dieses Feld.</li>
+</ul>
+</section>
+
+<section id="mount-free">
+<h2>Freie Platzierung</h2>
+<p>Schalte <strong>Teilen</strong> aus, die Felder verschwinden und Fotos liegen frei auf der Platte.</p>
+
+<h3>Platzieren und verschieben</h3>
+<ul>
+  <li>Ziehen zum Verschieben, an einer Ecke ziehen zum Skalieren, und drehen.</li>
+  <li>Beim Ziehen <strong>rastet</strong> ein Foto an den anderen und an den Rändern der Platte ein, damit alles in einer Flucht steht.</li>
+  <li>Der Knopf <strong>Raster</strong> schaltet ein Hilfsraster ein. Noch einmal drücken für ein feineres, dann aus.</li>
+</ul>
+
+<h3>Stapelreihenfolge</h3>
+<p>Rechtsklick auf ein Foto ändert sie — <strong>Ganz nach vorn · Nach vorn · Nach hinten · Ganz nach hinten</strong>. Im selben Menü stehen <strong>Beschnitt zurücksetzen</strong>, <strong>Drehung zurücksetzen</strong> und <strong>Foto entfernen</strong>.</p>
+
+<h3>Knöpfe, die helfen</h3>
+<table class="wide">
+  <tr><th>Knopf</th><th>Was es tut</th></tr>
+  <tr><td>Verstreuen</td><td>Verstreut die Fotos über die Platte. Ein guter Ausgangspunkt.</td></tr>
+  <tr><td>Angleichen</td><td>Bringt Größen und Abstände in Ordnung.</td></tr>
+  <tr><td>Leeren</td><td>Nimmt jedes Foto von der Platte.</td></tr>
+</table>
+
+<h3>Felder — zusammenhängend arbeiten, zerschnitten exportieren</h3>
+<p>Setze <strong>Felder</strong> auf 2 oder mehr und das gewählte Seitenverhältnis wiederholt sich so oft seitwärts zu einer Platte. Komponiere auf dem zusammenhängenden Bild; beim Export wird es wieder zerschnitten und <strong>von links durchnummeriert</strong> gesichert.</p>
+<p>So wirkt ein Post mit mehreren Bildern zusammenhängend statt zerstückelt. Bis zu zwölf Felder.</p>
+</section>
+
+<section id="mount-look">
+<h2>Abstand · Rand · Ecken</h2>
+<table>
+  <tr><th>Eintrag</th><th>Bereich</th><th>Was es tut</th></tr>
+  <tr><td>Abstand</td><td>0 – 80</td><td>Der Zwischenraum von einem Foto zum nächsten.</td></tr>
+  <tr><td>Rand</td><td>0 – 120</td><td>Der Saum am Rand der Platte.</td></tr>
+  <tr><td>Ecken</td><td>0 – 120</td><td>Rundet die Fotoecken. 0 lässt sie eckig.</td></tr>
+  <tr><td>Hintergrundfarbe</td><td>Beliebige Farbe</td><td>Füllt Zwischenräume und Saum.</td></tr>
+</table>
+<p>Die Zahlen beziehen sich auf 1080 px Breite. Erhöhst du die Auflösung, bleiben die Proportionen am Bildschirm gleich.</p>
+
+<h3>Ansicht</h3>
+<ul>
+  <li><strong>Einpassen</strong> — zeigt die ganze Platte im Fenster.</li>
+  <li><strong>100 %</strong> — die exportierten Pixel, wie sie sind. Um die Größe zu prüfen, in der wirklich gesichert wird.</li>
+  <li>Herangezoomt schiebst du die Platte durch Ziehen.</li>
+</ul>
+</section>
+
+<section id="mount-export">
+<h2>Sichern und exportieren</h2>
+
+<h3>Die Arbeit sichern</h3>
+<p>Halte eine Anordnung in einer Datei fest und mach später weiter.</p>
+<table>
+  <tr><td><span class="kbd">⌘S</span></td><td>Montage sichern</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>Montage sichern unter…</td></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Montage öffnen (im Montage-Tab öffnet ⌘O eine gesicherte Anordnung)</td></tr>
+</table>
+<p>Gibt es ungesicherte Arbeit, wirst du vor dem Tabwechsel oder dem Beenden gefragt. Der Widerruf umfasst alles — Fotos hinzufügen, verschieben, umordnen.</p>
+
+<h3>Als Bild exportieren</h3>
+<p>Öffnet mit <span class="kbd">⌘E</span>.</p>
+<table class="wide">
+  <tr><th>Eintrag</th><th>Einzelheiten</th></tr>
+  <tr><td>Format</td><td>Wie der Export aus dem Bearbeitungsfenster. Qualität und PNG-Bittiefe werden auch hier gesetzt.</td></tr>
+  <tr><td>Größe</td><td>Behält die Auflösung der Platte oder verkleinert sie.</td></tr>
+  <tr><td>Zerschneiden</td><td>In freier Platzierung mit zwei oder mehr Feldern wählst du, ob ein Bild gesichert wird oder so viele Teile. Zerschnitten werden sie von links nummeriert.</td></tr>
+  <tr><td>Ziel</td><td>Der ursprüngliche Ordner oder einer deiner Wahl.</td></tr>
+  <tr><td>Dateiname</td><td>Folgt dem Namen des ersten Fotos auf der Platte. Ein Suffix lässt sich anhängen.</td></tr>
+</table>
+</section>
+
+<!-- ══════════ 마무리 ══════════ -->
+
+<section id="crop">
+<h2>Beschneiden und Drehen</h2>
+<p><span class="kbd">C</span> geht in den Modus Beschneiden und Drehen, <span class="kbd">A</span> zurück zur Farbkorrektur.</p>
+
+<h3>Beschneiden</h3>
+<ul>
+  <li>Zieh Ecken und Kanten, um den Ausschnitt zu setzen. Ziehst du innen, wandert der ganze Rahmen.</li>
+  <li>Das Verhältnis lässt sich festsetzen — <strong>Frei · Original · 1:1 · 3:2 · 2:3 · 4:3 · 3:4 · 16:9 · 4:5</strong></li>
+</ul>
+
+<h3>Ausrichten</h3>
+<p><strong>Winkel</strong> (−45° bis +45°) rückt einen schiefen Horizont gerade. Beim Drehen bleiben leere Ecken, das Foto wird daher etwas vergrößert, um sie zu füllen.</p>
+
+<h3>Verzeichnung</h3>
+<p><strong>Verzeichnung</strong> (−100 bis +100) begradigt Linien, die das Objektiv gebogen hat. Tonnenförmige Verzeichnung, die im Weitwinkel nach außen bauscht, liegt auf der negativen Seite; kissenförmige, die im Tele nach innen zieht, auf der positiven. Richte dich an etwas aus, das gerade sein sollte, an einem Gebäude oder einem Horizont.</p>
+
+<h3>Drehen und Spiegeln</h3>
+<ul>
+  <li>90° nach links drehen · 90° nach rechts drehen</li>
+  <li>Horizontal spiegeln · Vertikal spiegeln</li>
+</ul>
+<p>Beschneiden und Drehen kommen als Allererstes. Später hinzugefügte Unkenntlich-Bereiche und Pinselstriche sitzen daher <strong>relativ zum beschnittenen Foto</strong>.</p>
+</section>
+
+<section id="export">
+<h2>Exportieren</h2>
+<p>Öffnet mit <span class="kbd">⌘E</span>. Sind mehrere Fotos ausgewählt, werden sie alle mit denselben Einstellungen gesichert. <span class="kbd">Return</span> im Fenster startet.</p>
+
+<h3>Format</h3>
+<table class="wide">
+  <tr><th>Format</th><th>Wofür sie taugt</th></tr>
+  <tr><td>JPEG</td><td>Die sichere Wahl. Soziale Medien, Web, E-Mail.</td></tr>
+  <tr><td>HEIF</td><td>Kleinere Dateien bei gleicher Qualität. Zwischen Apple-Geräten.</td></tr>
+  <tr><td>PNG</td><td>Verlustfrei gesichert. 8 Bit oder 16 Bit. Große Dateien.</td></tr>
+  <tr><td>WebP</td><td>Kleiner als JPEG fürs Web.</td></tr>
+  <tr><td>TIFF (8bit)</td><td>Zur Übergabe an eine andere Bearbeitungs-App. Breit kompatibel.</td></tr>
+  <tr><td>TIFF (16bit)</td><td>Zur Übergabe mit so viel Tonwertdetail wie möglich. Druck oder weitere Arbeit.</td></tr>
+</table>
+<p>Formate mit verlustbehafteter Kompression lassen die <strong>Qualität</strong> einstellen. Standard sind 95 %, höher heißt größere Datei. Unter 90 % zu gehen gibt es im normalen Gebrauch selten Grund.</p>
+
+<h3>Skalieren</h3>
+<p>Drei Wege dorthin.</p>
+<table>
+  <tr><th>Methode</th><th>Was du setzt</th></tr>
+  <tr><td>Skalierung</td><td>Ein Anteil des Originals</td></tr>
+  <tr><td>Breite px</td><td>Die Breite in Pixeln</td></tr>
+  <tr><td>Lange Kante px</td><td>Die längere der beiden Seiten, in Pixeln</td></tr>
+</table>
+<p>Welchen Weg du auch nimmst, <strong>nichts wird über das Original hinaus vergrößert.</strong> Pixel zu erfinden, die es nie gab, kostet nur Qualität.</p>
+
+<h3>Metadaten</h3>
+<p>Der Tab <strong>Metadaten</strong> im Exportfenster bestimmt Eintrag für Eintrag, was in der Datei bleibt. Angehakte Einträge werden aus der exportierten Datei entfernt.</p>
+<table class="wide">
+  <tr><th>Eintrag</th><th>Was darin steckt</th></tr>
+  <tr><td>Aufnahmedaten</td><td>Belichtung · ISO · Blende</td></tr>
+  <tr><td>Kamera und Objektiv</td><td>Hersteller · Modell · Seriennummer</td></tr>
+  <tr><td>Aufnahmedatum und -zeit</td><td>Wann es aufgenommen wurde</td></tr>
+  <tr><td>Ort (GPS)</td><td>Die Koordinaten des Orts</td></tr>
+  <tr><td>Urheber und Copyright</td><td>Autor · Copyright-Vermerk</td></tr>
+  <tr><td>Beschreibung und Stichwörter</td><td>Der Text und die Tags am Foto</td></tr>
+  <tr><td>Bearbeitungssoftware</td><td>Welche App es gemacht hat. Der Filmname, den Rawcookr vermerkt, steht auch hier und geht mit.</td></tr>
+  <tr><td>Herstellernotizen</td><td>Was die Kamera für sich selbst festhält</td></tr>
+</table>
+<p><strong>Alle entfernen</strong> schaltet sie in einem Zug ab. Geht das Foto an die Öffentlichkeit, ist es das Mindeste, <strong>Ort (GPS)</strong> wegzulassen. Koordinaten allein verraten, wo du wohnst und arbeitest.</p>
+
+<h3>Weitere Einstellungen</h3>
+<table class="wide">
+  <tr><th>Eintrag</th><th>Was es tut</th></tr>
+  <tr><td>Dateinamensuffix</td><td>Text, der an den Dateinamen gehängt wird. Standard ist <span class="path">_developed</span>. Damit kollidiert der Name nicht mit dem Original.</td></tr>
+  <tr><td>Ziel</td><td>Im ursprünglichen Ordner belassen oder woanders hinzeigen.</td></tr>
+  <tr><td>Zielordner im Finder öffnen</td><td>Öffnet diesen Ordner im Finder, sobald gesichert ist.</td></tr>
+  <tr><td>Dieses Fenster schließen</td><td>Das Fenster schließt sich von selbst, wenn der Export fertig ist. Praktisch, wenn du Stapel um Stapel exportierst.</td></tr>
+</table>
+<p>Sicherst du als TIFF, wird auch der verwendete Filmname in der Beschreibung der Datei festgehalten.</p>
+
+<div class="note">
+<b>Wenn die exportierte Farbe anders aussieht</b>
+<p>Meistens liest die App, in der du schaust, das Farbprofil nicht. Probiere die Finder-Vorschau oder einen Webbrowser. Rawcookr exportiert sRGB, das sieht fast überall gleich aus.</p>
+</div>
+</section>
+
+<section id="customfilm">
+<h2>Einen eigenen Film machen</h2>
+<p>Es gibt zwei Wege, einen eigenen in die Filmliste zu bringen.</p>
+
+<p>Beide stehen im Menü, das erscheint, wenn du im Bereich Filmrezept die Familie <strong>Custom</strong> wählst.</p>
+
+<h3>Eine LUT, die du schon hast, als Film</h3>
+<ol class="steps">
+  <li>Drücke <strong>LUT to FILM…</strong> im Custom-Menü.</li>
+  <li>Wähle eine <span class="path">.cube</span>-Datei.</li>
+  <li>Gib ihr einen Namen und sie steht in der Filmliste.</li>
+</ol>
+<p>Eine Schwarzweiß-LUT wird als Schwarzweißfilm erkannt, du bekommst also die reinen Mono-Regler wie Tonung WC und MG.</p>
+
+<h3>Eine Farbe, die du abgestimmt hast, als Film</h3>
+<p>Hast du mit Gradationskurve, HSL und Farbbalance eine Farbe gebaut, die dir gefällt, nimmt <strong>Farbe als Film sichern…</strong> im selben Menü allein diese Farbumwandlung und legt sie ab.</p>
+<p><strong>Film als LUT exportieren</strong> schreibt einen Film in eine <span class="path">.cube</span>-Datei. Sie funktioniert auch in anderen Apps.</p>
+
+<h3>Ein Rezeptbuch teilen</h3>
+<p>Bündelt deine Filme und Vorgaben in einer einzigen <span class="path">.rawb</span>-Datei. Wer sie bekommt, holt sich alles auf einmal mit <strong>Rezeptbuch importieren</strong>.</p>
+<p>Um einen Look unter Leuten mit derselben Ausrüstung zu teilen, oder deine ganze Einrichtung auf einen neuen Mac zu bringen.</p>
+</section>
+
+<section id="prefs">
+<h2>Einstellungen</h2>
+<table class="wide">
+  <tr><th>Eintrag</th><th>Einzelheiten</th></tr>
+  <tr><td>Wo Bearbeitungen liegen</td><td><strong>Im App-Ordner verwaltet</strong> (Standard) oder <strong>neben der Originaldatei</strong>. Siehe <a href="#originals">Deine Originale bleiben unberührt</a>.</td></tr>
+  <tr><td>Hintergrund</td><td>Wie hell es hinter dem Foto im Bearbeitungsfenster ist. Dunkel gehalten lässt sich die Helligkeit des Fotos leichter beurteilen.</td></tr>
+  <tr><td>Größe der Vorgaben-Miniaturen</td><td>Die Vorschaugröße in der Vorgabenliste. Sehr klein · Klein · Groß.</td></tr>
+</table>
+<p>Das helle und dunkle Erscheinungsbild der App stellst du mit <span class="kbd">⌘⇧9</span> und <span class="kbd">⌘⇧0</span> ein.</p>
+</section>
+
+<section id="shortcuts">
+<h2>Tastaturkurzbefehle</h2>
+<p>Welche Tasten wirken, hängt vom Modus ab. Tasten, die in allen dreien gehen, stehen in jeder Tabelle noch einmal — du brauchst also nur die Tabelle deines Modus.</p>
+
+<h3>In jedem Modus</h3>
+<table>
+  <tr><td><span class="kbd">⌘E</span></td><td>Exportieren</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Schließen (beim Bearbeiten schließt es das Foto)</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Rawcookr-Hilfe</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span></td><td>Dunkles Erscheinungsbild</td></tr>
+  <tr><td><span class="kbd">⌘⇧0</span></td><td>Helles Erscheinungsbild</td></tr>
+  <tr><td><span class="kbd">⌘Q</span></td><td>Beenden — du wirst gefragt, wenn eine Montage ungesichert ist</td></tr>
+</table>
+
+<h3>Mediathek</h3>
+<table>
+  <tr><th>Taste</th><th>Was es tut</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Ordner öffnen</td></tr>
+  <tr><td><span class="kbd">⌘R</span></td><td>Ordner neu einlesen</td></tr>
+  <tr><td><span class="kbd">⌘A</span></td><td>Alle auswählen</td></tr>
+  <tr><td><span class="kbd">←</span> <span class="kbd">→</span> <span class="kbd">↑</span> <span class="kbd">↓</span></td><td>Im Raster bewegen</td></tr>
+  <tr><td><span class="kbd">Space</span></td><td>Groß zeigen (noch einmal drücken schließt)</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>Das gewählte Foto ins Bearbeitungsfenster holen</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>Die große Ansicht schließen</td></tr>
+  <tr><td><span class="kbd">1</span>–<span class="kbd">5</span></td><td>Die gewählten Fotos bewerten — alle auf einmal</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>Markieren / Markierung entfernen — alle auf einmal</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>Als neue Version entwickeln</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>Seitenleiste ein-/ausblenden</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>Ordnerbaum ein-/ausblenden</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>Dateiinfo ein-/ausblenden</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>Jedes ausgewählte Foto exportieren</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Das Fenster schließen</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Hilfe</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Dunkles · helles Erscheinungsbild</td></tr>
+</table>
+
+<h3>Bearbeiten</h3>
+<h4>Ansicht</h4>
+<table>
+  <tr><th>Taste</th><th>Was es tut</th></tr>
+  <tr><td><span class="kbd">⌘=</span> · <span class="kbd">⌘-</span></td><td>Vergrößern · Verkleinern</td></tr>
+  <tr><td><span class="kbd">⌘0</span></td><td>Ins Fenster einpassen</td></tr>
+  <tr><td><span class="kbd">⌘1</span></td><td>100 % (echte Pixel)</td></tr>
+  <tr><td><span class="kbd">Space</span> + Ziehen</td><td>Das Foto verschieben</td></tr>
+  <tr><td><span class="kbd">M</span></td><td>Originalansicht (solange gehalten)</td></tr>
+  <tr><td><span class="kbd">J</span></td><td>Beschnittwarnung ein/aus</td></tr>
+  <tr><td><span class="kbd">O</span></td><td>Zoomleiste ein-/ausblenden</td></tr>
+  <tr><td><span class="kbd">,</span> · <span class="kbd">.</span></td><td>Alle Korrekturbereiche öffnen · schließen</td></tr>
+  <tr><td><span class="kbd">⌘F</span></td><td>Filmstreifen ein-/ausblenden</td></tr>
+  <tr><td><span class="kbd">⌃⌘F</span></td><td>Fokusansicht (Vollbild) betreten / verlassen</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>Seitenleiste ein-/ausblenden</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>Ordnerbaum ein-/ausblenden</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>Dateiinfo ein-/ausblenden</td></tr>
+</table>
+
+<h4>Bearbeiten</h4>
+<table>
+  <tr><th>Taste</th><th>Was es tut</th></tr>
+  <tr><td><span class="kbd">C</span></td><td>Modus Beschneiden / Drehen</td></tr>
+  <tr><td><span class="kbd">A</span></td><td>Zurück zur Farbkorrektur</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>Den Beschnitt bestätigen und den Modus verlassen</td></tr>
+  <tr><td><span class="kbd">⌘⇧C</span></td><td>Bearbeitung kopieren</td></tr>
+  <tr><td><span class="kbd">⌘⇧V</span></td><td>Bearbeitung einsetzen</td></tr>
+  <tr><td><span class="kbd">⌥⌘R</span></td><td>Jede Bearbeitung an diesem Foto zurücksetzen</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>Als neue Version entwickeln</td></tr>
+</table>
+
+<h4>Auswählen und bewegen</h4>
+<table>
+  <tr><th>Taste</th><th>Was es tut</th></tr>
+  <tr><td><span class="kbd">←</span> · <span class="kbd">→</span></td><td>Vorheriges · nächstes Foto (nicht beim Beschneiden)</td></tr>
+  <tr><td><span class="kbd">1</span>–<span class="kbd">5</span></td><td>Bewertung</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>Markieren / Markierung entfernen</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>Das Foto schließen und zurück zur Mediathek (beim Beschneiden bricht es den Beschnitt ab)</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>Exportieren</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Das Foto schließen</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Hilfe</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Dunkles · helles Erscheinungsbild</td></tr>
+</table>
+
+<h3>Montage</h3>
+<table>
+  <tr><th>Taste</th><th>Was es tut</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Montage öffnen — in diesem Modus öffnet ⌘O eine gesicherte Anordnung, keinen Ordner</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>Montage sichern</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>Montage sichern unter…</td></tr>
+  <tr><td><span class="kbd">⌘Z</span></td><td>Widerrufen — Fotos hinzufügen, verschieben, umordnen</td></tr>
+  <tr><td><span class="kbd">⇧⌘Z</span></td><td>Wiederholen</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>Die Platte als Bild exportieren</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Das Fenster schließen</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Hilfe</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Dunkles · helles Erscheinungsbild</td></tr>
+</table>
+
+</section>
+
+<section id="trouble">
+<h2>Häufige Fragen</h2>
+
+<h4>Eine RAW-Datei öffnet nicht</h4>
+<p>Die RAW-Entwicklung nutzt die in macOS eingebaute Engine, ein sehr neues Kameramodell braucht also zuerst ein macOS-Update. Sieh unter <strong>Systemeinstellungen → Allgemein → Softwareupdate</strong> nach. Öffnet sie immer noch nicht, versuche in der Kamera als DNG zu sichern, oder <a href="mailto:rawcookr@slowsalmon.com">sag uns Bescheid</a>.</p>
+
+<h4>Miniaturen erscheinen langsam</h4>
+<p>Beim ersten Öffnen eines Ordners muss für jedes Foto eine Vorschau gebaut werden, das dauert einen Moment. Danach geht es schnell. Hält ein Ordner sehr viele Fotos, ist es angenehmer, ihn in Unterordner zu teilen.</p>
+
+<h4>Schärfe oder Korn scheinen nicht zu wirken</h4>
+<p>Beim Einpassen ins Fenster wird das Foto kleiner gezeichnet, Effekte auf Pixelebene sind also unsichtbar. Prüfe bei 100 % mit <span class="kbd">⌘1</span>.</p>
+
+<h4>Meine Bearbeitungen sind verschwunden</h4>
+<p>Bearbeitungen liegen in einer Datei getrennt vom Original. Hattest du sie <strong>neben der Originaldatei</strong> abgelegt, kann das Verschieben allein der Fotos die Einstellungen zurückgelassen haben. Nimm <strong>In anderen Ordner bewegen</strong> innerhalb der App, dann gehen die Einstellungen mit.</p>
+
+<h4>Das Abonnement wird nicht erkannt</h4>
+<p>Prüfe, ob du mit demselben Apple-Account im App Store angemeldet bist, und drücke dann <strong>Käufe wiederherstellen</strong> auf dem Abo-Bildschirm.</p>
+
+<h4>Ein Gesicht ist noch zu sehen</h4>
+<p>Die automatische Erkennung kann ein Gesicht im Profil, hinter einer Maske oder im tiefen Schatten übersehen. Zeichne selbst einen Bereich darüber und geh das Bild vor dem Veröffentlichen einmal bei 100 % durch.</p>
+
+<h4>Meine Montage ist verschwunden</h4>
+<p>Eine Montage wird erst in eine Datei geschrieben, wenn du sie sicherst. Sichere zuerst mit <span class="kbd">⌘S</span>. Versuchst du ohne zu sichern den Tab zu wechseln oder zu beenden, wirst du gefragt.</p>
+
+<h4>Wenn nichts davon hilft</h4>
+<p>Schreib an <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a>. Mit welchem Mac du arbeitest und welche Datei aus welcher Kamera — damit finden wir es sehr viel schneller.</p>
+</section>
+
+</main>
+</div>
+<footer>
+  <p><a href="./">Rawcookr-Startseite</a> · <a href="privacy.html">Datenschutzerklärung</a> · <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a></p>
+</footer>
+<script>
+  // ── 언어 전환 ──
+  (function () {
+    const sel = document.getElementById('lang');
+    const cur = document.documentElement.lang || 'ko';
+    sel.value = cur;
+    sel.addEventListener('change', () => {
+      const v = sel.value;
+      location.href = (v === 'ko' ? 'guide.html' : 'guide-' + v + '.html') + location.hash;
+    });
+  })();
+
+  const toc = document.getElementById('toc');
+  document.getElementById('menubtn')
+    .addEventListener('click', () => toc.classList.toggle('open'));
+
+  const groups = [...toc.querySelectorAll('li')];
+  const links  = [...toc.querySelectorAll('a')];
+  const linkOf  = new Map(links.map(a => [a.hash.slice(1), a]));
+  const groupOf = new Map(links.map(a => [a.hash.slice(1), a.closest('li')]));
+
+  function openOnly(li) {
+    groups.forEach(g => g.classList.toggle('open', g === li));
+  }
+
+  // 묶음 제목을 누르면 그 묶음만 펼치고, 이미 펼쳐져 있으면 접는다
+  groups.forEach(li => {
+    li.querySelector('.grp').addEventListener('click', () => {
+      openOnly(li.classList.contains('open') ? null : li);
+    });
+  });
+
+  // 좁은 화면에서는 항목을 누르면 목차를 닫는다
+  links.forEach(a => a.addEventListener('click', () => toc.classList.remove('open')));
+
+  function highlight(id) {
+    const a = linkOf.get(id);
+    if (!a || a.classList.contains('on')) return;
+    links.forEach(x => x.classList.remove('on'));
+    a.classList.add('on');
+    const li = groupOf.get(id);
+    if (li && !li.classList.contains('open')) openOnly(li);
+  }
+
+  // 화면에 걸쳐 있는 섹션 가운데 가장 위의 것을 현재 위치로 본다
+  const sections = [...document.querySelectorAll('section[id]')];
+  const visible = new Set();
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => en.isIntersecting ? visible.add(en.target) : visible.delete(en.target));
+    let best = null;
+    visible.forEach(el => {
+      if (!best || el.getBoundingClientRect().top < best.getBoundingClientRect().top) best = el;
+    });
+    if (best) highlight(best.id);
+  }, { rootMargin: '-70px 0px -70% 0px' });
+  sections.forEach(el => obs.observe(el));
+
+  // 주소에 #항목이 붙어 있으면 그 묶음을 열고 시작, 아니면 첫 묶음
+  const start = location.hash.slice(1);
+  if (start && groupOf.has(start)) highlight(start);
+  else groups[0].classList.add('open');
+</script>
+</body>
+</html>

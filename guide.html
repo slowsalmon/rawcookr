@@ -56,6 +56,14 @@
     background: #fff; color: var(--ink); border: 1px solid var(--line);
     border-radius: 999px; padding: 6px 14px; cursor: pointer;
   }
+  #lang {
+    font: inherit; font-size: 0.82em; font-weight: 600; color: var(--ink);
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 5px 28px 5px 12px; cursor: pointer;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%236B6459'/></svg>");
+    background-repeat: no-repeat; background-position: right 11px center;
+  }
 
   /* ── 레이아웃 ── */
   .shell { max-width: 1180px; margin: 0 auto; padding: 0 24px; display: flex; gap: 48px; }
@@ -180,6 +188,18 @@
     <span class="where">사용 설명서</span>
     <span class="spacer"></span>
     <button id="menubtn" type="button">목차</button>
+    <select id="lang" aria-label="Language">
+      <option value="ko">한국어</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+      <option value="zh-Hans">中文（简体）</option>
+      <option value="de">Deutsch</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="th">ไทย</option>
+      <option value="vi">Tiếng Việt</option>
+      <option value="id">Bahasa Indonesia</option>
+    </select>
     <a class="home" href="./">홈으로</a>
   </div>
 </div>
@@ -191,7 +211,6 @@
     <li>
       <button type="button" class="grp"><span class="caret"></span>시작하기</button>
       <div class="items"><div>
-        <a href="#intro">Rawcookr는 이런 앱입니다</a>
         <a href="#screen">화면 구성</a>
         <a href="#open">사진 불러오기</a>
         <a href="#originals">원본은 그대로 둡니다</a>
@@ -270,33 +289,7 @@
 
 <!-- ══════════ 시작하기 ══════════ -->
 
-<section class="first" id="intro">
-<h2>Rawcookr는 이런 앱입니다</h2>
-<p>사진을 찍어 온라인에 올리는 사람을 위해 만든 Mac용 RAW 현상 앱입니다. 필요한 일이 한 앱 안에서 끝나도록, 그리고 사진이 기기 밖으로 나가지 않도록 설계했습니다.</p>
-
-<h3>얼굴과 번호판을 한 번에 가립니다</h3>
-<p>카페·여행·거리 사진에 찍힌 모르는 사람의 얼굴과 차량 번호판을 찾아 블러나 모자이크를 씌웁니다. 축소한 미리보기가 아니라 <strong>원본 해상도에서 검출</strong>하기 때문에 멀리 작게 찍힌 얼굴도 놓치지 않습니다. 찾은 영역은 하나씩 켜고 끌 수 있고, 직접 그려 넣을 수도 있습니다.</p>
-
-<h3>값비싼 디퓨전 필터를 미스트로</h3>
-<p>렌즈 앞에 끼우는 광학 디퓨전 필터를 디지털로 옮겼습니다. 밝은 부분이 부드럽게 번지고 대비가 누그러지며 피부가 유해집니다. 네 단계 세기와, 그림자까지 빛을 퍼뜨리는 클래식 모드가 있습니다.</p>
-
-<h3>필름 레시피 — 내장 30여 종에 내 것을 더해</h3>
-<p>컬러와 흑백을 합쳐 서른 종이 넘는 내장 룩이 있습니다. 가지고 있는 <span class="path">.cube</span> LUT에 이름을 붙여 필름 목록에 넣을 수 있고, 마음에 드는 색을 맞춘 뒤 그 색만 필름으로 저장할 수도 있습니다. 만든 필름과 설정을 <strong>레시피북</strong> 한 파일로 묶어 다른 사람에게 건넬 수 있습니다.</p>
-
-<h3>바탕은 제대로 된 RAW 현상기</h3>
-<p>노출과 톤 커브, 12밴드 HSL, 레벨, 3방향 색상 균형, 선택 색상, 레이어, 선형·방사형·브러시 마스크를 쓰는 부분 보정, 렌즈 왜곡 보정, 색수차 제거, 입자, 비네팅, 그리고 필름 카메라식 날짜 각인까지 갖췄습니다.</p>
-
-<h3>여러 장을 한 판에 — 마운트</h3>
-<p>사진 여러 장을 한 판에 얹어 한 장으로 묶습니다. 격자로 나누거나 자유롭게 배치하고, 간격·테두리·모서리·배경색을 정해 올릴 준비가 된 그림을 만듭니다. 여러 장 넘기기 게시물용으로, 이어 붙여 작업한 뒤 다시 잘라 내보낼 수도 있습니다.</p>
-
-<h3>한 장이 아니라 폴더 단위로</h3>
-<p>폴더를 훑어보며 별점과 깃발을 매기고, 한 장의 편집을 다음 장에 옮기고, 고른 것을 한꺼번에 내보냅니다. JPEG·HEIF·PNG·WebP·TIFF로 저장하면서 크기를 줄이고 위치 정보를 지울 수 있습니다.</p>
-
-<h3>사진은 이 Mac을 벗어나지 않습니다</h3>
-<p>얼굴 검출도, 현상도, 내보내기도 전부 사용자의 기기 안에서 돌아갑니다. 계정도, 클라우드도, 사용 기록 수집도 없습니다.</p>
-</section>
-
-<section id="screen">
+<section class="first" id="screen">
 <h2>화면 구성</h2>
 <p>Rawcookr에는 화면이 두 개 있습니다.</p>
 
@@ -311,7 +304,7 @@
 
 <div class="tip">
 <b>화면을 넓게 쓰고 싶을 때</b>
-<p>필름스트립은 <span class="kbd">⌘T</span> 로 감출 수 있고, 사진만 전체화면으로 보려면 <span class="kbd">⌃⌘F</span> 를 누릅니다. 오른쪽 패널의 항목을 전부 접으려면 <span class="kbd">.</span>, 전부 펼치려면 <span class="kbd">,</span> 입니다.</p>
+<p>필름스트립은 <span class="kbd">⌘F</span> 로 감출 수 있고, 사진만 전체화면으로 보려면 <span class="kbd">⌃⌘F</span> 를 누릅니다. 오른쪽 패널의 항목을 전부 접으려면 <span class="kbd">.</span>, 전부 펼치려면 <span class="kbd">,</span> 입니다.</p>
 </div>
 </section>
 
@@ -396,7 +389,7 @@
   <tr><td><span class="kbd">1</span>~<span class="kbd">5</span></td><td>별점 매기기</td></tr>
   <tr><td><span class="kbd">Z</span></td><td>깃발 표시 / 해제</td></tr>
 </table>
-<p>매긴 뒤에는 화면 위쪽 필터로 <strong>깃발만</strong> 또는 별점 이상만 남겨 볼 수 있습니다. 별점과 깃발도 편집값과 같은 곳에 저장되므로 원본 파일은 그대로입니다.</p>
+<p>라이브러리에서는 고른 사진 전부에 한 번에 들어갑니다. 매긴 뒤에는 화면 위쪽 필터로 <strong>깃발만</strong> 또는 별점 이상만 남겨 볼 수 있습니다. 별점과 깃발도 편집값과 같은 곳에 저장되므로 원본 파일은 그대로입니다.</p>
 </section>
 
 <section id="batch">
@@ -408,7 +401,8 @@
   <li>기준이 될 사진에서 <span class="kbd">⌘⇧C</span> — 편집 내용 복사</li>
   <li>적용할 사진을 고르고 <span class="kbd">⌘⇧V</span> — 편집 내용 붙여넣기</li>
 </ol>
-<p>여러 장을 골라 놓고 붙여넣으면 고른 전부에 한 번에 들어갑니다.</p>
+<p>붙여넣기는 <strong>지금 열려 있는 한 장</strong>에만 들어갑니다. 여러 장에 옮기려면 <span class="kbd">→</span> 로 다음 사진으로 넘어가 <span class="kbd">⌘⇧V</span> 를 다시 누르세요.</p>
+<p>자리에 매인 항목 — 개인정보 블러 영역, 색수차 브러시 자국, 자른 자리, 부분 보정 마스크 — 은 옮겨지지 않고 받는 사진의 것이 그대로 남습니다. 사진마다 얼굴 위치가 다르니 그 편이 맞습니다.</p>
 
 <h3>한꺼번에 내보내기</h3>
 <p>고른 사진이 여러 장인 상태에서 <span class="kbd">⌘E</span> 를 누르면 전부 같은 설정으로 내보냅니다. 자세한 것은 <a href="#export">내보내기</a>를 보세요.</p>
@@ -1143,56 +1137,98 @@
 
 <section id="shortcuts">
 <h2>단축키</h2>
+<p>모드마다 쓸 수 있는 키가 다릅니다. 세 모드에서 모두 되는 것도 각 표에 그대로 적었으니, 지금 있는 모드의 표만 보시면 됩니다.</p>
 
-<h3>파일</h3>
+<h3>어느 모드에서나</h3>
 <table>
-  <tr><td><span class="kbd">⌘O</span></td><td>폴더 열기 (마운트 탭에서는 마운트 불러오기)</td></tr>
-  <tr><td><span class="kbd">⌘S</span> · <span class="kbd">⇧⌘S</span></td><td>마운트 저장 · 새 이름으로 저장</td></tr>
-  <tr><td><span class="kbd">⌘G</span></td><td>새 버전으로 현상</td></tr>
   <tr><td><span class="kbd">⌘E</span></td><td>내보내기</td></tr>
-  <tr><td><span class="kbd">⌘I</span></td><td>파일 정보 보기</td></tr>
-  <tr><td><span class="kbd">⌘W</span></td><td>사진 닫기 / 창 닫기</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>닫기 (현상 중이면 사진 닫기)</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Rawcookr 도움말</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span></td><td>다크 모드</td></tr>
+  <tr><td><span class="kbd">⌘⇧0</span></td><td>라이트 모드</td></tr>
+  <tr><td><span class="kbd">⌘Q</span></td><td>종료 — 마운트에 저장하지 않은 작업이 있으면 물어봅니다</td></tr>
 </table>
 
-<h3>편집</h3>
+<h3>라이브러리</h3>
 <table>
-  <tr><td><span class="kbd">⌘⇧C</span></td><td>편집 내용 복사</td></tr>
-  <tr><td><span class="kbd">⌘⇧V</span></td><td>편집 내용 붙여넣기</td></tr>
-  <tr><td><span class="kbd">⌥⌘R</span></td><td>전체 초기화</td></tr>
-  <tr><td><span class="kbd">C</span></td><td>자르기 / 회전 모드</td></tr>
-  <tr><td><span class="kbd">A</span></td><td>색 조정 모드</td></tr>
+  <tr><th>키</th><th>하는 일</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>폴더 열기</td></tr>
+  <tr><td><span class="kbd">⌘R</span></td><td>폴더 다시 읽기</td></tr>
+  <tr><td><span class="kbd">⌘A</span></td><td>전체 선택</td></tr>
+  <tr><td><span class="kbd">←</span> <span class="kbd">→</span> <span class="kbd">↑</span> <span class="kbd">↓</span></td><td>격자에서 옆·위아래 사진으로</td></tr>
+  <tr><td><span class="kbd">Space</span></td><td>크게 보기 (한 번 더 누르면 닫힘)</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>고른 사진을 현상 화면으로</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>크게 보기 닫기</td></tr>
+  <tr><td><span class="kbd">1</span>~<span class="kbd">5</span></td><td>고른 사진에 별점 — 여러 장에 한 번에 들어갑니다</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>깃발 표시 / 해제 — 여러 장에 한 번에</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>새 버전으로 현상</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>사이드바 보이기 / 감추기</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>폴더 트리 보이기 / 감추기</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>파일 정보 보이기 / 감추기</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>고른 사진 모두 내보내기</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>창 닫기</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>도움말</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>다크 모드 · 라이트 모드</td></tr>
 </table>
 
-<h3>보기</h3>
+<h3>현상</h3>
+<h4>보기</h4>
 <table>
+  <tr><th>키</th><th>하는 일</th></tr>
   <tr><td><span class="kbd">⌘=</span> · <span class="kbd">⌘-</span></td><td>확대 · 축소</td></tr>
   <tr><td><span class="kbd">⌘0</span></td><td>화면에 맞추기</td></tr>
   <tr><td><span class="kbd">⌘1</span></td><td>100% (원본 픽셀)</td></tr>
+  <tr><td><span class="kbd">Space</span> + 드래그</td><td>사진 밀어서 이동</td></tr>
   <tr><td><span class="kbd">M</span></td><td>원본 보기 (누르는 동안)</td></tr>
-  <tr><td><span class="kbd">J</span></td><td>클리핑 경고</td></tr>
-  <tr><td><span class="kbd">,</span> · <span class="kbd">.</span></td><td>모든 항목 펼치기 · 접기</td></tr>
+  <tr><td><span class="kbd">J</span></td><td>클리핑 경고 켜기 / 끄기</td></tr>
   <tr><td><span class="kbd">O</span></td><td>확대 막대 보이기 / 감추기</td></tr>
-  <tr><td><span class="kbd">⌘T</span></td><td>필름스트립 보이기 / 감추기</td></tr>
-  <tr><td><span class="kbd">⌃⌘F</span></td><td>집중 보기 (전체화면)</td></tr>
-  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>라이트 모드 · 다크 모드</td></tr>
+  <tr><td><span class="kbd">,</span> · <span class="kbd">.</span></td><td>조정 항목 모두 펼치기 · 접기</td></tr>
+  <tr><td><span class="kbd">⌘F</span></td><td>필름스트립 보이기 / 감추기</td></tr>
+  <tr><td><span class="kbd">⌃⌘F</span></td><td>집중 보기 (전체화면) 들어가기 / 나오기</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>사이드바 보이기 / 감추기</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>폴더 트리 보이기 / 감추기</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>파일 정보 보이기 / 감추기</td></tr>
 </table>
 
-<h3>고르기와 이동</h3>
+<h4>편집</h4>
 <table>
-  <tr><td><span class="kbd">←</span> <span class="kbd">→</span></td><td>이전 · 다음 사진</td></tr>
-  <tr><td><span class="kbd">Return</span></td><td>현상 화면으로</td></tr>
-  <tr><td><span class="kbd">Space</span></td><td>크게 보기 (라이브러리)</td></tr>
-  <tr><td><span class="kbd">Esc</span></td><td>라이브러리로 돌아가기 · 크게 보기 닫기</td></tr>
-  <tr><td><span class="kbd">Space</span> + 드래그</td><td>사진 이동 (현상 화면)</td></tr>
-  <tr><td><span class="kbd">⌘A</span></td><td>전체 선택</td></tr>
+  <tr><th>키</th><th>하는 일</th></tr>
+  <tr><td><span class="kbd">C</span></td><td>자르기 / 회전 모드</td></tr>
+  <tr><td><span class="kbd">A</span></td><td>색 조정 모드로 돌아가기</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>자르기 중이면 확정하고 빠져나오기</td></tr>
+  <tr><td><span class="kbd">⌘⇧C</span></td><td>편집 내용 복사</td></tr>
+  <tr><td><span class="kbd">⌘⇧V</span></td><td>편집 내용 붙여넣기</td></tr>
+  <tr><td><span class="kbd">⌥⌘R</span></td><td>이 사진의 편집 전체 초기화</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>새 버전으로 현상</td></tr>
+</table>
+
+<h4>고르기와 이동</h4>
+<table>
+  <tr><th>키</th><th>하는 일</th></tr>
+  <tr><td><span class="kbd">←</span> · <span class="kbd">→</span></td><td>이전 · 다음 사진 (자르기 중에는 작동하지 않습니다)</td></tr>
   <tr><td><span class="kbd">1</span>~<span class="kbd">5</span></td><td>별점</td></tr>
   <tr><td><span class="kbd">Z</span></td><td>깃발 표시 / 해제</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>사진 닫고 라이브러리로 (자르기 중이면 자르기 취소)</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>내보내기</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>사진 닫기</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>도움말</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>다크 모드 · 라이트 모드</td></tr>
 </table>
 
-<h3>도움말</h3>
+<h3>마운트</h3>
 <table>
-  <tr><td><span class="kbd">⌘?</span></td><td>Rawcookr 도움말</td></tr>
+  <tr><th>키</th><th>하는 일</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>마운트 불러오기 — 이 모드에서는 ⌘O가 폴더가 아니라 작업 파일을 엽니다</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>마운트 저장</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>새 이름으로 마운트 저장</td></tr>
+  <tr><td><span class="kbd">⌘Z</span></td><td>실행취소 — 사진을 넣고 옮기고 순서를 바꾼 모든 과정</td></tr>
+  <tr><td><span class="kbd">⇧⌘Z</span></td><td>다시 실행</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>판을 그림으로 내보내기</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>창 닫기</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>도움말</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>다크 모드 · 라이트 모드</td></tr>
 </table>
+
 </section>
 
 <section id="trouble">
@@ -1229,6 +1265,17 @@
   <p><a href="./">Rawcookr 홈</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a></p>
 </footer>
 <script>
+  // ── 언어 전환 ──
+  (function () {
+    const sel = document.getElementById('lang');
+    const cur = document.documentElement.lang || 'ko';
+    sel.value = cur;
+    sel.addEventListener('change', () => {
+      const v = sel.value;
+      location.href = (v === 'ko' ? 'guide.html' : 'guide-' + v + '.html') + location.hash;
+    });
+  })();
+
   const toc = document.getElementById('toc');
   document.getElementById('menubtn')
     .addEventListener('click', () => toc.classList.toggle('open'));

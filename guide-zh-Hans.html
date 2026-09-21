@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rawcookr 使用指南</title>
+<meta name="description" content="Rawcookr 的全部功能和用法。胶片配方、隐私模糊、柔光滤镜、局部调整、导出、快捷键，应有尽有。">
+<meta property="og:title" content="Rawcookr 使用指南">
+<meta property="og:description" content="把 Rawcookr 的全部功能和用法逐项整理。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://rawcookr.slowsalmon.com/guide-zh-Hans.html">
+<link rel="canonical" href="https://rawcookr.slowsalmon.com/guide-zh-Hans.html">
+<link rel="icon" href="icon.png">
+<style>
+  :root {
+    --cream: #F8F5EB;
+    --ink: #1E1B16;
+    --muted: #6B6459;
+    --blue: #0055B8;
+    --blue-soft: #E8EFFA;
+    --lemon: #F2C100;
+    --line: #E4DCC9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                 "Pretendard", "Noto Sans KR", sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--blue); }
+
+  /* ── 상단 바 ── */
+  .topbar {
+    position: sticky; top: 0; z-index: 30;
+    background: rgba(248,245,235,0.94);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 1180px; margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .topbar img { width: 30px; height: 30px; border-radius: 7px; }
+  .topbar .name { font-weight: 800; letter-spacing: -0.01em; }
+  .topbar .name a { color: var(--ink); text-decoration: none; }
+  .topbar .sep { color: var(--line); }
+  .topbar .where { color: var(--muted); font-size: 0.95em; }
+  .topbar .spacer { flex: 1; }
+  .topbar .home { font-size: 0.9em; font-weight: 600; text-decoration: none; }
+  #menubtn {
+    display: none; font: inherit; font-size: 0.85em; font-weight: 700;
+    background: #fff; color: var(--ink); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 14px; cursor: pointer;
+  }
+  #lang {
+    font: inherit; font-size: 0.82em; font-weight: 600; color: var(--ink);
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 5px 28px 5px 12px; cursor: pointer;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%236B6459'/></svg>");
+    background-repeat: no-repeat; background-position: right 11px center;
+  }
+
+  /* ── 레이아웃 ── */
+  .shell { max-width: 1180px; margin: 0 auto; padding: 0 24px; display: flex; gap: 48px; }
+  nav.toc {
+    flex: none; width: 258px; padding: 36px 0 80px;
+    position: sticky; top: 55px; align-self: flex-start;
+    max-height: calc(100vh - 55px); overflow-y: auto;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; }
+  nav.toc > ol > li { margin-bottom: 2px; }
+  nav.toc .grp {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    font: inherit; font-size: 0.78em; font-weight: 800; letter-spacing: 0.06em;
+    color: var(--muted); text-transform: uppercase;
+    background: none; border: 0; cursor: pointer; text-align: left;
+    padding: 8px 10px; margin-left: -10px; border-radius: 7px;
+  }
+  nav.toc .grp:hover { background: #fff; color: var(--ink); }
+  nav.toc .caret {
+    flex: none; width: 6px; height: 6px; margin-top: -2px;
+    border-right: 1.8px solid currentColor; border-bottom: 1.8px solid currentColor;
+    transform: rotate(-45deg); transition: transform 0.18s ease;
+  }
+  nav.toc li.open > .grp { color: var(--ink); }
+  nav.toc li.open > .grp .caret { transform: rotate(45deg); margin-top: -4px; }
+  nav.toc .items {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease;
+  }
+  nav.toc li.open > .items { grid-template-rows: 1fr; }
+  nav.toc .items > div { overflow: hidden; }
+  nav.toc a {
+    display: block; padding: 3px 10px 3px 28px; margin-left: -10px;
+    color: #443E36; text-decoration: none; font-size: 0.93em;
+    border-radius: 7px; line-height: 1.6;
+  }
+  nav.toc a:hover { background: #fff; }
+  nav.toc a.on { background: var(--blue-soft); color: var(--blue); font-weight: 700; }
+  nav.toc .items > div > :last-child { margin-bottom: 10px; }
+  @media (prefers-reduced-motion: reduce) {
+    nav.toc .items, nav.toc .caret { transition: none; }
+  }
+
+  main { flex: 1; min-width: 0; padding: 36px 0 120px; max-width: 720px; }
+  main h1 { font-size: 2.5em; margin: 0 0 10px; letter-spacing: -0.02em; }
+  main > .lead { color: var(--muted); font-size: 1.08em; margin: 0 0 8px; }
+
+  section { padding-top: 52px; }
+  section > h2 {
+    font-size: 1.62em; margin: 0 0 6px; letter-spacing: -0.01em;
+    padding-top: 28px; border-top: 1px solid var(--line);
+  }
+  section.first > h2 { border-top: none; padding-top: 0; }
+  h3 { font-size: 1.16em; margin: 34px 0 8px; }
+  h4 { font-size: 1.0em; margin: 22px 0 4px; }
+  p { margin: 0 0 14px; color: #443E36; }
+  ul, ol.steps { margin: 0 0 16px; padding-left: 22px; color: #443E36; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--ink); }
+
+  .kbd {
+    display: inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em; background: #fff; border: 1px solid var(--line);
+    border-bottom-width: 2px; border-radius: 6px; padding: 1px 7px;
+    color: var(--ink); white-space: nowrap;
+  }
+  .path {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.88em; background: #fff; border: 1px solid var(--line);
+    border-radius: 6px; padding: 1px 7px;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 20px; font-size: 0.95em; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 0.82em; letter-spacing: 0.04em; color: var(--muted); text-transform: uppercase; font-weight: 700; }
+  td:first-child { white-space: nowrap; font-weight: 600; }
+  table.wide td:first-child { white-space: normal; }
+
+  .note, .tip, .warn {
+    border-radius: 12px; padding: 14px 18px; margin: 18px 0;
+    font-size: 0.96em; line-height: 1.75;
+  }
+  .note { background: #fff; border: 1px solid var(--line); }
+  .tip  { background: var(--blue-soft); }
+  .warn { background: #FFF6DC; }
+  .note p:last-child, .tip p:last-child, .warn p:last-child { margin-bottom: 0; }
+  .note b, .tip b, .warn b { display: block; margin-bottom: 2px; }
+
+  .pill {
+    display: inline-block; background: var(--blue-soft); color: var(--blue);
+    border-radius: 999px; padding: 2px 11px; font-size: 0.8em; font-weight: 700;
+    vertical-align: middle;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); margin-top: 40px;
+    padding: 40px 24px 70px; text-align: center; color: var(--muted); font-size: 0.92em;
+  }
+  footer a { font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .shell { display: block; padding: 0 20px; }
+    #menubtn { display: block; }
+    nav.toc {
+      display: none; width: auto; position: static; max-height: none;
+      padding: 18px 0 6px; border-bottom: 1px solid var(--line);
+    }
+    nav.toc.open { display: block; }
+    main { padding-top: 26px; max-width: none; }
+    main h1 { font-size: 2em; }
+    .topbar .where { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <img src="icon.png" alt="">
+    <span class="name"><a href="./">Rawcookr</a></span>
+    <span class="sep">/</span>
+    <span class="where">使用指南</span>
+    <span class="spacer"></span>
+    <button id="menubtn" type="button">目录</button>
+    <select id="lang" aria-label="Language">
+      <option value="ko">한국어</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+      <option value="zh-Hans">中文（简体）</option>
+      <option value="de">Deutsch</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="th">ไทย</option>
+      <option value="vi">Tiếng Việt</option>
+      <option value="id">Bahasa Indonesia</option>
+    </select>
+    <a class="home" href="./">回到主页</a>
+  </div>
+</div>
+
+<div class="shell">
+
+<nav class="toc" id="toc">
+  <ol>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>开始</button>
+      <div class="items"><div>
+        <a href="#screen">两个界面</a>
+        <a href="#open">载入照片</a>
+        <a href="#originals">原始文件保持不动</a>
+        <a href="#subscription">订阅与免费试用</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>挑选照片</button>
+      <div class="items"><div>
+        <a href="#library">文件夹与缩略图</a>
+        <a href="#rating">星级与旗标</a>
+        <a href="#batch">一次处理多张</a>
+        <a href="#versions">版本</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>修图界面</button>
+      <div class="items"><div>
+        <a href="#canvas">缩放与平移</a>
+        <a href="#inspect">与原图对比和溢出警告</a>
+        <a href="#compare">对比视图</a>
+        <a href="#sections">使用调整项</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>调整项</button>
+      <div class="items"><div>
+        <a href="#presets">预设</a>
+        <a href="#film">胶片配方</a>
+        <a href="#wb">白平衡</a>
+        <a href="#light">光线</a>
+        <a href="#curve">色调曲线</a>
+        <a href="#hsl">色相与饱和度</a>
+        <a href="#levels">色阶</a>
+        <a href="#colorgrade">三路色彩平衡</a>
+        <a href="#selective">可选颜色</a>
+        <a href="#local">局部调整</a>
+        <a href="#layers">图层</a>
+        <a href="#detail">细节</a>
+        <a href="#effects">效果</a>
+        <a href="#defringe">色差消除</a>
+        <a href="#mist">柔光滤镜</a>
+        <a href="#privacy">隐私模糊</a>
+        <a href="#frame">日期打印</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>拼版</button>
+      <div class="items"><div>
+        <a href="#mount">把照片放到版上</a>
+        <a href="#mount-split">分成格子</a>
+        <a href="#mount-free">自由摆放</a>
+        <a href="#mount-look">间距 · 描边 · 圆角</a>
+        <a href="#mount-export">保存与导出</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>收尾</button>
+      <div class="items"><div>
+        <a href="#crop">裁剪与旋转</a>
+        <a href="#export">导出</a>
+        <a href="#customfilm">做自己的胶片</a>
+        <a href="#prefs">偏好设置</a>
+        <a href="#shortcuts">快捷键</a>
+        <a href="#trouble">常见问题</a>
+      </div></div>
+    </li>
+  </ol>
+</nav>
+
+<main>
+
+<h1>Rawcookr 使用指南</h1>
+<p class="lead">从处理照片、遮住入镜的人、调出想要的颜色，到导出成可以直接发布的样子。所有功能逐项整理。</p>
+<p class="lead" style="font-size:0.95em">macOS 14 及以上 · 以 1.1 版为准</p>
+
+<!-- ══════════ 시작하기 ══════════ -->
+
+<section class="first" id="screen">
+<h2>两个界面</h2>
+<p>Rawcookr 有两个界面。</p>
+
+<h3>图库</h3>
+<p>选择文件夹、浏览照片的地方。左边是文件夹列表，中间是缩略图网格。在这里打星级和旗标，也可以选中多张一次性导出。</p>
+
+<h3>拼版</h3>
+<p>把多张照片放到同一块版上、合成一张的地方。详见<a href="#mount">把照片放到版上</a>。</p>
+
+<h3>修图</h3>
+<p>真正处理单张照片的地方。中间是照片，右边是调整项面板，下面是胶片条。在图库里双击照片，或按<span class="kbd">Return</span>即可进入。返回时按<span class="kbd">Esc</span>。</p>
+
+<div class="tip">
+<b>想把界面用得更宽时</b>
+<p>胶片条可以用<span class="kbd">⌘F</span>隐藏，只看照片的全屏模式是<span class="kbd">⌃⌘F</span>。收起右侧面板全部项目按<span class="kbd">.</span>，全部展开按<span class="kbd">,</span>。</p>
+</div>
+</section>
+
+<section id="open">
+<h2>载入照片</h2>
+
+<h3>打开文件夹</h3>
+<p><strong>文件 → 打开文件夹</strong>（<span class="kbd">⌘O</span>）选择存放照片的文件夹。打开过的文件夹会留在左侧边栏，下次可以直接点。要从边栏移除，右键点击文件夹名选<strong>从边栏移除</strong>。其中的子文件夹也会一并列出。</p>
+
+<h3>从访达直接打开</h3>
+<p>在访达里右键点击照片文件，选<strong>打开方式 → Rawcookr</strong>，该文件所在的文件夹会被加入图库，并立即打开修图界面。</p>
+
+<h3>支持的格式</h3>
+<table>
+  <tr><th>类别</th><th>扩展名</th></tr>
+  <tr><td>RAW</td><td>RAF · DNG · CR2 · CR3 · CRW · NEF · NRW · ARW · SR2 · SRF · RW2 · RAW · RWL · PEF · ORF · 3FR · FFF · IIQ</td></tr>
+  <tr><td>其他</td><td>JPG · JPEG · PNG · HEIC · HEIF · HIF · TIFF · TIF</td></tr>
+</table>
+<p>RAW 处理使用 macOS 内置的 RAW 引擎。非常新的机型有时需要更新 macOS 才能打开。</p>
+</section>
+
+<section id="originals">
+<h2>原始文件保持不动</h2>
+<p>Rawcookr 绝不会写入原始文件。编辑的数值单独记在一个小的设置文件里。用别的应用打开原图，还是动手之前的样子。</p>
+<p>设置放在哪里由<strong>偏好设置</strong>决定。</p>
+<table class="wide">
+  <tr><th>选项</th><th>含义</th></tr>
+  <tr><td>在应用文件夹中管理 <span class="pill">默认</span></td><td>原始文件夹保持干净。把照片文件夹原样交给别人时很方便。</td></tr>
+  <tr><td>放在原始文件旁边</td><td>照片和设置始终一起移动。连同移动硬盘搬到另一台 Mac，编辑也会跟着走。</td></tr>
+</table>
+<p>也可以把编辑内容导出成文件，或再读回来。修图界面的<strong>保存设置</strong>·<strong>应用设置</strong>使用 <span class="path">.rawcookr-settings.json</span> 文件。</p>
+</section>
+
+<section id="subscription">
+<h2>订阅与免费试用</h2>
+<p>Rawcookr 采用订阅制。<strong>7 天免费</strong>体验全部功能，之后按月或按年续订。没有更高档位，也没有单独售卖的功能 —— 这份指南里写到的一切都包含在内。</p>
+<p>订阅的管理与取消在 App Store 账户设置中进行。在试用期结束前取消不会产生费用。</p>
+<div class="note">
+<b>换了 Mac 的话</b>
+<p>用同一个 Apple 账户登录 App Store 后打开应用，订阅会自动识别。若未识别，请按订阅界面的<strong>恢复购买</strong>。</p>
+</div>
+</section>
+
+<!-- ══════════ 사진 고르기 ══════════ -->
+
+<section id="library">
+<h2>文件夹与缩略图</h2>
+<p>在图库里，一个文件夹占满一屏。在左侧边栏选择文件夹，其中的照片会铺成网格。</p>
+
+<h3>浏览</h3>
+<ul>
+  <li>缩略图大小用右上角的滑块调整。</li>
+  <li>用方向键在照片之间移动。</li>
+  <li>按<span class="kbd">Return</span>进入修图界面。</li>
+  <li><span class="kbd">Space</span>是放大查看。再按一次或按<span class="kbd">Esc</span>关闭；放大状态下按<span class="kbd">Return</span>即处理该照片。下方会一并显示文件名。</li>
+</ul>
+
+<h3>选择</h3>
+<ul>
+  <li>单击选一张，<span class="kbd">⇧</span>+单击选范围，<span class="kbd">⌘</span>+单击逐张添加。</li>
+  <li>在空白处拖动，可以用方框一次框选多张。</li>
+  <li><span class="kbd">⌘A</span>全选。</li>
+</ul>
+
+<h3>处理文件</h3>
+<p>右键点击缩略图会出现这个菜单。</p>
+<table class="wide">
+  <tr><th>项目</th><th>作用</th></tr>
+  <tr><td>在访达中显示</td><td>在访达里打开原始文件所在的文件夹。</td></tr>
+  <tr><td>重命名</td><td>修改原始文件的名称。只能对单张使用。</td></tr>
+  <tr><td>复制</td><td>为原始文件再做一个副本。</td></tr>
+  <tr><td>移到其他文件夹</td><td>把选中的照片移到别的文件夹。编辑设置也会一起跟着走。</td></tr>
+  <tr><td>移到废纸篓</td><td>把原始文件放进废纸篓。要撤销，从访达的废纸篓里取回即可。</td></tr>
+</table>
+</section>
+
+<section id="rating">
+<h2>星级与旗标</h2>
+<p>用来从拍了很多的那天里挑出可用的。图库和修图界面都能标。</p>
+<table>
+  <tr><th>按键</th><th>作用</th></tr>
+  <tr><td><span class="kbd">1</span>~<span class="kbd">5</span></td><td>打星级</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>加旗标／取消</td></tr>
+</table>
+<p>在图库里会一次性作用于所有选中的照片。标好之后，可以用界面上方的筛选只留<strong>仅旗标</strong>，或某个星级以上的照片。星级和旗标也与编辑值存在同一处，所以原始文件不受影响。</p>
+</section>
+
+<section id="batch">
+<h2>一次处理多张</h2>
+
+<h3>转移编辑</h3>
+<p>一张调到满意之后，可以把它的数值原样搬到别的照片上。</p>
+<ol class="steps">
+  <li>在作为基准的照片上按<span class="kbd">⌘⇧C</span> —— 复制编辑内容</li>
+  <li>打开要应用的照片按<span class="kbd">⌘⇧V</span> —— 粘贴编辑内容</li>
+</ol>
+<p>粘贴只会进入<strong>当前打开的这一张</strong>。要继续往下带，按<span class="kbd">→</span>到下一张再按一次<span class="kbd">⌘⇧V</span>。</p>
+<p>与位置绑定的项目 —— 隐私模糊区域、色差画笔的笔迹、裁剪、局部调整蒙版 —— 不会转移，接收方照片仍保留自己的。每张照片里人脸的位置都不同，这样才合理。</p>
+
+<h3>批量导出</h3>
+<p>选中多张时按<span class="kbd">⌘E</span>，会用同一套设置全部导出。详见<a href="#export">导出</a>。</p>
+
+<div class="warn">
+<b>注意</b>
+<p>粘贴编辑无法撤销。在整批应用之前，先用一张确认一下更稳妥。</p>
+</div>
+</section>
+
+<section id="versions">
+<h2>版本</h2>
+<p>想把同一张照片处理成两种样子并排比较时使用。不会复制文件，所以磁盘上一个字节都不会多占。</p>
+<p>在修图界面选<strong>文件 → 处理为新版本</strong>（<span class="kbd">⌘G</span>），当前编辑保持不变，同时多出一个未经处理的副本。它会以<strong>V2</strong>、<strong>V3</strong>这样的编号出现在胶片条里。</p>
+<p>删除版本不会动到原始文件。确认删除时提示「原始文件会保留」就是这个意思。</p>
+</section>
+
+<!-- ══════════ 현상 화면 ══════════ -->
+
+<section id="canvas">
+<h2>缩放与平移</h2>
+<table>
+  <tr><th>操作</th><th>作用</th></tr>
+  <tr><td><span class="kbd">⌘=</span></td><td>放大</td></tr>
+  <tr><td><span class="kbd">⌘-</span></td><td>缩小</td></tr>
+  <tr><td><span class="kbd">⌘0</span></td><td>适合屏幕</td></tr>
+  <tr><td><span class="kbd">⌘1</span></td><td>100% —— 原始像素</td></tr>
+  <tr><td><span class="kbd">Space</span> + 拖动</td><td>拖动照片移动</td></tr>
+  <tr><td>触控板捏合</td><td>放大·缩小</td></tr>
+  <tr><td>触控板双指滚动</td><td>平移</td></tr>
+  <tr><td><span class="kbd">O</span></td><td>显示／隐藏缩放条</td></tr>
+</table>
+<p>锐度、颗粒这类需要逐像素看的东西，请用<span class="kbd">⌘1</span>放到 100% 再判断。比这更小的倍率下，照片是缩小绘制以适应窗口的，看到的和实际会不一样。</p>
+</section>
+
+<section id="inspect">
+<h2>与原图对比和溢出警告</h2>
+
+<h3>原图查看 <span class="kbd">M</span></h3>
+<p>按住期间显示编辑前的状态。这是确认你的修改是否真的变好了的最快办法。</p>
+
+<h3>溢出警告 <span class="kbd">J</span></h3>
+<p>完全过曝成纯白的地方用红色覆盖，完全死黑的地方用蓝色覆盖。</p>
+<p>只有一个通道到头的程度 —— 比如鲜红的花瓣 —— 还留有颜色，所以不会警告。只标出<strong>三个通道都到头、信息真正丢失的地方</strong>。界面上出现溢出提示时，点一下就能开关警告显示。</p>
+
+<h3>直方图</h3>
+<p>右侧面板的直方图显示亮度分布。堆在左端说明暗部在被截断，堆在右端说明亮部在被截断。</p>
+</section>
+
+<section id="compare">
+<h2>对比视图</h2>
+<p>把两张照片并排查看的功能。用于在同一场景的两种处理之间取舍，或者比较不同版本。</p>
+<ol class="steps">
+  <li>点击工具栏的<strong>对比</strong>。</li>
+  <li>左边是当前照片，右边选择要比较的那张。</li>
+  <li>让缩放保持一致后，两边会一起移动，可以用同样的大小看同一个部位。</li>
+</ol>
+</section>
+
+<section id="sections">
+<h2>使用调整项</h2>
+<p>右侧面板分成若干项目（区块）。每一项都能折叠展开，顺序也可以改。</p>
+
+<h3>开关</h3>
+<p>关掉项目名旁边的开关，就会把该项的数值退回默认值来绘制。<strong>设置值不会被清掉</strong> —— 重新打开就会原样回来。想确认「这一项到底有没有起作用」时很好用。</p>
+
+<h3>展开 · 折叠 · 顺序</h3>
+<ul>
+  <li><span class="kbd">,</span>全部展开 · <span class="kbd">.</span>全部折叠</li>
+  <li>拖动项目名可以调整顺序。调过的顺序下次打开仍然保留。</li>
+</ul>
+
+<h3>还原</h3>
+<ul>
+  <li>双击滑块名称，只有那一个数值回到默认。</li>
+  <li>项目名旁边的重置按钮会清空整个项目。</li>
+  <li><span class="kbd">⌥⌘R</span> —— 清空这张照片的全部编辑。</li>
+</ul>
+
+<div class="tip">
+<b>滑块的微调</b>
+<p>拖动滑块时按住<span class="kbd">⌥</span>，步进会更细。也可以直接点数字输入数值。</p>
+</div>
+</section>
+
+
+<!-- ══════════ 조정 항목 ══════════ -->
+
+<section id="presets">
+<h2>预设</h2>
+<p>把当前照片上的<strong>所有编辑值</strong>整体保存下来，再一次性套到别的照片上。胶片、色调、局部调整全都包含在内。</p>
+
+<h3>创建</h3>
+<ol class="steps">
+  <li>先把一张照片调成想要的样子。</li>
+  <li>点预设项目里的<strong>+</strong>并输入名称。</li>
+  <li>用同样的名称再次保存就会覆盖。</li>
+</ol>
+
+<h3>使用</h3>
+<p>预设列表会把每个预设套在当前照片上的样子显示为小图。点一下即刻应用。缩略图大小可选<strong>极小 · 小 · 大</strong>。</p>
+
+<div class="tip">
+<b>预设和胶片的区别</b>
+<p><strong>胶片</strong>是一个颜色变换。<strong>预设</strong>是包含胶片在内的整套编辑。只想复用「这个颜色」就用胶片，想复用「做出这张照片的全部步骤」就用预设。</p>
+</div>
+</section>
+
+<section id="film">
+<h2>胶片配方</h2>
+<p>Rawcookr 的核心功能。先选内置胶片，再在它之上调色调和颜色。</p>
+
+<h3>选择胶片</h3>
+<p>点击项目最上方的胶片图标，会打开按系列分组的列表。</p>
+<table class="wide">
+  <tr><th>系列</th><th>数量</th><th>性格</th></tr>
+  <tr><td>F.film</td><td>11</td><td>标准 · 鲜艳 · 柔和 · 复古铬 · 自然 · 人像高／标准 · 冷调负片 · 复古负片 · 电影 · 漂白旁路</td></tr>
+  <tr><td>KoD</td><td>5</td><td>人像 400 · 日常 200 · 精细 100 · 铬 64 · 黑白 400</td></tr>
+  <tr><td>R.co</td><td>6</td><td>正片 · 负片 · 复古 · 电影黄 · 电影绿 · 高反差黑白</td></tr>
+  <tr><td>IlFd</td><td>2</td><td>黑白 400 · 精细 50</td></tr>
+  <tr><td>经典</td><td>3</td><td>钨丝 800T · 经典日常 400 · 交叉冲洗</td></tr>
+  <tr><td>黑白</td><td>9</td><td>精细黑白 4 种（无滤镜／Ye／R／G） · 黑白 4 种 · 棕褐</td></tr>
+</table>
+<p>你自己做的<strong>自定义胶片</strong>也会加到这里。做法见<a href="#customfilm">做自己的胶片</a>。</p>
+
+<div class="note">
+<b>关于名称</b>
+<p>所有胶片都是 Rawcookr 自行制作的颜色变换，名称也是自取的，与任何厂商的产品无关。</p>
+</div>
+
+<h3>彩色胶片的调整值</h3>
+<table>
+  <tr><th>项目</th><th>范围</th><th>作用</th></tr>
+  <tr><td>高光色调</td><td>−2 ~ +12</td><td>亮部的对比。调高更硬，调低更柔。</td></tr>
+  <tr><td>阴影色调</td><td>−2 ~ +4</td><td>暗部的对比。</td></tr>
+  <tr><td>色彩</td><td>−4 ~ +4</td><td>整卷胶片的饱和度。</td></tr>
+  <tr><td>色相</td><td>−4 ~ +4</td><td>把所有颜色朝一个方向转。每一档 3°。</td></tr>
+  <tr><td>按键</td><td>−4 ~ +4</td><td>抬高或压低中间亮度。</td></tr>
+  <tr><td>对比度</td><td>−4 ~ +4</td><td>以中心为基准拉开对比。</td></tr>
+  <tr><td>清晰度</td><td>−5 ~ +5</td><td>质感。负值更柔，正值更清楚。</td></tr>
+  <tr><td>锐度</td><td>−4 ~ +4</td><td>胶片本身的清晰程度。负值会变模糊。</td></tr>
+  <tr><td>暗角</td><td>−4 ~ +4</td><td>周边光量下降。正值让四角变暗。</td></tr>
+  <tr><td>白平衡偏移 R · B</td><td>−9 ~ +9</td><td>轻微推动红和蓝，让色调偏转。</td></tr>
+</table>
+
+<h3>黑白胶片的调整值</h3>
+<p>彩色项目会换成<strong>调色 WC</strong>与<strong>调色 MG</strong>（各 −18 ~ +18）。WC 在暖与冷之间，MG 在洋红与绿之间上色。两者搭配，从棕褐到冷青绿都能做出来。</p>
+
+<h3>颗粒</h3>
+<p>给照片加上胶片颗粒。强度可选<strong>关 · 弱 · 强</strong>，大小可选<strong>小 · 大</strong>。强度为关时，大小不可选。</p>
+
+<div class="tip">
+<b>颗粒请在 100% 下确认</b>
+<p>颗粒是逐像素的效果，在适合窗口的状态下几乎看不见。请用<span class="kbd">⌘1</span>放到 100% 再判断。</p>
+</div>
+</section>
+
+<section id="wb">
+<h2>白平衡</h2>
+<p>调整照片的色温。RAW 文件可以沿用拍摄时的数值，也可以自己改。</p>
+<table>
+  <tr><th>项目</th><th>范围</th><th>作用</th></tr>
+  <tr><td>色温</td><td>2000 ~ 12000 K</td><td>调低偏蓝，调高偏黄。</td></tr>
+  <tr><td>色调</td><td>−100 ~ +100</td><td>在绿与洋红之间调整。在荧光灯下经常用到。</td></tr>
+</table>
+
+<h3>用吸管设定</h3>
+<p>点吸管，然后点击<strong>照片中本应是中性灰的地方</strong>，色温和色调就会调到让那一点变灰。白墙、灰色柏油路、白衬衫的阴影部分都是不错的参照。点到本来就有颜色的物体，就会跑偏。</p>
+
+<h3>色彩扫描</h3>
+<p>吸管左边的画笔图标。点一下展开色彩图，再点一下收起。按住拖动可以边看边调，展开的色彩图也可以拿起来移动。</p>
+<ul>
+  <li>左右是色温 —— 越往右越暖。</li>
+  <li>上下是色调 —— 往上拖偏洋红，往下拖偏绿。</li>
+  <li>按住<span class="kbd">⌥</span>拖动可以微调。</li>
+</ul>
+<p>RAW 文件打开时从相机记录的数值开始。按项目名上的重置，就能准确回到那个状态。</p>
+</section>
+
+<section id="light">
+<h2>光线</h2>
+<p>处理亮度和对比的基础项目。大多数照片在这里就差不多完成了。</p>
+<table>
+  <tr><th>项目</th><th>范围</th><th>作用</th></tr>
+  <tr><td>曝光</td><td>−3 ~ +3 EV</td><td>整张照片的亮度。在 RAW 解码阶段应用，所以这是最干净的改亮度方式。</td></tr>
+  <tr><td>对比度</td><td>−100 ~ +100</td><td>明暗之间的差异。</td></tr>
+  <tr><td>高光</td><td>−100 ~ +100</td><td>把过曝的天空和光源拉回来。用扩展动态范围留下的余量就是在这里取用的。</td></tr>
+  <tr><td>阴影</td><td>−100 ~ +100</td><td>把阴影里的质感提起来。</td></tr>
+  <tr><td>白色</td><td>−100 ~ +100</td><td>亮端所在的位置。</td></tr>
+  <tr><td>黑色</td><td>−100 ~ +100</td><td>暗端所在的位置。稍微抬一点会有胶片的味道。</td></tr>
+  <tr><td>清晰度</td><td>−100 ~ +100</td><td>中等尺寸质感的对比。负值让皮肤更平滑，正值让云和砖墙更突出。</td></tr>
+  <tr><td>饱和度</td><td>−100 ~ +100</td><td>让所有颜色均匀变化。</td></tr>
+  <tr><td>自然饱和度</td><td>−100 ~ +100</td><td>优先抬升较淡的颜色。对肤色下手较轻，用在人像上比较安全。</td></tr>
+  <tr><td>褪色</td><td>0 ~ 100</td><td>抬起黑色，做出褪色的感觉。</td></tr>
+</table>
+
+<div class="note">
+<b>高光和阴影是局部处理</b>
+<p>这两项不是给整张照片乘同一个数，而是在保住边缘的前提下，只挑亮的部分、只挑暗的部分来处理。把天空压下来，紧挨着的中间调仍然原样，边界也不会出现白边（光晕）。</p>
+</div>
+</section>
+
+<section id="curve">
+<h2>色调曲线</h2>
+<p>自己画出亮度的对应关系。可以做到滑块达不到的细致调整。</p>
+
+<h3>用法</h3>
+<ul>
+  <li>在线上点击添加控制点，拖动移动它。</li>
+  <li>把控制点拖出边界即可删除。</li>
+  <li><strong>RGB</strong>是整体亮度，<strong>R · G · B</strong>是各个通道。单独动通道会让颜色偏移，做色调时正好用得上。</li>
+  <li>中间往上凸就变亮，画成 S 形对比就上升。</li>
+  <li>点<strong>仅重置此通道</strong>，只有当前查看的通道曲线会变回直线。</li>
+</ul>
+
+<h3>三个吸管</h3>
+<p>在照片里点一个基准点，曲线就自动定好。R·G·B 三条曲线会<strong>一起</strong>移动，让那一点成为基准色。</p>
+<table class="wide">
+  <tr><th>吸管</th><th>点击的位置</th></tr>
+  <tr><td>黑场</td><td>应该是纯黑的点。最深的阴影。</td></tr>
+  <tr><td>中灰</td><td>应该是中性色的点。灰色混凝土、没有颜色的衣物。</td></tr>
+  <tr><td>白场</td><td>应该是纯白的点。白纸、白墙。</td></tr>
+</table>
+<p>依次点这三处，色彩平衡和对比一次就定下来。这是把偏色严重的照片快速拉回正常最有效的办法。</p>
+</section>
+
+<section id="hsl">
+<h2>色相与饱和度</h2>
+<p>把颜色分成十二段逐一处理。</p>
+<p><strong>红 · 橙 · 黄 · 黄绿 · 绿 · 翡翠 · 青 · 天蓝 · 蓝 · 紫 · 洋红 · 粉</strong> —— 每 30°，均匀覆盖整个色环。</p>
+<table>
+  <tr><th>项目</th><th>范围</th><th>作用</th></tr>
+  <tr><td>色相</td><td>−30 ~ +30</td><td>把该颜色往相邻的颜色转。</td></tr>
+  <tr><td>饱和度</td><td>−100 ~ +100</td><td>只让该颜色变浓或变淡。</td></tr>
+  <tr><td>明度</td><td>−100 ~ +100</td><td>只让该颜色变亮或变暗。</td></tr>
+</table>
+
+<h3>直接在色彩图上选</h3>
+<p><strong>长按</strong>色块然后拖动，色彩图就会展开。</p>
+<ul>
+  <li>左右拖动是<strong>色相</strong></li>
+  <li>上下拖动是<strong>饱和度</strong></li>
+  <li>按住<span class="kbd">⌘</span>上下拖动是<strong>明度</strong></li>
+</ul>
+<p>不用在三个滑块之间来回，一个动作就能找到想要的位置。</p>
+
+<div class="tip">
+<b>常用的手法</b>
+<p>让天空更深 —— 抬高蓝和天蓝的饱和度，压低明度。让绿色沉稳 —— 降低绿的饱和度，色相略往黄挪。让皮肤自然 —— 橙的饱和度稍降，明度稍升。</p>
+</div>
+</section>
+
+<section id="levels">
+<h2>色阶</h2>
+<p>自己指定输入和输出的范围。比色调曲线简单，但要精确定下黑白位置时更快。</p>
+<table>
+  <tr><th>项目</th><th>范围</th><th>作用</th></tr>
+  <tr><td>输入黑场</td><td>0 ~ 0.9</td><td>比这个值更暗的地方全部变黑。</td></tr>
+  <tr><td>输入白场</td><td>0.1 ~ 1</td><td>比这个值更亮的地方全部变白。</td></tr>
+  <tr><td>伽马</td><td>0.2 ~ 3</td><td>抬高或压低中间亮度。</td></tr>
+  <tr><td>输出黑场</td><td>0 ~ 0.9</td><td>最暗处最终到达的亮度。调高会有褪色感。</td></tr>
+  <tr><td>输出白场</td><td>0.1 ~ 1</td><td>最亮处最终到达的亮度。调低白色就被压住。</td></tr>
+</table>
+<p>收紧输入端时，请用<span class="kbd">J</span>打开溢出警告。从哪里开始丢信息，一眼就能看到。</p>
+</section>
+
+<section id="colorgrade">
+<h2>三路色彩平衡</h2>
+<p>给暗部 · 中间调 · 亮部分别上不同的颜色。电影调色里常用的做法。</p>
+<ul>
+  <li>拖动色环中心决定方向和强度。越靠近中心越弱。</li>
+  <li>各段的<strong>明度</strong>和<strong>饱和度</strong>（各 −100 ~ +100）分别调整。</li>
+</ul>
+<p>把饱和度按段分开用，就能做到暗处保持沉稳、只让亮处鲜活起来。</p>
+<div class="tip">
+<b>一个经典做法</b>
+<p>把暗部轻轻推向青色、亮部推向橙色，就是熟悉的电影色调。这两个方向在色环上正好相对，所以人物会从背景中脱开。诀窍是只用很小的量。</p>
+</div>
+</section>
+
+<section id="selective">
+<h2>可选颜色</h2>
+<p>把颜色分成九个范围，对每个范围加减青、洋红、黄、黑来校正。这是印刷领域用了很久的方法，对色相、饱和度不容易抓到的细微偏色很有效。</p>
+
+<h3>可选的范围</h3>
+<p><strong>红 · 黄 · 绿 · 青 · 蓝 · 洋红</strong>六个颜色，加上<strong>白 · 中性 · 黑</strong>三个亮度段。已经动过的范围会在列表里带上标记。</p>
+
+<table>
+  <tr><th>项目</th><th>范围</th><th>作用</th></tr>
+  <tr><td>青</td><td>−100 ~ +100</td><td>调高加青，调低偏红。</td></tr>
+  <tr><td>洋红</td><td>−100 ~ +100</td><td>调高偏洋红，调低偏绿。</td></tr>
+  <tr><td>黄</td><td>−100 ~ +100</td><td>调高偏黄，调低偏蓝。</td></tr>
+  <tr><td>黑</td><td>−100 ~ +100</td><td>让该范围变暗或变亮。</td></tr>
+</table>
+
+<h3>相对值与绝对值</h3>
+<table class="wide">
+  <tr><th>方式</th><th>含义</th></tr>
+  <tr><td>相对值</td><td>按已有的量成比例变化。没有该颜色的地方不会被动到，所以纯白保持原样。大多数情况下这一边更稳妥。</td></tr>
+  <tr><td>绝对值</td><td>把指定的量直接加上去。变化更大更确定，但也更容易变粗糙。</td></tr>
+</table>
+
+<div class="tip">
+<b>常用的手法</b>
+<p>皮肤发红时 —— 在<strong>红</strong>范围里稍微加一点青。天空发灰时 —— 在<strong>蓝</strong>里稍微加一点黑让它更深。白墙发黄时 —— 在<strong>白</strong>范围里降低黄。</p>
+</div>
+</section>
+
+<section id="local">
+<h2>局部调整</h2>
+<p>只在照片的一部分上做调整。先做蒙版，再在其中调数值。做好的蒙版也会列在<a href="#layers">图层</a>项目里，和叠起来的图层在同一处管理。</p>
+
+<h3>三种蒙版</h3>
+<table class="wide">
+  <tr><th>种类</th><th>做法</th><th>适合的场合</th></tr>
+  <tr><td>线性</td><td>在照片上朝一个方向拖动。起点是 100%，终点是 0%。</td><td>压天空或提前景时</td></tr>
+  <tr><td>径向</td><td>画一个椭圆。内侧 100%，边缘 0%。</td><td>强调人物或主体时</td></tr>
+  <tr><td>画笔</td><td>自己涂出要调整的地方。</td><td>形状不规则的地方</td></tr>
+</table>
+<ul>
+  <li><strong>羽化</strong>（0 ~ 1）—— 边界的柔和程度。0 很硬，1 会非常柔地晕开。</li>
+  <li><strong>画笔大小</strong>（20 ~ 600）</li>
+  <li><strong>反转蒙版</strong> —— 调整会进入<em>选中之外</em>的地方。</li>
+  <li>蒙版可以做多个，每个都能单独开关。</li>
+</ul>
+
+<h3>蒙版内可调的数值</h3>
+<table>
+  <tr><th>项目</th><th>范围</th></tr>
+  <tr><td>曝光</td><td>−2 ~ +2 EV</td></tr>
+  <tr><td>对比度 · 高光 · 阴影</td><td>各 −100 ~ +100</td></tr>
+  <tr><td>饱和度 · 清晰度</td><td>各 −100 ~ +100</td></tr>
+  <tr><td>暖度 · 色调</td><td>各 −100 ~ +100</td></tr>
+</table>
+</section>
+
+<section id="layers">
+<h2>图层</h2>
+<p>在处理好的照片上叠层。调整图层会重新处理下面的内容，纯色图层盖在上面，蒙版图层只作用于标出的地方。</p>
+
+<h3>三种图层</h3>
+<table class="wide">
+  <tr><th>种类</th><th>作用</th></tr>
+  <tr><td>调整值</td><td>再叠一套光线·色调曲线·色阶·色相与饱和度·三路色彩平衡，以及黑白·反相。想把同一种调整做两次、强度不同时用得上。</td></tr>
+  <tr><td>纯色</td><td>用选定的颜色覆盖。配合混合模式，就成了上色的滤镜。</td></tr>
+  <tr><td>蒙版</td><td>只作用在用线性·径向·画笔标出的地方。用的是和局部调整相同的蒙版。</td></tr>
+</table>
+<p>蒙版图层先作用于照片，其上的图层再叠在这个结果之上。</p>
+
+<h3>混合模式</h3>
+<p>共有十六种。</p>
+<table class="wide">
+  <tr><th>分组</th><th>方式</th></tr>
+  <tr><td>基本</td><td>正常</td></tr>
+  <tr><td>变暗</td><td>正片叠底 · 颜色加深 · 变暗</td></tr>
+  <tr><td>变亮</td><td>滤色 · 颜色减淡 · 变亮</td></tr>
+  <tr><td>对比</td><td>叠加 · 柔光 · 强光</td></tr>
+  <tr><td>差值</td><td>差值 · 排除</td></tr>
+  <tr><td>颜色成分</td><td>色相 · 饱和度 · 颜色 · 明度</td></tr>
+</table>
+<p>强度用<strong>不透明度</strong>调整。</p>
+
+<h3>整理</h3>
+<ul>
+  <li><strong>显示此图层</strong> —— 用眼睛图标临时开关。</li>
+  <li><strong>上移 · 下移</strong> —— 改变叠放顺序。</li>
+  <li><strong>与下方图层合并</strong> —— 把两层合成一层。各自的设置照旧保留。</li>
+  <li><strong>取消合并</strong> —— 把合好的再拆开。</li>
+  <li><strong>删除此图层</strong></li>
+</ul>
+
+<div class="tip">
+<b>给照片上色最简单的方法</b>
+<p>加一个纯色图层，把混合模式设成<strong>颜色</strong>，亮度不动、只有颜色覆盖整张照片。用不透明度调好强度，效果接近胶片调色。</p>
+</div>
+</section>
+
+<section id="detail">
+<h2>细节</h2>
+<p>处理锐度和噪点。这一项必须<strong>在 100% 倍率下判断</strong>。</p>
+<table>
+  <tr><th>项目</th><th>范围</th><th>作用</th></tr>
+  <tr><td>锐度</td><td>−4 ~ +4</td><td>RAW 解码阶段的锐度。0 是 macOS 的默认值，在此基础上逐档增减。</td></tr>
+  <tr><td>彩色降噪</td><td>−4 ~ +4</td><td>抑制色斑（彩色噪点）。0 是默认值。高感光度时调高。</td></tr>
+  <tr><td>锐化</td><td>0 ~ 300 %</td><td>处理之后再施加的 USM 锐化。与上面的锐度是两回事。</td></tr>
+  <tr><td>半径</td><td>0.5 ~ 5 px</td><td>锐化作用的宽度。越小越针对细微质感，越大越针对粗轮廓。</td></tr>
+</table>
+<p>锐化只作用于亮度通道，所以颜色边界不会晕开。</p>
+</section>
+
+<section id="effects">
+<h2>效果</h2>
+
+<h3>暗角</h3>
+<p><strong>暗角</strong>（−100 ~ +100）为负时四周变暗，为正时变亮。<strong>中点</strong>（0 ~ 100）是效果开始的距离。调低会蔓延到接近中心。</p>
+
+<h3>黑白 · 反相</h3>
+<ul>
+  <li><strong>黑白</strong> —— 去掉颜色变成黑白。</li>
+  <li><strong>反相（负片）</strong> —— 翻转亮度和颜色。用于把扫描的胶片负片还原成正片。</li>
+</ul>
+
+<h3>外部 LUT</h3>
+<p>载入你手上的 <span class="path">.cube</span> 文件并应用。用<strong>LUT 强度</strong>（0 ~ 100）调节效果。</p>
+<p>这里还有两个工具。</p>
+<table class="wide">
+  <tr><th>按钮</th><th>作用</th></tr>
+  <tr><td>作为 LUT 应用 (.cube)…</td><td>把选中的 LUT 原样应用。</td></tr>
+  <tr><td>转换为调整值并载入…</td><td>分析 LUT 的作用，把它拆解成色调曲线·饱和度·HSL·三路色彩平衡的<em>滑块数值</em>填进去。拆开之后可以继续在其基础上修改。</td></tr>
+</table>
+</section>
+
+<section id="defringe">
+<h2>色差消除</h2>
+<p>消除镜头造成的颜色晕染。成因不同的两种分开处理。</p>
+
+<h3>倍率色差校正</h3>
+<p>镜头把红、绿、蓝成像在<strong>略有差异的大小</strong>上，越靠画面边缘越会出现青色和洋红色的带。靠去色是消不掉的，必须<strong>把偏移的通道移回原位</strong>才会消失。</p>
+<ul>
+  <li>打开后会分析照片自动定出校正量。</li>
+  <li>可以用<strong>红色倍率 · 蓝色倍率</strong>（0.994 ~ 1.006）自己微调。</li>
+  <li>按<strong>重新测量</strong>会用当前照片重新计算。</li>
+</ul>
+
+<h3>紫边消除</h3>
+<p>消除强逆光边界上残留的紫、绿、红色边。</p>
+<table>
+  <tr><th>项目</th><th>范围</th></tr>
+  <tr><td>消除紫色 · 消除绿色 · 消除红色</td><td>各 0 ~ 3</td></tr>
+</table>
+<ul>
+  <li>打开<strong>仅在画笔涂过的地方</strong>，校正只在涂过的部分起作用。作用于整张照片时，本来就是那个颜色的东西（紫色的花、红色的招牌）也会褪色，所以只涂有问题的地方更稳妥。</li>
+  <li><strong>画笔大小</strong>为 10 ~ 300。</li>
+  <li>用<strong>隐藏涂抹区域</strong>可以暂时关掉标记，只看结果。</li>
+  <li>用<strong>撤销上一笔</strong>·<strong>全部清除</strong>还原。</li>
+</ul>
+</section>
+
+<section id="mist">
+<h2>柔光滤镜</h2>
+<p>把装在镜头前的光学柔光滤镜搬到数字上的效果。亮部柔和晕开，对比变缓，皮肤变得柔顺。</p>
+<table>
+  <tr><th>档位</th><th>感觉</th></tr>
+  <tr><td>关</td><td>关闭</td></tr>
+  <tr><td>1/8</td><td>最弱。用在人像上很稳妥。</td></tr>
+  <tr><td>1/4</td><td>柔和开始能看出来。</td></tr>
+  <tr><td>1/2</td><td>夜景和逆光下光斑明显扩散。</td></tr>
+  <tr><td>1</td><td>最强。氛围变化很大。</td></tr>
+</table>
+<p>打开<strong>扩散到阴影</strong>，光不只在亮处、也会在暗部散开，像老照片的印放。</p>
+<p>柔光滤镜需要有光才起作用。要有光源、明亮的天空或逆光的发丝才看得出来；在平淡的阴天照片上，只会让对比变低。</p>
+</section>
+
+<section id="privacy">
+<h2>隐私模糊</h2>
+<p>遮住照片里偶然入镜的他人面孔和车牌。</p>
+
+<h3>自动查找</h3>
+<p>打开照片就会找出人脸和车牌并标成区域。检测在<strong>原始分辨率</strong>上进行，所以缩小预览里会糊掉而漏掉的小脸也能找到。</p>
+<p>找到的区域会列出来，可以逐个开关。不需要遮的人（比如同行的朋友）关掉就行。</p>
+
+<h3>自己绘制</h3>
+<ol class="steps">
+  <li>点<strong>绘制模糊区域</strong>。</li>
+  <li>在照片上拖动画出区域。</li>
+  <li>可以接着画好几个，画完后再按一次按钮结束。</li>
+</ol>
+<p>绘制途中要移动照片，请按住<span class="kbd">Space</span>拖动。</p>
+
+<h3>形状与强度</h3>
+<table>
+  <tr><th>项目</th><th>可选项</th></tr>
+  <tr><td>方式</td><td>模糊／马赛克</td></tr>
+  <tr><td>形状</td><td>矩形／椭圆</td></tr>
+  <tr><td>强度</td><td>0.4 ~ 2.0</td></tr>
+</table>
+<p>人脸用椭圆、车牌和招牌用矩形更自然。</p>
+
+<div class="warn">
+<b>公开前请确认</b>
+<p>自动检测可能漏掉侧脸、戴口罩的脸，或很暗处的脸。要公开的照片，建议导出前用<span class="kbd">⌘1</span>在 100% 下过一遍。</p>
+</div>
+</section>
+
+<section id="frame">
+<h2>日期打印</h2>
+
+<div class="note">
+<b>画框已移到拼版</b>
+<p>在照片周围加留白、凑成固定比例这件事，现在交给<a href="#mount">拼版</a>。只放一张照片，定好画幅比和<strong>描边</strong>，就能得到和以前的画框一样的结果，还能一并处理间距、圆角和背景色。</p>
+</div>
+
+<h3>日期打印</h3>
+<p>点胶片配方项目里的<strong>日期打印</strong>按钮打开设置。</p>
+<p>像胶片相机的后背一样，在右下角印上拍摄日期。数字按七段的样子直接绘制，所以在任何 Mac 上形状都一样。</p>
+<p>日期从照片的拍摄信息中读取。标注顺序（年·月·日的排列）可以选择。</p>
+<p>打印在胶片模拟之前进行。因此它和照片<strong>完全一样</strong>地承受胶片、色调、颗粒和柔光，看上去像是一起曝光的，而不是事后加上去的字。</p>
+</section>
+
+
+<!-- ══════════ 마운트 ══════════ -->
+
+<section id="mount">
+<h2>把照片放到版上</h2>
+<p>拼版是把多张照片放到同一块版上、做成一张图的工作区。往社交平台、博客或网站上发时，可以把几张并成一张来展示，而不是分开上传。</p>
+
+<h3>开始</h3>
+<ul>
+  <li>在上方标签里选<strong>拼版</strong>。</li>
+  <li>从左边的<strong>照片抽屉</strong>把照片拖进来。抽屉是空的就用<strong>打开照片文件夹</strong>选一个文件夹。</li>
+  <li>也可以点空格子，用<strong>选择照片…</strong>直接指定。</li>
+  <li>在修图界面选<strong>把这张照片拼版</strong>，正在看的照片会直接送到版上。在图库里选中多张，用<strong>发送到拼版</strong>也可以。</li>
+</ul>
+<p>抽屉可以用图标收起展开。</p>
+
+<h3>版面大小</h3>
+<table>
+  <tr><th>项目</th><th>可选项</th></tr>
+  <tr><td>画幅比</td><td>原始比例 · 1:1 · 4:5 · 5:4 · 2:3 · 3:2 · 3:4 · 4:3 · 9:16 · 16:9 · 1.91:1</td></tr>
+  <tr><td>分辨率</td><td>1080 · 1440 · 2048 · 4096（横向像素）</td></tr>
+</table>
+<p><strong>原始比例</strong>沿用第一张照片的比例。只想加个描边当画框时很方便。</p>
+</section>
+
+<section id="mount-split">
+<h2>分成格子</h2>
+<p>打开<strong>分割</strong>，版面就会分成网格。选好分成几行几列即可，最多 5 × 5。</p>
+
+<h3>操作格子</h3>
+<ul>
+  <li>拖动格子之间的分隔线可以改变大小。用<strong>重置分割比例</strong>恢复均等。</li>
+  <li>右键点击分隔线可以使用<strong>移动分隔线</strong>·<strong>删除分隔线</strong>。</li>
+  <li>把照片拖到另一个格子，两张就会互换位置。</li>
+</ul>
+
+<h3>在格子里摆放照片</h3>
+<p>格子里的照片会被裁切以填满格子。露出哪一部分由你决定。</p>
+<ul>
+  <li>拖动照片移动露出的位置。</li>
+  <li>用滚动或捏合放大缩小。</li>
+  <li>用<strong>重置裁剪</strong>回到最初的状态。</li>
+  <li>用<strong>移除照片</strong>清空该格。</li>
+</ul>
+</section>
+
+<section id="mount-free">
+<h2>自由摆放</h2>
+<p>关掉<strong>分割</strong>，格子消失，照片可以随意摆在版上。</p>
+
+<h3>摆放与移动</h3>
+<ul>
+  <li>拖动移动，抓住角改大小，还可以旋转。</li>
+  <li>拖动时会<strong>像磁铁一样吸附</strong>到其他照片或版面的边缘，自然对齐。</li>
+  <li>点<strong>网格</strong>按钮会出现参考网格。每按一次更密，最后关闭。</li>
+</ul>
+
+<h3>叠放顺序</h3>
+<p>右键点击照片来改 —— <strong>移到最前 · 前移 · 后移 · 移到最后</strong>。同一个菜单里还有<strong>重置裁剪</strong>、<strong>重置旋转</strong>、<strong>移除照片</strong>。</p>
+
+<h3>帮手按钮</h3>
+<table class="wide">
+  <tr><th>按钮</th><th>作用</th></tr>
+  <tr><td>随机散布</td><td>把照片散布在版上。作为起点很方便。</td></tr>
+  <tr><td>均匀排布</td><td>把大小和间距整理整齐。</td></tr>
+  <tr><td>清空</td><td>把版上的照片全部拿下。</td></tr>
+</table>
+
+<h3>格数 —— 拼起来做、切开来导出</h3>
+<p>把<strong>格数</strong>设成 2 以上，选定的画幅比就会横向重复这么多次，连成一块版。在连起来的整张上构图，导出时再切开，<strong>从左往右依次编号</strong>保存。</p>
+<p>这是让社交平台上的多图帖子看起来连贯不断的做法。最多 12 格。</p>
+</section>
+
+<section id="mount-look">
+<h2>间距 · 描边 · 圆角</h2>
+<table>
+  <tr><th>项目</th><th>范围</th><th>作用</th></tr>
+  <tr><td>间距</td><td>0 ~ 80</td><td>照片与照片之间的空隙。</td></tr>
+  <tr><td>描边</td><td>0 ~ 120</td><td>版面边缘的留白。</td></tr>
+  <tr><td>圆角</td><td>0 ~ 120</td><td>把照片的角变圆。0 则保持直角。</td></tr>
+  <tr><td>背景色</td><td>任意颜色</td><td>填充空隙和留白的颜色。</td></tr>
+</table>
+<p>数值以横向 1080px 为基准。提高分辨率后，看到的比例依然保持不变。</p>
+
+<h3>查看</h3>
+<ul>
+  <li><strong>适合</strong> —— 把整块版按窗口大小显示。</li>
+  <li><strong>100%</strong> —— 就是导出的像素。用来确认实际保存的尺寸。</li>
+  <li>放大之后，可以拖动来平移版面。</li>
+</ul>
+</section>
+
+<section id="mount-export">
+<h2>保存与导出</h2>
+
+<h3>保存工作</h3>
+<p>把摆好的状态留成文件，之后再接着做。</p>
+<table>
+  <tr><td><span class="kbd">⌘S</span></td><td>保存拼版</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>另存拼版…</td></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>打开拼版（在拼版标签里，⌘O 打开的是工作文件）</td></tr>
+</table>
+<p>有未保存的工作时，切换标签或退出应用会先询问。撤销覆盖放入照片、移动、改顺序的全部过程。</p>
+
+<h3>导出为图片</h3>
+<p>用<span class="kbd">⌘E</span>打开。</p>
+<table class="wide">
+  <tr><th>项目</th><th>内容</th></tr>
+  <tr><td>格式</td><td>和修图界面的导出相同。画质和 PNG 位深也在这里定。</td></tr>
+  <tr><td>尺寸</td><td>沿用版面的分辨率，或者缩小。</td></tr>
+  <tr><td>切开导出</td><td>在格数设为 2 以上的自由摆放里，可以选择导出成一张，还是切成那么多张。切开后会从左往右编号。</td></tr>
+  <tr><td>保存位置</td><td>原文件夹或你选的文件夹。</td></tr>
+  <tr><td>文件名</td><td>沿用放在版上的第一张照片的名字。可以加后缀。</td></tr>
+</table>
+</section>
+
+<!-- ══════════ 마무리 ══════════ -->
+
+<section id="crop">
+<h2>裁剪与旋转</h2>
+<p>按<span class="kbd">C</span>进入裁剪·旋转模式，按<span class="kbd">A</span>回到调色模式。</p>
+
+<h3>裁剪</h3>
+<ul>
+  <li>拖动四角和边定出范围。拖动内侧，整个裁剪框一起移动。</li>
+  <li>可以锁定比例 —— <strong>自由 · 原始比例 · 1:1 · 3:2 · 2:3 · 4:3 · 3:4 · 16:9 · 4:5</strong></li>
+</ul>
+
+<h3>校正水平</h3>
+<p>用<strong>角度</strong>（−45° ~ +45°）把歪掉的水平线扶正。旋转会露出空角，所以会自动稍微放大填满。</p>
+
+<h3>畸变校正</h3>
+<p><strong>畸变</strong>（−100 ~ +100）把镜头造成的直线弯曲拉直。广角向外鼓的桶形畸变在负的一侧，长焦向内收的枕形畸变在正的一侧。请以建筑或地平线这类本该笔直的东西为准。</p>
+
+<h3>旋转与翻转</h3>
+<ul>
+  <li>向左旋转 90° · 向右旋转 90°</li>
+  <li>水平翻转 · 垂直翻转</li>
+</ul>
+<p>裁剪和旋转最先应用。所以之后加的模糊区域或画笔笔迹，是<strong>以裁剪后的照片为准</strong>定位的。</p>
+</section>
+
+<section id="export">
+<h2>导出</h2>
+<p>用<span class="kbd">⌘E</span>打开。若已选中多张，选中的全部会用同一套设置保存。在窗口里按<span class="kbd">Return</span>立即开始。</p>
+
+<h3>格式</h3>
+<table class="wide">
+  <tr><th>格式</th><th>适合的场合</th></tr>
+  <tr><td>JPEG</td><td>最稳妥。社交平台、网页、邮件。</td></tr>
+  <tr><td>HEIF</td><td>同样画质下文件更小。在 Apple 设备之间传输时。</td></tr>
+  <tr><td>PNG</td><td>无损保存。可选 8 位和 16 位。文件较大。</td></tr>
+  <tr><td>WebP</td><td>放到网上时比 JPEG 更小。</td></tr>
+  <tr><td>TIFF (8bit)</td><td>交给其他编辑应用时。兼容性好。</td></tr>
+  <tr><td>TIFF (16bit)</td><td>想尽量保留层次再交出去时。用于打印或进一步调整。</td></tr>
+</table>
+<p>使用有损压缩的格式可以调整<strong>画质</strong>。默认是 95%，越高文件越大。一般用途下很少需要降到 90% 以下。</p>
+
+<h3>调整尺寸</h3>
+<p>从三种方式里选。</p>
+<table>
+  <tr><th>方式</th><th>要指定的值</th></tr>
+  <tr><td>比例</td><td>相对原图的比例</td></tr>
+  <tr><td>宽度</td><td>横向像素数</td></tr>
+  <tr><td>长边</td><td>宽高中较长一边的像素数</td></tr>
+</table>
+<p>无论用哪种方式，<strong>都不会放大到超过原图。</strong>因为造出本来没有的像素只会降低画质。</p>
+
+<h3>元数据</h3>
+<p>在导出窗口的<strong>元数据</strong>标签里，逐项选择要留在文件里的信息。勾选的项目会从导出的文件中去掉。</p>
+<table class="wide">
+  <tr><th>项目</th><th>包含的内容</th></tr>
+  <tr><td>拍摄参数</td><td>曝光 · ISO · 光圈</td></tr>
+  <tr><td>相机与镜头</td><td>厂商 · 型号 · 序列号</td></tr>
+  <tr><td>拍摄日期与时间</td><td>拍摄的时刻</td></tr>
+  <tr><td>位置（GPS）</td><td>拍摄地点的坐标</td></tr>
+  <tr><td>作者与版权</td><td>作者 · 版权声明</td></tr>
+  <tr><td>说明与关键词</td><td>加在照片上的文字和标签</td></tr>
+  <tr><td>编辑软件</td><td>用什么应用做的。Rawcookr 留下的胶片名称也在这里，会一并去掉。</td></tr>
+  <tr><td>厂商备注</td><td>相机自己另外记录的信息</td></tr>
+</table>
+<p>用<strong>全部去除</strong>可以一次关掉。要公开的照片，至少把<strong>位置（GPS）</strong>去掉更稳妥。在家或公司附近拍的照片，仅凭坐标就能看出生活范围。</p>
+
+<h3>其他设置</h3>
+<table class="wide">
+  <tr><th>项目</th><th>作用</th></tr>
+  <tr><td>文件名后缀</td><td>加在文件名后面的文字。默认是 <span class="path">_developed</span>。可以避免和原文件重名。</td></tr>
+  <tr><td>保存位置</td><td>保留在原文件夹，或者指定其他文件夹。</td></tr>
+  <tr><td>完成后打开文件夹</td><td>保存完成后在访达中打开该文件夹。</td></tr>
+  <tr><td>关闭此窗口</td><td>导出完成后窗口自动关闭。反复分批导出时很方便。</td></tr>
+</table>
+<p>保存为 TIFF 时，所用的胶片名称也会记录在文件的说明信息中。</p>
+
+<div class="note">
+<b>导出的颜色和屏幕上不一样时</b>
+<p>多数情况是查看用的应用不读取颜色描述文件。可以在访达预览或网页浏览器里确认。Rawcookr 以 sRGB 导出，在大多数环境下看起来都一样。</p>
+</div>
+</section>
+
+<section id="customfilm">
+<h2>做自己的胶片</h2>
+<p>往胶片列表里加自己的东西，有两种方法。</p>
+
+<p>两种都在胶片配方项目里选<strong>自定义</strong>系列后出现的菜单中。</p>
+
+<h3>把手上的 LUT 变成胶片</h3>
+<ol class="steps">
+  <li>在自定义系列的菜单里点<strong>LUT to FILM…</strong>。</li>
+  <li>选择 <span class="path">.cube</span> 文件。</li>
+  <li>取个名字就会进入胶片列表。</li>
+</ol>
+<p>黑白 LUT 会被自动识别为黑白胶片，出现调色 WC·MG 这类黑白专用的调整值。</p>
+
+<h3>把调好的颜色变成胶片</h3>
+<p>用色调曲线·HSL·色彩平衡做出满意的颜色后，用同一个菜单里的<strong>把颜色存为胶片…</strong>，只把那个颜色变换取出来保存。</p>
+<p>做好的胶片可以用<strong>把胶片导出为 LUT</strong>生成 <span class="path">.cube</span> 文件。在别的应用里也能用。</p>
+
+<h3>打包成配方册分享</h3>
+<p>把做好的胶片和预设打包成一个 <span class="path">.rawb</span> 文件。收到的人用<strong>导入配方册</strong>一次就能全部拿到。</p>
+<p>适合用同样器材的人之间分享色调，或者换 Mac 时整套搬过去。</p>
+</section>
+
+<section id="prefs">
+<h2>偏好设置</h2>
+<table class="wide">
+  <tr><th>项目</th><th>内容</th></tr>
+  <tr><td>编辑的保存位置</td><td><strong>在应用文件夹中管理</strong>（默认）或<strong>放在原始文件旁边</strong>。详见<a href="#originals">原始文件保持不动</a>。</td></tr>
+  <tr><td>背景</td><td>修图界面照片背后的亮度。调暗一些更容易判断照片的明暗。</td></tr>
+  <tr><td>预设缩略图大小</td><td>预设列表中预览的大小。极小 · 小 · 大。</td></tr>
+</table>
+<p>应用整体的明暗（浅色／深色）用<span class="kbd">⌘⇧9</span>和<span class="kbd">⌘⇧0</span>切换。</p>
+</section>
+
+<section id="shortcuts">
+<h2>快捷键</h2>
+<p>每种模式能用的按键不同。三种模式通用的也照样列在各自的表里，只看你当前所在模式的那张表就够了。</p>
+
+<h3>任何模式下</h3>
+<table>
+  <tr><td><span class="kbd">⌘E</span></td><td>导出</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>关闭（修图中则关闭照片）</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Rawcookr 帮助</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span></td><td>深色模式</td></tr>
+  <tr><td><span class="kbd">⌘⇧0</span></td><td>浅色模式</td></tr>
+  <tr><td><span class="kbd">⌘Q</span></td><td>退出 —— 拼版有未保存的工作时会询问</td></tr>
+</table>
+
+<h3>图库</h3>
+<table>
+  <tr><th>按键</th><th>作用</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>打开文件夹</td></tr>
+  <tr><td><span class="kbd">⌘R</span></td><td>重新读取文件夹</td></tr>
+  <tr><td><span class="kbd">⌘A</span></td><td>全选</td></tr>
+  <tr><td><span class="kbd">←</span> <span class="kbd">→</span> <span class="kbd">↑</span> <span class="kbd">↓</span></td><td>在网格中移动</td></tr>
+  <tr><td><span class="kbd">Space</span></td><td>放大查看（再按一次关闭）</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>把选中的照片带进修图界面</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>关闭放大查看</td></tr>
+  <tr><td><span class="kbd">1</span>~<span class="kbd">5</span></td><td>给选中的照片打星级 —— 多张一次生效</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>加旗标／取消 —— 多张一次生效</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>处理为新版本</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>显示／隐藏边栏</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>显示／隐藏文件夹树</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>显示／隐藏文件信息</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>导出所有选中的照片</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>关闭窗口</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>帮助</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>深色模式 · 浅色模式</td></tr>
+</table>
+
+<h3>修图</h3>
+<h4>查看</h4>
+<table>
+  <tr><th>按键</th><th>作用</th></tr>
+  <tr><td><span class="kbd">⌘=</span> · <span class="kbd">⌘-</span></td><td>放大 · 缩小</td></tr>
+  <tr><td><span class="kbd">⌘0</span></td><td>适合屏幕</td></tr>
+  <tr><td><span class="kbd">⌘1</span></td><td>100%（原始像素）</td></tr>
+  <tr><td><span class="kbd">Space</span> + 拖动</td><td>推动照片移动</td></tr>
+  <tr><td><span class="kbd">M</span></td><td>原图查看（按住时）</td></tr>
+  <tr><td><span class="kbd">J</span></td><td>溢出警告开／关</td></tr>
+  <tr><td><span class="kbd">O</span></td><td>显示／隐藏缩放条</td></tr>
+  <tr><td><span class="kbd">,</span> · <span class="kbd">.</span></td><td>展开 · 折叠全部调整项</td></tr>
+  <tr><td><span class="kbd">⌘F</span></td><td>显示／隐藏胶片条</td></tr>
+  <tr><td><span class="kbd">⌃⌘F</span></td><td>进入／退出专注查看（全屏）</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>显示／隐藏边栏</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>显示／隐藏文件夹树</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>显示／隐藏文件信息</td></tr>
+</table>
+
+<h4>编辑</h4>
+<table>
+  <tr><th>按键</th><th>作用</th></tr>
+  <tr><td><span class="kbd">C</span></td><td>裁剪／旋转模式</td></tr>
+  <tr><td><span class="kbd">A</span></td><td>回到调色模式</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>裁剪中则确认并退出</td></tr>
+  <tr><td><span class="kbd">⌘⇧C</span></td><td>复制编辑内容</td></tr>
+  <tr><td><span class="kbd">⌘⇧V</span></td><td>粘贴编辑内容</td></tr>
+  <tr><td><span class="kbd">⌥⌘R</span></td><td>清空这张照片的全部编辑</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>处理为新版本</td></tr>
+</table>
+
+<h4>选择与移动</h4>
+<table>
+  <tr><th>按键</th><th>作用</th></tr>
+  <tr><td><span class="kbd">←</span> · <span class="kbd">→</span></td><td>上一张 · 下一张（裁剪中无效）</td></tr>
+  <tr><td><span class="kbd">1</span>~<span class="kbd">5</span></td><td>星级</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>加旗标／取消</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>关闭照片回到图库（裁剪中则取消裁剪）</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>导出</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>关闭照片</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>帮助</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>深色模式 · 浅色模式</td></tr>
+</table>
+
+<h3>拼版</h3>
+<table>
+  <tr><th>按键</th><th>作用</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>打开拼版 —— 这个模式下 ⌘O 打开的是工作文件而不是文件夹</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>保存拼版</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>另存拼版…</td></tr>
+  <tr><td><span class="kbd">⌘Z</span></td><td>撤销 —— 放入照片、移动、改顺序的全部过程</td></tr>
+  <tr><td><span class="kbd">⇧⌘Z</span></td><td>重做</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>把版面导出为图片</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>关闭窗口</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>帮助</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>深色模式 · 浅色模式</td></tr>
+</table>
+
+</section>
+
+<section id="trouble">
+<h2>常见问题</h2>
+
+<h4>RAW 文件打不开</h4>
+<p>RAW 处理使用 macOS 内置的引擎，非常新的机型需要先更新 macOS。请查看<strong>系统设置 → 通用 → 软件更新</strong>。如果仍然打不开，可以在相机里保存为 DNG 试试，或者<a href="mailto:rawcookr@slowsalmon.com">告诉我们</a>。</p>
+
+<h4>缩略图出现得很慢</h4>
+<p>第一次打开的文件夹需要为每张照片生成预览，所以会花些时间。生成过之后就快了。照片特别多的文件夹，分成子文件夹会更舒服。</p>
+
+<h4>锐度或颗粒好像没生效</h4>
+<p>在适合窗口的倍率下照片是缩小绘制的，逐像素的效果看不见。请用<span class="kbd">⌘1</span>放到 100% 确认。</p>
+
+<h4>编辑不见了</h4>
+<p>编辑值在与原文件分开的文件里。如果保存位置设为<strong>放在原始文件旁边</strong>，只把照片挪到别处时，设置文件可能没跟着走。在应用里用<strong>移到其他文件夹</strong>，设置也会一起移动。</p>
+
+<h4>订阅没有被识别</h4>
+<p>请确认是否用同一个 Apple 账户登录了 App Store，然后按订阅界面的<strong>恢复购买</strong>试试。</p>
+
+<h4>遮住的脸还露着</h4>
+<p>自动检测可能漏掉侧脸、戴口罩或很暗处的脸。请自己画上区域补一下，并在公开前用 100% 过一遍。</p>
+
+<h4>拼版的工作不见了</h4>
+<p>拼版在保存之前不会写成文件。请先用<span class="kbd">⌘S</span>保存。未保存就切换标签或退出应用时会先询问。</p>
+
+<h4>如果还是没解决</h4>
+<p>请发邮件到 <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a>。写明你用的是哪台 Mac、是哪台相机的哪个文件，我们能更快找到原因。</p>
+</section>
+
+</main>
+</div>
+<footer>
+  <p><a href="./">Rawcookr 主页</a> · <a href="privacy.html">隐私政策</a> · <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a></p>
+</footer>
+<script>
+  // ── 언어 전환 ──
+  (function () {
+    const sel = document.getElementById('lang');
+    const cur = document.documentElement.lang || 'ko';
+    sel.value = cur;
+    sel.addEventListener('change', () => {
+      const v = sel.value;
+      location.href = (v === 'ko' ? 'guide.html' : 'guide-' + v + '.html') + location.hash;
+    });
+  })();
+
+  const toc = document.getElementById('toc');
+  document.getElementById('menubtn')
+    .addEventListener('click', () => toc.classList.toggle('open'));
+
+  const groups = [...toc.querySelectorAll('li')];
+  const links  = [...toc.querySelectorAll('a')];
+  const linkOf  = new Map(links.map(a => [a.hash.slice(1), a]));
+  const groupOf = new Map(links.map(a => [a.hash.slice(1), a.closest('li')]));
+
+  function openOnly(li) {
+    groups.forEach(g => g.classList.toggle('open', g === li));
+  }
+
+  // 묶음 제목을 누르면 그 묶음만 펼치고, 이미 펼쳐져 있으면 접는다
+  groups.forEach(li => {
+    li.querySelector('.grp').addEventListener('click', () => {
+      openOnly(li.classList.contains('open') ? null : li);
+    });
+  });
+
+  // 좁은 화면에서는 항목을 누르면 목차를 닫는다
+  links.forEach(a => a.addEventListener('click', () => toc.classList.remove('open')));
+
+  function highlight(id) {
+    const a = linkOf.get(id);
+    if (!a || a.classList.contains('on')) return;
+    links.forEach(x => x.classList.remove('on'));
+    a.classList.add('on');
+    const li = groupOf.get(id);
+    if (li && !li.classList.contains('open')) openOnly(li);
+  }
+
+  // 화면에 걸쳐 있는 섹션 가운데 가장 위의 것을 현재 위치로 본다
+  const sections = [...document.querySelectorAll('section[id]')];
+  const visible = new Set();
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => en.isIntersecting ? visible.add(en.target) : visible.delete(en.target));
+    let best = null;
+    visible.forEach(el => {
+      if (!best || el.getBoundingClientRect().top < best.getBoundingClientRect().top) best = el;
+    });
+    if (best) highlight(best.id);
+  }, { rootMargin: '-70px 0px -70% 0px' });
+  sections.forEach(el => obs.observe(el));
+
+  // 주소에 #항목이 붙어 있으면 그 묶음을 열고 시작, 아니면 첫 묶음
+  const start = location.hash.slice(1);
+  if (start && groupOf.has(start)) highlight(start);
+  else groups[0].classList.add('open');
+</script>
+</body>
+</html>

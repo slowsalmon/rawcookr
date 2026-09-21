@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hướng dẫn sử dụng Rawcookr</title>
+<meta name="description" content="Toàn bộ tính năng của Rawcookr và cách dùng. Công thức phim, làm mờ vì riêng tư, khuếch tán, chỉnh sửa cục bộ, xuất ảnh, cho tới phím tắt.">
+<meta property="og:title" content="Hướng dẫn sử dụng Rawcookr">
+<meta property="og:description" content="Toàn bộ tính năng của Rawcookr và cách dùng, sắp xếp theo từng mục.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://rawcookr.slowsalmon.com/guide-vi.html">
+<link rel="canonical" href="https://rawcookr.slowsalmon.com/guide-vi.html">
+<link rel="icon" href="icon.png">
+<style>
+  :root {
+    --cream: #F8F5EB;
+    --ink: #1E1B16;
+    --muted: #6B6459;
+    --blue: #0055B8;
+    --blue-soft: #E8EFFA;
+    --lemon: #F2C100;
+    --line: #E4DCC9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                 "Pretendard", "Noto Sans KR", sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--blue); }
+
+  /* ── 상단 바 ── */
+  .topbar {
+    position: sticky; top: 0; z-index: 30;
+    background: rgba(248,245,235,0.94);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 1180px; margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .topbar img { width: 30px; height: 30px; border-radius: 7px; }
+  .topbar .name { font-weight: 800; letter-spacing: -0.01em; }
+  .topbar .name a { color: var(--ink); text-decoration: none; }
+  .topbar .sep { color: var(--line); }
+  .topbar .where { color: var(--muted); font-size: 0.95em; }
+  .topbar .spacer { flex: 1; }
+  .topbar .home { font-size: 0.9em; font-weight: 600; text-decoration: none; }
+  #menubtn {
+    display: none; font: inherit; font-size: 0.85em; font-weight: 700;
+    background: #fff; color: var(--ink); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 14px; cursor: pointer;
+  }
+  #lang {
+    font: inherit; font-size: 0.82em; font-weight: 600; color: var(--ink);
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 5px 28px 5px 12px; cursor: pointer;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%236B6459'/></svg>");
+    background-repeat: no-repeat; background-position: right 11px center;
+  }
+
+  /* ── 레이아웃 ── */
+  .shell { max-width: 1180px; margin: 0 auto; padding: 0 24px; display: flex; gap: 48px; }
+  nav.toc {
+    flex: none; width: 258px; padding: 36px 0 80px;
+    position: sticky; top: 55px; align-self: flex-start;
+    max-height: calc(100vh - 55px); overflow-y: auto;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; }
+  nav.toc > ol > li { margin-bottom: 2px; }
+  nav.toc .grp {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    font: inherit; font-size: 0.78em; font-weight: 800; letter-spacing: 0.06em;
+    color: var(--muted); text-transform: uppercase;
+    background: none; border: 0; cursor: pointer; text-align: left;
+    padding: 8px 10px; margin-left: -10px; border-radius: 7px;
+  }
+  nav.toc .grp:hover { background: #fff; color: var(--ink); }
+  nav.toc .caret {
+    flex: none; width: 6px; height: 6px; margin-top: -2px;
+    border-right: 1.8px solid currentColor; border-bottom: 1.8px solid currentColor;
+    transform: rotate(-45deg); transition: transform 0.18s ease;
+  }
+  nav.toc li.open > .grp { color: var(--ink); }
+  nav.toc li.open > .grp .caret { transform: rotate(45deg); margin-top: -4px; }
+  nav.toc .items {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease;
+  }
+  nav.toc li.open > .items { grid-template-rows: 1fr; }
+  nav.toc .items > div { overflow: hidden; }
+  nav.toc a {
+    display: block; padding: 3px 10px 3px 28px; margin-left: -10px;
+    color: #443E36; text-decoration: none; font-size: 0.93em;
+    border-radius: 7px; line-height: 1.6;
+  }
+  nav.toc a:hover { background: #fff; }
+  nav.toc a.on { background: var(--blue-soft); color: var(--blue); font-weight: 700; }
+  nav.toc .items > div > :last-child { margin-bottom: 10px; }
+  @media (prefers-reduced-motion: reduce) {
+    nav.toc .items, nav.toc .caret { transition: none; }
+  }
+
+  main { flex: 1; min-width: 0; padding: 36px 0 120px; max-width: 720px; }
+  main h1 { font-size: 2.5em; margin: 0 0 10px; letter-spacing: -0.02em; }
+  main > .lead { color: var(--muted); font-size: 1.08em; margin: 0 0 8px; }
+
+  section { padding-top: 52px; }
+  section > h2 {
+    font-size: 1.62em; margin: 0 0 6px; letter-spacing: -0.01em;
+    padding-top: 28px; border-top: 1px solid var(--line);
+  }
+  section.first > h2 { border-top: none; padding-top: 0; }
+  h3 { font-size: 1.16em; margin: 34px 0 8px; }
+  h4 { font-size: 1.0em; margin: 22px 0 4px; }
+  p { margin: 0 0 14px; color: #443E36; }
+  ul, ol.steps { margin: 0 0 16px; padding-left: 22px; color: #443E36; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--ink); }
+
+  .kbd {
+    display: inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em; background: #fff; border: 1px solid var(--line);
+    border-bottom-width: 2px; border-radius: 6px; padding: 1px 7px;
+    color: var(--ink); white-space: nowrap;
+  }
+  .path {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.88em; background: #fff; border: 1px solid var(--line);
+    border-radius: 6px; padding: 1px 7px;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 20px; font-size: 0.95em; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 0.82em; letter-spacing: 0.04em; color: var(--muted); text-transform: uppercase; font-weight: 700; }
+  td:first-child { white-space: nowrap; font-weight: 600; }
+  table.wide td:first-child { white-space: normal; }
+
+  .note, .tip, .warn {
+    border-radius: 12px; padding: 14px 18px; margin: 18px 0;
+    font-size: 0.96em; line-height: 1.75;
+  }
+  .note { background: #fff; border: 1px solid var(--line); }
+  .tip  { background: var(--blue-soft); }
+  .warn { background: #FFF6DC; }
+  .note p:last-child, .tip p:last-child, .warn p:last-child { margin-bottom: 0; }
+  .note b, .tip b, .warn b { display: block; margin-bottom: 2px; }
+
+  .pill {
+    display: inline-block; background: var(--blue-soft); color: var(--blue);
+    border-radius: 999px; padding: 2px 11px; font-size: 0.8em; font-weight: 700;
+    vertical-align: middle;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); margin-top: 40px;
+    padding: 40px 24px 70px; text-align: center; color: var(--muted); font-size: 0.92em;
+  }
+  footer a { font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .shell { display: block; padding: 0 20px; }
+    #menubtn { display: block; }
+    nav.toc {
+      display: none; width: auto; position: static; max-height: none;
+      padding: 18px 0 6px; border-bottom: 1px solid var(--line);
+    }
+    nav.toc.open { display: block; }
+    main { padding-top: 26px; max-width: none; }
+    main h1 { font-size: 2em; }
+    .topbar .where { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <img src="icon.png" alt="">
+    <span class="name"><a href="./">Rawcookr</a></span>
+    <span class="sep">/</span>
+    <span class="where">Hướng dẫn sử dụng</span>
+    <span class="spacer"></span>
+    <button id="menubtn" type="button">Mục lục</button>
+    <select id="lang" aria-label="Language">
+      <option value="ko">한국어</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+      <option value="zh-Hans">中文（简体）</option>
+      <option value="de">Deutsch</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="th">ไทย</option>
+      <option value="vi">Tiếng Việt</option>
+      <option value="id">Bahasa Indonesia</option>
+    </select>
+    <a class="home" href="./">Về trang chủ</a>
+  </div>
+</div>
+
+<div class="shell">
+
+<nav class="toc" id="toc">
+  <ol>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Bắt đầu</button>
+      <div class="items"><div>
+        <a href="#screen">Hai cửa sổ</a>
+        <a href="#open">Mở ảnh</a>
+        <a href="#originals">Ảnh gốc của bạn vẫn nguyên vẹn</a>
+        <a href="#subscription">Thuê bao và dùng thử miễn phí</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Chọn ảnh</button>
+      <div class="items"><div>
+        <a href="#library">Thư mục và ảnh thu nhỏ</a>
+        <a href="#rating">Chấm sao và gắn cờ</a>
+        <a href="#batch">Nhiều ảnh cùng lúc</a>
+        <a href="#versions">Phiên bản</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Cửa sổ chỉnh sửa</button>
+      <div class="items"><div>
+        <a href="#canvas">Phóng to và di chuyển</a>
+        <a href="#inspect">So với ảnh gốc và cảnh báo mất chi tiết</a>
+        <a href="#compare">Chế độ so sánh</a>
+        <a href="#sections">Làm việc với các mục chỉnh</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Các mục chỉnh</button>
+      <div class="items"><div>
+        <a href="#presets">Thiết lập sẵn</a>
+        <a href="#film">Công thức phim</a>
+        <a href="#wb">Cân bằng trắng</a>
+        <a href="#light">Ánh sáng</a>
+        <a href="#curve">Đường cong tông</a>
+        <a href="#hsl">Sắc và độ bão hòa</a>
+        <a href="#levels">Mức</a>
+        <a href="#colorgrade">Cân bằng màu ba vùng</a>
+        <a href="#selective">Màu chọn lọc</a>
+        <a href="#local">Chỉnh sửa cục bộ</a>
+        <a href="#layers">Lớp</a>
+        <a href="#detail">Chi tiết</a>
+        <a href="#effects">Hiệu ứng</a>
+        <a href="#defringe">Khử quang sai màu</a>
+        <a href="#mist">Khuếch tán</a>
+        <a href="#privacy">Làm mờ vì riêng tư</a>
+        <a href="#frame">In ngày tháng</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Ghép ảnh</button>
+      <div class="items"><div>
+        <a href="#mount">Đặt ảnh lên tấm nền</a>
+        <a href="#mount-split">Chia thành ô</a>
+        <a href="#mount-free">Sắp đặt tự do</a>
+        <a href="#mount-look">Khoảng cách · Viền · Góc bo</a>
+        <a href="#mount-export">Lưu và xuất</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Hoàn tất</button>
+      <div class="items"><div>
+        <a href="#crop">Cắt và xoay</a>
+        <a href="#export">Xuất ảnh</a>
+        <a href="#customfilm">Tạo phim của riêng bạn</a>
+        <a href="#prefs">Tùy chọn</a>
+        <a href="#shortcuts">Phím tắt</a>
+        <a href="#trouble">Những chuyện hay gặp</a>
+      </div></div>
+    </li>
+  </ol>
+</nav>
+
+<main>
+
+<h1>Hướng dẫn sử dụng Rawcookr</h1>
+<p class="lead">Tráng ảnh, che mặt người vô tình lọt vào khung hình, đưa vào màu bạn muốn rồi xuất ra sẵn sàng để đăng. Toàn bộ tính năng, theo từng mục.</p>
+<p class="lead" style="font-size:0.95em">macOS 14 trở lên · Phiên bản 1.1</p>
+
+<!-- ══════════ 시작하기 ══════════ -->
+
+<section class="first" id="screen">
+<h2>Hai cửa sổ</h2>
+<p>Rawcookr có hai cửa sổ.</p>
+
+<h3>Thư viện</h3>
+<p>Nơi bạn chọn thư mục và xem lướt qua ảnh. Danh sách thư mục bên trái, lưới ảnh thu nhỏ ở giữa. Ở đây bạn chấm sao và gắn cờ, và xuất cả một loạt ảnh cùng lúc.</p>
+
+<h3>Ghép ảnh</h3>
+<p>Nơi nhiều ảnh được đặt lên cùng một tấm nền rồi thành một ảnh duy nhất. Xem <a href="#mount">Đặt ảnh lên tấm nền</a>.</p>
+
+<h3>Chỉnh sửa</h3>
+<p>Nơi bạn làm việc thật sự với một tấm ảnh. Ảnh ở giữa, bảng chỉnh bên phải, dải phim bên dưới. Nháy đúp một ảnh trong thư viện hoặc bấm <span class="kbd">Return</span>. <span class="kbd">Esc</span> đưa bạn quay lại.</p>
+
+<div class="tip">
+<b>Khi bạn muốn màn hình rộng hơn</b>
+<p><span class="kbd">⌘F</span> ẩn dải phim, còn <span class="kbd">⌃⌘F</span> chỉ hiện ảnh toàn màn hình. <span class="kbd">.</span> gập hết các mục ở bảng bên phải và <span class="kbd">,</span> mở hết.</p>
+</div>
+</section>
+
+<section id="open">
+<h2>Mở ảnh</h2>
+
+<h3>Mở một thư mục</h3>
+<p><strong>Tệp → Mở thư mục</strong> (<span class="kbd">⌘O</span>) chọn thư mục chứa ảnh của bạn. Những thư mục đã mở sẽ nằm lại ở thanh bên trái, sẵn sàng cho lần sau. Muốn bỏ đi thì bấm chuột phải vào tên và chọn <strong>Bỏ khỏi thanh bên</strong>. Thư mục con cũng hiện ra.</p>
+
+<h3>Trực tiếp từ Finder</h3>
+<p>Bấm chuột phải vào một ảnh trong Finder rồi chọn <strong>Mở bằng → Rawcookr</strong>. Thư mục chứa tệp đó được thêm vào thư viện và cửa sổ chỉnh sửa mở ra ngay.</p>
+
+<h3>Các định dạng hỗ trợ</h3>
+<table>
+  <tr><th>Loại</th><th>Phần mở rộng</th></tr>
+  <tr><td>RAW</td><td>RAF · DNG · CR2 · CR3 · CRW · NEF · NRW · ARW · SR2 · SRF · RW2 · RAW · RWL · PEF · ORF · 3FR · FFF · IIQ</td></tr>
+  <tr><td>Khác</td><td>JPG · JPEG · PNG · HEIC · HEIF · HIF · TIFF · TIF</td></tr>
+</table>
+<p>Việc tráng RAW dùng bộ máy có sẵn trong macOS. Một mẫu máy ảnh vừa ra mắt có thể cần macOS cập nhật thì tệp mới mở được.</p>
+</section>
+
+<section id="originals">
+<h2>Ảnh gốc của bạn vẫn nguyên vẹn</h2>
+<p>Rawcookr không bao giờ ghi vào tệp gốc. Những gì bạn chỉnh nằm trong một tệp thiết lập nhỏ riêng. Mở ảnh gốc bằng ứng dụng khác, nó vẫn y như cũ.</p>
+<p>Những thiết lập đó nằm ở đâu là do bạn chọn trong <strong>Tùy chọn</strong>.</p>
+<table class="wide">
+  <tr><th>Lựa chọn</th><th>Nghĩa là gì</th></tr>
+  <tr><td>Quản lý trong thư mục của ứng dụng <span class="pill">mặc định</span></td><td>Thư mục ảnh của bạn vẫn sạch. Tiện khi bạn đưa nguyên thư mục cho người khác.</td></tr>
+  <tr><td>Bên cạnh tệp gốc</td><td>Ảnh và thiết lập luôn đi cùng nhau. Mang cả ổ cứng ngoài sang một máy Mac khác, những gì bạn đã chỉnh cũng theo sang.</td></tr>
+</table>
+<p>Bạn cũng có thể ghi phần chỉnh sửa ra tệp rồi đọc lại. <strong>Lưu thiết lập</strong> và <strong>Áp dụng thiết lập</strong> trong cửa sổ chỉnh sửa dùng tệp <span class="path">.rawcookr-settings.json</span>.</p>
+</section>
+
+<section id="subscription">
+<h2>Thuê bao và dùng thử miễn phí</h2>
+<p>Rawcookr là ứng dụng thuê bao. <strong>Bảy ngày miễn phí</strong> mở khóa mọi thứ, sau đó tính theo tháng hoặc theo năm. Không có gói cao hơn và không có gì bán riêng: mọi thứ trong hướng dẫn này đều đã bao gồm.</p>
+<p>Việc quản lý và hủy được thực hiện trong thiết lập tài khoản App Store của bạn. Nếu hủy trước khi hết hạn dùng thử thì không bị tính phí.</p>
+<div class="note">
+<b>Nếu bạn đã đổi máy</b>
+<p>Đăng nhập App Store bằng đúng tài khoản Apple đó rồi mở ứng dụng; thuê bao sẽ được nhận ra tự động. Nếu không, hãy bấm <strong>Khôi phục giao dịch</strong> ở màn hình thuê bao.</p>
+</div>
+</section>
+
+<!-- ══════════ 사진 고르기 ══════════ -->
+
+<section id="library">
+<h2>Thư mục và ảnh thu nhỏ</h2>
+<p>Trong thư viện, một thư mục chiếm trọn cửa sổ. Chọn một thư mục ở thanh bên, ảnh trong đó sẽ xếp thành lưới.</p>
+
+<h3>Xem lướt</h3>
+<ul>
+  <li>Thanh trượt ở góc trên bên phải đổi kích thước ảnh thu nhỏ.</li>
+  <li>Các phím mũi tên di chuyển giữa các ảnh.</li>
+  <li><span class="kbd">Return</span> mở cửa sổ chỉnh sửa.</li>
+  <li><span class="kbd">Space</span> hiện ảnh cỡ lớn. Bấm lần nữa hoặc <span class="kbd">Esc</span> để đóng; <span class="kbd">Return</span> ở chế độ xem đó chuyển sang tráng ảnh. Tên tệp hiện bên dưới.</li>
+</ul>
+
+<h3>Chọn</h3>
+<ul>
+  <li>Một cú bấm chọn một ảnh, <span class="kbd">⇧</span>+bấm chọn một dải, <span class="kbd">⌘</span>+bấm thêm từng ảnh một.</li>
+  <li>Kéo trên vùng trống để quét chọn nhiều ảnh bằng một khung chữ nhật.</li>
+  <li><span class="kbd">⌘A</span> chọn tất cả.</li>
+</ul>
+
+<h3>Làm việc với tệp</h3>
+<p>Trình đơn này hiện ra khi bấm chuột phải vào một ảnh thu nhỏ.</p>
+<table class="wide">
+  <tr><th>Mục</th><th>Làm gì</th></tr>
+  <tr><td>Hiện trong Finder</td><td>Mở thư mục chứa tệp gốc.</td></tr>
+  <tr><td>Đổi tên</td><td>Đổi tên tệp gốc. Mỗi lần một ảnh.</td></tr>
+  <tr><td>Nhân bản</td><td>Tạo bản sao thứ hai của tệp gốc.</td></tr>
+  <tr><td>Chuyển sang thư mục khác</td><td>Chuyển những ảnh đã chọn sang chỗ khác. Thiết lập chỉnh sửa đi theo.</td></tr>
+  <tr><td>Chuyển vào Thùng rác</td><td>Đưa tệp gốc vào thùng rác. Muốn hoàn lại thì lấy ra khỏi Thùng rác của Finder.</td></tr>
+</table>
+</section>
+
+<section id="rating">
+<h2>Chấm sao và gắn cờ</h2>
+<p>Để tách ảnh tốt ra khỏi một buổi chụp dài. Bạn chấm sao được cả từ thư viện lẫn từ cửa sổ chỉnh sửa.</p>
+<table>
+  <tr><th>Phím</th><th>Làm gì</th></tr>
+  <tr><td><span class="kbd">1</span>–<span class="kbd">5</span></td><td>Chấm sao</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>Gắn / bỏ cờ</td></tr>
+</table>
+<p>Trong thư viện, thao tác này áp vào tất cả ảnh đang chọn cùng lúc. Sau đó bộ lọc phía trên có thể hiện <strong>chỉ ảnh có cờ</strong>, hoặc từ một mức sao trở lên. Sao và cờ nằm cùng với phần chỉnh sửa, nên tệp gốc không hề bị đụng tới.</p>
+</section>
+
+<section id="batch">
+<h2>Nhiều ảnh cùng lúc</h2>
+
+<h3>Đưa phần chỉnh sửa sang ảnh khác</h3>
+<p>Khi một ảnh đã ưng, các giá trị của nó chuyển thẳng sang ảnh khác.</p>
+<ol class="steps">
+  <li><span class="kbd">⌘⇧C</span> ở ảnh bạn thích: sao chép phần chỉnh sửa</li>
+  <li>Mở ảnh bạn muốn rồi bấm <span class="kbd">⌘⇧V</span>: dán phần chỉnh sửa</li>
+</ol>
+<p>Phần dán vào <strong>đúng một ảnh đang mở</strong>. Muốn tiếp thì bấm <span class="kbd">→</span> sang ảnh kế rồi <span class="kbd">⌘⇧V</span> lần nữa.</p>
+<p>Mọi thứ gắn với vị trí — vùng làm mờ, nét cọ khử viền màu, khung cắt, mặt nạ của các chỉnh sửa cục bộ — đều không được chuyển sang; ảnh nhận giữ nguyên phần của nó. Khuôn mặt nằm ở chỗ khác nhau trong mỗi ảnh, nên như vậy là đúng.</p>
+
+<h3>Xuất cả một loạt ảnh</h3>
+<p>Khi đang chọn nhiều ảnh, <span class="kbd">⌘E</span> xuất tất cả với cùng một thiết lập. Xem <a href="#export">Xuất ảnh</a>.</p>
+
+<div class="warn">
+<b>Lưu ý</b>
+<p>Dán phần chỉnh sửa thì không hoàn tác được. Hãy thử trên một ảnh trước khi áp cho cả loạt.</p>
+</div>
+</section>
+
+<section id="versions">
+<h2>Phiên bản</h2>
+<p>Để tráng cùng một ảnh theo hai cách rồi đặt cạnh nhau so sánh. Không có gì được sao chép, nên không tốn thêm một byte nào trên ổ đĩa.</p>
+<p><strong>Tệp → Tráng thành phiên bản mới</strong> (<span class="kbd">⌘G</span>) trong cửa sổ chỉnh sửa giữ nguyên các giá trị hiện tại và thêm một bản chưa đụng tới bên cạnh. Nó xuất hiện trên dải phim với số hiệu <strong>V2</strong>, <strong>V3</strong> và cứ thế.</p>
+<p>Xóa một phiên bản thì tệp gốc vẫn nằm nguyên chỗ cũ. Đó là ý của câu «tệp gốc được giữ lại» trong hộp xác nhận.</p>
+</section>
+
+<!-- ══════════ 현상 화면 ══════════ -->
+
+<section id="canvas">
+<h2>Phóng to và di chuyển</h2>
+<table>
+  <tr><th>Thao tác</th><th>Làm gì</th></tr>
+  <tr><td><span class="kbd">⌘=</span></td><td>Phóng to</td></tr>
+  <tr><td><span class="kbd">⌘-</span></td><td>Thu nhỏ</td></tr>
+  <tr><td><span class="kbd">⌘0</span></td><td>Vừa cửa sổ</td></tr>
+  <tr><td><span class="kbd">⌘1</span></td><td>100 %: điểm ảnh thật</td></tr>
+  <tr><td><span class="kbd">Space</span> + kéo</td><td>Đẩy ảnh</td></tr>
+  <tr><td>Chụm ngón trên trackpad</td><td>Phóng to và thu nhỏ</td></tr>
+  <tr><td>Vuốt hai ngón trên trackpad</td><td>Cuộn ảnh</td></tr>
+  <tr><td><span class="kbd">O</span></td><td>Hiện / ẩn thanh phóng to</td></tr>
+</table>
+<p>Mọi thứ phải xét từng điểm ảnh — độ nét, hạt phim — đều cần <span class="kbd">⌘1</span> và mức 100 %. Thấp hơn mức đó, ảnh được vẽ thu nhỏ cho vừa cửa sổ, nên thứ bạn thấy không phải thứ bạn nhận.</p>
+</section>
+
+<section id="inspect">
+<h2>So với ảnh gốc và cảnh báo mất chi tiết</h2>
+
+<h3>Xem ảnh gốc <span class="kbd">M</span></h3>
+<p>Hiện ảnh trước khi chỉnh, chừng nào bạn còn giữ phím. Cách nhanh nhất để biết bạn có thật sự làm nó khá hơn không.</p>
+
+<h3>Cảnh báo mất chi tiết <span class="kbd">J</span></h3>
+<p>Vùng cháy thành trắng tinh được phủ đỏ; vùng bẹp thành đen tuyền được phủ xanh lam.</p>
+<p>Chỉ một kênh chạm trần — chẳng hạn một cánh hoa đỏ rực — thì vẫn còn màu, nên không cảnh báo. Chỉ <strong>vùng nào cả ba kênh đều chạm trần và thông tin đã mất thật</strong> mới bị đánh dấu. Nếu cảnh báo hiện trên ảnh, một cú bấm bật tắt được phần đánh dấu.</p>
+
+<h3>Biểu đồ</h3>
+<p>Biểu đồ ở bảng bên phải cho thấy độ sáng phân bố ra sao. Dồn sát mép trái là đầu tối đang bị cắt; sát mép phải là đầu sáng.</p>
+</section>
+
+<section id="compare">
+<h2>Chế độ so sánh</h2>
+<p>Đặt hai ảnh cạnh nhau. Để chọn giữa hai ảnh của cùng một cảnh, hoặc so các phiên bản.</p>
+<ol class="steps">
+  <li>Bấm <strong>So sánh</strong> trên thanh công cụ.</li>
+  <li>Ảnh hiện tại nằm bên trái; bên phải bạn chọn ảnh muốn so.</li>
+  <li>Khớp mức phóng to và hai ảnh sẽ di chuyển cùng nhau, nên bạn thấy cùng một phần ở cùng một cỡ.</li>
+</ol>
+</section>
+
+<section id="sections">
+<h2>Làm việc với các mục chỉnh</h2>
+<p>Bảng bên phải được chia thành các mục. Mỗi mục gập được, và thứ tự đổi được.</p>
+
+<h3>Tắt một mục</h3>
+<p>Công tắc cạnh tên mục vẽ lại ảnh với các giá trị của mục đó trở về mặc định. <strong>Không có gì bị xóa</strong>: bật lại thì mọi thứ quay về. Tiện để tự hỏi «mục này có thật sự giúp gì không?».</p>
+
+<h3>Mở, gập, sắp lại</h3>
+<ul>
+  <li><span class="kbd">,</span> mở hết các mục · <span class="kbd">.</span> gập hết</li>
+  <li>Kéo tên mục để đổi chỗ. Thứ tự bạn đặt sẽ được giữ cho lần sau.</li>
+</ul>
+
+<h3>Quay lại</h3>
+<ul>
+  <li>Nháy đúp vào tên một thanh chỉnh, giá trị đó trở về mặc định.</li>
+  <li>Nút đặt lại cạnh tên mục làm trống cả mục.</li>
+  <li><span class="kbd">⌥⌘R</span>: xóa toàn bộ phần chỉnh sửa của ảnh.</li>
+</ul>
+
+<div class="tip">
+<b>Chỉnh thanh trượt thật mịn</b>
+<p>Giữ <span class="kbd">⌥</span> khi kéo một thanh chỉnh để đi từng bước nhỏ hơn. Bạn cũng có thể bấm vào con số và gõ giá trị.</p>
+</div>
+</section>
+
+
+<!-- ══════════ 조정 항목 ══════════ -->
+
+<section id="presets">
+<h2>Thiết lập sẵn</h2>
+<p>Lưu <strong>toàn bộ giá trị chỉnh sửa</strong> của ảnh hiện tại thành một khối, sẵn sàng cho ảnh khác. Phim, tông và các chỉnh sửa cục bộ, tất cả đều nằm trong đó.</p>
+
+<h3>Tạo một cái</h3>
+<ol class="steps">
+  <li>Chỉnh một ảnh cho vừa ý.</li>
+  <li>Bấm <strong>+</strong> ở mục thiết lập sẵn rồi đặt tên.</li>
+  <li>Lưu trùng tên là ghi đè.</li>
+</ol>
+
+<h3>Dùng một cái</h3>
+<p>Danh sách hiện mỗi thiết lập sẵn thành một ảnh nhỏ của chính ảnh bạn đang mở đã áp giá trị đó. Một cú bấm là áp. Cỡ ảnh thu nhỏ có thể là <strong>Rất nhỏ · Nhỏ · Lớn</strong>.</p>
+
+<div class="tip">
+<b>Khác nhau giữa thiết lập sẵn và phim</b>
+<p>Một <strong>phim</strong> là một phép biến đổi màu. Một <strong>thiết lập sẵn</strong> là toàn bộ phần chỉnh sửa, bao gồm cả phim. Chỉ muốn dùng lại «đúng cái màu đó»? Dùng phim. Muốn «tất cả những gì đã làm với ảnh này»? Dùng thiết lập sẵn.</p>
+</div>
+</section>
+
+<section id="film">
+<h2>Công thức phim</h2>
+<p>Trái tim của Rawcookr. Chọn một phim có sẵn rồi chỉnh tông và màu lên trên.</p>
+
+<h3>Chọn phim</h3>
+<p>Biểu tượng phim ở đầu mục mở ra một danh sách được nhóm theo dòng.</p>
+<table class="wide">
+  <tr><th>Dòng</th><th>Số lượng</th><th>Tính cách</th></tr>
+  <tr><td>F.film</td><td>11</td><td>Standard · Vivid · Soft · Vintage Chrome · Natural · Portrait Alto/Standard · Cool Negative · Retro Negative · Cinema · Bleach Bypass</td></tr>
+  <tr><td>KoD</td><td>5</td><td>Portrait 400 · Daily 200 · Fine 100 · Chrome 64 · Mono 400</td></tr>
+  <tr><td>R.co</td><td>6</td><td>Positive · Negative · Retro · Cinema Yellow · Cinema Green · High-Con Mono</td></tr>
+  <tr><td>IlFd</td><td>2</td><td>Mono 400 · Fine 50</td></tr>
+  <tr><td>Cổ điển</td><td>3</td><td>Tungsten 800T · Classic Daily 400 · Cross Process</td></tr>
+  <tr><td>Đen trắng</td><td>9</td><td>Bốn kiểu Mono Fine (không kính lọc / Ye / R / G) · bốn kiểu Mono · Sepia</td></tr>
+</table>
+<p><strong>Phim tự tạo</strong> của bạn sẽ được thêm vào đây. Xem <a href="#customfilm">Tạo phim của riêng bạn</a>.</p>
+
+<div class="note">
+<b>Về chuyện tên gọi</b>
+<p>Mỗi phim là một phép biến đổi màu do Rawcookr tự dựng nên, với tên riêng. Không phim nào gắn với sản phẩm của bất kỳ nhà sản xuất nào.</p>
+</div>
+
+<h3>Các giá trị của phim màu</h3>
+<table>
+  <tr><th>Mục</th><th>Khoảng</th><th>Làm gì</th></tr>
+  <tr><td>Tông vùng sáng</td><td>−2 đến +12</td><td>Tương phản ở đầu sáng. Lên là gắt hơn, xuống là dịu hơn.</td></tr>
+  <tr><td>Tông vùng tối</td><td>−2 đến +4</td><td>Tương phản ở đầu tối.</td></tr>
+  <tr><td>Màu</td><td>−4 đến +4</td><td>Độ bão hòa trên toàn phim.</td></tr>
+  <tr><td>Sắc</td><td>−4 đến +4</td><td>Xoay tất cả các màu về một phía. Ba độ mỗi bước.</td></tr>
+  <tr><td>Phím</td><td>−4 đến +4</td><td>Nâng hoặc hạ độ sáng trung bình.</td></tr>
+  <tr><td>Tương phản</td><td>−4 đến +4</td><td>Mở rộng tương phản quanh điểm giữa.</td></tr>
+  <tr><td>Độ trong</td><td>−5 đến +5</td><td>Chất bề mặt. Âm thì làm mịn, dương thì làm rõ.</td></tr>
+  <tr><td>Độ nét</td><td>−4 đến +4</td><td>Độ nét của chính phim. Âm thì làm mờ.</td></tr>
+  <tr><td>Đổ bóng</td><td>−4 đến +4</td><td>Độ hụt sáng ra phía rìa. Dương thì các góc tối đi.</td></tr>
+  <tr><td>Dịch WB R · B</td><td>−9 đến +9</td><td>Đẩy nhẹ đỏ và lam để nghiêng màu.</td></tr>
+</table>
+
+<h3>Các giá trị của phim đen trắng</h3>
+<p>Thay cho các giá trị màu sẽ là <strong>Nhuộm WC</strong> và <strong>Nhuộm MG</strong> (mỗi cái −18 đến +18). WC đi từ ấm sang lạnh, MG đi từ hồng sẫm sang lục. Kết hợp lại, chúng trải từ nâu đỏ tới xanh lạnh.</p>
+
+<h3>Hạt phim</h3>
+<p>Phủ hạt phim lên ảnh. Cường độ là <strong>Không · Nhẹ · Mạnh</strong> và cỡ hạt là <strong>Nhỏ · Lớn</strong>. Khi cường độ là không, phần cỡ hạt bị khóa.</p>
+
+<div class="tip">
+<b>Hãy xem hạt phim ở 100 %</b>
+<p>Hạt phim làm việc trên từng điểm ảnh, nên ở mức vừa cửa sổ gần như không thấy gì. Hãy xét nó ở 100 % bằng <span class="kbd">⌘1</span>.</p>
+</div>
+</section>
+
+<section id="wb">
+<h2>Cân bằng trắng</h2>
+<p>Định nhiệt độ màu. Với tệp RAW, bạn có thể giữ những gì máy ảnh ghi lại hoặc tự đổi.</p>
+<table>
+  <tr><th>Mục</th><th>Khoảng</th><th>Làm gì</th></tr>
+  <tr><td>Nhiệt độ</td><td>2000 – 12000 K</td><td>Xuống thì ngả lam, lên thì ngả vàng.</td></tr>
+  <tr><td>Sắc thái</td><td>−100 đến +100</td><td>Chạy giữa lục và hồng sẫm. Hữu ích dưới ánh đèn huỳnh quang.</td></tr>
+</table>
+
+<h3>Định bằng ống hút màu</h3>
+<p>Bấm ống hút màu rồi bấm vào <strong>một thứ trong ảnh lẽ ra phải là xám trung tính</strong>. Nhiệt độ và sắc thái sẽ được chỉnh sao cho điểm đó thành xám. Một bức tường trắng, mặt nhựa đường xám, hay phần khuất bóng của một chiếc áo trắng đều là mốc tốt. Bấm vào thứ thật sự có màu thì sẽ lệch đi rất xa.</p>
+
+<h3>Quét màu</h3>
+<p>Biểu tượng cây cọ bên trái ống hút màu. Một cú bấm mở bản đồ màu, một cú nữa đóng lại. Giữ và kéo để chỉnh trong lúc nhìn; bản đồ đang mở có thể cầm lên và dời đi.</p>
+<ul>
+  <li>Trái phải là nhiệt độ: sang phải thì ấm hơn.</li>
+  <li>Trên dưới là sắc thái: lên là hồng sẫm, xuống là lục.</li>
+  <li>Giữ <span class="kbd">⌥</span> khi kéo để đi từng bước nhỏ hơn.</li>
+</ul>
+<p>Tệp RAW bắt đầu từ những gì máy ảnh đã ghi. Nút đặt lại ở tên mục đưa bạn về đúng trạng thái đó.</p>
+</section>
+
+<section id="light">
+<h2>Ánh sáng</h2>
+<p>Mục cơ bản cho độ sáng và tương phản. Phần lớn ảnh gần như xong ở đây.</p>
+<table>
+  <tr><th>Mục</th><th>Khoảng</th><th>Làm gì</th></tr>
+  <tr><td>Phơi sáng</td><td>−3 đến +3 EV</td><td>Độ sáng chung. Nó được áp ngay trong lúc giải mã RAW, nên là cách đổi sạch nhất.</td></tr>
+  <tr><td>Tương phản</td><td>−100 đến +100</td><td>Khoảng cách giữa sáng và tối.</td></tr>
+  <tr><td>Vùng sáng</td><td>−100 đến +100</td><td>Kéo lại bầu trời hay nguồn sáng đã cháy. Phần dư mà dải tương phản mở rộng để dành được lấy ra ở đây.</td></tr>
+  <tr><td>Vùng tối</td><td>−100 đến +100</td><td>Nâng chất bề mặt trong chỗ nhá nhem.</td></tr>
+  <tr><td>Điểm trắng</td><td>−100 đến +100</td><td>Đầu sáng dừng ở đâu.</td></tr>
+  <tr><td>Điểm đen</td><td>−100 đến +100</td><td>Đầu tối dừng ở đâu. Nâng lên một chút cho ra chất phim.</td></tr>
+  <tr><td>Độ rõ</td><td>−100 đến +100</td><td>Tương phản ở chất bề mặt cỡ vừa. Âm thì làm mịn da, dương thì kéo mây và gạch nổi lên.</td></tr>
+  <tr><td>Độ bão hòa</td><td>−100 đến +100</td><td>Tất cả các màu, như nhau.</td></tr>
+  <tr><td>Độ sống động</td><td>−100 đến +100</td><td>Nâng những màu nhạt lên trước. Không đụng tới tông da, nên dùng với người thì an toàn.</td></tr>
+  <tr><td>Bạc màu</td><td>0 – 100</td><td>Nâng vùng đen lên cho vẻ phai nhạt.</td></tr>
+</table>
+
+<div class="note">
+<b>Vùng sáng và vùng tối là xử lý cục bộ</b>
+<p>Hai cái này không nhân cả ảnh với một con số. Chúng tách riêng phần sáng, hoặc riêng phần tối, mà vẫn giữ các đường biên. Hạ bầu trời xuống thì tông trung ngay sát bên vẫn đứng yên, không có quầng trắng ở chỗ giáp ranh.</p>
+</div>
+</section>
+
+<section id="curve">
+<h2>Đường cong tông</h2>
+<p>Tự tay vẽ cách ánh xạ độ sáng. Chạm tới mức chi tiết mà các thanh chỉnh không với tới.</p>
+
+<h3>Dùng thế nào</h3>
+<ul>
+  <li>Bấm lên đường để thêm một điểm rồi kéo để dời nó.</li>
+  <li>Kéo một điểm ra khỏi mép để xóa.</li>
+  <li><strong>RGB</strong> là độ sáng chung; <strong>R · G · B</strong> là từng kênh riêng. Chạm vào một kênh sẽ làm màu dịch đi, và đó đúng là thứ bạn cần khi dựng một phong cách.</li>
+  <li>Cong lên ở giữa thì sáng hơn; hình chữ S thì tăng tương phản.</li>
+  <li><strong>Chỉ đặt lại kênh này</strong> duỗi thẳng đúng đường cong bạn đang xem.</li>
+</ul>
+
+<h3>Ba ống hút màu</h3>
+<p>Bấm vào một điểm mốc trong ảnh và đường cong tự định vị. R, G và B dịch <strong>cùng nhau</strong> để điểm đó thành màu tham chiếu.</p>
+<table class="wide">
+  <tr><th>Ống hút màu</th><th>Bấm vào đâu</th></tr>
+  <tr><td>Điểm đen</td><td>Thứ lẽ ra phải đen tuyền. Vùng tối sâu nhất.</td></tr>
+  <tr><td>Xám trung tính</td><td>Thứ lẽ ra phải trung tính. Bê tông xám, quần áo không màu.</td></tr>
+  <tr><td>Điểm trắng</td><td>Thứ lẽ ra phải trắng tinh. Giấy trắng, tường trắng.</td></tr>
+</table>
+<p>Bấm cả ba liên tiếp là cân bằng màu và tương phản xong một lượt. Cách nhanh nhất để kéo một tấm ảnh lệch nặng về lại bình thường.</p>
+</section>
+
+<section id="hsl">
+<h2>Sắc và độ bão hòa</h2>
+<p>Chia màu thành mười hai dải và xử lý từng dải một.</p>
+<p><strong>Đỏ · Cam · Vàng · Vàng lục · Lục · Ngọc lục · Lam lục · Thiên thanh · Lam · Tím · Hồng sẫm · Hồng</strong>: mỗi 30°, phủ đều vòng tròn.</p>
+<table>
+  <tr><th>Mục</th><th>Khoảng</th><th>Làm gì</th></tr>
+  <tr><td>Sắc</td><td>−30 đến +30</td><td>Xoay màu đó về phía màu kề bên.</td></tr>
+  <tr><td>Độ bão hòa</td><td>−100 đến +100</td><td>Chỉ màu đó, đậm hơn hoặc nhạt hơn.</td></tr>
+  <tr><td>Độ chói</td><td>−100 đến +100</td><td>Chỉ màu đó, sáng hơn hoặc tối hơn.</td></tr>
+</table>
+
+<h3>Chọn thẳng trên bản đồ màu</h3>
+<p><strong>Giữ</strong> một ô màu rồi kéo: một bản đồ mở ra.</p>
+<ul>
+  <li>Kéo ngang cho <strong>sắc</strong></li>
+  <li>Kéo dọc cho <strong>độ bão hòa</strong></li>
+  <li>Giữ <span class="kbd">⌘</span> rồi kéo dọc cho <strong>độ chói</strong></li>
+</ul>
+<p>Một động tác là tìm ra điểm cần, thay vì chạy tới chạy lui giữa ba thanh chỉnh.</p>
+
+<div class="tip">
+<b>Những chỉnh sửa hay dùng</b>
+<p>Bầu trời sâu hơn: nâng độ bão hòa của lam và thiên thanh rồi hạ độ chói. Màu lục dịu lại: hạ độ bão hòa của lục và kéo sắc của nó nghiêng một chút về vàng. Da tự nhiên: hạ độ bão hòa của cam một chút và nâng độ chói của nó lên một chút.</p>
+</div>
+</section>
+
+<section id="levels">
+<h2>Mức</h2>
+<p>Tự tay định khoảng vào và khoảng ra. Đơn giản hơn đường cong, và nhanh hơn khi điểm trắng điểm đen phải rơi đúng chỗ.</p>
+<table>
+  <tr><th>Mục</th><th>Khoảng</th><th>Làm gì</th></tr>
+  <tr><td>Đen đầu vào</td><td>0 – 0,9</td><td>Mọi thứ tối hơn mức đó thành đen.</td></tr>
+  <tr><td>Trắng đầu vào</td><td>0,1 – 1</td><td>Mọi thứ sáng hơn mức đó thành trắng.</td></tr>
+  <tr><td>Gamma</td><td>0,2 – 3</td><td>Nâng hoặc hạ độ sáng trung bình.</td></tr>
+  <tr><td>Đen đầu ra</td><td>0 – 0,9</td><td>Độ sáng mà điểm tối nhất dừng lại. Nâng lên thì ra vẻ phai nhạt.</td></tr>
+  <tr><td>Trắng đầu ra</td><td>0,1 – 1</td><td>Độ sáng mà điểm sáng nhất dừng lại. Hạ xuống thì vùng trắng được ghìm lại.</td></tr>
+</table>
+<p>Bật cảnh báo mất chi tiết bằng <span class="kbd">J</span> trong lúc siết đầu vào. Bạn sẽ thấy đúng chỗ thông tin bắt đầu biến mất.</p>
+</section>
+
+<section id="colorgrade">
+<h2>Cân bằng màu ba vùng</h2>
+<p>Đặt màu khác nhau cho vùng tối, vùng trung và vùng sáng. Cách làm quen thuộc trong chỉnh màu điện ảnh.</p>
+<ul>
+  <li>Kéo tâm của một bánh xe để định hướng và độ mạnh. Càng gần tâm càng nhẹ.</li>
+  <li><strong>Độ chói</strong> và <strong>độ bão hòa</strong> của từng dải (−100 đến +100) chỉnh riêng.</li>
+</ul>
+<p>Tách độ bão hòa theo dải cho phép giữ vùng tối điềm đạm trong khi chỉ phần sáng bừng lên.</p>
+<div class="tip">
+<b>Một công thức chuẩn mực</b>
+<p>Đẩy vùng tối nhè nhẹ về lam lục và vùng sáng về cam, bạn sẽ có cái chất điện ảnh quen thuộc. Hai màu đó nhìn thẳng vào nhau trên vòng tròn, và điều đó tách người ra khỏi hậu cảnh. Bí quyết là dùng thật ít.</p>
+</div>
+</section>
+
+<section id="selective">
+<h2>Màu chọn lọc</h2>
+<p>Chia màu thành chín vùng và sửa từng vùng bằng cách thêm hoặc bớt lam lục, hồng sẫm, vàng và đen. Nó đến từ ngành in, và bắt được những ám màu mảnh mà sắc và độ bão hòa không với tới.</p>
+
+<h3>Các vùng màu</h3>
+<p>Sáu màu — <strong>đỏ · vàng · lục · lam lục · lam · hồng sẫm</strong> — và ba dải độ sáng, <strong>trắng · trung tính · đen</strong>. Những vùng bạn đã động vào được đánh dấu trong danh sách.</p>
+
+<table>
+  <tr><th>Mục</th><th>Khoảng</th><th>Làm gì</th></tr>
+  <tr><td>Lam lục</td><td>−100 đến +100</td><td>Lên là thêm lam lục; xuống là ngả về đỏ.</td></tr>
+  <tr><td>Hồng sẫm</td><td>−100 đến +100</td><td>Lên là hồng sẫm; xuống là ngả về lục.</td></tr>
+  <tr><td>Vàng</td><td>−100 đến +100</td><td>Lên là vàng; xuống là ngả về lam.</td></tr>
+  <tr><td>Đen</td><td>−100 đến +100</td><td>Làm vùng đó tối đi hoặc sáng lên.</td></tr>
+</table>
+
+<h3>Tương đối và tuyệt đối</h3>
+<table class="wide">
+  <tr><th>Cách</th><th>Nghĩa là gì</th></tr>
+  <tr><td>Tương đối</td><td>Đổi mỗi lượng theo phần trăm của thứ đã có sẵn. Chỗ nào không có màu đó thì không có gì xảy ra, nên trắng tinh vẫn nguyên. An toàn hơn trong phần lớn trường hợp.</td></tr>
+  <tr><td>Tuyệt đối</td><td>Cộng thẳng lượng đó vào. Thay đổi mạnh hơn và chắc chắn hơn, nhưng thô đi sớm hơn.</td></tr>
+</table>
+
+<div class="tip">
+<b>Những chỉnh sửa hay dùng</b>
+<p>Da đỏ quá: nâng lam lục lên một chút ở <strong>đỏ</strong>. Trời đục: nâng đen lên một chút ở <strong>lam</strong> cho sâu hơn. Tường trắng mà ra vàng: hạ vàng ở <strong>trắng</strong>.</p>
+</div>
+</section>
+
+<section id="local">
+<h2>Chỉnh sửa cục bộ</h2>
+<p>Áp một chỉnh sửa chỉ cho một phần của ảnh. Tạo mặt nạ rồi chỉnh bên trong nó. Mặt nạ đã tạo cũng xuất hiện ở mục <a href="#layers">Lớp</a>, cùng với các lớp xếp chồng.</p>
+
+<h3>Ba loại mặt nạ</h3>
+<table class="wide">
+  <tr><th>Loại</th><th>Tạo ra sao</th><th>Dùng để làm gì</th></tr>
+  <tr><td>Tuyến tính</td><td>Kéo trên ảnh theo một hướng. Điểm bắt đầu là 100 %, điểm cuối là 0 %.</td><td>Hạ bầu trời hoặc nâng tiền cảnh</td></tr>
+  <tr><td>Tỏa tròn</td><td>Vẽ một hình bầu dục. Bên trong 100 %, ở mép 0 %.</td><td>Làm nổi một người hay một chủ thể</td></tr>
+  <tr><td>Cọ</td><td>Tự tay tô vùng cần.</td><td>Những hình không theo khuôn phép</td></tr>
+</table>
+<ul>
+  <li><strong>Độ nhòe</strong> (0 – 1): mép mềm đến đâu. 0 là sắc, 1 là tan rất chậm.</li>
+  <li><strong>Cỡ cọ</strong> (20 – 600)</li>
+  <li><strong>Đảo mặt nạ</strong>: chỉnh sửa đi vào <em>mọi thứ còn lại</em>.</li>
+  <li>Bạn tạo được nhiều mặt nạ và bật tắt từng cái.</li>
+</ul>
+
+<h3>Chỉnh được gì bên trong một mặt nạ</h3>
+<table>
+  <tr><th>Mục</th><th>Khoảng</th></tr>
+  <tr><td>Phơi sáng</td><td>−2 đến +2 EV</td></tr>
+  <tr><td>Tương phản · Vùng sáng · Vùng tối</td><td>mỗi cái −100 đến +100</td></tr>
+  <tr><td>Độ bão hòa · Độ trong</td><td>mỗi cái −100 đến +100</td></tr>
+  <tr><td>Độ ấm · Sắc thái</td><td>mỗi cái −100 đến +100</td></tr>
+</table>
+</section>
+
+<section id="layers">
+<h2>Lớp</h2>
+<p>Xếp các lớp lên trên ảnh đã tráng. Lớp chỉnh sửa làm lại thứ nằm dưới, lớp màu đặc phủ lên nó, còn lớp có mặt nạ chỉ đụng vào chỗ bạn đã đánh dấu.</p>
+
+<h3>Ba loại lớp</h3>
+<table class="wide">
+  <tr><th>Loại</th><th>Làm gì</th></tr>
+  <tr><td>Chỉnh sửa</td><td>Thêm một vòng Ánh sáng, Đường cong tông, Mức, Sắc và độ bão hòa, Cân bằng ba vùng, cộng thêm đen trắng và đảo ngược. Dành cho khi bạn muốn cùng một chỉnh sửa hai lần, với hai độ mạnh khác nhau.</td></tr>
+  <tr><td>Màu đặc</td><td>Phủ tất cả bằng một màu bạn chọn. Kèm chế độ hòa trộn, nó thành một kính lọc màu.</td></tr>
+  <tr><td>Mặt nạ</td><td>Chỉ áp ở chỗ bạn đánh dấu bằng mặt nạ tuyến tính, tỏa tròn hay cọ. Cùng loại mặt nạ với các chỉnh sửa cục bộ.</td></tr>
+</table>
+<p>Lớp có mặt nạ được áp vào ảnh trước; các lớp bên trên xếp chồng lên kết quả đó.</p>
+
+<h3>Chế độ hòa trộn</h3>
+<p>Có mười sáu chế độ.</p>
+<table class="wide">
+  <tr><th>Nhóm</th><th>Cách</th></tr>
+  <tr><td>Cơ bản</td><td>Thường</td></tr>
+  <tr><td>Làm tối</td><td>Nhân · Cháy màu · Làm tối</td></tr>
+  <tr><td>Làm sáng</td><td>Sàng · Né màu · Làm sáng</td></tr>
+  <tr><td>Tương phản</td><td>Phủ · Ánh sáng dịu · Ánh sáng gắt</td></tr>
+  <tr><td>Hiệu</td><td>Hiệu · Loại trừ</td></tr>
+  <tr><td>Thành phần màu</td><td>Sắc · Độ bão hòa · Màu · Độ chói</td></tr>
+</table>
+<p>Độ mạnh chỉnh bằng <strong>độ mờ đục</strong>.</p>
+
+<h3>Giữ thứ tự</h3>
+<ul>
+  <li><strong>Hiện lớp này</strong>: biểu tượng con mắt tắt và bật nó.</li>
+  <li><strong>Lên · Xuống</strong>: đổi thứ tự xếp chồng.</li>
+  <li><strong>Gộp với lớp dưới</strong>: nhập hai thành một. Các giá trị của từng lớp vẫn được giữ nguyên.</li>
+  <li><strong>Bỏ gộp</strong>: tách một lớp đã gộp ra trở lại.</li>
+  <li><strong>Xóa lớp này</strong></li>
+</ul>
+
+<div class="tip">
+<b>Cách đơn giản nhất để đưa màu vào</b>
+<p>Thêm một lớp màu đặc và đặt chế độ hòa trộn là <strong>Màu</strong>: độ sáng đứng yên, chỉ có màu phủ lên ảnh. Chỉnh độ mạnh bằng độ mờ đục là bạn đã gần với kiểu nhuộm màu của phòng tối.</p>
+</div>
+</section>
+
+<section id="detail">
+<h2>Chi tiết</h2>
+<p>Xử lý độ nét và nhiễu. Mục này phải <strong>xét ở mức 100 %</strong>.</p>
+<table>
+  <tr><th>Mục</th><th>Khoảng</th><th>Làm gì</th></tr>
+  <tr><td>Độ nét</td><td>−4 đến +4</td><td>Độ nét ở bước giải mã RAW. 0 là giá trị mặc định của macOS; từ đó cộng hoặc trừ theo từng bậc.</td></tr>
+  <tr><td>Khử nhiễu màu</td><td>−4 đến +4</td><td>Dẹp những vệt lốm đốm màu. 0 là mặc định. Nâng lên khi ISO cao.</td></tr>
+  <tr><td>Tăng nét</td><td>0 – 300 %</td><td>Một lớp unsharp mask áp sau khi tráng. Tách biệt với độ nét ở trên.</td></tr>
+  <tr><td>Bán kính</td><td>0,5 – 5 px</td><td>Bề rộng mà phần tăng nét tác động. Nhỏ là chất bề mặt mịn, lớn là đường viền dày.</td></tr>
+</table>
+<p>Phần tăng nét chỉ chạm vào kênh độ sáng, nên biên màu không bị nhòe.</p>
+</section>
+
+<section id="effects">
+<h2>Hiệu ứng</h2>
+
+<h3>Tối góc</h3>
+<p><strong>Tối góc</strong> (−100 đến +100): âm thì rìa ảnh tối đi, dương thì sáng lên. <strong>Điểm giữa</strong> (0 – 100) là khoảng cách mà hiệu ứng bắt đầu. Hạ xuống thì nó lan vào gần tâm hơn.</p>
+
+<h3>Đơn sắc · Đảo ngược</h3>
+<ul>
+  <li><strong>Đơn sắc</strong> — bỏ màu đi, còn lại đen trắng.</li>
+  <li><strong>Đảo ngược (âm bản)</strong> — lật độ sáng và màu. Dùng để đưa ảnh quét từ phim âm bản về lại dương bản.</li>
+</ul>
+
+<h3>LUT ngoài</h3>
+<p>Nạp một tệp <span class="path">.cube</span> bạn có rồi áp lên. <strong>Cường độ LUT</strong> (0 – 100) chỉnh độ mạnh.</p>
+<p>Ở đây còn hai công cụ nữa.</p>
+<table class="wide">
+  <tr><th>Nút</th><th>Làm gì</th></tr>
+  <tr><td>Áp làm LUT (.cube)…</td><td>Áp thẳng LUT đã chọn.</td></tr>
+  <tr><td>Chuyển thành giá trị chỉnh rồi nhập…</td><td>Phân tích xem LUT làm gì rồi rải nó ra thành <em>giá trị các thanh chỉnh</em>: đường cong tông, độ bão hòa, HSL và cân bằng màu ba vùng. Đã rải ra rồi thì bạn chỉnh tiếp lên trên được.</td></tr>
+</table>
+</section>
+
+<section id="defringe">
+<h2>Khử quang sai màu</h2>
+<p>Dẹp những vệt màu loang do ống kính gây ra. Hai nguyên nhân khác nhau, xử lý riêng.</p>
+
+<h3>Khử quang sai màu ngang</h3>
+<p>Ống kính hội tụ đỏ, lục, lam ở <strong>những cỡ hơi khác nhau</strong>, nên càng ra rìa ảnh càng sinh vệt lam lục và hồng sẫm. Không thể xóa bằng cách rút màu đi; phải <strong>kéo các kênh bị lệch về đúng chỗ</strong> thì nó mới hết.</p>
+<ul>
+  <li>Bật lên thì nó phân tích ảnh và tự định lượng hiệu chỉnh.</li>
+  <li>Bạn tinh chỉnh tay được bằng <strong>Tỉ lệ đỏ · Tỉ lệ lam</strong> (0,994 – 1,006).</li>
+  <li><strong>Đo lại</strong> sẽ tính lại với ảnh hiện tại.</li>
+</ul>
+
+<h3>Khử viền màu</h3>
+<p>Dẹp những viền tím, lục và đỏ tươi còn lại ở các đường biên trong ảnh ngược sáng mạnh.</p>
+<table>
+  <tr><th>Mục</th><th>Khoảng</th></tr>
+  <tr><td>Khử tím · Khử lục · Khử đỏ</td><td>mỗi cái 0 – 3</td></tr>
+</table>
+<ul>
+  <li>Bật <strong>Chỉ ở chỗ đã tô cọ</strong> thì phần hiệu chỉnh chỉ làm việc trong vùng bạn tô. Áp cho cả ảnh thì những thứ vốn thật sự mang màu đó (một bông hoa tím, một tấm biển đỏ) cũng bạc đi, nên chỉ tô chỗ có vấn đề thì an toàn hơn.</li>
+  <li><strong>Cỡ cọ</strong> từ 10 đến 300.</li>
+  <li><strong>Ẩn vùng đã tô</strong> tắt phần đánh dấu một lát để chỉ xem kết quả.</li>
+  <li><strong>Hoàn tác nét cuối</strong> · <strong>Xóa hết</strong> để quay lại.</li>
+</ul>
+</section>
+
+<section id="mist">
+<h2>Khuếch tán</h2>
+<p>Bản số hóa của kính lọc khuếch tán quang học gắn trước ống kính. Phần sáng loang ra dịu dàng, tương phản chùng xuống, và da trở nên mềm mại.</p>
+<table>
+  <tr><th>Mức</th><th>Cảm giác</th></tr>
+  <tr><td>Không</td><td>Tắt</td></tr>
+  <tr><td>1/8</td><td>Nhẹ nhất. Kín đáo, hợp ảnh chân dung.</td></tr>
+  <tr><td>1/4</td><td>Độ mềm bắt đầu lọt vào mắt.</td></tr>
+  <tr><td>1/2</td><td>Trong ảnh đêm và ngược sáng, các đốm sáng bung ra rõ rệt.</td></tr>
+  <tr><td>1</td><td>Mạnh nhất. Không khí đổi hẳn.</td></tr>
+</table>
+<p>Bật <strong>Khuếch tán cả vùng tối</strong> thì ánh sáng loang không chỉ ở chỗ sáng mà cả chỗ tối, cho cảm giác như một bản in từ phim cũ.</p>
+<p>Khuếch tán cần ánh sáng mới phát huy. Phải có nguồn sáng, một mảng trời sáng hay mái tóc ngược sáng thì mới thấy rõ; trong một tấm ảnh phẳng lì trời âm u, nó chỉ làm tương phản giảm đi.</p>
+</section>
+
+<section id="privacy">
+<h2>Làm mờ vì riêng tư</h2>
+<p>Che mặt người khác và biển số xe vô tình lọt vào ảnh.</p>
+
+<h3>Tự động tìm</h3>
+<p>Khi mở ảnh, nó tìm khuôn mặt và biển số rồi khoanh sẵn thành các vùng. Việc nhận diện chạy ở <strong>độ phân giải gốc</strong>, nên bắt được cả những khuôn mặt nhỏ mà ở bản xem trước thu nhỏ sẽ nhòe đi và lọt lưới.</p>
+<p>Các vùng tìm được hiện trong một danh sách và bật tắt được từng cái. Người không cần che — chẳng hạn người đi cùng bạn — thì cứ để tắt.</p>
+
+<h3>Tự vẽ</h3>
+<ol class="steps">
+  <li>Bấm <strong>Chọn vùng cần làm mờ</strong>.</li>
+  <li>Kéo trên ảnh để tạo một vùng.</li>
+  <li>Bạn vẽ được nhiều vùng liên tiếp; vẽ xong thì bấm lại nút đó để kết thúc.</li>
+</ol>
+<p>Muốn dời ảnh trong lúc vẽ thì giữ <span class="kbd">Space</span> rồi kéo.</p>
+
+<h3>Hình dạng và độ mạnh</h3>
+<table>
+  <tr><th>Mục</th><th>Chọn được</th></tr>
+  <tr><td>Cách</td><td>Làm mờ / Ô vuông</td></tr>
+  <tr><td>Hình dạng</td><td>Chữ nhật / Bầu dục</td></tr>
+  <tr><td>Độ mạnh</td><td>0,4 – 2,0</td></tr>
+</table>
+<p>Khuôn mặt thì hình bầu dục trông tự nhiên; biển số và biển hiệu thì hình chữ nhật.</p>
+
+<div class="warn">
+<b>Kiểm lại trước khi đăng</b>
+<p>Nhận diện tự động có thể bỏ sót mặt nghiêng, mặt đeo khẩu trang hay mặt ở chỗ rất tối. Nếu ảnh sẽ được công khai, nên bấm <span class="kbd">⌘1</span> rà một lượt ở 100 % trước khi xuất.</p>
+</div>
+</section>
+
+<section id="frame">
+<h2>In ngày tháng</h2>
+
+<div class="note">
+<b>Khung đã chuyển sang ghép ảnh</b>
+<p>Việc chừa lề quanh ảnh để khớp một tỉ lệ định sẵn nay thuộc về <a href="#mount">Ghép ảnh</a>. Chỉ cần đặt một ảnh, chọn tỉ lệ và <strong>Viền</strong> là ra đúng kết quả như khung cũ, lại còn chỉnh được cả khoảng cách, góc bo và màu nền.</p>
+</div>
+
+<h3>In ngày tháng</h3>
+<p>Bấm nút <strong>In ngày tháng</strong> ở mục Công thức phim để mở phần thiết lập.</p>
+<p>Đặt ngày chụp ở góc dưới bên phải, như lưng máy ghi dữ liệu của máy phim. Các chữ số được vẽ theo kiểu bảy đoạn, nên trên máy Mac nào cũng ra đúng một dáng.</p>
+<p>Ngày được đọc từ thông tin chụp của ảnh. Thứ tự hiển thị (cách sắp năm, tháng, ngày) thì chọn được.</p>
+<p>Phần in vào trước khi mô phỏng phim. Nhờ vậy nó nhận phim, tông, hạt và khuếch tán <strong>giống hệt</strong> tấm ảnh, và trông như được phơi sáng cùng lúc chứ không phải chữ dán vào sau.</p>
+</section>
+
+
+<!-- ══════════ 마운트 ══════════ -->
+
+<section id="mount">
+<h2>Đặt ảnh lên tấm nền</h2>
+<p>Ghép ảnh là không gian làm việc nơi nhiều ảnh được đặt lên cùng một tấm nền rồi ra thành một ảnh. Khi đăng lên mạng xã hội, blog hay trang web, thay vì đăng lẻ từng tấm, bạn gộp lại thành một và trình bày cùng nhau.</p>
+
+<h3>Bắt đầu</h3>
+<ul>
+  <li>Chọn <strong>Ghép ảnh</strong> ở thẻ phía trên.</li>
+  <li>Kéo ảnh từ <strong>ngăn ảnh</strong> bên trái thả vào. Nếu ngăn trống, chọn thư mục bằng <strong>Mở thư mục ảnh</strong>.</li>
+  <li>Bạn cũng có thể bấm một ô trống rồi tự chỉ định bằng <strong>Chọn ảnh</strong>.</li>
+  <li>Ở màn hình tráng ảnh, chọn <strong>Ghép ảnh này</strong> thì tấm đang xem sẽ sang thẳng tấm nền. Từ thư viện, chọn nhiều ảnh rồi dùng <strong>Gửi sang ghép ảnh</strong>.</li>
+</ul>
+<p>Ngăn ảnh gập và mở được bằng biểu tượng của nó.</p>
+
+<h3>Cỡ của tấm nền</h3>
+<table>
+  <tr><th>Mục</th><th>Chọn được</th></tr>
+  <tr><td>Tỉ lệ</td><td>Theo gốc · 1:1 · 4:5 · 5:4 · 2:3 · 3:2 · 3:4 · 4:3 · 9:16 · 16:9 · 1,91:1</td></tr>
+  <tr><td>Độ phân giải</td><td>1080 · 1440 · 2048 · 4096 (điểm ảnh chiều ngang)</td></tr>
+</table>
+<p><strong>Theo gốc</strong> dùng nguyên tỉ lệ của ảnh đầu tiên. Tiện khi bạn chỉ muốn chừa viền cho giống một cái khung.</p>
+</section>
+
+<section id="mount-split">
+<h2>Chia thành ô</h2>
+<p>Bật <strong>Chia ô</strong> thì tấm nền được chia thành lưới. Bạn chọn mấy hàng mấy cột, tối đa 5 × 5.</p>
+
+<h3>Làm việc với các ô</h3>
+<ul>
+  <li>Kéo đường ranh giữa hai ô thì cỡ ô đổi theo. <strong>Đặt lại tỉ lệ chia</strong> đưa chúng về đều nhau.</li>
+  <li>Bấm chuột phải vào một đường ranh để dùng <strong>Dời đường ranh</strong> và <strong>Bỏ đường ranh</strong>.</li>
+  <li>Kéo một ảnh sang ô khác thì hai ảnh đổi chỗ cho nhau.</li>
+</ul>
+
+<h3>Đặt ảnh vừa trong ô</h3>
+<p>Ảnh trong ô bị cắt cho đầy ô. Phần nào lộ ra là do bạn quyết.</p>
+<ul>
+  <li>Kéo ảnh để dời phần được thấy.</li>
+  <li>Phóng to thu nhỏ bằng cuộn hoặc chụm ngón.</li>
+  <li><strong>Đặt lại khung cắt</strong> đưa về trạng thái ban đầu.</li>
+  <li><strong>Bỏ ảnh ra</strong> làm trống ô đó.</li>
+</ul>
+</section>
+
+<section id="mount-free">
+<h2>Sắp đặt tự do</h2>
+<p>Tắt <strong>Chia ô</strong> thì các ô biến mất, và ảnh đặt đâu trên tấm nền cũng được.</p>
+
+<h3>Đặt và dời</h3>
+<ul>
+  <li>Kéo để dời, cầm một góc để đổi cỡ, và xoay được.</li>
+  <li>Trong lúc kéo, ảnh <strong>hít vào như nam châm</strong> với ảnh khác hoặc với mép tấm nền rồi thẳng hàng.</li>
+  <li>Nút <strong>Lưới</strong> bật một lưới dẫn hướng. Mỗi lần bấm nó lại dày thêm, và lần cuối là tắt.</li>
+</ul>
+
+<h3>Thứ tự xếp chồng</h3>
+<p>Bấm chuột phải vào ảnh để đổi — <strong>Lên trên cùng · Lên trước · Xuống sau · Xuống dưới cùng</strong>. Cũng trong trình đơn đó có <strong>Đặt lại khung cắt</strong>, <strong>Đặt lại độ nghiêng</strong> và <strong>Bỏ ảnh ra</strong>.</p>
+
+<h3>Những nút trợ giúp</h3>
+<table class="wide">
+  <tr><th>Nút</th><th>Làm gì</th></tr>
+  <tr><td>Sắp ngẫu nhiên</td><td>Rắc ảnh lên khắp tấm nền. Tiện khi cần một điểm khởi đầu.</td></tr>
+  <tr><td>Làm đều</td><td>Chỉnh cỡ và khoảng cách cho ngay ngắn.</td></tr>
+  <tr><td>Dọn sạch</td><td>Bỏ hết ảnh đã đặt trên tấm nền.</td></tr>
+</table>
+
+<h3>Số khoang — làm liền mạch rồi cắt khi xuất</h3>
+<p>Đặt <strong>Số khoang</strong> từ 2 trở lên thì tỉ lệ đã chọn được nối tiếp theo chiều ngang bấy nhiêu lần thành một tấm nền. Bạn bố cục trên tấm liền mạch đó, rồi khi xuất nó lại được cắt ra và lưu với <strong>số thứ tự đánh từ trái sang phải</strong>.</p>
+<p>Đây là cách để các ảnh trông như nối liền nhau không đứt đoạn trong một bài đăng nhiều ảnh vuốt ngang trên mạng xã hội. Tối đa mười hai khoang.</p>
+</section>
+
+<section id="mount-look">
+<h2>Khoảng cách · Viền · Góc bo</h2>
+<table>
+  <tr><th>Mục</th><th>Khoảng</th><th>Làm gì</th></tr>
+  <tr><td>Khoảng cách</td><td>0 – 80</td><td>Khe hở giữa ảnh này với ảnh kia.</td></tr>
+  <tr><td>Viền</td><td>0 – 120</td><td>Lề ở rìa tấm nền.</td></tr>
+  <tr><td>Góc bo</td><td>0 – 120</td><td>Bo tròn góc ảnh. Bằng 0 thì góc vuông.</td></tr>
+  <tr><td>Màu nền</td><td>Màu bạn muốn</td><td>Màu lấp đầy các khe và lề.</td></tr>
+</table>
+<p>Các con số quy theo chiều ngang 1080 px. Nâng độ phân giải lên thì tỉ lệ nhìn thấy vẫn giữ nguyên.</p>
+
+<h3>Xem</h3>
+<ul>
+  <li><strong>Vừa khung</strong> — hiện cả tấm nền cho vừa cửa sổ.</li>
+  <li><strong>100 %</strong> — đúng những điểm ảnh sẽ xuất ra. Dùng để kiểm cỡ thật sẽ được lưu.</li>
+  <li>Khi đang phóng to, kéo để đẩy tấm nền đi.</li>
+</ul>
+</section>
+
+<section id="mount-export">
+<h2>Lưu và xuất</h2>
+
+<h3>Lưu phần việc</h3>
+<p>Giữ lại cách bố trí thành một tệp để sau này làm tiếp.</p>
+<table>
+  <tr><td><span class="kbd">⌘S</span></td><td>Lưu bản ghép</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>Lưu bản ghép với tên mới</td></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Mở một bản ghép (ở thẻ ghép ảnh, ⌘O mở tệp làm việc)</td></tr>
+</table>
+<p>Nếu còn phần việc chưa lưu, bạn sẽ được hỏi khi chuyển thẻ hoặc tắt ứng dụng. Hoàn tác có tác dụng với mọi bước: đặt ảnh, dời ảnh và đổi thứ tự.</p>
+
+<h3>Xuất thành ảnh</h3>
+<p>Mở bằng <span class="kbd">⌘E</span>.</p>
+<table class="wide">
+  <tr><th>Mục</th><th>Nội dung</th></tr>
+  <tr><td>Định dạng</td><td>Giống phần xuất ở màn hình tráng ảnh. Chất lượng và độ sâu bit của PNG cũng định ở đây.</td></tr>
+  <tr><td>Kích thước</td><td>Dùng nguyên độ phân giải của tấm nền, hoặc thu nhỏ lại.</td></tr>
+  <tr><td>Xuất tách phần</td><td>Với sắp đặt tự do có từ 2 khoang trở lên, bạn chọn xuất thành một ảnh hay cắt ra bấy nhiêu phần. Nếu cắt, chúng được đánh số từ trái sang.</td></tr>
+  <tr><td>Nơi lưu</td><td>Thư mục gốc hoặc thư mục bạn chọn.</td></tr>
+  <tr><td>Tên tệp</td><td>Theo tên ảnh đầu tiên đặt trên tấm nền. Bạn thêm được hậu tố.</td></tr>
+</table>
+</section>
+
+<!-- ══════════ 마무리 ══════════ -->
+
+<section id="crop">
+<h2>Cắt và xoay</h2>
+<p>Bấm <span class="kbd">C</span> để vào chế độ cắt và xoay, bấm <span class="kbd">A</span> để về chế độ chỉnh màu.</p>
+
+<h3>Cắt</h3>
+<ul>
+  <li>Kéo các góc và các cạnh để định phạm vi. Kéo ở bên trong thì cả khung cắt dịch chuyển.</li>
+  <li>Bạn khóa được tỉ lệ — <strong>Tự do · Theo gốc · 1:1 · 3:2 · 2:3 · 4:3 · 3:4 · 16:9 · 4:5</strong></li>
+</ul>
+
+<h3>Chỉnh phương ngang</h3>
+<p><strong>Góc</strong> (−45° đến +45°) dựng lại đường chân trời bị nghiêng. Xoay thì sinh ra góc trống, nên ảnh được phóng to một chút tự động để lấp vào.</p>
+
+<h3>Sửa méo</h3>
+<p><strong>Độ méo</strong> (−100 đến +100) duỗi thẳng những đường bị ống kính bẻ cong. Méo thùng của ống góc rộng, phình ra ngoài, nằm ở phía âm; méo gối của ống tele, thóp vào trong, nằm ở phía dương. Hãy lấy một thứ lẽ ra phải thẳng, như tòa nhà hay đường chân trời, làm mốc.</p>
+
+<h3>Xoay và lật</h3>
+<ul>
+  <li>Xoay trái 90° · Xoay phải 90°</li>
+  <li>Lật trái phải · Lật trên dưới</li>
+</ul>
+<p>Cắt và xoay được áp đầu tiên. Vì vậy các vùng làm mờ hay nét cọ đưa vào sau đều định vị <strong>theo tấm ảnh đã cắt</strong>.</p>
+</section>
+
+<section id="export">
+<h2>Xuất ảnh</h2>
+<p>Mở bằng <span class="kbd">⌘E</span>. Nếu bạn đang chọn nhiều ảnh, tất cả được lưu với cùng một thiết lập. Bấm <span class="kbd">Return</span> trong cửa sổ là bắt đầu ngay.</p>
+
+<h3>Định dạng</h3>
+<table class="wide">
+  <tr><th>Định dạng</th><th>Dùng để làm gì</th></tr>
+  <tr><td>JPEG</td><td>An toàn nhất. Mạng xã hội, web, thư điện tử.</td></tr>
+  <tr><td>HEIF</td><td>Cùng chất lượng mà tệp nhỏ hơn. Khi trao đổi giữa các thiết bị Apple.</td></tr>
+  <tr><td>PNG</td><td>Lưu không mất mát. Chọn giữa 8 bit và 16 bit. Tệp lớn.</td></tr>
+  <tr><td>WebP</td><td>Nhỏ hơn JPEG khi đưa lên web.</td></tr>
+  <tr><td>TIFF (8 bit)</td><td>Khi chuyển sang ứng dụng chỉnh sửa khác. Tương thích tốt.</td></tr>
+  <tr><td>TIFF (16 bit)</td><td>Khi chuyển đi mà muốn giữ tối đa dải chuyển sắc. Dùng để in hoặc chỉnh tiếp.</td></tr>
+</table>
+<p>Những định dạng dùng nén mất mát thì chỉnh được <strong>chất lượng</strong>. Mặc định là 95 %, càng nâng tệp càng lớn. Với hầu hết mục đích, hiếm khi cần hạ dưới 90 %.</p>
+
+<h3>Đổi kích thước</h3>
+<p>Chọn một trong ba cách.</p>
+<table>
+  <tr><th>Cách</th><th>Giá trị bạn nhập</th></tr>
+  <tr><td>Tỉ lệ</td><td>Phần trăm so với ảnh gốc</td></tr>
+  <tr><td>Chiều ngang</td><td>Số điểm ảnh theo chiều ngang</td></tr>
+  <tr><td>Cạnh dài</td><td>Số điểm ảnh của cạnh dài hơn</td></tr>
+</table>
+<p>Dùng cách nào thì <strong>cũng không phóng to vượt quá ảnh gốc.</strong> Bịa ra những điểm ảnh không có sẵn thì chỉ làm chất lượng tệ đi.</p>
+
+<h3>Siêu dữ liệu</h3>
+<p>Ở thẻ <strong>Siêu dữ liệu</strong> của cửa sổ xuất, bạn chọn từng mục thông tin sẽ giữ lại trong tệp. Mục nào đánh dấu sẽ bị bỏ khỏi tệp xuất ra.</p>
+<table class="wide">
+  <tr><th>Mục</th><th>Gồm những gì</th></tr>
+  <tr><td>Thiết lập chụp</td><td>Phơi sáng · ISO · Khẩu độ</td></tr>
+  <tr><td>Máy ảnh và ống kính</td><td>Hãng · Mẫu · Số sê-ri</td></tr>
+  <tr><td>Ngày và giờ chụp</td><td>Lúc chụp</td></tr>
+  <tr><td>Vị trí (GPS)</td><td>Tọa độ nơi chụp</td></tr>
+  <tr><td>Người tạo và bản quyền</td><td>Tác giả · Ghi chú bản quyền</td></tr>
+  <tr><td>Mô tả và từ khóa</td><td>Đoạn chữ và các thẻ đã gắn cho ảnh</td></tr>
+  <tr><td>Phần mềm chỉnh sửa</td><td>Làm bằng ứng dụng nào. Tên phim mà Rawcookr ghi lại cũng nằm ở đây, nên sẽ đi theo.</td></tr>
+  <tr><td>Ghi chú của hãng</td><td>Thông tin riêng mà máy ảnh tự ghi lại</td></tr>
+</table>
+<p><strong>Bỏ hết</strong> tắt tất cả trong một lần. Nếu ảnh sẽ được công khai, ít nhất nên bỏ <strong>Vị trí (GPS)</strong> cho an toàn. Một tấm ảnh chụp gần nhà hay gần chỗ làm chỉ cần tọa độ là đã lộ ra phạm vi sinh hoạt.</p>
+
+<h3>Các thiết lập khác</h3>
+<table class="wide">
+  <tr><th>Mục</th><th>Làm gì</th></tr>
+  <tr><td>Hậu tố</td><td>Đoạn chữ thêm vào cuối tên tệp. Mặc định là <span class="path">_developed</span>. Nó giúp tên không trùng với ảnh gốc.</td></tr>
+  <tr><td>Nơi lưu</td><td>Để nguyên trong thư mục gốc, hoặc chỉ định thư mục khác.</td></tr>
+  <tr><td>Mở thư mục khi xong</td><td>Lưu xong thì mở thư mục đó trong Finder.</td></tr>
+  <tr><td>Đóng cửa sổ này</td><td>Cửa sổ tự đóng khi xuất xong. Tiện khi xuất hết loạt này đến loạt khác.</td></tr>
+</table>
+<p>Khi lưu thành TIFF, tên phim đã dùng cũng được ghi vào phần thông tin mô tả của tệp.</p>
+
+<div class="note">
+<b>Nếu màu xuất ra trông khác với trên màn hình</b>
+<p>Phần lớn ứng dụng xem ảnh không đọc hồ sơ màu. Hãy thử kiểm trong bản xem trước của Finder hoặc trong trình duyệt web. Rawcookr xuất theo sRGB, nên ở hầu hết môi trường đều hiện như nhau.</p>
+</div>
+</section>
+
+<section id="customfilm">
+<h2>Tạo phim của riêng bạn</h2>
+<p>Có hai cách để thêm phim của mình vào danh sách.</p>
+
+<p>Cả hai đều nằm trong trình đơn hiện ra khi bạn chọn dòng <strong>Tùy chỉnh</strong> ở mục Công thức phim.</p>
+
+<h3>Một LUT bạn có, biến thành phim</h3>
+<ol class="steps">
+  <li>Trong trình đơn của dòng tùy chỉnh, bấm <strong>LUT to FILM…</strong>.</li>
+  <li>Chọn một tệp <span class="path">.cube</span>.</li>
+  <li>Đặt tên cho nó là nó vào danh sách phim.</li>
+</ol>
+<p>LUT đen trắng sẽ tự được nhận ra là phim đen trắng, và các giá trị riêng của đơn sắc như Nhuộm WC và MG sẽ hiện ra.</p>
+
+<h3>Màu bạn đã pha, biến thành phim</h3>
+<p>Nếu bằng đường cong tông, HSL và cân bằng màu bạn đã ra được một màu ưng ý, hãy dùng <strong>Màu thành phim…</strong> trong chính trình đơn đó để tách riêng và lưu lại phép biến đổi màu ấy.</p>
+<p>Từ một phim bạn đã tạo, bạn rút ra được tệp <span class="path">.cube</span> bằng <strong>Xuất phim thành LUT</strong>. Dùng được cả ở ứng dụng khác.</p>
+
+<h3>Gộp thành sổ công thức để chia sẻ</h3>
+<p>Gộp những phim và thiết lập sẵn bạn đã tạo vào một tệp <span class="path">.rawb</span> duy nhất. Người nhận tệp chỉ cần một lần <strong>Nhập sổ công thức</strong> là lấy được hết.</p>
+<p>Dùng để chia sẻ màu giữa những người dùng cùng một bộ thiết bị, hoặc để dời nguyên bộ thiết lập khi đổi máy Mac.</p>
+</section>
+
+<section id="prefs">
+<h2>Tùy chọn</h2>
+<table class="wide">
+  <tr><th>Mục</th><th>Nội dung</th></tr>
+  <tr><td>Nơi lưu phần chỉnh sửa</td><td><strong>Quản lý trong thư mục của ứng dụng</strong> (mặc định) hoặc <strong>Bên cạnh tệp gốc</strong>. Chi tiết xem ở <a href="#originals">Ảnh gốc của bạn vẫn nguyên vẹn</a>.</td></tr>
+  <tr><td>Nền</td><td>Độ sáng phía sau ảnh ở màn hình tráng ảnh. Để tối thì dễ xét độ sáng của ảnh hơn.</td></tr>
+  <tr><td>Cỡ ảnh thu nhỏ của thiết lập sẵn</td><td>Cỡ bản xem trước trong danh sách thiết lập sẵn. Rất nhỏ · Nhỏ · Lớn.</td></tr>
+</table>
+<p>Độ sáng của toàn ứng dụng (sáng/tối) đổi bằng <span class="kbd">⌘⇧9</span> và <span class="kbd">⌘⇧0</span>.</p>
+</section>
+
+<section id="shortcuts">
+<h2>Phím tắt</h2>
+<p>Mỗi chế độ dùng được những phím khác nhau. Những phím dùng được ở cả ba chế độ đều được ghi lại y nguyên trong từng bảng, nên bạn chỉ cần xem bảng của chế độ mình đang ở.</p>
+
+<h3>Ở bất kỳ chế độ nào</h3>
+<table>
+  <tr><td><span class="kbd">⌘E</span></td><td>Xuất ảnh</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Đóng (nếu đang tráng ảnh thì đóng ảnh)</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Trợ giúp Rawcookr</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span></td><td>Chế độ tối</td></tr>
+  <tr><td><span class="kbd">⌘⇧0</span></td><td>Chế độ sáng</td></tr>
+  <tr><td><span class="kbd">⌘Q</span></td><td>Thoát — nếu còn bản ghép chưa lưu thì sẽ được hỏi</td></tr>
+</table>
+
+<h3>Thư viện</h3>
+<table>
+  <tr><th>Phím</th><th>Làm gì</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Mở một thư mục</td></tr>
+  <tr><td><span class="kbd">⌘R</span></td><td>Đọc lại thư mục</td></tr>
+  <tr><td><span class="kbd">⌘A</span></td><td>Chọn tất cả</td></tr>
+  <tr><td><span class="kbd">←</span> <span class="kbd">→</span> <span class="kbd">↑</span> <span class="kbd">↓</span></td><td>Sang ảnh bên cạnh, trên dưới trong lưới</td></tr>
+  <tr><td><span class="kbd">Space</span></td><td>Xem cỡ lớn (bấm lần nữa thì đóng)</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>Đưa ảnh đã chọn sang màn hình tráng ảnh</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>Đóng chế độ xem cỡ lớn</td></tr>
+  <tr><td><span class="kbd">1</span>–<span class="kbd">5</span></td><td>Chấm sao cho ảnh đã chọn — áp cho nhiều ảnh cùng lúc</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>Gắn / bỏ cờ — cho nhiều ảnh cùng lúc</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>Tráng thành phiên bản mới</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>Hiện / ẩn thanh bên</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>Hiện / ẩn cây thư mục</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>Hiện / ẩn thông tin tệp</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>Xuất tất cả ảnh đã chọn</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Đóng cửa sổ</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Trợ giúp</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Chế độ tối · Chế độ sáng</td></tr>
+</table>
+
+<h3>Chỉnh sửa</h3>
+<h4>Xem</h4>
+<table>
+  <tr><th>Phím</th><th>Làm gì</th></tr>
+  <tr><td><span class="kbd">⌘=</span> · <span class="kbd">⌘-</span></td><td>Phóng to · Thu nhỏ</td></tr>
+  <tr><td><span class="kbd">⌘0</span></td><td>Vừa cửa sổ</td></tr>
+  <tr><td><span class="kbd">⌘1</span></td><td>100 % (điểm ảnh gốc)</td></tr>
+  <tr><td><span class="kbd">Space</span> + kéo</td><td>Đẩy ảnh để di chuyển</td></tr>
+  <tr><td><span class="kbd">M</span></td><td>Xem ảnh gốc (trong lúc giữ phím)</td></tr>
+  <tr><td><span class="kbd">J</span></td><td>Bật / tắt cảnh báo mất chi tiết</td></tr>
+  <tr><td><span class="kbd">O</span></td><td>Hiện / ẩn thanh phóng to</td></tr>
+  <tr><td><span class="kbd">,</span> · <span class="kbd">.</span></td><td>Mở · gập hết các mục chỉnh</td></tr>
+  <tr><td><span class="kbd">⌘F</span></td><td>Hiện / ẩn dải phim</td></tr>
+  <tr><td><span class="kbd">⌃⌘F</span></td><td>Vào / ra chế độ xem tập trung (toàn màn hình)</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>Hiện / ẩn thanh bên</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>Hiện / ẩn cây thư mục</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>Hiện / ẩn thông tin tệp</td></tr>
+</table>
+
+<h4>Chỉnh sửa</h4>
+<table>
+  <tr><th>Phím</th><th>Làm gì</th></tr>
+  <tr><td><span class="kbd">C</span></td><td>Chế độ cắt / xoay</td></tr>
+  <tr><td><span class="kbd">A</span></td><td>Về chế độ chỉnh màu</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>Nếu đang cắt thì xác nhận rồi thoát ra</td></tr>
+  <tr><td><span class="kbd">⌘⇧C</span></td><td>Sao chép phần chỉnh sửa</td></tr>
+  <tr><td><span class="kbd">⌘⇧V</span></td><td>Dán phần chỉnh sửa</td></tr>
+  <tr><td><span class="kbd">⌥⌘R</span></td><td>Xóa toàn bộ phần chỉnh sửa của ảnh này</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>Tráng thành phiên bản mới</td></tr>
+</table>
+
+<h4>Chọn và di chuyển</h4>
+<table>
+  <tr><th>Phím</th><th>Làm gì</th></tr>
+  <tr><td><span class="kbd">←</span> · <span class="kbd">→</span></td><td>Ảnh trước · ảnh sau (không chạy trong lúc cắt)</td></tr>
+  <tr><td><span class="kbd">1</span>–<span class="kbd">5</span></td><td>Chấm sao</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>Gắn / bỏ cờ</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>Đóng ảnh về thư viện (nếu đang cắt thì hủy cắt)</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>Xuất ảnh</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Đóng ảnh</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Trợ giúp</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Chế độ tối · Chế độ sáng</td></tr>
+</table>
+
+<h3>Ghép ảnh</h3>
+<table>
+  <tr><th>Phím</th><th>Làm gì</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Mở một bản ghép — ở chế độ này ⌘O mở tệp làm việc chứ không phải thư mục</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>Lưu bản ghép</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>Lưu bản ghép với tên mới</td></tr>
+  <tr><td><span class="kbd">⌘Z</span></td><td>Hoàn tác — mọi bước, đặt ảnh, dời ảnh và đổi thứ tự</td></tr>
+  <tr><td><span class="kbd">⇧⌘Z</span></td><td>Làm lại</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>Xuất tấm nền thành ảnh</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Đóng cửa sổ</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Trợ giúp</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Chế độ tối · Chế độ sáng</td></tr>
+</table>
+
+</section>
+
+<section id="trouble">
+<h2>Những chuyện hay gặp</h2>
+
+<h4>Tệp RAW không mở được</h4>
+<p>Việc tráng RAW dùng bộ máy có sẵn trong macOS. Một mẫu máy vừa ra mắt cần macOS cập nhật thì mới được hỗ trợ. Hãy xem ở <strong>Cài đặt Hệ thống → Cài đặt chung → Cập nhật phần mềm</strong>. Nếu vẫn không mở được, thử lưu thành DNG từ máy ảnh hoặc <a href="mailto:rawcookr@slowsalmon.com">báo cho chúng tôi</a>.</p>
+
+<h4>Ảnh thu nhỏ hiện ra chậm</h4>
+<p>Ở thư mục mở lần đầu, phải dựng bản xem trước cho từng ảnh nên mất thời gian. Dựng xong rồi thì nhanh. Nếu thư mục có quá nhiều ảnh, chia thành các thư mục con sẽ dễ chịu hơn.</p>
+
+<h4>Hình như độ nét hay hạt phim không được áp</h4>
+<p>Ở mức vừa màn hình, ảnh được vẽ thu nhỏ nên các hiệu ứng cấp điểm ảnh không hiện ra. Hãy đặt về 100 % bằng <span class="kbd">⌘1</span> rồi kiểm tra.</p>
+
+<h4>Phần chỉnh sửa biến mất</h4>
+<p>Các giá trị chỉnh sửa nằm trong một tệp riêng, tách khỏi ảnh gốc. Nếu bạn để nơi lưu là <strong>Bên cạnh tệp gốc</strong> mà chỉ chuyển mỗi tấm ảnh đi chỗ khác, tệp thiết lập có thể đã không đi theo. Dùng <strong>Chuyển sang thư mục khác</strong> ngay trong ứng dụng thì thiết lập cũng được chuyển cùng.</p>
+
+<h4>Thuê bao không được nhận ra</h4>
+<p>Hãy kiểm xem đã đăng nhập App Store bằng đúng tài khoản Apple đó chưa, rồi thử bấm <strong>Khôi phục giao dịch</strong> ở màn hình thuê bao.</p>
+
+<h4>Vẫn còn khuôn mặt chưa được che</h4>
+<p>Nhận diện tự động có thể bỏ sót mặt nghiêng, khẩu trang hay mặt ở chỗ tối. Hãy tự vẽ thêm vùng cho đủ, và rà một lượt ở 100 % trước khi công khai.</p>
+
+<h4>Bản ghép biến mất</h4>
+<p>Bản ghép chưa thành tệp cho tới khi bạn lưu. Hãy lưu trước bằng <span class="kbd">⌘S</span>. Nếu định chuyển thẻ hay tắt ứng dụng mà chưa lưu, bạn sẽ được hỏi.</p>
+
+<h4>Nếu vẫn chưa giải quyết được</h4>
+<p>Hãy báo cho chúng tôi ở <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a>. Nếu bạn ghi kèm mình dùng máy Mac nào, tệp từ máy ảnh nào, chúng tôi sẽ tìm ra nhanh hơn nhiều.</p>
+</section>
+
+</main>
+</div>
+<footer>
+  <p><a href="./">Trang chủ Rawcookr</a> · <a href="privacy.html">Chính sách quyền riêng tư</a> · <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a></p>
+</footer>
+<script>
+  // ── 언어 전환 ──
+  (function () {
+    const sel = document.getElementById('lang');
+    const cur = document.documentElement.lang || 'ko';
+    sel.value = cur;
+    sel.addEventListener('change', () => {
+      const v = sel.value;
+      location.href = (v === 'ko' ? 'guide.html' : 'guide-' + v + '.html') + location.hash;
+    });
+  })();
+
+  const toc = document.getElementById('toc');
+  document.getElementById('menubtn')
+    .addEventListener('click', () => toc.classList.toggle('open'));
+
+  const groups = [...toc.querySelectorAll('li')];
+  const links  = [...toc.querySelectorAll('a')];
+  const linkOf  = new Map(links.map(a => [a.hash.slice(1), a]));
+  const groupOf = new Map(links.map(a => [a.hash.slice(1), a.closest('li')]));
+
+  function openOnly(li) {
+    groups.forEach(g => g.classList.toggle('open', g === li));
+  }
+
+  // 묶음 제목을 누르면 그 묶음만 펼치고, 이미 펼쳐져 있으면 접는다
+  groups.forEach(li => {
+    li.querySelector('.grp').addEventListener('click', () => {
+      openOnly(li.classList.contains('open') ? null : li);
+    });
+  });
+
+  // 좁은 화면에서는 항목을 누르면 목차를 닫는다
+  links.forEach(a => a.addEventListener('click', () => toc.classList.remove('open')));
+
+  function highlight(id) {
+    const a = linkOf.get(id);
+    if (!a || a.classList.contains('on')) return;
+    links.forEach(x => x.classList.remove('on'));
+    a.classList.add('on');
+    const li = groupOf.get(id);
+    if (li && !li.classList.contains('open')) openOnly(li);
+  }
+
+  // 화면에 걸쳐 있는 섹션 가운데 가장 위의 것을 현재 위치로 본다
+  const sections = [...document.querySelectorAll('section[id]')];
+  const visible = new Set();
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => en.isIntersecting ? visible.add(en.target) : visible.delete(en.target));
+    let best = null;
+    visible.forEach(el => {
+      if (!best || el.getBoundingClientRect().top < best.getBoundingClientRect().top) best = el;
+    });
+    if (best) highlight(best.id);
+  }, { rootMargin: '-70px 0px -70% 0px' });
+  sections.forEach(el => obs.observe(el));
+
+  // 주소에 #항목이 붙어 있으면 그 묶음을 열고 시작, 아니면 첫 묶음
+  const start = location.hash.slice(1);
+  if (start && groupOf.has(start)) highlight(start);
+  else groups[0].classList.add('open');
+</script>
+</body>
+</html>

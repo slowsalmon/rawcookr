@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คู่มือการใช้งาน Rawcookr</title>
+<meta name="description" content="ทุกฟังก์ชันของ Rawcookr และวิธีใช้ สูตรฟิล์ม เบลอเพื่อความเป็นส่วนตัว มิสต์ การปรับเฉพาะจุด การส่งออก ไปจนถึงแป้นลัด">
+<meta property="og:title" content="คู่มือการใช้งาน Rawcookr">
+<meta property="og:description" content="รวบรวมทุกฟังก์ชันของ Rawcookr และวิธีใช้ไว้เป็นหัวข้อ ๆ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://rawcookr.slowsalmon.com/guide-th.html">
+<link rel="canonical" href="https://rawcookr.slowsalmon.com/guide-th.html">
+<link rel="icon" href="icon.png">
+<style>
+  :root {
+    --cream: #F8F5EB;
+    --ink: #1E1B16;
+    --muted: #6B6459;
+    --blue: #0055B8;
+    --blue-soft: #E8EFFA;
+    --lemon: #F2C100;
+    --line: #E4DCC9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                 "Pretendard", "Noto Sans KR", sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--blue); }
+
+  /* ── 상단 바 ── */
+  .topbar {
+    position: sticky; top: 0; z-index: 30;
+    background: rgba(248,245,235,0.94);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 1180px; margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .topbar img { width: 30px; height: 30px; border-radius: 7px; }
+  .topbar .name { font-weight: 800; letter-spacing: -0.01em; }
+  .topbar .name a { color: var(--ink); text-decoration: none; }
+  .topbar .sep { color: var(--line); }
+  .topbar .where { color: var(--muted); font-size: 0.95em; }
+  .topbar .spacer { flex: 1; }
+  .topbar .home { font-size: 0.9em; font-weight: 600; text-decoration: none; }
+  #menubtn {
+    display: none; font: inherit; font-size: 0.85em; font-weight: 700;
+    background: #fff; color: var(--ink); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 14px; cursor: pointer;
+  }
+  #lang {
+    font: inherit; font-size: 0.82em; font-weight: 600; color: var(--ink);
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 5px 28px 5px 12px; cursor: pointer;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%236B6459'/></svg>");
+    background-repeat: no-repeat; background-position: right 11px center;
+  }
+
+  /* ── 레이아웃 ── */
+  .shell { max-width: 1180px; margin: 0 auto; padding: 0 24px; display: flex; gap: 48px; }
+  nav.toc {
+    flex: none; width: 258px; padding: 36px 0 80px;
+    position: sticky; top: 55px; align-self: flex-start;
+    max-height: calc(100vh - 55px); overflow-y: auto;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; }
+  nav.toc > ol > li { margin-bottom: 2px; }
+  nav.toc .grp {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    font: inherit; font-size: 0.78em; font-weight: 800; letter-spacing: 0.06em;
+    color: var(--muted); text-transform: uppercase;
+    background: none; border: 0; cursor: pointer; text-align: left;
+    padding: 8px 10px; margin-left: -10px; border-radius: 7px;
+  }
+  nav.toc .grp:hover { background: #fff; color: var(--ink); }
+  nav.toc .caret {
+    flex: none; width: 6px; height: 6px; margin-top: -2px;
+    border-right: 1.8px solid currentColor; border-bottom: 1.8px solid currentColor;
+    transform: rotate(-45deg); transition: transform 0.18s ease;
+  }
+  nav.toc li.open > .grp { color: var(--ink); }
+  nav.toc li.open > .grp .caret { transform: rotate(45deg); margin-top: -4px; }
+  nav.toc .items {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease;
+  }
+  nav.toc li.open > .items { grid-template-rows: 1fr; }
+  nav.toc .items > div { overflow: hidden; }
+  nav.toc a {
+    display: block; padding: 3px 10px 3px 28px; margin-left: -10px;
+    color: #443E36; text-decoration: none; font-size: 0.93em;
+    border-radius: 7px; line-height: 1.6;
+  }
+  nav.toc a:hover { background: #fff; }
+  nav.toc a.on { background: var(--blue-soft); color: var(--blue); font-weight: 700; }
+  nav.toc .items > div > :last-child { margin-bottom: 10px; }
+  @media (prefers-reduced-motion: reduce) {
+    nav.toc .items, nav.toc .caret { transition: none; }
+  }
+
+  main { flex: 1; min-width: 0; padding: 36px 0 120px; max-width: 720px; }
+  main h1 { font-size: 2.5em; margin: 0 0 10px; letter-spacing: -0.02em; }
+  main > .lead { color: var(--muted); font-size: 1.08em; margin: 0 0 8px; }
+
+  section { padding-top: 52px; }
+  section > h2 {
+    font-size: 1.62em; margin: 0 0 6px; letter-spacing: -0.01em;
+    padding-top: 28px; border-top: 1px solid var(--line);
+  }
+  section.first > h2 { border-top: none; padding-top: 0; }
+  h3 { font-size: 1.16em; margin: 34px 0 8px; }
+  h4 { font-size: 1.0em; margin: 22px 0 4px; }
+  p { margin: 0 0 14px; color: #443E36; }
+  ul, ol.steps { margin: 0 0 16px; padding-left: 22px; color: #443E36; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--ink); }
+
+  .kbd {
+    display: inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em; background: #fff; border: 1px solid var(--line);
+    border-bottom-width: 2px; border-radius: 6px; padding: 1px 7px;
+    color: var(--ink); white-space: nowrap;
+  }
+  .path {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.88em; background: #fff; border: 1px solid var(--line);
+    border-radius: 6px; padding: 1px 7px;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 20px; font-size: 0.95em; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 0.82em; letter-spacing: 0.04em; color: var(--muted); text-transform: uppercase; font-weight: 700; }
+  td:first-child { white-space: nowrap; font-weight: 600; }
+  table.wide td:first-child { white-space: normal; }
+
+  .note, .tip, .warn {
+    border-radius: 12px; padding: 14px 18px; margin: 18px 0;
+    font-size: 0.96em; line-height: 1.75;
+  }
+  .note { background: #fff; border: 1px solid var(--line); }
+  .tip  { background: var(--blue-soft); }
+  .warn { background: #FFF6DC; }
+  .note p:last-child, .tip p:last-child, .warn p:last-child { margin-bottom: 0; }
+  .note b, .tip b, .warn b { display: block; margin-bottom: 2px; }
+
+  .pill {
+    display: inline-block; background: var(--blue-soft); color: var(--blue);
+    border-radius: 999px; padding: 2px 11px; font-size: 0.8em; font-weight: 700;
+    vertical-align: middle;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); margin-top: 40px;
+    padding: 40px 24px 70px; text-align: center; color: var(--muted); font-size: 0.92em;
+  }
+  footer a { font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .shell { display: block; padding: 0 20px; }
+    #menubtn { display: block; }
+    nav.toc {
+      display: none; width: auto; position: static; max-height: none;
+      padding: 18px 0 6px; border-bottom: 1px solid var(--line);
+    }
+    nav.toc.open { display: block; }
+    main { padding-top: 26px; max-width: none; }
+    main h1 { font-size: 2em; }
+    .topbar .where { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <img src="icon.png" alt="">
+    <span class="name"><a href="./">Rawcookr</a></span>
+    <span class="sep">/</span>
+    <span class="where">คู่มือการใช้งาน</span>
+    <span class="spacer"></span>
+    <button id="menubtn" type="button">สารบัญ</button>
+    <select id="lang" aria-label="Language">
+      <option value="ko">한국어</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+      <option value="zh-Hans">中文（简体）</option>
+      <option value="de">Deutsch</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="th">ไทย</option>
+      <option value="vi">Tiếng Việt</option>
+      <option value="id">Bahasa Indonesia</option>
+    </select>
+    <a class="home" href="./">ไปหน้าแรก</a>
+  </div>
+</div>
+
+<div class="shell">
+
+<nav class="toc" id="toc">
+  <ol>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>เริ่มต้นใช้งาน</button>
+      <div class="items"><div>
+        <a href="#screen">สองหน้าต่าง</a>
+        <a href="#open">เปิดภาพ</a>
+        <a href="#originals">ไฟล์ต้นฉบับยังอยู่เหมือนเดิม</a>
+        <a href="#subscription">การสมัครสมาชิกและช่วงทดลองใช้</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>เลือกภาพ</button>
+      <div class="items"><div>
+        <a href="#library">โฟลเดอร์และภาพย่อ</a>
+        <a href="#rating">ดาวและธง</a>
+        <a href="#batch">ทำทีละหลายภาพ</a>
+        <a href="#versions">เวอร์ชัน</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>หน้าต่างแก้ไข</button>
+      <div class="items"><div>
+        <a href="#canvas">ซูมและเลื่อน</a>
+        <a href="#inspect">เทียบกับต้นฉบับ และคำเตือนส่วนที่ล้น</a>
+        <a href="#compare">มุมมองเปรียบเทียบ</a>
+        <a href="#sections">การใช้หัวข้อปรับแต่ง</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>การปรับแต่ง</button>
+      <div class="items"><div>
+        <a href="#presets">ค่าตั้งล่วงหน้า</a>
+        <a href="#film">สูตรฟิล์ม</a>
+        <a href="#wb">สมดุลแสงขาว</a>
+        <a href="#light">แสง</a>
+        <a href="#curve">เส้นโค้งโทน</a>
+        <a href="#hsl">เฉดสีและความอิ่มตัว</a>
+        <a href="#levels">ระดับ</a>
+        <a href="#colorgrade">สมดุลสีสามทาง</a>
+        <a href="#selective">สีเฉพาะจุด</a>
+        <a href="#local">การปรับเฉพาะจุด</a>
+        <a href="#layers">เลเยอร์</a>
+        <a href="#detail">รายละเอียด</a>
+        <a href="#effects">เอฟเฟกต์</a>
+        <a href="#defringe">แก้ความคลาดสี</a>
+        <a href="#mist">มิสต์</a>
+        <a href="#privacy">เบลอเพื่อความเป็นส่วนตัว</a>
+        <a href="#frame">ประทับวันที่</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>เมานต์</button>
+      <div class="items"><div>
+        <a href="#mount">วางภาพลงบนแผ่น</a>
+        <a href="#mount-split">แบ่งเป็นช่อง</a>
+        <a href="#mount-free">วางอิสระ</a>
+        <a href="#mount-look">ระยะห่าง · ขอบ · มุม</a>
+        <a href="#mount-export">บันทึกและส่งออก</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>ขั้นตอนสุดท้าย</button>
+      <div class="items"><div>
+        <a href="#crop">ครอบตัดและหมุน</a>
+        <a href="#export">ส่งออก</a>
+        <a href="#customfilm">สร้างฟิล์มของคุณเอง</a>
+        <a href="#prefs">การตั้งค่า</a>
+        <a href="#shortcuts">แป้นลัด</a>
+        <a href="#trouble">เรื่องที่เจอบ่อย</a>
+      </div></div>
+    </li>
+  </ol>
+</nav>
+
+<main>
+
+<h1>คู่มือการใช้งาน Rawcookr</h1>
+<p class="lead">ล้างไฟล์ภาพ ปิดบังใบหน้าคนที่บังเอิญติดมา ใส่สีที่ต้องการ แล้วส่งออกให้พร้อมเผยแพร่ ทุกฟังก์ชัน ทีละหัวข้อ</p>
+<p class="lead" style="font-size:0.95em">macOS 14 ขึ้นไป · เวอร์ชัน 1.1</p>
+
+<!-- ══════════ 시작하기 ══════════ -->
+
+<section class="first" id="screen">
+<h2>สองหน้าต่าง</h2>
+<p>Rawcookr มีสองหน้าต่าง</p>
+
+<h3>คลังภาพ</h3>
+<p>ที่ที่คุณเลือกโฟลเดอร์และไล่ดูภาพ รายชื่อโฟลเดอร์อยู่ซ้าย ตารางภาพย่ออยู่กลาง ที่นี่คุณให้ดาวและติดธง และส่งออกทั้งชุดได้ในครั้งเดียว</p>
+
+<h3>เมานต์</h3>
+<p>ที่ที่ภาพหลายรูปถูกวางบนแผ่นเดียวกันแล้วกลายเป็นภาพเดียว ดู <a href="#mount">วางภาพลงบนแผ่น</a></p>
+
+<h3>แก้ไข</h3>
+<p>ที่ที่คุณทำงานกับภาพจริงจัง ภาพอยู่กลาง แผงปรับแต่งอยู่ขวา แถบฟิล์มอยู่ล่าง ดับเบิลคลิกภาพในคลังหรือกด <span class="kbd">Return</span> แล้ว <span class="kbd">Esc</span> พากลับ</p>
+
+<div class="tip">
+<b>เมื่ออยากใช้หน้าจอให้กว้าง</b>
+<p><span class="kbd">⌘F</span> ซ่อนแถบฟิล์ม และ <span class="kbd">⌃⌘F</span> แสดงเฉพาะภาพเต็มจอ <span class="kbd">.</span> พับหัวข้อในแผงขวาทั้งหมด และ <span class="kbd">,</span> กางออกทั้งหมด</p>
+</div>
+</section>
+
+<section id="open">
+<h2>เปิดภาพ</h2>
+
+<h3>เปิดโฟลเดอร์</h3>
+<p><strong>ไฟล์ → เปิดโฟลเดอร์</strong> (<span class="kbd">⌘O</span>) เลือกโฟลเดอร์ที่เก็บภาพของคุณ โฟลเดอร์ที่เคยเปิดจะค้างอยู่ในแถบข้างซ้าย พร้อมสำหรับครั้งหน้า จะเอาออกก็คลิกขวาที่ชื่อแล้วเลือก <strong>เอาออกจากแถบข้าง</strong> โฟลเดอร์ย่อยก็ปรากฏด้วย</p>
+
+<h3>ตรงจาก Finder</h3>
+<p>คลิกขวาที่ภาพใน Finder แล้วเลือก <strong>เปิดด้วย → Rawcookr</strong> โฟลเดอร์ที่ไฟล์นั้นอยู่จะถูกเพิ่มเข้าคลัง และหน้าต่างแก้ไขเปิดขึ้นทันที</p>
+
+<h3>รูปแบบที่รองรับ</h3>
+<table>
+  <tr><th>ประเภท</th><th>นามสกุล</th></tr>
+  <tr><td>RAW</td><td>RAF · DNG · CR2 · CR3 · CRW · NEF · NRW · ARW · SR2 · SRF · RW2 · RAW · RWL · PEF · ORF · 3FR · FFF · IIQ</td></tr>
+  <tr><td>อื่น ๆ</td><td>JPG · JPEG · PNG · HEIC · HEIF · HIF · TIFF · TIF</td></tr>
+</table>
+<p>การล้าง RAW ใช้เอนจินที่มีอยู่ใน macOS กล้องรุ่นที่เพิ่งออกใหม่มาก ๆ อาจต้องอัปเดต macOS ก่อนไฟล์จึงจะเปิดได้</p>
+</section>
+
+<section id="originals">
+<h2>ไฟล์ต้นฉบับยังอยู่เหมือนเดิม</h2>
+<p>Rawcookr ไม่เคยเขียนทับไฟล์ต้นฉบับ สิ่งที่คุณแก้ไขไปอยู่ในไฟล์ค่าปรับแต่งเล็ก ๆ ต่างหาก เปิดต้นฉบับด้วยแอปอื่นก็จะเหมือนเดิมทุกประการ</p>
+<p>ค่าปรับแต่งเหล่านั้นจะอยู่ที่ไหน เลือกได้ใน <strong>การตั้งค่า</strong></p>
+<table class="wide">
+  <tr><th>ตัวเลือก</th><th>หมายความว่าอย่างไร</th></tr>
+  <tr><td>จัดการในโฟลเดอร์ของแอป <span class="pill">ค่าเริ่มต้น</span></td><td>โฟลเดอร์ภาพของคุณสะอาด สะดวกเวลาส่งต่อให้คนอื่นทั้งโฟลเดอร์</td></tr>
+  <tr><td>ข้างไฟล์ต้นฉบับ</td><td>ภาพกับค่าปรับแต่งเดินทางไปด้วยกันเสมอ ยกฮาร์ดดิสก์ทั้งลูกไป Mac อีกเครื่อง สิ่งที่แก้ไว้ก็ตามไปด้วย</td></tr>
+</table>
+<p>คุณยังเขียนสิ่งที่แก้ลงไฟล์แล้วอ่านกลับได้ <strong>บันทึกค่าปรับแต่ง</strong> และ <strong>ใช้ค่าปรับแต่ง</strong> ในหน้าต่างแก้ไขใช้ไฟล์ <span class="path">.rawcookr-settings.json</span></p>
+</section>
+
+<section id="subscription">
+<h2>การสมัครสมาชิกและช่วงทดลองใช้</h2>
+<p>Rawcookr เป็นแอปแบบสมัครสมาชิก <strong>ทดลองฟรีเจ็ดวัน</strong> โดยปลดล็อกทุกอย่าง หลังจากนั้นเป็นรายเดือนหรือรายปี ไม่มีระดับที่สูงกว่านี้และไม่มีอะไรขายแยก ทุกอย่างในคู่มือนี้รวมอยู่แล้ว</p>
+<p>การจัดการและการยกเลิกทำในการตั้งค่าบัญชี App Store ของคุณ ถ้ายกเลิกก่อนช่วงทดลองจบ จะไม่มีการเรียกเก็บเงิน</p>
+<div class="note">
+<b>ถ้าเปลี่ยนเครื่อง</b>
+<p>ลงชื่อเข้า App Store ด้วยบัญชี Apple เดิมแล้วเปิดแอป การสมัครสมาชิกจะถูกรับรู้เอง ถ้าไม่เป็นอย่างนั้น กด <strong>กู้คืนการซื้อ</strong> ในหน้าจอการสมัครสมาชิก</p>
+</div>
+</section>
+
+<!-- ══════════ 사진 고르기 ══════════ -->
+
+<section id="library">
+<h2>โฟลเดอร์และภาพย่อ</h2>
+<p>ในคลังภาพ หนึ่งโฟลเดอร์เต็มหน้าต่าง เลือกโฟลเดอร์ในแถบข้าง ภาพในนั้นจะเรียงเป็นตาราง</p>
+
+<h3>ไล่ดู</h3>
+<ul>
+  <li>แถบเลื่อนมุมขวาบนเปลี่ยนขนาดภาพย่อ</li>
+  <li>ปุ่มลูกศรเลื่อนไปมาระหว่างภาพ</li>
+  <li><span class="kbd">Return</span> เปิดหน้าต่างแก้ไข</li>
+  <li><span class="kbd">Space</span> แสดงภาพขนาดใหญ่ กดอีกครั้งหรือ <span class="kbd">Esc</span> เพื่อปิด กด <span class="kbd">Return</span> ในมุมมองนั้นเพื่อเข้าสู่การล้างภาพ ชื่อไฟล์อยู่ด้านล่าง</li>
+</ul>
+
+<h3>เลือก</h3>
+<ul>
+  <li>คลิกเดียวเลือกหนึ่ง <span class="kbd">⇧</span>+คลิกเลือกเป็นช่วง <span class="kbd">⌘</span>+คลิกเพิ่มทีละภาพ</li>
+  <li>ลากบนพื้นที่ว่างเพื่อกวาดเลือกหลายภาพด้วยกรอบสี่เหลี่ยม</li>
+  <li><span class="kbd">⌘A</span> เลือกทั้งหมด</li>
+</ul>
+
+<h3>จัดการไฟล์</h3>
+<p>เมนูนี้ขึ้นเมื่อคลิกขวาที่ภาพย่อ</p>
+<table class="wide">
+  <tr><th>รายการ</th><th>ทำอะไร</th></tr>
+  <tr><td>แสดงใน Finder</td><td>เปิดโฟลเดอร์ที่ไฟล์ต้นฉบับอยู่</td></tr>
+  <tr><td>เปลี่ยนชื่อ</td><td>เปลี่ยนชื่อไฟล์ต้นฉบับ ทีละภาพเท่านั้น</td></tr>
+  <tr><td>ทำสำเนา</td><td>สร้างสำเนาที่สองของไฟล์ต้นฉบับ</td></tr>
+  <tr><td>ย้ายไปโฟลเดอร์อื่น</td><td>ย้ายภาพที่เลือกไปที่อื่น ค่าปรับแต่งตามไปด้วย</td></tr>
+  <tr><td>ย้ายไปถังขยะ</td><td>ย้ายต้นฉบับไปถังขยะ จะเรียกคืนก็เอาออกจากถังขยะของ Finder</td></tr>
+</table>
+</section>
+
+<section id="rating">
+<h2>ดาวและธง</h2>
+<p>ไว้แยกภาพที่ดีออกจากการถ่ายยาว ๆ ให้ดาวได้ทั้งจากคลังภาพและจากหน้าต่างแก้ไข</p>
+<table>
+  <tr><th>ปุ่ม</th><th>ทำอะไร</th></tr>
+  <tr><td><span class="kbd">1</span>–<span class="kbd">5</span></td><td>ให้ดาว</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>ติด / ปลดธง</td></tr>
+</table>
+<p>ในคลังภาพ สิ่งนี้ลงไปที่ภาพที่เลือกทั้งหมดพร้อมกัน จากนั้นตัวกรองด้านบนแสดงได้ทั้ง <strong>เฉพาะที่ติดธง</strong> หรือตั้งแต่จำนวนดาวขึ้นไป ดาวและธงอยู่กับสิ่งที่คุณแก้ ไฟล์ต้นฉบับจึงไม่ถูกแตะต้อง</p>
+</section>
+
+<section id="batch">
+<h2>ทำทีละหลายภาพ</h2>
+
+<h3>ย้ายการแก้ไขไปอีกภาพ</h3>
+<p>เมื่อภาพหนึ่งออกมาดี ค่าของมันส่งตรงไปยังอีกภาพได้</p>
+<ol class="steps">
+  <li><span class="kbd">⌘⇧C</span> ที่ภาพที่คุณชอบ: คัดลอกการแก้ไข</li>
+  <li>เปิดภาพที่ต้องการแล้วกด <span class="kbd">⌘⇧V</span>: วางการแก้ไข</li>
+</ol>
+<p>การวางจะลงไปที่ <strong>ภาพที่เปิดอยู่ภาพเดียว</strong> จะทำต่อก็กด <span class="kbd">→</span> ไปภาพถัดไปแล้ว <span class="kbd">⌘⇧V</span> อีกครั้ง</p>
+<p>ทุกอย่างที่ผูกกับตำแหน่ง — พื้นที่เบลอ รอยแปรงลบขอบสี การครอบตัด มาสก์ของการปรับเฉพาะจุด — ไม่ถูกถ่ายโอน ภาพที่รับจะเก็บของตัวเองไว้ ใบหน้าอยู่คนละที่ในแต่ละภาพ นี่จึงเป็นสิ่งที่ถูกต้อง</p>
+
+<h3>ส่งออกทั้งชุด</h3>
+<p>เมื่อเลือกหลายภาพ <span class="kbd">⌘E</span> ส่งออกทั้งหมดด้วยค่าเดียวกัน ดู <a href="#export">ส่งออก</a></p>
+
+<div class="warn">
+<b>ข้อควรระวัง</b>
+<p>การวางการแก้ไขเลิกทำไม่ได้ ลองกับภาพเดียวก่อนจะใช้กับทั้งชุด</p>
+</div>
+</section>
+
+<section id="versions">
+<h2>เวอร์ชัน</h2>
+<p>ไว้ล้างภาพเดียวกันสองแบบแล้ววางเทียบกัน ไม่มีการคัดลอกอะไร จึงไม่กินพื้นที่ดิสก์เพิ่มแม้แต่ไบต์เดียว</p>
+<p><strong>ไฟล์ → ล้างเป็นเวอร์ชันใหม่</strong> (<span class="kbd">⌘G</span>) ในหน้าต่างแก้ไขเก็บค่าปัจจุบันไว้ แล้วเพิ่มสำเนาที่ยังไม่แตะต้องไว้ข้าง ๆ ปรากฏในแถบฟิล์มโดยมีเลขกำกับ <strong>V2</strong> <strong>V3</strong> ไปเรื่อย ๆ</p>
+<p>การลบเวอร์ชันไม่แตะไฟล์ต้นฉบับ นั่นคือความหมายของ «ไฟล์ต้นฉบับยังอยู่» ในข้อความยืนยัน</p>
+</section>
+
+<!-- ══════════ 현상 화면 ══════════ -->
+
+<section id="canvas">
+<h2>ซูมและเลื่อน</h2>
+<table>
+  <tr><th>การกระทำ</th><th>ทำอะไร</th></tr>
+  <tr><td><span class="kbd">⌘=</span></td><td>ซูมเข้า</td></tr>
+  <tr><td><span class="kbd">⌘-</span></td><td>ซูมออก</td></tr>
+  <tr><td><span class="kbd">⌘0</span></td><td>พอดีหน้าต่าง</td></tr>
+  <tr><td><span class="kbd">⌘1</span></td><td>100 % พิกเซลจริง</td></tr>
+  <tr><td><span class="kbd">Space</span> + ลาก</td><td>ดันภาพ</td></tr>
+  <tr><td>หนีบนิ้วบนแทร็กแพด</td><td>ซูมเข้าและออก</td></tr>
+  <tr><td>เลื่อนสองนิ้วบนแทร็กแพด</td><td>เลื่อนภาพ</td></tr>
+  <tr><td><span class="kbd">O</span></td><td>แสดง / ซ่อนแถบซูม</td></tr>
+</table>
+<p>ทุกอย่างที่ต้องตัดสินทีละพิกเซล — ความคม เกรน — ต้องใช้ <span class="kbd">⌘1</span> ที่ 100 % ต่ำกว่านั้นภาพถูกวาดย่อลงให้พอดีหน้าต่าง สิ่งที่เห็นจึงไม่ใช่สิ่งที่ได้</p>
+</section>
+
+<section id="inspect">
+<h2>เทียบกับต้นฉบับ และคำเตือนส่วนที่ล้น</h2>
+
+<h3>ดูต้นฉบับ <span class="kbd">M</span></h3>
+<p>แสดงภาพก่อนการแก้ไขตราบที่ยังกดปุ่มค้าง วิธีเร็วที่สุดที่จะดูว่าคุณทำให้ดีขึ้นจริงหรือเปล่า</p>
+
+<h3>คำเตือนส่วนที่ล้น <span class="kbd">J</span></h3>
+<p>ส่วนที่ไหม้เป็นขาวล้วนถูกคลุมด้วยสีแดง ส่วนที่ทับเป็นดำล้วนถูกคลุมด้วยสีน้ำเงิน</p>
+<p>การที่ช่องสีช่องเดียวชนเพดาน — กลีบดอกไม้สีแดงจัด เป็นต้น — ยังเหลือสีอยู่ จึงไม่มีคำเตือน มีแต่ <strong>บริเวณที่ทั้งสามช่องชนเพดานและข้อมูลหายไปจริง ๆ</strong> เท่านั้นที่ถูกทำเครื่องหมาย ถ้ามีคำเตือนส่วนที่ล้นขึ้นบนภาพ คลิกเดียวเปิดปิดการทำเครื่องหมายได้</p>
+
+<h3>ฮิสโทแกรม</h3>
+<p>ฮิสโทแกรมในแผงขวาแสดงการกระจายของความสว่าง ถ้ากองชิดขอบซ้าย ปลายมืดกำลังถูกตัด ถ้าชิดขวา ก็ปลายสว่าง</p>
+</section>
+
+<section id="compare">
+<h2>มุมมองเปรียบเทียบ</h2>
+<p>วางสองภาพเคียงกัน ไว้เลือกระหว่างสองภาพของฉากเดียวกัน หรือเทียบเวอร์ชัน</p>
+<ol class="steps">
+  <li>กด <strong>เปรียบเทียบ</strong> ในแถบเครื่องมือ</li>
+  <li>ภาพปัจจุบันอยู่ซ้าย ด้านขวาคุณเลือกภาพที่อยากเทียบ</li>
+  <li>ปรับอัตราซูมให้ตรงกัน แล้วทั้งสองจะเลื่อนไปด้วยกัน จึงเห็นส่วนเดียวกันในขนาดเดียวกัน</li>
+</ol>
+</section>
+
+<section id="sections">
+<h2>การใช้หัวข้อปรับแต่ง</h2>
+<p>แผงขวาแบ่งเป็นหัวข้อ แต่ละหัวข้อพับได้ และเรียงลำดับใหม่ได้</p>
+
+<h3>ปิดหัวข้อ</h3>
+<p>สวิตช์ข้างชื่อหัวข้อจะวาดภาพโดยให้ค่าของหัวข้อนั้นกลับไปเป็นค่าเริ่มต้น <strong>ไม่มีอะไรถูกลบ</strong> เปิดกลับมาทุกอย่างก็กลับคืน มีประโยชน์เวลาอยากถามตัวเองว่า «หัวข้อนี้ช่วยอะไรจริงไหม»</p>
+
+<h3>กาง พับ เรียงใหม่</h3>
+<ul>
+  <li><span class="kbd">,</span> กางทุกหัวข้อ · <span class="kbd">.</span> พับทุกหัวข้อ</li>
+  <li>ลากชื่อหัวข้อเพื่อย้ายที่ ลำดับที่ตั้งไว้จะคงอยู่ในครั้งถัดไป</li>
+</ul>
+
+<h3>ย้อนกลับ</h3>
+<ul>
+  <li>ดับเบิลคลิกที่ชื่อตัวควบคุม ค่านั้นจะกลับสู่ค่าเริ่มต้น</li>
+  <li>ปุ่มรีเซ็ตข้างชื่อหัวข้อล้างทั้งหัวข้อ</li>
+  <li><span class="kbd">⌥⌘R</span> ลบการแก้ไขทั้งหมดของภาพนี้</li>
+</ul>
+
+<div class="tip">
+<b>ปรับแถบเลื่อนให้ละเอียด</b>
+<p>กด <span class="kbd">⌥</span> ค้างขณะลากตัวควบคุมเพื่อขยับทีละน้อย หรือคลิกที่ตัวเลขแล้วพิมพ์ค่าลงไปก็ได้</p>
+</div>
+</section>
+
+
+<!-- ══════════ 조정 항목 ══════════ -->
+
+<section id="presets">
+<h2>ค่าตั้งล่วงหน้า</h2>
+<p>บันทึก <strong>ค่าการแก้ไขทั้งหมด</strong> ของภาพปัจจุบันเป็นชุดเดียว พร้อมใช้กับภาพอื่น ฟิล์ม โทน และการปรับเฉพาะจุด ทั้งหมดอยู่ในนั้น</p>
+
+<h3>สร้างขึ้นมา</h3>
+<ol class="steps">
+  <li>ปรับภาพหนึ่งให้ถูกใจ</li>
+  <li>กด <strong>+</strong> ในหัวข้อค่าตั้งล่วงหน้าแล้วตั้งชื่อ</li>
+  <li>บันทึกด้วยชื่อเดิมจะเขียนทับ</li>
+</ol>
+
+<h3>ใช้งาน</h3>
+<p>รายการแสดงค่าตั้งล่วงหน้าแต่ละอันเป็นภาพเล็ก ๆ ของภาพปัจจุบันที่ใส่ค่านั้นแล้ว คลิกเดียวคือใช้ ขนาดภาพย่อเลือกได้ <strong>เล็กมาก · เล็ก · ใหญ่</strong></p>
+
+<div class="tip">
+<b>ความต่างระหว่างค่าตั้งล่วงหน้ากับฟิล์ม</b>
+<p><strong>ฟิล์ม</strong> คือการแปลงสี <strong>ค่าตั้งล่วงหน้า</strong> คือการแก้ไขทั้งหมดรวมฟิล์มด้วย อยากใช้ซ้ำแค่ «สีนั้น» ใช้ฟิล์ม อยากได้ «ทุกอย่างที่ทำกับภาพนี้» ใช้ค่าตั้งล่วงหน้า</p>
+</div>
+</section>
+
+<section id="film">
+<h2>สูตรฟิล์ม</h2>
+<p>หัวใจของ Rawcookr เลือกฟิล์มที่มีให้ แล้วปรับโทนและสีทับลงไป</p>
+
+<h3>เลือกฟิล์ม</h3>
+<p>ไอคอนฟิล์มด้านบนของหัวข้อเปิดรายการที่จัดกลุ่มตามตระกูล</p>
+<table class="wide">
+  <tr><th>ตระกูล</th><th>จำนวน</th><th>บุคลิก</th></tr>
+  <tr><td>F.film</td><td>11</td><td>Standard · Vivid · Soft · Vintage Chrome · Natural · Portrait Alto/Standard · Cool Negative · Retro Negative · Cinema · Bleach Bypass</td></tr>
+  <tr><td>KoD</td><td>5</td><td>Portrait 400 · Daily 200 · Fine 100 · Chrome 64 · Mono 400</td></tr>
+  <tr><td>R.co</td><td>6</td><td>Positive · Negative · Retro · Cinema Yellow · Cinema Green · High-Con Mono</td></tr>
+  <tr><td>IlFd</td><td>2</td><td>Mono 400 · Fine 50</td></tr>
+  <tr><td>คลาสสิก</td><td>3</td><td>Tungsten 800T · Classic Daily 400 · Cross Process</td></tr>
+  <tr><td>ขาวดำ</td><td>9</td><td>Mono Fine สี่แบบ (ไม่มีฟิลเตอร์ / Ye / R / G) · Mono สี่แบบ · Sepia</td></tr>
+</table>
+<p><strong>ฟิล์มที่คุณสร้างเอง</strong> จะมาต่อท้ายตรงนี้ ดู <a href="#customfilm">สร้างฟิล์มของคุณเอง</a></p>
+
+<div class="note">
+<b>ว่าด้วยชื่อ</b>
+<p>ฟิล์มแต่ละตัวคือการแปลงสีที่ Rawcookr สร้างขึ้นเองและตั้งชื่อเอง ไม่มีตัวใดผูกกับผลิตภัณฑ์ของผู้ผลิตรายใด</p>
+</div>
+
+<h3>ค่าปรับของฟิล์มสี</h3>
+<table>
+  <tr><th>รายการ</th><th>ช่วง</th><th>ทำอะไร</th></tr>
+  <tr><td>โทนส่วนสว่าง</td><td>−2 ถึง +12</td><td>คอนทราสต์ที่ปลายสว่าง ขึ้นไปคือแข็งขึ้น ลงมาคือนุ่มลง</td></tr>
+  <tr><td>โทนเงา</td><td>−2 ถึง +4</td><td>คอนทราสต์ที่ปลายมืด</td></tr>
+  <tr><td>สี</td><td>−4 ถึง +4</td><td>ความอิ่มตัวทั้งฟิล์ม</td></tr>
+  <tr><td>เฉดสี</td><td>−4 ถึง +4</td><td>หมุนทุกสีไปทางเดียวกัน สามองศาต่อขั้น</td></tr>
+  <tr><td>ปุ่ม</td><td>−4 ถึง +4</td><td>ยกหรือลดความสว่างกลาง</td></tr>
+  <tr><td>คอนทราสต์</td><td>−4 ถึง +4</td><td>ขยายคอนทราสต์รอบจุดกลาง</td></tr>
+  <tr><td>ความใส</td><td>−5 ถึง +5</td><td>เนื้อผิว ติดลบคือทำให้เรียบ ติดบวกคือทำให้ชัด</td></tr>
+  <tr><td>ความคม</td><td>−4 ถึง +4</td><td>ความคมของตัวฟิล์มเอง ติดลบคือเบลอ</td></tr>
+  <tr><td>การไล่เงา</td><td>−4 ถึง +4</td><td>การตกของแสงไปทางขอบ ติดบวกทำให้มุมมืดลง</td></tr>
+  <tr><td>เลื่อน WB R · B</td><td>−9 ถึง +9</td><td>ดันแดงกับน้ำเงินเล็กน้อยเพื่อเอียงสี</td></tr>
+</table>
+
+<h3>ค่าปรับของฟิล์มขาวดำ</h3>
+<p>แทนที่ค่าปรับสี จะมี <strong>โทน WC</strong> และ <strong>โทน MG</strong> (อย่างละ −18 ถึง +18) WC ไล่จากอุ่นไปเย็น MG ไล่จากม่วงแดงไปเขียว รวมกันแล้วไปได้ตั้งแต่ซีเปียจนถึงโทนน้ำเงินเย็น</p>
+
+<h3>เกรน</h3>
+<p>ใส่เกรนฟิล์มลงบนภาพ ความเข้มเลือกได้ <strong>ไม่มี · อ่อน · เข้ม</strong> ขนาดเลือกได้ <strong>เล็ก · ใหญ่</strong> ถ้าความเข้มเป็นไม่มี ขนาดจะถูกล็อก</p>
+
+<div class="tip">
+<b>ดูเกรนที่ 100 %</b>
+<p>เกรนทำงานทีละพิกเซล ในอัตราพอดีหน้าต่างจึงแทบไม่เห็น ตัดสินที่ 100 % ด้วย <span class="kbd">⌘1</span></p>
+</div>
+</section>
+
+<section id="wb">
+<h2>สมดุลแสงขาว</h2>
+<p>กำหนดอุณหภูมิสี กับไฟล์ RAW คุณจะเก็บค่าที่กล้องบันทึกไว้ หรือเปลี่ยนเองก็ได้</p>
+<table>
+  <tr><th>รายการ</th><th>ช่วง</th><th>ทำอะไร</th></tr>
+  <tr><td>อุณหภูมิ</td><td>2000 – 12000 K</td><td>ลงมาเป็นน้ำเงิน ขึ้นไปเป็นเหลือง</td></tr>
+  <tr><td>ทินต์</td><td>−100 ถึง +100</td><td>ไล่ระหว่างเขียวกับม่วงแดง มีประโยชน์ใต้แสงฟลูออเรสเซนต์</td></tr>
+</table>
+
+<h3>กำหนดด้วยหลอดดูดสี</h3>
+<p>กดหลอดดูดสี แล้วคลิกที่ <strong>สิ่งในภาพที่ควรเป็นเทากลาง</strong> อุณหภูมิและทินต์จะถูกปรับให้จุดนั้นกลายเป็นเทา ผนังขาว ยางมะตอยสีเทา หรือส่วนที่เป็นเงาของเสื้อขาว เป็นจุดอ้างอิงที่ดี ถ้าคลิกสิ่งที่มีสีจริง ๆ ก็จะเพี้ยนไปกันใหญ่</p>
+
+<h3>กวาดสี</h3>
+<p>ไอคอนแปรงทางซ้ายของหลอดดูดสี คลิกเดียวเปิดแผนที่สี อีกคลิกปิด กดค้างแล้วลากเพื่อปรับขณะดูผล แผนที่ที่เปิดค้างไว้ยกไปวางที่อื่นได้</p>
+<ul>
+  <li>ซ้ายขวาคืออุณหภูมิ ไปทางขวาอุ่นขึ้น</li>
+  <li>ขึ้นลงคือทินต์ ขึ้นไปม่วงแดง ลงมาเขียว</li>
+  <li>กด <span class="kbd">⌥</span> ค้างขณะลากเพื่อขยับทีละน้อย</li>
+</ul>
+<p>ไฟล์ RAW เริ่มจากค่าที่กล้องบันทึกไว้ ปุ่มรีเซ็ตที่ชื่อหัวข้อพากลับไปยังสถานะนั้นพอดี</p>
+</section>
+
+<section id="light">
+<h2>แสง</h2>
+<p>หัวข้อพื้นฐานสำหรับความสว่างและคอนทราสต์ ภาพส่วนใหญ่เกือบจบที่นี่</p>
+<table>
+  <tr><th>รายการ</th><th>ช่วง</th><th>ทำอะไร</th></tr>
+  <tr><td>การรับแสง</td><td>−3 ถึง +3 EV</td><td>ความสว่างโดยรวม ทำงานตอนถอดรหัส RAW จึงเป็นวิธีเปลี่ยนที่สะอาดที่สุด</td></tr>
+  <tr><td>คอนทราสต์</td><td>−100 ถึง +100</td><td>ความต่างระหว่างสว่างกับมืด</td></tr>
+  <tr><td>ส่วนสว่าง</td><td>−100 ถึง +100</td><td>ดึงท้องฟ้าหรือแหล่งกำเนิดแสงที่ไหม้ไปกลับมา ระยะเผื่อที่ช่วงไดนามิกขยายเก็บไว้ ถูกดึงออกมาตรงนี้</td></tr>
+  <tr><td>ส่วนเงา</td><td>−100 ถึง +100</td><td>ยกเนื้อผิวในที่สลัวขึ้นมา</td></tr>
+  <tr><td>จุดขาว</td><td>−100 ถึง +100</td><td>ปลายสว่างไปจบที่ไหน</td></tr>
+  <tr><td>จุดดำ</td><td>−100 ถึง +100</td><td>ปลายมืดไปจบที่ไหน ยกขึ้นนิดหน่อยได้กลิ่นฟิล์ม</td></tr>
+  <tr><td>ความชัดเจน</td><td>−100 ถึง +100</td><td>คอนทราสต์ในเนื้อผิวขนาดกลาง ติดลบทำให้ผิวเรียบ ติดบวกดึงเมฆและอิฐออกมา</td></tr>
+  <tr><td>ความอิ่มตัว</td><td>−100 ถึง +100</td><td>ทุกสีเท่า ๆ กัน</td></tr>
+  <tr><td>ความสดใส</td><td>−100 ถึง +100</td><td>ยกสีที่ซีดกว่าขึ้นมาก่อน ไม่ไปยุ่งกับสีผิว จึงปลอดภัยเมื่อมีคน</td></tr>
+  <tr><td>จาง</td><td>0 – 100</td><td>ยกส่วนดำขึ้นเพื่อความรู้สึกซีดจาง</td></tr>
+</table>
+
+<div class="note">
+<b>ส่วนสว่างและส่วนเงาเป็นการประมวลผลเฉพาะที่</b>
+<p>สองตัวนี้ไม่ได้คูณทั้งภาพด้วยตัวเลข แต่แยกเฉพาะส่วนสว่าง หรือเฉพาะส่วนมืด โดยยึดขอบไว้ กดท้องฟ้าลงแล้วโทนกลางที่อยู่ติดกันยังอยู่ ไม่มีขอบขาวเรืองที่รอยต่อ</p>
+</div>
+</section>
+
+<section id="curve">
+<h2>เส้นโค้งโทน</h2>
+<p>วาดการจับคู่ความสว่างด้วยตัวเอง เข้าถึงรายละเอียดที่ตัวควบคุมไปไม่ถึง</p>
+
+<h3>ใช้อย่างไร</h3>
+<ul>
+  <li>คลิกบนเส้นเพื่อเพิ่มจุด แล้วลากเพื่อย้าย</li>
+  <li>ลากจุดออกนอกขอบเพื่อลบ</li>
+  <li><strong>RGB</strong> คือความสว่างรวม <strong>R · G · B</strong> คือแต่ละช่องแยกกัน การแตะช่องเดียวจะเลื่อนสี ซึ่งเป็นสิ่งที่ต้องการพอดีเวลาสร้างลุค</li>
+  <li>โค้งขึ้นตรงกลางทำให้สว่างขึ้น รูปตัว S เพิ่มคอนทราสต์</li>
+  <li><strong>รีเซ็ตเฉพาะช่องนี้</strong> ทำให้เฉพาะเส้นที่กำลังดูอยู่กลับเป็นเส้นตรง</li>
+</ul>
+
+<h3>หลอดดูดสีสามตัว</h3>
+<p>คลิกที่จุดอ้างอิงในภาพ แล้วเส้นโค้งจะตั้งตัวเอง R G และ B ขยับ <strong>พร้อมกัน</strong> เพื่อให้จุดนั้นเป็นสีอ้างอิง</p>
+<table class="wide">
+  <tr><th>หลอดดูดสี</th><th>คลิกตรงไหน</th></tr>
+  <tr><td>จุดดำ</td><td>สิ่งที่ควรเป็นดำล้วน เงาที่ลึกที่สุด</td></tr>
+  <tr><td>เทากลาง</td><td>สิ่งที่ควรเป็นกลาง คอนกรีตสีเทา เสื้อผ้าที่ไม่มีสี</td></tr>
+  <tr><td>จุดขาว</td><td>สิ่งที่ควรเป็นขาวล้วน กระดาษขาว ผนังขาว</td></tr>
+</table>
+<p>คลิกทั้งสามต่อกัน สมดุลสีและคอนทราสต์ก็จบในคราวเดียว วิธีเร็วที่สุดที่จะดึงภาพที่เพี้ยนมากกลับมาเป็นปกติ</p>
+</section>
+
+<section id="hsl">
+<h2>เฉดสีและความอิ่มตัว</h2>
+<p>แบ่งสีเป็นสิบสองแถบแล้วจัดการทีละแถบ</p>
+<p><strong>แดง · ส้ม · เหลือง · เขียวมะนาว · เขียว · มรกต · ฟ้าคราม · ฟ้า · น้ำเงิน · ม่วง · ม่วงแดง · ชมพู</strong> ทุก 30° ครอบคลุมวงล้อเท่า ๆ กัน</p>
+<table>
+  <tr><th>รายการ</th><th>ช่วง</th><th>ทำอะไร</th></tr>
+  <tr><td>เฉดสี</td><td>−30 ถึง +30</td><td>หมุนสีนั้นไปหาสีข้างเคียง</td></tr>
+  <tr><td>ความอิ่มตัว</td><td>−100 ถึง +100</td><td>เฉพาะสีนั้น เข้มขึ้นหรือซีดลง</td></tr>
+  <tr><td>ความสว่าง</td><td>−100 ถึง +100</td><td>เฉพาะสีนั้น สว่างขึ้นหรือมืดลง</td></tr>
+</table>
+
+<h3>เลือกตรงบนแผนที่สี</h3>
+<p><strong>กดค้าง</strong> ที่ตัวอย่างสีแล้วลาก แผนที่จะเปิดขึ้น</p>
+<ul>
+  <li>ลากแนวนอนเพื่อ <strong>เฉดสี</strong></li>
+  <li>ลากแนวตั้งเพื่อ <strong>ความอิ่มตัว</strong></li>
+  <li>กด <span class="kbd">⌘</span> ค้างแล้วลากแนวตั้งเพื่อ <strong>ความสว่าง</strong></li>
+</ul>
+<p>ขยับครั้งเดียวก็เจอจุดที่ต้องการ แทนที่จะวิ่งไปมาระหว่างตัวควบคุมสามตัว</p>
+
+<div class="tip">
+<b>การตกแต่งที่ใช้บ่อย</b>
+<p>ท้องฟ้าที่ลึกขึ้น เพิ่มความอิ่มตัวของน้ำเงินกับฟ้าแล้วลดความสว่าง เขียวที่สงบลง ลดความอิ่มตัวของเขียวแล้วดึงเฉดไปทางเหลืองนิดหน่อย ผิวที่เป็นธรรมชาติ ลดความอิ่มตัวของส้มลงนิดและเพิ่มความสว่างขึ้นนิด</p>
+</div>
+</section>
+
+<section id="levels">
+<h2>ระดับ</h2>
+<p>กำหนดช่วงขาเข้าและขาออกด้วยมือ ง่ายกว่าเส้นโค้ง และเร็วกว่าเมื่อจุดขาวจุดดำต้องลงพอดี</p>
+<table>
+  <tr><th>รายการ</th><th>ช่วง</th><th>ทำอะไร</th></tr>
+  <tr><td>ดำขาเข้า</td><td>0 – 0,9</td><td>ทุกอย่างที่มืดกว่านั้นกลายเป็นดำ</td></tr>
+  <tr><td>ขาวขาเข้า</td><td>0,1 – 1</td><td>ทุกอย่างที่สว่างกว่านั้นกลายเป็นขาว</td></tr>
+  <tr><td>แกมมา</td><td>0,2 – 3</td><td>ยกหรือลดความสว่างกลาง</td></tr>
+  <tr><td>ดำขาออก</td><td>0 – 0,9</td><td>ความสว่างที่จุดมืดที่สุดไปจบ ยกขึ้นแล้วได้ความรู้สึกซีดจาง</td></tr>
+  <tr><td>ขาวขาออก</td><td>0,1 – 1</td><td>ความสว่างที่จุดสว่างที่สุดไปจบ ลดลงแล้วส่วนขาวถูกรั้งไว้</td></tr>
+</table>
+<p>เปิดคำเตือนส่วนที่ล้นด้วย <span class="kbd">J</span> ขณะที่บีบปลายขาเข้า คุณจะเห็นชัดว่าข้อมูลเริ่มหายตรงไหน</p>
+</section>
+
+<section id="colorgrade">
+<h2>สมดุลสีสามทาง</h2>
+<p>ใส่สีคนละสีให้ส่วนมืด ส่วนกลาง และส่วนสว่าง เป็นวิธีมาตรฐานในการไล่สีภาพยนตร์</p>
+<ul>
+  <li>ลากศูนย์กลางของวงล้อเพื่อกำหนดทิศทางและความแรง ยิ่งใกล้ศูนย์กลางยิ่งอ่อน</li>
+  <li><strong>ความสว่าง</strong> และ <strong>ความอิ่มตัว</strong> ของแต่ละแถบ (−100 ถึง +100) ปรับแยกกัน</li>
+</ul>
+<p>การแยกความอิ่มตัวตามแถบทำให้เก็บเงาไว้ให้สงบ ขณะที่เฉพาะส่วนสว่างมีชีวิตขึ้นมา</p>
+<div class="tip">
+<b>สูตรมาตรฐานหนึ่งอย่าง</b>
+<p>ดันเงาไปทางน้ำเงินอมเขียวเบา ๆ และส่วนสว่างไปทางส้ม แล้วคุณจะได้กลิ่นภาพยนตร์แบบที่คุ้นเคย ทั้งสองอยู่ตรงข้ามกันบนวงล้อ และนั่นทำให้คนหลุดออกจากฉากหลัง เคล็ดลับคือใช้ให้น้อยมาก ๆ</p>
+</div>
+</section>
+
+<section id="selective">
+<h2>สีเฉพาะจุด</h2>
+<p>แบ่งสีเป็นเก้าช่วงแล้วแก้แต่ละช่วงด้วยการเพิ่มหรือลดฟ้าครามอมเขียว ม่วงแดง เหลือง และดำ มาจากงานพิมพ์ และเก็บสีที่แฝงอยู่บาง ๆ ที่เฉดสีและความอิ่มตัวไปไม่ถึง</p>
+
+<h3>ช่วงสี</h3>
+<p>หกสี — <strong>แดง · เหลือง · เขียว · ฟ้าคราม · น้ำเงิน · ม่วงแดง</strong> — และสามแถบความสว่าง <strong>ขาว · กลาง · ดำ</strong> ช่วงที่คุณแตะไปแล้วจะถูกทำเครื่องหมายไว้ในรายการ</p>
+
+<table>
+  <tr><th>รายการ</th><th>ช่วง</th><th>ทำอะไร</th></tr>
+  <tr><td>ฟ้าคราม</td><td>−100 ถึง +100</td><td>ขึ้นไปเพิ่มฟ้าคราม ลงมาไปทางแดง</td></tr>
+  <tr><td>ม่วงแดง</td><td>−100 ถึง +100</td><td>ขึ้นไปเป็นม่วงแดง ลงมาไปทางเขียว</td></tr>
+  <tr><td>เหลือง</td><td>−100 ถึง +100</td><td>ขึ้นไปเป็นเหลือง ลงมาไปทางน้ำเงิน</td></tr>
+  <tr><td>ดำ</td><td>−100 ถึง +100</td><td>ทำให้ช่วงนั้นมืดลงหรือสว่างขึ้น</td></tr>
+</table>
+
+<h3>สัมพัทธ์และสัมบูรณ์</h3>
+<table class="wide">
+  <tr><th>วิธี</th><th>หมายความว่าอย่างไร</th></tr>
+  <tr><td>สัมพัทธ์</td><td>เปลี่ยนแต่ละปริมาณเป็นเปอร์เซ็นต์ของสิ่งที่มีอยู่แล้ว ตรงที่ไม่มีสีนั้นก็ไม่มีอะไรเกิดขึ้น ขาวล้วนจึงไม่ถูกแตะ ปลอดภัยกว่าในกรณีส่วนใหญ่</td></tr>
+  <tr><td>สัมบูรณ์</td><td>บวกปริมาณนั้นลงไปตรง ๆ เปลี่ยนได้มากกว่าและแน่นอนกว่า แต่หยาบเร็วกว่า</td></tr>
+</table>
+
+<div class="tip">
+<b>การตกแต่งที่ใช้บ่อย</b>
+<p>ผิวแดงเกินไป เพิ่มฟ้าครามนิดหน่อยใน <strong>แดง</strong> ท้องฟ้าขุ่น เพิ่มดำนิดหน่อยใน <strong>น้ำเงิน</strong> เพื่อให้ลึกขึ้น ผนังขาวที่ออกเหลือง ลดเหลืองใน <strong>ขาว</strong></p>
+</div>
+</section>
+
+<section id="local">
+<h2>การปรับเฉพาะจุด</h2>
+<p>ใส่การแก้ไขเฉพาะบางส่วนของภาพ สร้างมาสก์แล้วปรับภายในนั้น มาสก์ที่สร้างขึ้นจะปรากฏในหัวข้อ <a href="#layers">เลเยอร์</a> ด้วย รวมอยู่กับเลเยอร์ที่ซ้อนกัน</p>
+
+<h3>มาสก์สามแบบ</h3>
+<table class="wide">
+  <tr><th>แบบ</th><th>สร้างอย่างไร</th><th>ใช้ทำอะไร</th></tr>
+  <tr><td>เชิงเส้น</td><td>ลากบนภาพไปทางหนึ่ง จุดเริ่มคือ 100 % จุดจบคือ 0 %</td><td>กดท้องฟ้าลงหรือยกฉากหน้าขึ้น</td></tr>
+  <tr><td>รัศมี</td><td>วาดวงรี ข้างในคือ 100 % ที่ขอบคือ 0 %</td><td>ขับคนหรือวัตถุให้เด่น</td></tr>
+  <tr><td>แปรง</td><td>ระบายพื้นที่ด้วยตัวเอง</td><td>รูปทรงที่ไม่เป็นระเบียบ</td></tr>
+</table>
+<ul>
+  <li><strong>ความฟุ้ง</strong> (0 – 1) ขอบนุ่มแค่ไหน 0 คือคม 1 คือค่อย ๆ กลืนไปอย่างช้า ๆ</li>
+  <li><strong>ขนาดแปรง</strong> (20 – 600)</li>
+  <li><strong>กลับด้านมาสก์</strong> การแก้ไขไปลงที่ <em>ทุกอย่างที่เหลือ</em></li>
+  <li>สร้างมาสก์ได้หลายอัน และเปิดปิดทีละอันได้</li>
+</ul>
+
+<h3>ปรับอะไรได้ภายในมาสก์</h3>
+<table>
+  <tr><th>รายการ</th><th>ช่วง</th></tr>
+  <tr><td>การรับแสง</td><td>−2 ถึง +2 EV</td></tr>
+  <tr><td>คอนทราสต์ · ส่วนสว่าง · ส่วนเงา</td><td>อย่างละ −100 ถึง +100</td></tr>
+  <tr><td>ความอิ่มตัว · ความใส</td><td>อย่างละ −100 ถึง +100</td></tr>
+  <tr><td>ความอุ่น · ทินต์</td><td>อย่างละ −100 ถึง +100</td></tr>
+</table>
+</section>
+
+<section id="layers">
+<h2>เลเยอร์</h2>
+<p>ซ้อนเลเยอร์ทับภาพที่ล้างแล้ว เลเยอร์ปรับแต่งทำสิ่งที่อยู่ข้างใต้ใหม่ เลเยอร์สีทึบคลุมทับ และเลเยอร์ที่มีมาสก์แตะเฉพาะที่คุณทำเครื่องหมายไว้</p>
+
+<h3>เลเยอร์สามแบบ</h3>
+<table class="wide">
+  <tr><th>แบบ</th><th>ทำอะไร</th></tr>
+  <tr><td>ปรับแต่ง</td><td>แสง เส้นโค้งโทน ระดับ เฉดสีและความอิ่มตัว สมดุลสามทาง อีกรอบ บวกกับขาวดำและกลับด้าน สำหรับเวลาที่อยากได้การปรับเดิมสองครั้งด้วยความแรงต่างกัน</td></tr>
+  <tr><td>สีทึบ</td><td>คลุมทุกอย่างด้วยสีที่คุณเลือก เมื่อใส่โหมดผสมก็กลายเป็นฟิลเตอร์สี</td></tr>
+  <tr><td>มาสก์</td><td>ลงเฉพาะที่คุณทำเครื่องหมายด้วยมาสก์เชิงเส้น รัศมี หรือแปรง เป็นมาสก์ชุดเดียวกับการปรับเฉพาะจุด</td></tr>
+</table>
+<p>เลเยอร์ที่มีมาสก์จะลงบนภาพก่อน เลเยอร์ที่อยู่เหนือขึ้นไปซ้อนทับบนผลลัพธ์นั้น</p>
+
+<h3>โหมดผสม</h3>
+<p>มีสิบหกแบบ</p>
+<table class="wide">
+  <tr><th>กลุ่ม</th><th>วิธี</th></tr>
+  <tr><td>พื้นฐาน</td><td>ปกติ</td></tr>
+  <tr><td>ทำให้มืด</td><td>คูณ · เบิร์นสี · ทำให้มืด</td></tr>
+  <tr><td>ทำให้สว่าง</td><td>สกรีน · ดอดจ์สี · ทำให้สว่าง</td></tr>
+  <tr><td>คอนทราสต์</td><td>โอเวอร์เลย์ · แสงนุ่ม · แสงแข็ง</td></tr>
+  <tr><td>ผลต่าง</td><td>ผลต่าง · การยกเว้น</td></tr>
+  <tr><td>องค์ประกอบสี</td><td>เฉดสี · ความอิ่มตัว · สี · ความสว่าง</td></tr>
+</table>
+<p>ความแรงปรับด้วย <strong>ความทึบ</strong></p>
+
+<h3>จัดลำดับ</h3>
+<ul>
+  <li><strong>แสดงเลเยอร์นี้</strong> ไอคอนรูปตาเปิดและปิดมัน</li>
+  <li><strong>เลื่อนขึ้น · เลื่อนลง</strong> เปลี่ยนลำดับการซ้อน</li>
+  <li><strong>ผสานกับเลเยอร์ล่าง</strong> รวมสองอันเป็นหนึ่ง ค่าปรับของแต่ละอันยังอยู่ตามเดิม</li>
+  <li><strong>ยกเลิกการผสาน</strong> แยกเลเยอร์ที่ผสานแล้วออกจากกันอีกครั้ง</li>
+  <li><strong>ลบเลเยอร์นี้</strong></li>
+</ul>
+
+<div class="tip">
+<b>วิธีใส่สีที่ง่ายที่สุด</b>
+<p>เพิ่มเลเยอร์สีทึบแล้วตั้งโหมดผสมเป็น <strong>สี</strong> ความสว่างจะอยู่ที่เดิม มีแต่สีที่คลุมทับภาพ ปรับความแรงด้วยความทึบ แล้วคุณจะเข้าใกล้การย้อมสีในห้องมืด</p>
+</div>
+</section>
+
+<section id="detail">
+<h2>รายละเอียด</h2>
+<p>จัดการความคมและนอยส์ หัวข้อนี้ต้อง <strong>ตัดสินที่อัตรา 100 %</strong></p>
+<table>
+  <tr><th>รายการ</th><th>ช่วง</th><th>ทำอะไร</th></tr>
+  <tr><td>ความคม</td><td>−4 ถึง +4</td><td>ความคมในขั้นถอดรหัส RAW 0 คือค่ามาตรฐานของ macOS จากตรงนั้นบวกหรือลบทีละขั้น</td></tr>
+  <tr><td>ลดนอยส์สี</td><td>−4 ถึง +4</td><td>กดจุดด่างสี 0 คือค่าเริ่มต้น เพิ่มขึ้นเมื่อ ISO สูง</td></tr>
+  <tr><td>เพิ่มความคม</td><td>0 – 300 %</td><td>อันชาร์ปมาสก์ที่ใส่หลังการล้างภาพ แยกจากความคมด้านบน</td></tr>
+  <tr><td>รัศมี</td><td>0,5 – 5 px</td><td>ความกว้างที่การเพิ่มความคมทำงาน เล็กคือเนื้อผิวละเอียด ใหญ่คือเส้นขอบหนา</td></tr>
+</table>
+<p>การเพิ่มความคมลงเฉพาะช่องความสว่าง ขอบสีจึงไม่เลอะ</p>
+</section>
+
+<section id="effects">
+<h2>เอฟเฟกต์</h2>
+
+<h3>ขอบมืด</h3>
+<p><strong>ขอบมืด</strong> (−100 ถึง +100) ติดลบขอบภาพมืดลง ติดบวกสว่างขึ้น <strong>จุดกลาง</strong> (0 – 100) คือระยะที่เอฟเฟกต์เริ่มทำงาน ลดลงแล้วลามเข้ามาใกล้ศูนย์กลาง</p>
+
+<h3>ขาวดำ · กลับด้าน</h3>
+<ul>
+  <li><strong>ขาวดำ</strong> — เอาสีออก เหลือขาวดำ</li>
+  <li><strong>กลับด้าน (เนกาทีฟ)</strong> — พลิกความสว่างและสี ใช้เวลาแปลงภาพสแกนจากฟิล์มเนกาทีฟกลับเป็นภาพบวก</li>
+</ul>
+
+<h3>LUT ภายนอก</h3>
+<p>โหลดไฟล์ <span class="path">.cube</span> ที่คุณมีแล้วใส่ลงไป <strong>ความแรงของ LUT</strong> (0 – 100) ปรับความเข้ม</p>
+<p>ตรงนี้มีเครื่องมืออีกสองอย่าง</p>
+<table class="wide">
+  <tr><th>ปุ่ม</th><th>ทำอะไร</th></tr>
+  <tr><td>ใช้เป็น LUT (.cube)…</td><td>ใส่ LUT ที่เลือกลงไปตรง ๆ</td></tr>
+  <tr><td>แปลงเป็นค่าปรับแต่งแล้วนำเข้า…</td><td>วิเคราะห์ว่า LUT ทำอะไร แล้วแปลออกมาเป็น <em>ค่าแถบเลื่อน</em> ของเส้นโค้งโทน ความอิ่มตัว HSL และสมดุลสีสามทาง เมื่อแปลออกมาแล้วก็แก้ต่อบนนั้นได้</td></tr>
+</table>
+</section>
+
+<section id="defringe">
+<h2>แก้ความคลาดสี</h2>
+<p>ลบสีที่เลอะเพราะเลนส์ แยกจัดการสองสาเหตุที่ต่างกัน</p>
+
+<h3>แก้ความคลาดสีด้านข้าง</h3>
+<p>เลนส์รวมแสงแดง เขียว น้ำเงิน ที่ <strong>ขนาดต่างกันเล็กน้อย</strong> ยิ่งไปทางขอบภาพยิ่งเกิดแถบฟ้าครามและม่วงแดง ลบด้วยการถอนสีไม่ได้ ต้อง <strong>ดึงช่องที่เคลื่อนกลับเข้าที่</strong> จึงจะหาย</p>
+<ul>
+  <li>เปิดแล้วมันจะวิเคราะห์ภาพและกำหนดปริมาณการแก้ให้เอง</li>
+  <li>ปรับละเอียดเองได้ด้วย <strong>อัตราแดง · อัตราน้ำเงิน</strong> (0,994 – 1,006)</li>
+  <li>กด <strong>วัดใหม่</strong> เพื่อคำนวณใหม่จากภาพปัจจุบัน</li>
+</ul>
+
+<h3>ลบขอบสี</h3>
+<p>ลบขอบสีม่วง เขียว และแดงสดที่เหลืออยู่ตามรอยต่อในภาพย้อนแสงจัด</p>
+<table>
+  <tr><th>รายการ</th><th>ช่วง</th></tr>
+  <tr><td>ลบม่วง · ลบเขียว · ลบแดง</td><td>อย่างละ 0 – 3</td></tr>
+</table>
+<ul>
+  <li>เปิด <strong>เฉพาะที่ระบายด้วยแปรง</strong> แล้วการแก้จะทำงานเฉพาะส่วนที่ระบาย ถ้าใส่ทั้งภาพ สิ่งที่เป็นสีนั้นจริง ๆ (ดอกไม้สีม่วง ป้ายสีแดง) ก็จะซีดไปด้วย ระบายเฉพาะจุดที่มีปัญหาจึงปลอดภัยกว่า</li>
+  <li><strong>ขนาดแปรง</strong> อยู่ที่ 10 – 300</li>
+  <li><strong>ซ่อนพื้นที่ที่ระบาย</strong> ปิดเครื่องหมายชั่วคราวเพื่อดูแต่ผลลัพธ์</li>
+  <li><strong>ยกเลิกรอยล่าสุด</strong> · <strong>ลบทั้งหมด</strong> เพื่อย้อนกลับ</li>
+</ul>
+</section>
+
+<section id="mist">
+<h2>มิสต์</h2>
+<p>เอาฟิลเตอร์ดิฟฟิวชันแบบออปติคัลที่ใส่หน้าเลนส์มาทำเป็นดิจิทัล ส่วนสว่างฟุ้งอย่างนุ่มนวล คอนทราสต์อ่อนลง และผิวดูนวลขึ้น</p>
+<table>
+  <tr><th>ระดับ</th><th>ความรู้สึก</th></tr>
+  <tr><td>ไม่มี</td><td>ปิด</td></tr>
+  <tr><td>1/8</td><td>อ่อนที่สุด เหมาะกับภาพบุคคล</td></tr>
+  <tr><td>1/4</td><td>ความนุ่มเริ่มเข้าตา</td></tr>
+  <tr><td>1/2</td><td>ในภาพกลางคืนและย้อนแสง ดวงไฟฟุ้งออกชัดเจน</td></tr>
+  <tr><td>1</td><td>แรงที่สุด บรรยากาศเปลี่ยนไปมาก</td></tr>
+</table>
+<p>เปิด <strong>ฟุ้งถึงส่วนเงาด้วย</strong> แล้วแสงจะฟุ้งไม่เฉพาะในที่สว่างแต่ในที่มืดด้วย ให้ความรู้สึกเหมือนภาพอัดจากฟิล์มเก่า</p>
+<p>มิสต์ทำงานตรงที่มีแสง ต้องมีแหล่งกำเนิดแสง ท้องฟ้าสว่าง หรือเส้นผมย้อนแสง จึงจะเห็นผล ในภาพที่แบนและมืดครึ้มจะได้แค่คอนทราสต์ที่ลดลง</p>
+</section>
+
+<section id="privacy">
+<h2>เบลอเพื่อความเป็นส่วนตัว</h2>
+<p>ปิดบังใบหน้าคนอื่นและป้ายทะเบียนรถที่บังเอิญติดมาในภาพ</p>
+
+<h3>ค้นหาอัตโนมัติ</h3>
+<p>เมื่อเปิดภาพ มันจะหาใบหน้าและป้ายทะเบียนแล้วทำเป็นพื้นที่ไว้ให้ การตรวจจับทำงานที่ <strong>ความละเอียดต้นฉบับ</strong> จึงเจอใบหน้าเล็ก ๆ ที่ในภาพตัวอย่างย่อจะเบลอจนหลุดไป</p>
+<p>พื้นที่ที่เจอจะขึ้นเป็นรายการ และเปิดปิดได้ทีละอัน คนที่ไม่ต้องปิดบัง (เช่น คนที่ไปด้วยกัน) ก็ปิดไว้</p>
+
+<h3>วาดเอง</h3>
+<ol class="steps">
+  <li>กด <strong>เลือกพื้นที่ที่จะเบลอ</strong></li>
+  <li>ลากบนภาพเพื่อสร้างพื้นที่</li>
+  <li>วาดต่อกันได้หลายอัน วาดเสร็จแล้วกดปุ่มอีกครั้งเพื่อจบ</li>
+</ol>
+<p>จะเลื่อนภาพระหว่างวาด ให้กด <span class="kbd">Space</span> ค้างแล้วลาก</p>
+
+<h3>รูปทรงและความแรง</h3>
+<table>
+  <tr><th>รายการ</th><th>เลือกได้</th></tr>
+  <tr><td>วิธี</td><td>เบลอ / โมเสก</td></tr>
+  <tr><td>รูปทรง</td><td>สี่เหลี่ยม / วงรี</td></tr>
+  <tr><td>ความแรง</td><td>0,4 – 2,0</td></tr>
+</table>
+<p>ใบหน้าใช้วงรีจะดูเป็นธรรมชาติ ป้ายทะเบียนและป้ายร้านใช้สี่เหลี่ยม</p>
+
+<div class="warn">
+<b>ตรวจดูก่อนเผยแพร่</b>
+<p>การตรวจจับอัตโนมัติอาจพลาดใบหน้าด้านข้าง ใบหน้าที่สวมหน้ากาก หรือใบหน้าในที่มืดจัด ถ้าเป็นภาพที่จะเผยแพร่ ขอแนะนำให้กด <span class="kbd">⌘1</span> ดูที่ 100 % สักรอบก่อนส่งออก</p>
+</div>
+</section>
+
+<section id="frame">
+<h2>ประทับวันที่</h2>
+
+<div class="note">
+<b>เฟรมย้ายไปอยู่ที่เมานต์แล้ว</b>
+<p>การใส่ขอบรอบภาพให้ได้สัดส่วนที่กำหนด ตอนนี้เป็นหน้าที่ของ <a href="#mount">เมานต์</a> แล้ว วางภาพเดียวแล้วกำหนดสัดส่วนกับ <strong>ขอบ</strong> ก็ได้ผลเหมือนเฟรมเดิม แถมยังจัดการระยะห่าง มุม และสีพื้นหลังได้ด้วย</p>
+</div>
+
+<h3>ประทับวันที่</h3>
+<p>กดปุ่ม <strong>ประทับวันที่</strong> ในหัวข้อสูตรฟิล์มเพื่อเปิดการตั้งค่า</p>
+<p>ใส่วันที่ถ่ายไว้มุมขวาล่างเหมือนดาต้าแบ็กของกล้องฟิล์ม ตัวเลขวาดเป็นเจ็ดส่วนด้วยตัวเอง จึงออกมาเหมือนกันบน Mac ทุกเครื่อง</p>
+<p>วันที่อ่านจากข้อมูลการถ่ายของภาพ ลำดับการแสดง (การเรียงปี เดือน วัน) เลือกได้</p>
+<p>การประทับเกิดขึ้นก่อนการจำลองฟิล์ม มันจึงได้รับฟิล์ม โทน เกรน และมิสต์ <strong>เหมือนกับ</strong> ตัวภาพ และดูเหมือนถูกฉายแสงมาพร้อมกัน ไม่ใช่ตัวอักษรที่แปะทีหลัง</p>
+</section>
+
+
+<!-- ══════════ 마운트 ══════════ -->
+
+<section id="mount">
+<h2>วางภาพลงบนแผ่น</h2>
+<p>เมานต์คือพื้นที่ทำงานที่เอาภาพหลายรูปมาวางบนแผ่นเดียวแล้วทำเป็นภาพเดียว เวลาลงโซเชียล บล็อก หรือเว็บไซต์ แทนที่จะลงทีละรูป ก็รวมเป็นชิ้นเดียวแล้วแสดงได้</p>
+
+<h3>เริ่มต้น</h3>
+<ul>
+  <li>เลือก <strong>เมานต์</strong> ที่แท็บด้านบน</li>
+  <li>ลากภาพมาจาก <strong>ลิ้นชักภาพ</strong> ทางซ้าย ถ้าลิ้นชักว่าง ให้เลือกโฟลเดอร์ด้วย <strong>เปิดโฟลเดอร์ภาพ</strong></li>
+  <li>หรือกดช่องว่างแล้วระบุเองด้วย <strong>เลือกภาพ</strong> ก็ได้</li>
+  <li>ในหน้าจอล้างภาพ เลือก <strong>เมานต์ภาพนี้</strong> แล้วภาพที่กำลังดูอยู่จะไปอยู่บนแผ่นทันที จากคลังภาพก็เลือกหลายภาพแล้วใช้ <strong>ส่งไปเมานต์</strong> ได้</li>
+</ul>
+<p>ลิ้นชักพับและกางได้ด้วยไอคอน</p>
+
+<h3>ขนาดของแผ่น</h3>
+<table>
+  <tr><th>รายการ</th><th>เลือกได้</th></tr>
+  <tr><td>สัดส่วน</td><td>ตามต้นฉบับ · 1:1 · 4:5 · 5:4 · 2:3 · 3:2 · 3:4 · 4:3 · 9:16 · 16:9 · 1,91:1</td></tr>
+  <tr><td>ความละเอียด</td><td>1080 · 1440 · 2048 · 4096 (พิกเซลด้านกว้าง)</td></tr>
+</table>
+<p><strong>ตามต้นฉบับ</strong> ใช้สัดส่วนของภาพแรกตามเดิม สะดวกเวลาจะใส่แค่ขอบให้เหมือนกรอบรูป</p>
+</section>
+
+<section id="mount-split">
+<h2>แบ่งเป็นช่อง</h2>
+<p>เปิด <strong>แบ่ง</strong> แล้วแผ่นจะถูกแบ่งเป็นตาราง เลือกว่าจะกี่แถวกี่คอลัมน์ ได้สูงสุด 5 × 5</p>
+
+<h3>จัดการช่อง</h3>
+<ul>
+  <li>ลากเส้นแบ่งระหว่างช่องแล้วขนาดช่องจะเปลี่ยน <strong>คืนค่าสัดส่วนการแบ่ง</strong> ทำให้กลับมาเท่ากัน</li>
+  <li>คลิกขวาที่เส้นแบ่งเพื่อใช้ <strong>ย้ายเส้นแบ่ง</strong> และ <strong>ลบเส้นแบ่ง</strong></li>
+  <li>ลากภาพไปอีกช่อง แล้วสองภาพจะสลับที่กัน</li>
+</ul>
+
+<h3>จัดภาพภายในช่อง</h3>
+<p>ภาพในช่องจะถูกครอบตัดให้เต็มช่อง ส่วนไหนจะโผล่ออกมา คุณกำหนดเอง</p>
+<ul>
+  <li>ลากภาพเพื่อย้ายส่วนที่เห็น</li>
+  <li>ซูมเข้าออกด้วยการเลื่อนหรือหนีบนิ้ว</li>
+  <li><strong>คืนค่าการครอบตัด</strong> กลับสู่สถานะแรก</li>
+  <li><strong>เอาภาพออก</strong> ทำให้ช่องนั้นว่าง</li>
+</ul>
+</section>
+
+<section id="mount-free">
+<h2>วางอิสระ</h2>
+<p>ปิด <strong>แบ่ง</strong> แล้วช่องจะหายไป วางภาพบนแผ่นได้ตามใจ</p>
+
+<h3>วางและย้าย</h3>
+<ul>
+  <li>ลากเพื่อย้าย จับมุมเพื่อเปลี่ยนขนาด และหมุนได้</li>
+  <li>ขณะลาก ภาพจะ <strong>ดูดติดเหมือนแม่เหล็ก</strong> กับภาพอื่นหรือขอบแผ่น แล้วเข้าแนวพอดี</li>
+  <li>กดปุ่ม <strong>ตาราง</strong> เพื่อเปิดตารางนำสายตา กดทีก็ถี่ขึ้นที และครั้งสุดท้ายคือปิด</li>
+</ul>
+
+<h3>ลำดับการซ้อน</h3>
+<p>คลิกขวาที่ภาพเพื่อเปลี่ยน — <strong>ไว้หน้าสุด · เลื่อนขึ้นหน้า · เลื่อนลงหลัง · ไว้หลังสุด</strong> เมนูเดียวกันมี <strong>คืนค่าการครอบตัด</strong> <strong>คืนค่าการเอียง</strong> และ <strong>เอาภาพออก</strong> ด้วย</p>
+
+<h3>ปุ่มช่วย</h3>
+<table class="wide">
+  <tr><th>ปุ่ม</th><th>ทำอะไร</th></tr>
+  <tr><td>วางแบบสุ่ม</td><td>โปรยภาพลงบนแผ่น สะดวกเวลาหาจุดตั้งต้น</td></tr>
+  <tr><td>จัดให้เท่ากัน</td><td>จัดขนาดและระยะห่างให้เรียบร้อย</td></tr>
+  <tr><td>ล้าง</td><td>เอาภาพที่วางบนแผ่นออกทั้งหมด</td></tr>
+</table>
+
+<h3>จำนวนช่วง — ทำต่อกันแล้วตัดตอนส่งออก</h3>
+<p>ตั้ง <strong>จำนวนช่วง</strong> เป็น 2 ขึ้นไป แล้วสัดส่วนที่เลือกจะต่อกันในแนวนอนเท่านั้นกลายเป็นแผ่นเดียว จัดองค์ประกอบบนผืนที่ต่อกัน แล้วตอนส่งออกจะถูกตัดอีกครั้งและบันทึกโดย <strong>ใส่เลขไล่จากซ้ายไปขวา</strong></p>
+<p>เป็นวิธีที่ใช้ทำให้ภาพดูต่อเนื่องไม่ขาดตอนในโพสต์แบบเลื่อนหลายภาพบนโซเชียล ได้สูงสุดสิบสองช่วง</p>
+</section>
+
+<section id="mount-look">
+<h2>ระยะห่าง · ขอบ · มุม</h2>
+<table>
+  <tr><th>รายการ</th><th>ช่วง</th><th>ทำอะไร</th></tr>
+  <tr><td>ระยะห่าง</td><td>0 – 80</td><td>ช่องว่างระหว่างภาพกับภาพ</td></tr>
+  <tr><td>ขอบ</td><td>0 – 120</td><td>ขอบว่างที่ริมแผ่น</td></tr>
+  <tr><td>มุม</td><td>0 – 120</td><td>ทำมุมภาพให้มน ถ้าเป็น 0 ก็เป็นมุมฉาก</td></tr>
+  <tr><td>สีพื้นหลัง</td><td>สีที่ต้องการ</td><td>สีที่เติมช่องว่างและขอบ</td></tr>
+</table>
+<p>ตัวเลขอ้างอิงจากความกว้าง 1080 px เพิ่มความละเอียดแล้วสัดส่วนที่เห็นยังคงเดิม</p>
+
+<h3>มุมมอง</h3>
+<ul>
+  <li><strong>พอดี</strong> — แสดงทั้งแผ่นให้พอดีหน้าต่าง</li>
+  <li><strong>100 %</strong> — พิกเซลอย่างที่จะส่งออก ใช้ตรวจขนาดจริงที่จะบันทึก</li>
+  <li>เมื่อขยายแล้ว ลากเพื่อดันแผ่นไปมาได้</li>
+</ul>
+</section>
+
+<section id="mount-export">
+<h2>บันทึกและส่งออก</h2>
+
+<h3>บันทึกงาน</h3>
+<p>เก็บการจัดวางไว้เป็นไฟล์ แล้วมาทำต่อทีหลังได้</p>
+<table>
+  <tr><td><span class="kbd">⌘S</span></td><td>บันทึกเมานต์</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>บันทึกเมานต์เป็นชื่อใหม่</td></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>เปิดเมานต์ (ในแท็บเมานต์ ⌘O เปิดไฟล์งาน)</td></tr>
+</table>
+<p>ถ้ามีงานที่ยังไม่บันทึก จะมีคำถามตอนย้ายแท็บหรือปิดแอป การเลิกทำใช้ได้กับทุกขั้นตอน ทั้งการวางภาพ ย้าย และสลับลำดับ</p>
+
+<h3>ส่งออกเป็นภาพ</h3>
+<p>เปิดด้วย <span class="kbd">⌘E</span></p>
+<table class="wide">
+  <tr><th>รายการ</th><th>เนื้อหา</th></tr>
+  <tr><td>รูปแบบ</td><td>เหมือนการส่งออกในหน้าจอล้างภาพ คุณภาพและความลึกบิตของ PNG ก็กำหนดที่นี่</td></tr>
+  <tr><td>ขนาด</td><td>ใช้ความละเอียดของแผ่นตามเดิม หรือย่อลง</td></tr>
+  <tr><td>ส่งออกแยกชิ้น</td><td>ในการวางอิสระที่ตั้งจำนวนช่วงเป็น 2 ขึ้นไป เลือกได้ว่าจะออกเป็นภาพเดียวหรือตัดเป็นจำนวนนั้น ถ้าตัด จะใส่เลขไล่จากซ้าย</td></tr>
+  <tr><td>ที่บันทึก</td><td>โฟลเดอร์ต้นฉบับหรือโฟลเดอร์ที่เลือก</td></tr>
+  <tr><td>ชื่อไฟล์</td><td>ตามชื่อภาพแรกที่วางบนแผ่น เติมคำต่อท้ายได้</td></tr>
+</table>
+</section>
+
+<!-- ══════════ 마무리 ══════════ -->
+
+<section id="crop">
+<h2>ครอบตัดและหมุน</h2>
+<p>กด <span class="kbd">C</span> เข้าสู่โหมดครอบตัดและหมุน กด <span class="kbd">A</span> กลับสู่โหมดปรับสี</p>
+
+<h3>ครอบตัด</h3>
+<ul>
+  <li>ลากมุมและด้านเพื่อกำหนดขอบเขต ลากข้างในแล้วกรอบครอบตัดจะขยับทั้งอัน</li>
+  <li>ล็อกสัดส่วนภาพได้ — <strong>อิสระ · ตามต้นฉบับ · 1:1 · 3:2 · 2:3 · 4:3 · 3:4 · 16:9 · 4:5</strong></li>
+</ul>
+
+<h3>ปรับเส้นระดับ</h3>
+<p><strong>มุม</strong> (−45° ถึง +45°) ดัดเส้นขอบฟ้าที่เอียงให้ตรง พอหมุนแล้วเกิดมุมว่าง จึงขยายเล็กน้อยโดยอัตโนมัติเพื่อเติมเต็ม</p>
+
+<h3>แก้ความบิดเบี้ยว</h3>
+<p><strong>ความบิดเบี้ยว</strong> (−100 ถึง +100) ดัดเส้นตรงที่โค้งเพราะเลนส์ ความบิดเบี้ยวแบบถังที่พองออกในเลนส์มุมกว้างอยู่ทางค่าลบ แบบหมอนที่หุบเข้าในเลนส์เทเลอยู่ทางค่าบวก ใช้สิ่งที่ควรตรง เช่น อาคารหรือเส้นขอบฟ้า เป็นเกณฑ์</p>
+
+<h3>หมุนและพลิก</h3>
+<ul>
+  <li>หมุนซ้าย 90° · หมุนขวา 90°</li>
+  <li>พลิกซ้ายขวา · พลิกบนล่าง</li>
+</ul>
+<p>การครอบตัดและหมุนถูกใส่เป็นอันดับแรก พื้นที่เบลอและรอยแปรงที่ใส่ทีหลังจึงจับตำแหน่ง <strong>โดยอิงภาพที่ครอบตัดแล้ว</strong></p>
+</section>
+
+<section id="export">
+<h2>ส่งออก</h2>
+<p>เปิดด้วย <span class="kbd">⌘E</span> ถ้าเลือกหลายภาพไว้ ทั้งหมดจะถูกบันทึกด้วยค่าเดียวกัน กด <span class="kbd">Return</span> ในหน้าต่างเพื่อเริ่มทันที</p>
+
+<h3>รูปแบบ</h3>
+<table class="wide">
+  <tr><th>รูปแบบ</th><th>ใช้ทำอะไร</th></tr>
+  <tr><td>JPEG</td><td>ปลอดภัยที่สุด โซเชียล เว็บ อีเมล</td></tr>
+  <tr><td>HEIF</td><td>คุณภาพเท่ากันแต่ไฟล์เล็กกว่า ใช้ส่งกันระหว่างอุปกรณ์ Apple</td></tr>
+  <tr><td>PNG</td><td>บันทึกโดยไม่สูญเสีย เลือกได้ระหว่าง 8 บิตกับ 16 บิต ไฟล์ใหญ่</td></tr>
+  <tr><td>WebP</td><td>เล็กกว่า JPEG เวลาลงเว็บ</td></tr>
+  <tr><td>TIFF (8 บิต)</td><td>เวลาส่งต่อไปแอปแก้ไขอื่น เข้ากันได้ดี</td></tr>
+  <tr><td>TIFF (16 บิต)</td><td>เวลาส่งต่อโดยเก็บไล่ระดับไว้ให้มากที่สุด สำหรับการอัดภาพหรือแก้ต่อ</td></tr>
+</table>
+<p>รูปแบบที่ใช้การบีบอัดแบบสูญเสียปรับ <strong>คุณภาพ</strong> ได้ ค่าเริ่มต้นคือ 95 % ยิ่งเพิ่มไฟล์ยิ่งใหญ่ สำหรับการใช้งานส่วนใหญ่ แทบไม่มีเหตุต้องลดต่ำกว่า 90 %</p>
+
+<h3>ปรับขนาด</h3>
+<p>เลือกได้สามวิธี</p>
+<table>
+  <tr><th>วิธี</th><th>ค่าที่ระบุ</th></tr>
+  <tr><td>อัตราส่วน</td><td>เปอร์เซ็นต์เทียบกับต้นฉบับ</td></tr>
+  <tr><td>ความกว้าง</td><td>จำนวนพิกเซลด้านกว้าง</td></tr>
+  <tr><td>ด้านยาว</td><td>จำนวนพิกเซลของด้านที่ยาวกว่า</td></tr>
+</table>
+<p>ไม่ว่าใช้วิธีไหน <strong>จะไม่ขยายเกินต้นฉบับ</strong> เพราะการสร้างพิกเซลที่ไม่มีอยู่ขึ้นมามีแต่ทำให้คุณภาพแย่ลง</p>
+
+<h3>ข้อมูลเมตา</h3>
+<p>ในแท็บ <strong>ข้อมูลเมตา</strong> ของหน้าต่างส่งออก เลือกทีละรายการว่าจะเก็บข้อมูลอะไรไว้ในไฟล์ รายการที่ติ๊กจะถูกเอาออกจากไฟล์ที่ส่งออก</p>
+<table class="wide">
+  <tr><th>รายการ</th><th>มีอะไรอยู่</th></tr>
+  <tr><td>ค่าการถ่าย</td><td>การรับแสง · ISO · รูรับแสง</td></tr>
+  <tr><td>กล้องและเลนส์</td><td>ผู้ผลิต · รุ่น · หมายเลขเครื่อง</td></tr>
+  <tr><td>วันและเวลาที่ถ่าย</td><td>ตอนที่ถ่าย</td></tr>
+  <tr><td>ตำแหน่ง (GPS)</td><td>พิกัดของสถานที่ถ่าย</td></tr>
+  <tr><td>ผู้สร้างและลิขสิทธิ์</td><td>ผู้จัดทำ · การแสดงลิขสิทธิ์</td></tr>
+  <tr><td>คำอธิบายและคำสำคัญ</td><td>ข้อความและแท็กที่ติดไว้กับภาพ</td></tr>
+  <tr><td>โปรแกรมที่ใช้แก้ไข</td><td>ทำด้วยแอปอะไร ชื่อฟิล์มที่ Rawcookr ทิ้งไว้ก็อยู่ตรงนี้ จึงหายไปพร้อมกัน</td></tr>
+  <tr><td>บันทึกของผู้ผลิต</td><td>ข้อมูลเฉพาะที่กล้องบันทึกไว้ต่างหาก</td></tr>
+</table>
+<p><strong>ลบทั้งหมด</strong> ปิดได้ในครั้งเดียว ถ้าเป็นภาพที่จะเผยแพร่ อย่างน้อยควรเอา <strong>ตำแหน่ง (GPS)</strong> ออกจะปลอดภัยกว่า ภาพที่ถ่ายใกล้บ้านหรือที่ทำงานเปิดเผยขอบเขตการใช้ชีวิตได้ด้วยพิกัดเพียงอย่างเดียว</p>
+
+<h3>การตั้งค่าอื่น ๆ</h3>
+<table class="wide">
+  <tr><th>รายการ</th><th>ทำอะไร</th></tr>
+  <tr><td>คำต่อท้าย</td><td>ตัวอักษรที่จะต่อท้ายชื่อไฟล์ ค่าเริ่มต้นคือ <span class="path">_developed</span> ช่วยไม่ให้ชื่อชนกับต้นฉบับ</td></tr>
+  <tr><td>ที่บันทึก</td><td>ทิ้งไว้ในโฟลเดอร์ต้นฉบับ หรือระบุโฟลเดอร์อื่น</td></tr>
+  <tr><td>เปิดโฟลเดอร์เมื่อเสร็จ</td><td>เมื่อบันทึกเสร็จ จะเปิดโฟลเดอร์นั้นใน Finder</td></tr>
+  <tr><td>ปิดหน้าต่างนี้</td><td>หน้าต่างจะปิดเองเมื่อส่งออกเสร็จ สะดวกเวลาส่งออกทีละชุดซ้ำ ๆ</td></tr>
+</table>
+<p>เมื่อบันทึกเป็น TIFF ชื่อฟิล์มที่ใช้จะถูกบันทึกไว้ในข้อมูลคำอธิบายของไฟล์ด้วย</p>
+
+<div class="note">
+<b>ถ้าสีที่ส่งออกดูต่างจากบนหน้าจอ</b>
+<p>แอปที่ใช้ดูภาพส่วนใหญ่ไม่อ่านโปรไฟล์สี ลองตรวจดูในตัวอย่างของ Finder หรือในเว็บเบราว์เซอร์ Rawcookr ส่งออกเป็น sRGB จึงเห็นเหมือนกันในสภาพแวดล้อมส่วนใหญ่</p>
+</div>
+</section>
+
+<section id="customfilm">
+<h2>สร้างฟิล์มของคุณเอง</h2>
+<p>การเพิ่มฟิล์มของตัวเองเข้าไปในรายการมีสองวิธี</p>
+
+<p>ทั้งสองอยู่ในเมนูที่ขึ้นเมื่อเลือกตระกูล <strong>กำหนดเอง</strong> ในหัวข้อสูตรฟิล์ม</p>
+
+<h3>LUT ที่คุณมี ทำเป็นฟิล์ม</h3>
+<ol class="steps">
+  <li>ในเมนูตระกูลกำหนดเอง กด <strong>LUT to FILM…</strong></li>
+  <li>เลือกไฟล์ <span class="path">.cube</span></li>
+  <li>ตั้งชื่อแล้วมันจะเข้าไปอยู่ในรายการฟิล์ม</li>
+</ol>
+<p>LUT ขาวดำจะถูกรู้จักเป็นฟิล์มขาวดำโดยอัตโนมัติ แล้วจะมีค่าปรับเฉพาะขาวดำอย่างโทน WC และ MG ขึ้นมา</p>
+
+<h3>สีที่คุณจัดไว้ ทำเป็นฟิล์ม</h3>
+<p>ถ้าคุณสร้างสีที่ถูกใจด้วยเส้นโค้งโทน HSL และสมดุลสี ให้ใช้ <strong>สีเป็นฟิล์ม…</strong> ในเมนูเดียวกันเพื่อแยกเก็บเฉพาะการแปลงสีนั้น</p>
+<p>ฟิล์มที่สร้างแล้วดึงออกเป็นไฟล์ <span class="path">.cube</span> ได้ด้วย <strong>ส่งออกฟิล์มเป็น LUT</strong> ใช้ในแอปอื่นก็ได้</p>
+
+<h3>รวมเป็นสมุดสูตรเพื่อแบ่งปัน</h3>
+<p>รวมฟิล์มและค่าตั้งล่วงหน้าที่สร้างไว้เป็นไฟล์ <span class="path">.rawb</span> ไฟล์เดียว คนที่ได้รับไฟล์กด <strong>นำเข้าสมุดสูตร</strong> ครั้งเดียวก็ได้ไปทั้งหมด</p>
+<p>ใช้แบ่งปันโทนสีระหว่างคนที่ใช้อุปกรณ์เดียวกัน หรือย้ายการตั้งค่าทั้งชุดเวลาเปลี่ยน Mac</p>
+</section>
+
+<section id="prefs">
+<h2>การตั้งค่า</h2>
+<table class="wide">
+  <tr><th>รายการ</th><th>เนื้อหา</th></tr>
+  <tr><td>ที่เก็บการแก้ไข</td><td><strong>จัดการในโฟลเดอร์ของแอป</strong> (ค่าเริ่มต้น) หรือ <strong>ข้างไฟล์ต้นฉบับ</strong> รายละเอียดดูที่ <a href="#originals">ไฟล์ต้นฉบับยังอยู่เหมือนเดิม</a></td></tr>
+  <tr><td>พื้นหลัง</td><td>ความสว่างด้านหลังภาพในหน้าจอล้างภาพ ทิ้งให้มืดไว้จะตัดสินความสว่างของภาพได้ง่ายกว่า</td></tr>
+  <tr><td>ขนาดภาพย่อของค่าตั้งล่วงหน้า</td><td>ขนาดตัวอย่างในรายการค่าตั้งล่วงหน้า เล็กมาก · เล็ก · ใหญ่</td></tr>
+</table>
+<p>ความสว่างของทั้งแอป (สว่าง/มืด) เปลี่ยนด้วย <span class="kbd">⌘⇧9</span> และ <span class="kbd">⌘⇧0</span></p>
+</section>
+
+<section id="shortcuts">
+<h2>แป้นลัด</h2>
+<p>ปุ่มที่ใช้ได้ต่างกันไปตามโหมด ปุ่มที่ใช้ได้ทั้งสามโหมดก็เขียนไว้ในทุกตารางเหมือนกัน ดูแค่ตารางของโหมดที่อยู่ตอนนี้ก็พอ</p>
+
+<h3>ในทุกโหมด</h3>
+<table>
+  <tr><td><span class="kbd">⌘E</span></td><td>ส่งออก</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>ปิด (ถ้ากำลังล้างภาพอยู่ คือปิดภาพ)</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>ความช่วยเหลือของ Rawcookr</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span></td><td>โหมดมืด</td></tr>
+  <tr><td><span class="kbd">⌘⇧0</span></td><td>โหมดสว่าง</td></tr>
+  <tr><td><span class="kbd">⌘Q</span></td><td>ออก — ถ้ามีงานเมานต์ที่ยังไม่บันทึก จะมีคำถาม</td></tr>
+</table>
+
+<h3>คลังภาพ</h3>
+<table>
+  <tr><th>ปุ่ม</th><th>ทำอะไร</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>เปิดโฟลเดอร์</td></tr>
+  <tr><td><span class="kbd">⌘R</span></td><td>อ่านโฟลเดอร์ใหม่</td></tr>
+  <tr><td><span class="kbd">⌘A</span></td><td>เลือกทั้งหมด</td></tr>
+  <tr><td><span class="kbd">←</span> <span class="kbd">→</span> <span class="kbd">↑</span> <span class="kbd">↓</span></td><td>ไปภาพข้าง ๆ บนล่างในตาราง</td></tr>
+  <tr><td><span class="kbd">Space</span></td><td>ดูขนาดใหญ่ (กดอีกครั้งเพื่อปิด)</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>เอาภาพที่เลือกไปหน้าจอล้างภาพ</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>ปิดมุมมองขนาดใหญ่</td></tr>
+  <tr><td><span class="kbd">1</span>–<span class="kbd">5</span></td><td>ให้ดาวภาพที่เลือก — ลงไปหลายภาพพร้อมกัน</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>ติด / ปลดธง — หลายภาพพร้อมกัน</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>ล้างเป็นเวอร์ชันใหม่</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>แสดง / ซ่อนแถบข้าง</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>แสดง / ซ่อนผังโฟลเดอร์</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>แสดง / ซ่อนข้อมูลไฟล์</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>ส่งออกภาพที่เลือกทั้งหมด</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>ปิดหน้าต่าง</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>ความช่วยเหลือ</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>โหมดมืด · โหมดสว่าง</td></tr>
+</table>
+
+<h3>แก้ไข</h3>
+<h4>มุมมอง</h4>
+<table>
+  <tr><th>ปุ่ม</th><th>ทำอะไร</th></tr>
+  <tr><td><span class="kbd">⌘=</span> · <span class="kbd">⌘-</span></td><td>ซูมเข้า · ซูมออก</td></tr>
+  <tr><td><span class="kbd">⌘0</span></td><td>พอดีหน้าต่าง</td></tr>
+  <tr><td><span class="kbd">⌘1</span></td><td>100 % (พิกเซลต้นฉบับ)</td></tr>
+  <tr><td><span class="kbd">Space</span> + ลาก</td><td>ดันภาพเพื่อเลื่อน</td></tr>
+  <tr><td><span class="kbd">M</span></td><td>ดูต้นฉบับ (ขณะกดค้าง)</td></tr>
+  <tr><td><span class="kbd">J</span></td><td>เปิด / ปิดคำเตือนส่วนที่ล้น</td></tr>
+  <tr><td><span class="kbd">O</span></td><td>แสดง / ซ่อนแถบซูม</td></tr>
+  <tr><td><span class="kbd">,</span> · <span class="kbd">.</span></td><td>กาง · พับหัวข้อปรับแต่งทั้งหมด</td></tr>
+  <tr><td><span class="kbd">⌘F</span></td><td>แสดง / ซ่อนแถบฟิล์ม</td></tr>
+  <tr><td><span class="kbd">⌃⌘F</span></td><td>เข้า / ออกมุมมองจดจ่อ (เต็มจอ)</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>แสดง / ซ่อนแถบข้าง</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>แสดง / ซ่อนผังโฟลเดอร์</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>แสดง / ซ่อนข้อมูลไฟล์</td></tr>
+</table>
+
+<h4>แก้ไข</h4>
+<table>
+  <tr><th>ปุ่ม</th><th>ทำอะไร</th></tr>
+  <tr><td><span class="kbd">C</span></td><td>โหมดครอบตัด / หมุน</td></tr>
+  <tr><td><span class="kbd">A</span></td><td>กลับสู่โหมดปรับสี</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>ถ้ากำลังครอบตัดอยู่ คือยืนยันแล้วออก</td></tr>
+  <tr><td><span class="kbd">⌘⇧C</span></td><td>คัดลอกการแก้ไข</td></tr>
+  <tr><td><span class="kbd">⌘⇧V</span></td><td>วางการแก้ไข</td></tr>
+  <tr><td><span class="kbd">⌥⌘R</span></td><td>ล้างการแก้ไขทั้งหมดของภาพนี้</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>ล้างเป็นเวอร์ชันใหม่</td></tr>
+</table>
+
+<h4>การเลือกและการเคลื่อนที่</h4>
+<table>
+  <tr><th>ปุ่ม</th><th>ทำอะไร</th></tr>
+  <tr><td><span class="kbd">←</span> · <span class="kbd">→</span></td><td>ภาพก่อนหน้า · ถัดไป (ไม่ทำงานระหว่างครอบตัด)</td></tr>
+  <tr><td><span class="kbd">1</span>–<span class="kbd">5</span></td><td>ดาว</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>ติด / ปลดธง</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>ปิดภาพแล้วกลับคลังภาพ (ถ้ากำลังครอบตัด คือยกเลิกการครอบตัด)</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>ส่งออก</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>ปิดภาพ</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>ความช่วยเหลือ</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>โหมดมืด · โหมดสว่าง</td></tr>
+</table>
+
+<h3>เมานต์</h3>
+<table>
+  <tr><th>ปุ่ม</th><th>ทำอะไร</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>เปิดเมานต์ — ในโหมดนี้ ⌘O เปิดไฟล์งาน ไม่ใช่โฟลเดอร์</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>บันทึกเมานต์</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>บันทึกเมานต์เป็นชื่อใหม่</td></tr>
+  <tr><td><span class="kbd">⌘Z</span></td><td>เลิกทำ — ทุกขั้นตอน ทั้งวางภาพ ย้าย และสลับลำดับ</td></tr>
+  <tr><td><span class="kbd">⇧⌘Z</span></td><td>ทำซ้ำ</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>ส่งออกแผ่นเป็นภาพ</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>ปิดหน้าต่าง</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>ความช่วยเหลือ</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>โหมดมืด · โหมดสว่าง</td></tr>
+</table>
+
+</section>
+
+<section id="trouble">
+<h2>เรื่องที่เจอบ่อย</h2>
+
+<h4>ไฟล์ RAW เปิดไม่ได้</h4>
+<p>การล้าง RAW ใช้เอนจินที่มีอยู่ใน macOS รุ่นที่เพิ่งออกมาก ๆ ต้องรอให้ macOS อัปเดตก่อนจึงรองรับ ลองดูที่ <strong>การตั้งค่าระบบ → ทั่วไป → อัปเดตซอฟต์แวร์</strong> ถ้ายังเปิดไม่ได้ ลองบันทึกเป็น DNG จากกล้อง หรือ <a href="mailto:rawcookr@slowsalmon.com">บอกเรา</a></p>
+
+<h4>ภาพย่อขึ้นช้า</h4>
+<p>โฟลเดอร์ที่เปิดครั้งแรกต้องสร้างตัวอย่างของแต่ละภาพ จึงใช้เวลา พอสร้างแล้วครั้งต่อไปก็เร็ว ถ้าโฟลเดอร์มีภาพมากเหลือเกิน แยกเป็นโฟลเดอร์ย่อยจะสบายกว่า</p>
+
+<h4>เหมือนความคมหรือเกรนไม่ถูกใส่</h4>
+<p>ในอัตราที่พอดีหน้าจอ ภาพถูกวาดย่อลง เอฟเฟกต์ระดับพิกเซลจึงไม่ปรากฏ กด <span class="kbd">⌘1</span> ให้เป็น 100 % แล้วตรวจดู</p>
+
+<h4>การแก้ไขหายไป</h4>
+<p>ค่าการแก้ไขอยู่ในไฟล์ที่แยกจากต้นฉบับ ถ้าคุณตั้งที่เก็บเป็น <strong>ข้างไฟล์ต้นฉบับ</strong> แล้วย้ายเฉพาะภาพไปที่อื่น ไฟล์ค่าปรับแต่งอาจไม่ได้ตามไปด้วย ถ้าใช้ <strong>ย้ายไปโฟลเดอร์อื่น</strong> ในแอป ค่าปรับแต่งจะย้ายตามไปด้วย</p>
+
+<h4>การสมัครสมาชิกไม่ถูกรับรู้</h4>
+<p>ตรวจดูว่าลงชื่อเข้า App Store ด้วยบัญชี Apple เดียวกันหรือไม่ แล้วลองกด <strong>กู้คืนการซื้อ</strong> ในหน้าจอการสมัครสมาชิก</p>
+
+<h4>ใบหน้าที่ควรถูกปิดบังยังเหลืออยู่</h4>
+<p>การตรวจจับอัตโนมัติอาจพลาดใบหน้าด้านข้าง หน้ากาก หรือใบหน้าในที่มืด ให้วาดพื้นที่เองเพิ่มเติม และตรวจดูที่ 100 % สักรอบก่อนเผยแพร่</p>
+
+<h4>งานเมานต์หายไป</h4>
+<p>เมานต์จะไม่ถูกเก็บเป็นไฟล์จนกว่าคุณจะบันทึก บันทึกไว้ก่อนด้วย <span class="kbd">⌘S</span> ถ้าจะย้ายแท็บหรือปิดแอปโดยยังไม่บันทึก จะมีคำถามขึ้นมา</p>
+
+<h4>ถ้ายังแก้ไม่ได้</h4>
+<p>บอกเราที่ <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a> ถ้าเขียนมาด้วยว่าใช้ Mac เครื่องไหน และเป็นไฟล์จากกล้องรุ่นใด เราจะหาเจอเร็วกว่ามาก</p>
+</section>
+
+</main>
+</div>
+<footer>
+  <p><a href="./">หน้าแรก Rawcookr</a> · <a href="privacy.html">นโยบายความเป็นส่วนตัว</a> · <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a></p>
+</footer>
+<script>
+  // ── 언어 전환 ──
+  (function () {
+    const sel = document.getElementById('lang');
+    const cur = document.documentElement.lang || 'ko';
+    sel.value = cur;
+    sel.addEventListener('change', () => {
+      const v = sel.value;
+      location.href = (v === 'ko' ? 'guide.html' : 'guide-' + v + '.html') + location.hash;
+    });
+  })();
+
+  const toc = document.getElementById('toc');
+  document.getElementById('menubtn')
+    .addEventListener('click', () => toc.classList.toggle('open'));
+
+  const groups = [...toc.querySelectorAll('li')];
+  const links  = [...toc.querySelectorAll('a')];
+  const linkOf  = new Map(links.map(a => [a.hash.slice(1), a]));
+  const groupOf = new Map(links.map(a => [a.hash.slice(1), a.closest('li')]));
+
+  function openOnly(li) {
+    groups.forEach(g => g.classList.toggle('open', g === li));
+  }
+
+  // 묶음 제목을 누르면 그 묶음만 펼치고, 이미 펼쳐져 있으면 접는다
+  groups.forEach(li => {
+    li.querySelector('.grp').addEventListener('click', () => {
+      openOnly(li.classList.contains('open') ? null : li);
+    });
+  });
+
+  // 좁은 화면에서는 항목을 누르면 목차를 닫는다
+  links.forEach(a => a.addEventListener('click', () => toc.classList.remove('open')));
+
+  function highlight(id) {
+    const a = linkOf.get(id);
+    if (!a || a.classList.contains('on')) return;
+    links.forEach(x => x.classList.remove('on'));
+    a.classList.add('on');
+    const li = groupOf.get(id);
+    if (li && !li.classList.contains('open')) openOnly(li);
+  }
+
+  // 화면에 걸쳐 있는 섹션 가운데 가장 위의 것을 현재 위치로 본다
+  const sections = [...document.querySelectorAll('section[id]')];
+  const visible = new Set();
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => en.isIntersecting ? visible.add(en.target) : visible.delete(en.target));
+    let best = null;
+    visible.forEach(el => {
+      if (!best || el.getBoundingClientRect().top < best.getBoundingClientRect().top) best = el;
+    });
+    if (best) highlight(best.id);
+  }, { rootMargin: '-70px 0px -70% 0px' });
+  sections.forEach(el => obs.observe(el));
+
+  // 주소에 #항목이 붙어 있으면 그 묶음을 열고 시작, 아니면 첫 묶음
+  const start = location.hash.slice(1);
+  if (start && groupOf.has(start)) highlight(start);
+  else groups[0].classList.add('open');
+</script>
+</body>
+</html>

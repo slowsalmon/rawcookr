@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panduan Pengguna Rawcookr</title>
+<meta name="description" content="Seluruh fungsi Rawcookr dan cara memakainya. Resep film, pengaburan privasi, mist, penyesuaian setempat, ekspor, sampai pintasan papan tik.">
+<meta property="og:title" content="Panduan Pengguna Rawcookr">
+<meta property="og:description" content="Seluruh fungsi Rawcookr dan cara memakainya, dirangkum butir demi butir.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://rawcookr.slowsalmon.com/guide-id.html">
+<link rel="canonical" href="https://rawcookr.slowsalmon.com/guide-id.html">
+<link rel="icon" href="icon.png">
+<style>
+  :root {
+    --cream: #F8F5EB;
+    --ink: #1E1B16;
+    --muted: #6B6459;
+    --blue: #0055B8;
+    --blue-soft: #E8EFFA;
+    --lemon: #F2C100;
+    --line: #E4DCC9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                 "Pretendard", "Noto Sans KR", sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--blue); }
+
+  /* ── 상단 바 ── */
+  .topbar {
+    position: sticky; top: 0; z-index: 30;
+    background: rgba(248,245,235,0.94);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 1180px; margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .topbar img { width: 30px; height: 30px; border-radius: 7px; }
+  .topbar .name { font-weight: 800; letter-spacing: -0.01em; }
+  .topbar .name a { color: var(--ink); text-decoration: none; }
+  .topbar .sep { color: var(--line); }
+  .topbar .where { color: var(--muted); font-size: 0.95em; }
+  .topbar .spacer { flex: 1; }
+  .topbar .home { font-size: 0.9em; font-weight: 600; text-decoration: none; }
+  #menubtn {
+    display: none; font: inherit; font-size: 0.85em; font-weight: 700;
+    background: #fff; color: var(--ink); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 14px; cursor: pointer;
+  }
+  #lang {
+    font: inherit; font-size: 0.82em; font-weight: 600; color: var(--ink);
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 5px 28px 5px 12px; cursor: pointer;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%236B6459'/></svg>");
+    background-repeat: no-repeat; background-position: right 11px center;
+  }
+
+  /* ── 레이아웃 ── */
+  .shell { max-width: 1180px; margin: 0 auto; padding: 0 24px; display: flex; gap: 48px; }
+  nav.toc {
+    flex: none; width: 258px; padding: 36px 0 80px;
+    position: sticky; top: 55px; align-self: flex-start;
+    max-height: calc(100vh - 55px); overflow-y: auto;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; }
+  nav.toc > ol > li { margin-bottom: 2px; }
+  nav.toc .grp {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    font: inherit; font-size: 0.78em; font-weight: 800; letter-spacing: 0.06em;
+    color: var(--muted); text-transform: uppercase;
+    background: none; border: 0; cursor: pointer; text-align: left;
+    padding: 8px 10px; margin-left: -10px; border-radius: 7px;
+  }
+  nav.toc .grp:hover { background: #fff; color: var(--ink); }
+  nav.toc .caret {
+    flex: none; width: 6px; height: 6px; margin-top: -2px;
+    border-right: 1.8px solid currentColor; border-bottom: 1.8px solid currentColor;
+    transform: rotate(-45deg); transition: transform 0.18s ease;
+  }
+  nav.toc li.open > .grp { color: var(--ink); }
+  nav.toc li.open > .grp .caret { transform: rotate(45deg); margin-top: -4px; }
+  nav.toc .items {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease;
+  }
+  nav.toc li.open > .items { grid-template-rows: 1fr; }
+  nav.toc .items > div { overflow: hidden; }
+  nav.toc a {
+    display: block; padding: 3px 10px 3px 28px; margin-left: -10px;
+    color: #443E36; text-decoration: none; font-size: 0.93em;
+    border-radius: 7px; line-height: 1.6;
+  }
+  nav.toc a:hover { background: #fff; }
+  nav.toc a.on { background: var(--blue-soft); color: var(--blue); font-weight: 700; }
+  nav.toc .items > div > :last-child { margin-bottom: 10px; }
+  @media (prefers-reduced-motion: reduce) {
+    nav.toc .items, nav.toc .caret { transition: none; }
+  }
+
+  main { flex: 1; min-width: 0; padding: 36px 0 120px; max-width: 720px; }
+  main h1 { font-size: 2.5em; margin: 0 0 10px; letter-spacing: -0.02em; }
+  main > .lead { color: var(--muted); font-size: 1.08em; margin: 0 0 8px; }
+
+  section { padding-top: 52px; }
+  section > h2 {
+    font-size: 1.62em; margin: 0 0 6px; letter-spacing: -0.01em;
+    padding-top: 28px; border-top: 1px solid var(--line);
+  }
+  section.first > h2 { border-top: none; padding-top: 0; }
+  h3 { font-size: 1.16em; margin: 34px 0 8px; }
+  h4 { font-size: 1.0em; margin: 22px 0 4px; }
+  p { margin: 0 0 14px; color: #443E36; }
+  ul, ol.steps { margin: 0 0 16px; padding-left: 22px; color: #443E36; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--ink); }
+
+  .kbd {
+    display: inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em; background: #fff; border: 1px solid var(--line);
+    border-bottom-width: 2px; border-radius: 6px; padding: 1px 7px;
+    color: var(--ink); white-space: nowrap;
+  }
+  .path {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.88em; background: #fff; border: 1px solid var(--line);
+    border-radius: 6px; padding: 1px 7px;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 20px; font-size: 0.95em; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 0.82em; letter-spacing: 0.04em; color: var(--muted); text-transform: uppercase; font-weight: 700; }
+  td:first-child { white-space: nowrap; font-weight: 600; }
+  table.wide td:first-child { white-space: normal; }
+
+  .note, .tip, .warn {
+    border-radius: 12px; padding: 14px 18px; margin: 18px 0;
+    font-size: 0.96em; line-height: 1.75;
+  }
+  .note { background: #fff; border: 1px solid var(--line); }
+  .tip  { background: var(--blue-soft); }
+  .warn { background: #FFF6DC; }
+  .note p:last-child, .tip p:last-child, .warn p:last-child { margin-bottom: 0; }
+  .note b, .tip b, .warn b { display: block; margin-bottom: 2px; }
+
+  .pill {
+    display: inline-block; background: var(--blue-soft); color: var(--blue);
+    border-radius: 999px; padding: 2px 11px; font-size: 0.8em; font-weight: 700;
+    vertical-align: middle;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); margin-top: 40px;
+    padding: 40px 24px 70px; text-align: center; color: var(--muted); font-size: 0.92em;
+  }
+  footer a { font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .shell { display: block; padding: 0 20px; }
+    #menubtn { display: block; }
+    nav.toc {
+      display: none; width: auto; position: static; max-height: none;
+      padding: 18px 0 6px; border-bottom: 1px solid var(--line);
+    }
+    nav.toc.open { display: block; }
+    main { padding-top: 26px; max-width: none; }
+    main h1 { font-size: 2em; }
+    .topbar .where { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <img src="icon.png" alt="">
+    <span class="name"><a href="./">Rawcookr</a></span>
+    <span class="sep">/</span>
+    <span class="where">Panduan pengguna</span>
+    <span class="spacer"></span>
+    <button id="menubtn" type="button">Daftar Isi</button>
+    <select id="lang" aria-label="Language">
+      <option value="ko">한국어</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+      <option value="zh-Hans">中文（简体）</option>
+      <option value="de">Deutsch</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="th">ไทย</option>
+      <option value="vi">Tiếng Việt</option>
+      <option value="id">Bahasa Indonesia</option>
+    </select>
+    <a class="home" href="./">Ke beranda</a>
+  </div>
+</div>
+
+<div class="shell">
+
+<nav class="toc" id="toc">
+  <ol>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Memulai</button>
+      <div class="items"><div>
+        <a href="#screen">Dua jendela</a>
+        <a href="#open">Membuka foto</a>
+        <a href="#originals">Berkas asli Anda tetap utuh</a>
+        <a href="#subscription">Langganan dan masa coba gratis</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Memilih foto</button>
+      <div class="items"><div>
+        <a href="#library">Folder dan gambar kecil</a>
+        <a href="#rating">Bintang dan bendera</a>
+        <a href="#batch">Banyak sekaligus</a>
+        <a href="#versions">Versi</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Jendela penyuntingan</button>
+      <div class="items"><div>
+        <a href="#canvas">Perbesaran dan geseran</a>
+        <a href="#inspect">Membandingkan dengan aslinya dan peringatan pemenggalan</a>
+        <a href="#compare">Tampilan perbandingan</a>
+        <a href="#sections">Bekerja dengan bagian penyesuaian</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Penyesuaian</button>
+      <div class="items"><div>
+        <a href="#presets">Prasetel</a>
+        <a href="#film">Resep film</a>
+        <a href="#wb">Keseimbangan putih</a>
+        <a href="#light">Cahaya</a>
+        <a href="#curve">Kurva nada</a>
+        <a href="#hsl">Rona dan kepekatan</a>
+        <a href="#levels">Aras</a>
+        <a href="#colorgrade">Keseimbangan warna tiga arah</a>
+        <a href="#selective">Warna selektif</a>
+        <a href="#local">Penyesuaian setempat</a>
+        <a href="#layers">Lapisan</a>
+        <a href="#detail">Kehalusan</a>
+        <a href="#effects">Efek</a>
+        <a href="#defringe">Penghapusan aberasi kromatik</a>
+        <a href="#mist">Mist</a>
+        <a href="#privacy">Pengaburan privasi</a>
+        <a href="#frame">Cap tanggal</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Mount</button>
+      <div class="items"><div>
+        <a href="#mount">Menaruh foto di lembar</a>
+        <a href="#mount-split">Membagi menjadi kotak</a>
+        <a href="#mount-free">Penataan bebas</a>
+        <a href="#mount-look">Jarak · Bingkai · Sudut</a>
+        <a href="#mount-export">Menyimpan dan mengekspor</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>Penyelesaian</button>
+      <div class="items"><div>
+        <a href="#crop">Memotong dan memutar</a>
+        <a href="#export">Mengekspor</a>
+        <a href="#customfilm">Membuat film Anda sendiri</a>
+        <a href="#prefs">Preferensi</a>
+        <a href="#shortcuts">Pintasan papan tik</a>
+        <a href="#trouble">Hal yang sering dialami</a>
+      </div></div>
+    </li>
+  </ol>
+</nav>
+
+<main>
+
+<h1>Panduan Pengguna Rawcookr</h1>
+<p class="lead">Mencuci foto, menutupi wajah orang yang tak sengaja ikut terekam, memberinya warna yang Anda mau, lalu mengekspornya siap terbit. Seluruh fungsi, bagian demi bagian.</p>
+<p class="lead" style="font-size:0.95em">macOS 14 ke atas · Versi 1.1</p>
+
+<!-- ══════════ 시작하기 ══════════ -->
+
+<section class="first" id="screen">
+<h2>Dua jendela</h2>
+<p>Rawcookr punya dua jendela.</p>
+
+<h3>Pustaka</h3>
+<p>Tempat Anda memilih folder dan menelusuri foto. Daftar folder di kiri, kisi gambar kecil di tengah. Di sini Anda memberi bintang dan menandai, serta mengekspor satu rangkaian foto sekaligus.</p>
+
+<h3>Mount</h3>
+<p>Tempat beberapa foto diletakkan pada satu lembar lalu menjadi satu gambar. Lihat <a href="#mount">Menaruh foto di lembar</a>.</p>
+
+<h3>Penyuntingan</h3>
+<p>Tempat Anda benar-benar menggarap sebuah foto. Foto di tengah, panel penyesuaian di kanan, deretan film di bawah. Klik ganda sebuah foto di pustaka atau tekan <span class="kbd">Return</span>. <span class="kbd">Esc</span> membawa Anda kembali.</p>
+
+<div class="tip">
+<b>Saat ingin memakai layar dengan lapang</b>
+<p><span class="kbd">⌘F</span> menyembunyikan deretan film, dan <span class="kbd">⌃⌘F</span> hanya menampilkan foto pada layar penuh. <span class="kbd">.</span> melipat semua bagian di panel kanan dan <span class="kbd">,</span> membukanya semua.</p>
+</div>
+</section>
+
+<section id="open">
+<h2>Membuka foto</h2>
+
+<h3>Membuka sebuah folder</h3>
+<p><strong>Berkas → Buka folder</strong> (<span class="kbd">⌘O</span>) memilih folder tempat foto Anda berada. Folder yang pernah dibuka tetap ada di bilah sisi kiri, siap untuk lain kali. Untuk menyingkirkannya, klik kanan namanya lalu pilih <strong>Singkirkan dari bilah sisi</strong>. Subfolder pun ikut muncul.</p>
+
+<h3>Langsung dari Finder</h3>
+<p>Klik kanan sebuah foto di Finder lalu pilih <strong>Buka dengan → Rawcookr</strong>. Folder tempat berkas itu berada ditambahkan ke pustaka dan jendela penyuntingan langsung terbuka.</p>
+
+<h3>Format yang didukung</h3>
+<table>
+  <tr><th>Jenis</th><th>Ekstensi</th></tr>
+  <tr><td>RAW</td><td>RAF · DNG · CR2 · CR3 · CRW · NEF · NRW · ARW · SR2 · SRF · RW2 · RAW · RWL · PEF · ORF · 3FR · FFF · IIQ</td></tr>
+  <tr><td>Lainnya</td><td>JPG · JPEG · PNG · HEIC · HEIF · HIF · TIFF · TIF</td></tr>
+</table>
+<p>Pencucian RAW memakai mesin bawaan macOS. Model kamera yang baru sekali keluar mungkin perlu macOS diperbarui dulu sebelum berkasnya bisa dibuka.</p>
+</section>
+
+<section id="originals">
+<h2>Berkas asli Anda tetap utuh</h2>
+<p>Rawcookr tidak pernah menulis ke berkas asli. Suntingan Anda masuk ke sebuah berkas pengaturan kecil yang terpisah. Buka berkas asli dengan aplikasi lain, ia akan persis seperti semula.</p>
+<p>Di mana pengaturan itu tinggal, Anda yang memilih di <strong>Preferensi</strong>.</p>
+<table class="wide">
+  <tr><th>Pilihan</th><th>Artinya apa</th></tr>
+  <tr><td>Dikelola di folder aplikasi <span class="pill">bawaan</span></td><td>Folder foto Anda tetap bersih. Praktis kalau Anda menyerahkannya ke orang lain apa adanya.</td></tr>
+  <tr><td>Di samping berkas asli</td><td>Foto dan pengaturannya selalu berjalan bersama. Bawa seluruh cakram eksternal ke Mac lain, suntingan Anda ikut serta.</td></tr>
+</table>
+<p>Anda juga bisa menulis suntingan ke sebuah berkas lalu membacanya kembali. <strong>Simpan pengaturan</strong> dan <strong>Terapkan pengaturan</strong> di jendela penyuntingan memakai berkas <span class="path">.rawcookr-settings.json</span>.</p>
+</section>
+
+<section id="subscription">
+<h2>Langganan dan masa coba gratis</h2>
+<p>Rawcookr adalah aplikasi berlangganan. <strong>Tujuh hari gratis</strong> dengan semuanya terbuka, lalu bulanan atau tahunan. Tidak ada tingkat yang lebih tinggi dan tidak ada yang dijual terpisah: semua yang ada di panduan ini sudah termasuk.</p>
+<p>Pengelolaan dan pembatalan dilakukan di pengaturan akun App Store Anda. Kalau dibatalkan sebelum masa coba berakhir, tidak ada penagihan.</p>
+<div class="note">
+<b>Kalau Anda berganti perangkat</b>
+<p>Masuk ke App Store dengan akun Apple yang sama lalu buka aplikasinya; langganan akan dikenali sendiri. Kalau tidak, tekan <strong>Pulihkan pembelian</strong> di layar langganan.</p>
+</div>
+</section>
+
+<!-- ══════════ 사진 고르기 ══════════ -->
+
+<section id="library">
+<h2>Folder dan gambar kecil</h2>
+<p>Di pustaka, satu folder memenuhi jendela. Pilih sebuah folder di bilah sisi, foto-fotonya akan tersusun dalam kisi.</p>
+
+<h3>Menelusuri</h3>
+<ul>
+  <li>Penggeser di kanan atas mengubah ukuran gambar kecil.</li>
+  <li>Tombol panah berpindah antarfoto.</li>
+  <li><span class="kbd">Return</span> membuka jendela penyuntingan.</li>
+  <li><span class="kbd">Space</span> menampilkan foto dalam ukuran besar. Tekan lagi atau <span class="kbd">Esc</span> untuk menutup; <span class="kbd">Return</span> pada tampilan itu beralih ke pencucian. Nama berkas muncul di bawah.</li>
+</ul>
+
+<h3>Memilih</h3>
+<ul>
+  <li>Satu klik untuk satu foto, <span class="kbd">⇧</span>+klik untuk satu rentang, <span class="kbd">⌘</span>+klik untuk menambah satu per satu.</li>
+  <li>Seret di ruang kosong untuk menyapu beberapa sekaligus dengan kotak.</li>
+  <li><span class="kbd">⌘A</span> memilih semuanya.</li>
+</ul>
+
+<h3>Mengurus berkas</h3>
+<p>Menu ini muncul saat Anda klik kanan sebuah gambar kecil.</p>
+<table class="wide">
+  <tr><th>Butir</th><th>Fungsinya</th></tr>
+  <tr><td>Tampilkan di Finder</td><td>Membuka folder tempat berkas asli berada.</td></tr>
+  <tr><td>Ganti nama</td><td>Mengganti nama berkas asli. Satu foto saja setiap kali.</td></tr>
+  <tr><td>Gandakan</td><td>Membuat salinan kedua dari berkas asli.</td></tr>
+  <tr><td>Pindahkan ke folder lain</td><td>Memindahkan foto terpilih ke tempat lain. Pengaturan suntingan ikut serta.</td></tr>
+  <tr><td>Pindahkan ke Tempat Sampah</td><td>Menaruh berkas asli di tempat sampah. Untuk membatalkannya, keluarkan dari Tempat Sampah Finder.</td></tr>
+</table>
+</section>
+
+<section id="rating">
+<h2>Bintang dan bendera</h2>
+<p>Untuk memisahkan yang bagus dari satu sesi panjang. Anda bisa memberi bintang dari pustaka maupun dari jendela penyuntingan.</p>
+<table>
+  <tr><th>Tombol</th><th>Fungsinya</th></tr>
+  <tr><td><span class="kbd">1</span>–<span class="kbd">5</span></td><td>Memberi bintang</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>Menandai / melepas bendera</td></tr>
+</table>
+<p>Di pustaka, ini masuk ke seluruh foto terpilih sekaligus. Setelah itu penyaring di bagian atas bisa menampilkan <strong>hanya yang berbendera</strong>, atau dari sekian bintang ke atas. Bintang dan bendera tinggal bersama suntingan Anda, jadi berkas asli sama sekali tak tersentuh.</p>
+</section>
+
+<section id="batch">
+<h2>Banyak sekaligus</h2>
+
+<h3>Membawa suntingan ke foto lain</h3>
+<p>Ketika sebuah foto sudah jadi, nilai-nilainya bisa langsung dipindahkan ke foto lain.</p>
+<ol class="steps">
+  <li><span class="kbd">⌘⇧C</span> pada foto yang Anda suka: menyalin suntingan</li>
+  <li>Buka foto yang Anda tuju lalu tekan <span class="kbd">⌘⇧V</span>: menempelkan suntingan</li>
+</ol>
+<p>Tempelan masuk ke <strong>satu foto yang sedang terbuka</strong> saja. Untuk melanjutkan, tekan <span class="kbd">→</span> ke foto berikutnya lalu <span class="kbd">⌘⇧V</span> lagi.</p>
+<p>Segala sesuatu yang terikat pada posisi — area pengaburan, sapuan kuas penghapus pinggiran warna, pemotongan, topeng penyesuaian setempat — tidak ikut berpindah; foto penerima tetap memakai miliknya sendiri. Wajah berada di tempat yang berbeda pada tiap foto, jadi memang begitulah semestinya.</p>
+
+<h3>Mengekspor satu rangkaian</h3>
+<p>Dengan beberapa foto terpilih, <span class="kbd">⌘E</span> mengekspor semuanya dengan pengaturan yang sama. Lihat <a href="#export">Mengekspor</a>.</p>
+
+<div class="warn">
+<b>Perhatian</b>
+<p>Menempelkan suntingan tidak bisa dibatalkan. Cobalah pada satu foto sebelum menerapkannya ke seluruh rangkaian.</p>
+</div>
+</section>
+
+<section id="versions">
+<h2>Versi</h2>
+<p>Untuk mencuci foto yang sama dengan dua cara lalu membandingkannya berdampingan. Tidak ada yang disalin, jadi tidak menambah satu bita pun di cakram.</p>
+<p><strong>Berkas → Cuci sebagai versi baru</strong> (<span class="kbd">⌘G</span>) di jendela penyuntingan menyimpan nilai-nilai Anda saat ini dan menambahkan satu salinan yang masih perawan di sebelahnya. Ia muncul di deretan film dengan nomor <strong>V2</strong>, <strong>V3</strong>, dan seterusnya.</p>
+<p>Menghapus sebuah versi tidak menyentuh berkas asli. Itulah maksud «berkas asli tetap disimpan» pada kotak konfirmasi.</p>
+</section>
+
+<!-- ══════════ 현상 화면 ══════════ -->
+
+<section id="canvas">
+<h2>Perbesaran dan geseran</h2>
+<table>
+  <tr><th>Tindakan</th><th>Fungsinya</th></tr>
+  <tr><td><span class="kbd">⌘=</span></td><td>Perbesar</td></tr>
+  <tr><td><span class="kbd">⌘-</span></td><td>Perkecil</td></tr>
+  <tr><td><span class="kbd">⌘0</span></td><td>Paskan ke jendela</td></tr>
+  <tr><td><span class="kbd">⌘1</span></td><td>100 %: piksel sesungguhnya</td></tr>
+  <tr><td><span class="kbd">Space</span> + seret</td><td>Mendorong foto</td></tr>
+  <tr><td>Cubit di trackpad</td><td>Memperbesar dan memperkecil</td></tr>
+  <tr><td>Gulir dua jari di trackpad</td><td>Menggulir</td></tr>
+  <tr><td><span class="kbd">O</span></td><td>Menampilkan / menyembunyikan bilah perbesaran</td></tr>
+</table>
+<p>Segala sesuatu yang harus dinilai piksel demi piksel — ketajaman, butiran — memerlukan <span class="kbd">⌘1</span> dan 100 %. Di bawah itu, foto digambar mengecil agar muat di jendela, jadi yang Anda lihat bukan yang Anda dapat.</p>
+</section>
+
+<section id="inspect">
+<h2>Membandingkan dengan aslinya dan peringatan pemenggalan</h2>
+
+<h3>Lihat aslinya <span class="kbd">M</span></h3>
+<p>Menampilkan foto sebelum suntingan selama Anda menahan tombolnya. Cara tercepat untuk memeriksa apakah Anda benar-benar membuatnya lebih baik.</p>
+
+<h3>Peringatan pemenggalan <span class="kbd">J</span></h3>
+<p>Bagian yang terbakar menjadi putih murni ditutupi merah; yang terhimpit menjadi hitam pekat ditutupi biru.</p>
+<p>Satu kanal saja yang mentok — kelopak bunga merah menyala, misalnya — masih menyisakan warna, jadi tidak ada peringatan. Hanya <strong>area yang ketiga kanalnya mentok dan informasinya benar-benar hilang</strong> yang ditandai. Kalau peringatan pemenggalan muncul di atas foto, satu klik menyalakan dan mematikan penandaannya.</p>
+
+<h3>Histogram</h3>
+<p>Histogram di panel kanan menunjukkan bagaimana kecerahan tersebar. Menumpuk di tepi kiri berarti ujung gelap sedang terpenggal; di tepi kanan berarti ujung terang.</p>
+</section>
+
+<section id="compare">
+<h2>Tampilan perbandingan</h2>
+<p>Menaruh dua foto berdampingan. Untuk memilih di antara dua foto dari satu adegan, atau membandingkan versi.</p>
+<ol class="steps">
+  <li>Tekan <strong>Bandingkan</strong> di bilah perkakas.</li>
+  <li>Foto sekarang di kiri; di kanan Anda memilih foto pembandingnya.</li>
+  <li>Samakan perbesarannya dan keduanya bergerak bersama, jadi Anda melihat bagian yang sama pada ukuran yang sama.</li>
+</ol>
+</section>
+
+<section id="sections">
+<h2>Bekerja dengan bagian penyesuaian</h2>
+<p>Panel kanan terbagi menjadi beberapa bagian. Tiap bagian bisa dilipat, dan urutannya bisa diubah.</p>
+
+<h3>Mematikan sebuah bagian</h3>
+<p>Sakelar di samping judul sebuah bagian menggambar foto dengan nilai-nilai bagian itu kembali ke bawaannya. <strong>Tidak ada yang terhapus</strong>: nyalakan lagi dan semuanya kembali. Berguna untuk bertanya pada diri sendiri, «apakah bagian ini benar-benar menolong?».</p>
+
+<h3>Membuka, menutup, menata ulang</h3>
+<ul>
+  <li><span class="kbd">,</span> membuka semua bagian · <span class="kbd">.</span> menutup semuanya</li>
+  <li>Seret judul sebuah bagian untuk memindahkannya. Urutan yang Anda tetapkan akan bertahan untuk lain kali.</li>
+</ul>
+
+<h3>Kembali</h3>
+<ul>
+  <li>Klik ganda nama sebuah kendali dan nilai itu kembali ke keadaan bawaannya.</li>
+  <li>Tombol setel ulang di samping judul bagian mengosongkan seluruh bagian itu.</li>
+  <li><span class="kbd">⌥⌘R</span>: menghapus seluruh suntingan pada foto ini.</li>
+</ul>
+
+<div class="tip">
+<b>Menyetel penggeser dengan halus</b>
+<p>Tahan <span class="kbd">⌥</span> sambil menyeret sebuah kendali untuk langkah yang lebih halus. Anda juga bisa mengeklik angkanya dan mengetik nilainya.</p>
+</div>
+</section>
+
+
+<!-- ══════════ 조정 항목 ══════════ -->
+
+<section id="presets">
+<h2>Prasetel</h2>
+<p>Menyimpan <strong>seluruh nilai suntingan</strong> foto sekarang sebagai satu keping, siap untuk foto lain. Film, nada, dan penyesuaian setempat, semuanya masuk.</p>
+
+<h3>Membuat satu</h3>
+<ol class="steps">
+  <li>Garap sebuah foto sampai Anda suka.</li>
+  <li>Tekan <strong>+</strong> di bagian prasetel lalu beri nama.</li>
+  <li>Menyimpan dengan nama yang sama akan menimpanya.</li>
+</ol>
+
+<h3>Memakainya</h3>
+<p>Daftarnya menampilkan tiap prasetel sebagai gambar kecil dari foto Anda sekarang dengan prasetel itu diterapkan. Satu klik untuk menerapkannya. Ukuran gambar kecilnya bisa <strong>Sangat kecil · Kecil · Besar</strong>.</p>
+
+<div class="tip">
+<b>Beda prasetel dan film</b>
+<p><strong>Film</strong> adalah sebuah transformasi warna. <strong>Prasetel</strong> adalah seluruh suntingan, termasuk filmnya. Ingin memakai ulang «warna itu» saja? Film. Ingin «semua yang dilakukan pada foto ini»? Prasetel.</p>
+</div>
+</section>
+
+<section id="film">
+<h2>Resep film</h2>
+<p>Jantungnya Rawcookr. Pilih sebuah film bawaan lalu garap nada dan warnanya di atasnya.</p>
+
+<h3>Memilih film</h3>
+<p>Ikon film di bagian atas seksi ini membuka daftar yang dikelompokkan menurut keluarga.</p>
+<table class="wide">
+  <tr><th>Keluarga</th><th>Jumlah</th><th>Watak</th></tr>
+  <tr><td>F.film</td><td>11</td><td>Standard · Vivid · Soft · Vintage Chrome · Natural · Portrait Alto/Standard · Cool Negative · Retro Negative · Cinema · Bleach Bypass</td></tr>
+  <tr><td>KoD</td><td>5</td><td>Portrait 400 · Daily 200 · Fine 100 · Chrome 64 · Mono 400</td></tr>
+  <tr><td>R.co</td><td>6</td><td>Positive · Negative · Retro · Cinema Yellow · Cinema Green · High-Con Mono</td></tr>
+  <tr><td>IlFd</td><td>2</td><td>Mono 400 · Fine 50</td></tr>
+  <tr><td>Klasik</td><td>3</td><td>Tungsten 800T · Classic Daily 400 · Cross Process</td></tr>
+  <tr><td>Hitam putih</td><td>9</td><td>Empat rupa Mono Fine (tanpa penapis / Ye / R / G) · empat rupa Mono · Sepia</td></tr>
+</table>
+<p><strong>Film buatan Anda sendiri</strong> ditambahkan di sini. Lihat <a href="#customfilm">Membuat film Anda sendiri</a>.</p>
+
+<div class="note">
+<b>Perihal nama</b>
+<p>Tiap film adalah transformasi warna yang dibangun sendiri oleh Rawcookr, dengan namanya sendiri. Tidak satu pun terikat pada produk pabrikan mana pun.</p>
+</div>
+
+<h3>Nilai-nilai film berwarna</h3>
+<table>
+  <tr><th>Butir</th><th>Rentang</th><th>Fungsinya</th></tr>
+  <tr><td>Nada sorotan</td><td>−2 sampai +12</td><td>Kontras di ujung terang. Ke atas lebih keras, ke bawah lebih lembut.</td></tr>
+  <tr><td>Nada bayangan</td><td>−2 sampai +4</td><td>Kontras di ujung gelap.</td></tr>
+  <tr><td>Warna</td><td>−4 sampai +4</td><td>Kepekatan pada seluruh film.</td></tr>
+  <tr><td>Rona</td><td>−4 sampai +4</td><td>Memutar semua warna ke satu arah. Tiga derajat tiap langkah.</td></tr>
+  <tr><td>Tombol</td><td>−4 sampai +4</td><td>Menaikkan atau menurunkan kecerahan tengah.</td></tr>
+  <tr><td>Kontras</td><td>−4 sampai +4</td><td>Melebarkan kontras di sekitar titik tengah.</td></tr>
+  <tr><td>Kejernihan</td><td>−5 sampai +5</td><td>Tekstur. Negatif melembutkan, positif menegaskan.</td></tr>
+  <tr><td>Ketajaman</td><td>−4 sampai +4</td><td>Setajam apa film itu sendiri. Negatif mengaburkan.</td></tr>
+  <tr><td>Pembayangan</td><td>−4 sampai +4</td><td>Jatuhnya cahaya ke arah tepi. Positif menggelapkan sudut.</td></tr>
+  <tr><td>Geser WB R · B</td><td>−9 sampai +9</td><td>Mendorong sedikit merah dan biru untuk memiringkan warna.</td></tr>
+</table>
+
+<h3>Nilai-nilai film hitam putih</h3>
+<p>Menggantikan nilai-nilai warna, muncul <strong>Toning WC</strong> dan <strong>Toning MG</strong> (masing-masing −18 sampai +18). WC berjalan dari hangat ke dingin, MG dari magenta ke hijau. Bersama-sama keduanya menjangkau dari sepia sampai kebiruan yang dingin.</p>
+
+<h3>Butiran</h3>
+<p>Menaruh butiran film di atas foto. Kekuatannya <strong>Tidak ada · Lembut · Kuat</strong> dan ukurannya <strong>Kecil · Besar</strong>. Kalau kekuatannya tidak ada, ukurannya terkunci.</p>
+
+<div class="tip">
+<b>Periksalah butiran pada 100 %</b>
+<p>Butiran bekerja piksel demi piksel, jadi pada perbesaran pas jendela nyaris tak terlihat. Nilailah pada 100 % dengan <span class="kbd">⌘1</span>.</p>
+</div>
+</section>
+
+<section id="wb">
+<h2>Keseimbangan putih</h2>
+<p>Menetapkan suhu warna. Dengan berkas RAW, Anda bisa menyimpan apa yang direkam kamera atau mengubahnya sendiri.</p>
+<table>
+  <tr><th>Butir</th><th>Rentang</th><th>Fungsinya</th></tr>
+  <tr><td>Suhu</td><td>2000 – 12000 K</td><td>Ke bawah menjadi biru, ke atas menjadi kuning.</td></tr>
+  <tr><td>Rona warna</td><td>−100 sampai +100</td><td>Berjalan antara hijau dan magenta. Berguna di bawah lampu neon.</td></tr>
+</table>
+
+<h3>Menetapkannya dengan penyedot warna</h3>
+<p>Tekan penyedot warna lalu klik <strong>sesuatu pada foto yang semestinya abu-abu netral</strong>. Suhu dan rona warnanya akan disetel agar titik itu menjadi abu-abu. Tembok putih, aspal kelabu, atau bagian berbayang dari kemeja putih adalah patokan yang baik. Kalau Anda mengeklik sesuatu yang memang berwarna, hasilnya akan melenceng jauh.</p>
+
+<h3>Sapuan warna</h3>
+<p>Ikon kuas di sebelah kiri penyedot warna. Satu klik membuka peta warna, satu klik lagi menutupnya. Tahan dan seret untuk menyetelnya sambil melihat; peta yang dibiarkan terbuka bisa diangkat dan dipindahkan.</p>
+<ul>
+  <li>Kiri dan kanan adalah suhu: makin ke kanan makin hangat.</li>
+  <li>Atas dan bawah adalah rona warna: ke atas magenta, ke bawah hijau.</li>
+  <li>Tahan <span class="kbd">⌥</span> sambil menyeret untuk langkah yang lebih halus.</li>
+</ul>
+<p>Berkas RAW berangkat dari apa yang direkam kamera. Tombol setel ulang pada judul bagian mengembalikan Anda tepat ke keadaan itu.</p>
+</section>
+
+<section id="light">
+<h2>Cahaya</h2>
+<p>Bagian dasar untuk kecerahan dan kontras. Kebanyakan foto hampir selesai di sini.</p>
+<table>
+  <tr><th>Butir</th><th>Rentang</th><th>Fungsinya</th></tr>
+  <tr><td>Pencahayaan</td><td>−3 sampai +3 EV</td><td>Kecerahan menyeluruh. Ini diterapkan saat penyandian RAW, jadi inilah cara paling bersih untuk mengubahnya.</td></tr>
+  <tr><td>Kontras</td><td>−100 sampai +100</td><td>Jarak antara terang dan gelap.</td></tr>
+  <tr><td>Sorotan</td><td>−100 sampai +100</td><td>Menarik kembali langit atau sumber cahaya yang terbakar. Cadangan yang disisihkan oleh rentang dinamis yang diperluas dikeluarkan di sini.</td></tr>
+  <tr><td>Bayangan</td><td>−100 sampai +100</td><td>Mengangkat tekstur di tempat remang.</td></tr>
+  <tr><td>Putih</td><td>−100 sampai +100</td><td>Di mana ujung terang berhenti.</td></tr>
+  <tr><td>Hitam</td><td>−100 sampai +100</td><td>Di mana ujung gelap berhenti. Diangkat sedikit memberi rasa film.</td></tr>
+  <tr><td>Ketegasan</td><td>−100 sampai +100</td><td>Kontras pada tekstur berukuran sedang. Negatif menghaluskan kulit, positif menarik keluar awan dan bata.</td></tr>
+  <tr><td>Kepekatan</td><td>−100 sampai +100</td><td>Semua warna, sama rata.</td></tr>
+  <tr><td>Kesegaran</td><td>−100 sampai +100</td><td>Mengangkat warna-warna yang lebih pucat lebih dulu. Tidak mengusik nada kulit, jadi aman untuk foto berorang.</td></tr>
+  <tr><td>Pudar</td><td>0 – 100</td><td>Mengangkat bagian hitam untuk kesan luntur.</td></tr>
+</table>
+
+<div class="note">
+<b>Area terang dan area gelap diproses setempat</b>
+<p>Keduanya tidak mengalikan seluruh foto dengan sebuah angka. Keduanya memisahkan hanya bagian yang terang, atau hanya yang gelap, sambil menahan tepian. Turunkan langit dan nada tengah tepat di sebelahnya tetap diam, tanpa lingkaran putih di perbatasan.</p>
+</div>
+</section>
+
+<section id="curve">
+<h2>Kurva nada</h2>
+<p>Menggambar sendiri pemetaan kecerahan. Menjangkau kehalusan yang tak tersentuh oleh penggeser.</p>
+
+<h3>Cara memakainya</h3>
+<ul>
+  <li>Klik pada garisnya untuk menambah titik lalu seret untuk memindahkannya.</li>
+  <li>Seret sebuah titik keluar dari tepi untuk menghapusnya.</li>
+  <li><strong>RGB</strong> adalah kecerahan menyeluruh; <strong>R · G · B</strong> adalah tiap kanal secara terpisah. Menyentuh satu kanal akan menggeser warna, dan justru itulah yang Anda mau saat membangun sebuah rupa.</li>
+  <li>Melengkung ke atas di tengah membuatnya lebih terang; berbentuk S menaikkan kontras.</li>
+  <li><strong>Setel ulang kanal ini saja</strong> meluruskan hanya kurva yang sedang Anda lihat.</li>
+</ul>
+
+<h3>Tiga penyedot warna</h3>
+<p>Klik sebuah titik patokan di foto dan kurvanya menata dirinya sendiri. R, G, dan B bergerak <strong>bersama</strong> agar titik itu menjadi warna patokan.</p>
+<table class="wide">
+  <tr><th>Penyedot warna</th><th>Di mana mengeklik</th></tr>
+  <tr><td>Titik hitam</td><td>Sesuatu yang semestinya hitam pekat. Bayangan yang paling dalam.</td></tr>
+  <tr><td>Abu-abu netral</td><td>Sesuatu yang semestinya netral. Beton kelabu, pakaian tanpa warna.</td></tr>
+  <tr><td>Titik putih</td><td>Sesuatu yang semestinya putih murni. Kertas putih, tembok putih.</td></tr>
+</table>
+<p>Klik ketiganya berturut-turut dan keseimbangan warna serta kontras selesai sekaligus. Cara tercepat menarik kembali foto yang melenceng jauh ke keadaan wajar.</p>
+</section>
+
+<section id="hsl">
+<h2>Rona dan kepekatan</h2>
+<p>Membagi warna menjadi dua belas pita dan mengurusnya satu per satu.</p>
+<p><strong>Merah · Jingga · Kuning · Hijau limau · Hijau · Zamrud · Sian · Biru langit · Biru · Ungu · Magenta · Merah muda</strong>: tiap 30°, menutupi lingkarannya secara merata.</p>
+<table>
+  <tr><th>Butir</th><th>Rentang</th><th>Fungsinya</th></tr>
+  <tr><td>Rona</td><td>−30 sampai +30</td><td>Memutar warna itu ke arah tetangganya.</td></tr>
+  <tr><td>Kepekatan</td><td>−100 sampai +100</td><td>Hanya warna itu, lebih pekat atau lebih pucat.</td></tr>
+  <tr><td>Luminansi</td><td>−100 sampai +100</td><td>Hanya warna itu, lebih terang atau lebih gelap.</td></tr>
+</table>
+
+<h3>Memilih langsung di peta warna</h3>
+<p><strong>Tahan</strong> sebuah contoh warna lalu seret: sebuah peta terbuka.</p>
+<ul>
+  <li>Menyeret mendatar untuk <strong>rona</strong></li>
+  <li>Menyeret tegak untuk <strong>kepekatan</strong></li>
+  <li>Menahan <span class="kbd">⌘</span> lalu menyeret tegak untuk <strong>luminansi</strong></li>
+</ul>
+<p>Satu gerakan saja menemukan titiknya, alih-alih bolak-balik antara tiga penggeser.</p>
+
+<div class="tip">
+<b>Sentuhan yang sering dipakai</b>
+<p>Langit yang lebih dalam: naikkan kepekatan biru dan biru langit lalu turunkan luminansinya. Hijau yang lebih tenang: turunkan kepekatan hijau dan tarik ronanya sedikit ke arah kuning. Kulit yang wajar: turunkan sedikit kepekatan jingga dan naikkan sedikit luminansinya.</p>
+</div>
+</section>
+
+<section id="levels">
+<h2>Aras</h2>
+<p>Menetapkan sendiri rentang masukan dan keluaran. Lebih sederhana daripada kurva, dan lebih cepat kalau titik putih dan hitamnya harus jatuh tepat.</p>
+<table>
+  <tr><th>Butir</th><th>Rentang</th><th>Fungsinya</th></tr>
+  <tr><td>Hitam masukan</td><td>0 – 0,9</td><td>Semua yang lebih gelap dari itu menjadi hitam.</td></tr>
+  <tr><td>Putih masukan</td><td>0,1 – 1</td><td>Semua yang lebih terang dari itu menjadi putih.</td></tr>
+  <tr><td>Gamma</td><td>0,2 – 3</td><td>Menaikkan atau menurunkan kecerahan tengah.</td></tr>
+  <tr><td>Hitam keluaran</td><td>0 – 0,9</td><td>Kecerahan tempat titik tergelap berakhir. Diangkat, rupanya menjadi luntur.</td></tr>
+  <tr><td>Putih keluaran</td><td>0,1 – 1</td><td>Kecerahan tempat titik paling terang berakhir. Diturunkan, bagian putihnya tertahan.</td></tr>
+</table>
+<p>Nyalakan peringatan pemenggalan dengan <span class="kbd">J</span> sambil menyempitkan ujung masukan. Anda akan melihat tepat di mana informasinya mulai lenyap.</p>
+</section>
+
+<section id="colorgrade">
+<h2>Keseimbangan warna tiga arah</h2>
+<p>Menaruh warna yang berbeda pada bagian gelap, tengah, dan terang. Cara yang lazim dalam penataan warna sinema.</p>
+<ul>
+  <li>Seret pusat sebuah roda untuk arah dan kekuatannya. Makin dekat ke pusat makin lemah.</li>
+  <li><strong>Luminansi</strong> dan <strong>kepekatan</strong> tiap pita (−100 sampai +100) disetel terpisah.</li>
+</ul>
+<p>Memisahkan kepekatan per pita memungkinkan bayangan tetap tenang sementara hanya bagian terang yang hidup.</p>
+<div class="tip">
+<b>Satu resep baku</b>
+<p>Dorong bayangan pelan-pelan ke arah biru kehijauan dan sorotan ke arah jingga, dan Anda akan mendapat rasa sinema yang sudah dikenal. Keduanya saling berhadapan pada lingkaran warna, dan itulah yang melepaskan sosok orang dari latarnya. Kuncinya: pakai sedikit sekali.</p>
+</div>
+</section>
+
+<section id="selective">
+<h2>Warna selektif</h2>
+<p>Membagi warna menjadi sembilan jangkauan dan memperbaiki tiap jangkauan dengan menambah atau mengurangi sian, magenta, kuning, dan hitam. Berasal dari dunia cetak, dan menangkap semburat tipis yang tak terjangkau oleh rona dan kepekatan.</p>
+
+<h3>Jangkauan warnanya</h3>
+<p>Enam warna — <strong>merah · kuning · hijau · sian · biru · magenta</strong> — dan tiga pita kecerahan, <strong>putih · netral · hitam</strong>. Jangkauan yang sudah Anda sentuh ditandai di daftarnya.</p>
+
+<table>
+  <tr><th>Butir</th><th>Rentang</th><th>Fungsinya</th></tr>
+  <tr><td>Sian</td><td>−100 sampai +100</td><td>Ke atas menambah sian; ke bawah menuju merah.</td></tr>
+  <tr><td>Magenta</td><td>−100 sampai +100</td><td>Ke atas magenta; ke bawah menuju hijau.</td></tr>
+  <tr><td>Kuning</td><td>−100 sampai +100</td><td>Ke atas kuning; ke bawah menuju biru.</td></tr>
+  <tr><td>Hitam</td><td>−100 sampai +100</td><td>Menggelapkan atau menerangkan jangkauan itu.</td></tr>
+</table>
+
+<h3>Relatif dan mutlak</h3>
+<table class="wide">
+  <tr><th>Cara</th><th>Artinya apa</th></tr>
+  <tr><td>Relatif</td><td>Mengubah tiap kadar sebesar persentase dari yang sudah ada. Di tempat warna itu tak ada, tak ada yang terjadi, jadi putih murni tetap utuh. Lebih aman untuk kebanyakan keadaan.</td></tr>
+  <tr><td>Mutlak</td><td>Menambahkan kadar itu apa adanya. Perubahannya lebih besar dan lebih pasti, tapi lebih cepat menjadi kasar.</td></tr>
+</table>
+
+<div class="tip">
+<b>Sentuhan yang sering dipakai</b>
+<p>Kulit terlalu merah: naikkan sedikit sian pada <strong>merah</strong>. Langit keruh: naikkan sedikit hitam pada <strong>biru</strong> agar lebih dalam. Tembok putih yang menguning: turunkan kuning pada <strong>putih</strong>.</p>
+</div>
+</section>
+
+<section id="local">
+<h2>Penyesuaian setempat</h2>
+<p>Menerapkan perbaikan hanya pada sebagian foto. Buat sebuah topeng lalu setel di dalamnya. Topeng yang dibuat juga muncul di bagian <a href="#layers">Lapisan</a>, bersama lapisan-lapisan yang bertumpuk.</p>
+
+<h3>Tiga jenis topeng</h3>
+<table class="wide">
+  <tr><th>Jenis</th><th>Cara membuatnya</th><th>Untuk apa</th></tr>
+  <tr><td>Linear</td><td>Seret pada foto ke satu arah. Titik awalnya 100 %, titik akhirnya 0 %.</td><td>Menurunkan langit atau mengangkat latar depan</td></tr>
+  <tr><td>Radial</td><td>Gambar sebuah elips. Di dalam 100 %, di tepi 0 %.</td><td>Menonjolkan seseorang atau sebuah subjek</td></tr>
+  <tr><td>Kuas</td><td>Warnai sendiri areanya.</td><td>Bentuk yang tidak beraturan</td></tr>
+</table>
+<ul>
+  <li><strong>Pengaburan tepi</strong> (0 – 1): selembut apa tepinya. 0 tajam, 1 melebur sangat perlahan.</li>
+  <li><strong>Ukuran kuas</strong> (20 – 600)</li>
+  <li><strong>Balik topeng</strong>: perbaikannya masuk ke <em>semua yang lain</em>.</li>
+  <li>Anda bisa membuat beberapa topeng dan menyalakan atau mematikannya satu per satu.</li>
+</ul>
+
+<h3>Apa yang bisa disetel di dalam sebuah topeng</h3>
+<table>
+  <tr><th>Butir</th><th>Rentang</th></tr>
+  <tr><td>Pencahayaan</td><td>−2 sampai +2 EV</td></tr>
+  <tr><td>Kontras · Sorotan · Bayangan</td><td>masing-masing −100 sampai +100</td></tr>
+  <tr><td>Kepekatan · Kejernihan</td><td>masing-masing −100 sampai +100</td></tr>
+  <tr><td>Kehangatan · Rona warna</td><td>masing-masing −100 sampai +100</td></tr>
+</table>
+</section>
+
+<section id="layers">
+<h2>Lapisan</h2>
+<p>Menumpuk lapisan di atas foto yang sudah dicuci. Lapisan penyesuaian mengerjakan ulang apa yang ada di bawahnya, lapisan warna padat menutupinya, dan lapisan bertopeng hanya menyentuh apa yang Anda tandai.</p>
+
+<h3>Tiga jenis lapisan</h3>
+<table class="wide">
+  <tr><th>Jenis</th><th>Fungsinya</th></tr>
+  <tr><td>Penyesuaian</td><td>Satu putaran lagi Cahaya, Kurva nada, Aras, Rona dan kepekatan, Keseimbangan tiga arah, ditambah hitam putih dan pembalikan. Untuk saat Anda menginginkan penyesuaian yang sama dua kali, dengan kekuatan berbeda.</td></tr>
+  <tr><td>Warna padat</td><td>Menutupi semuanya dengan warna pilihan Anda. Dengan sebuah mode pencampuran, ia menjadi penapis warna.</td></tr>
+  <tr><td>Topeng</td><td>Hanya diterapkan di tempat yang Anda tandai dengan topeng linear, radial, atau kuas. Topeng yang sama dengan penyesuaian setempat.</td></tr>
+</table>
+<p>Lapisan bertopeng diterapkan lebih dulu ke foto; lapisan di atasnya menumpuk pada hasil itu.</p>
+
+<h3>Mode pencampuran</h3>
+<p>Ada enam belas.</p>
+<table class="wide">
+  <tr><th>Kelompok</th><th>Cara</th></tr>
+  <tr><td>Dasar</td><td>Normal</td></tr>
+  <tr><td>Menggelapkan</td><td>Perkalian · Bakar warna · Menggelapkan</td></tr>
+  <tr><td>Menerangkan</td><td>Tirai · Hindar warna · Menerangkan</td></tr>
+  <tr><td>Kontras</td><td>Hamparan · Cahaya lembut · Cahaya keras</td></tr>
+  <tr><td>Selisih</td><td>Selisih · Pengecualian</td></tr>
+  <tr><td>Komponen warna</td><td>Rona · Kepekatan · Warna · Luminansi</td></tr>
+</table>
+<p>Kekuatannya disetel dengan <strong>keburaman</strong>.</p>
+
+<h3>Menjaga urutan</h3>
+<ul>
+  <li><strong>Tampilkan lapisan ini</strong>: ikon mata mematikan dan menyalakannya.</li>
+  <li><strong>Naik · Turun</strong>: mengubah urutan tumpukan.</li>
+  <li><strong>Gabungkan dengan lapisan bawah</strong>: menyatukan keduanya menjadi satu. Nilai-nilai masing-masing tetap tersimpan apa adanya.</li>
+  <li><strong>Batalkan penggabungan</strong>: memisahkan kembali lapisan yang sudah digabung.</li>
+  <li><strong>Hapus lapisan ini</strong></li>
+</ul>
+
+<div class="tip">
+<b>Cara paling sederhana memberi warna</b>
+<p>Tambahkan sebuah lapisan warna padat lalu setel mode pencampurannya ke <strong>Warna</strong>: kecerahannya tetap di tempatnya, hanya warnanya yang menutupi foto. Setel kekuatannya dengan keburaman dan Anda mendekati pewarnaan ala kamar gelap.</p>
+</div>
+</section>
+
+<section id="detail">
+<h2>Kehalusan</h2>
+<p>Mengurus ketajaman dan derau. Bagian ini harus <strong>dinilai pada perbesaran 100 %</strong>.</p>
+<table>
+  <tr><th>Butir</th><th>Rentang</th><th>Fungsinya</th></tr>
+  <tr><td>Ketajaman</td><td>−4 sampai +4</td><td>Ketajaman pada tahap penyandian RAW. 0 adalah nilai bawaan macOS; dari situ ditambah atau dikurangi setiap langkah.</td></tr>
+  <tr><td>Peredaman derau warna</td><td>−4 sampai +4</td><td>Menekan bercak warna. 0 adalah bawaannya. Naikkan pada ISO tinggi.</td></tr>
+  <tr><td>Penajaman</td><td>0 – 300 %</td><td>Sebuah unsharp mask yang dipasang setelah pencucian. Terpisah dari ketajaman di atas.</td></tr>
+  <tr><td>Jejari</td><td>0,5 – 5 px</td><td>Lebar tempat penajaman bekerja. Kecil berarti tekstur halus, besar berarti garis tebal.</td></tr>
+</table>
+<p>Penajaman hanya mengenai kanal kecerahan, jadi batas warnanya tidak meleber.</p>
+</section>
+
+<section id="effects">
+<h2>Efek</h2>
+
+<h3>Vignet</h3>
+<p><strong>Vignet</strong> (−100 sampai +100): negatif membuat tepi menggelap, positif membuatnya menerang. <strong>Titik tengah</strong> (0 – 100) adalah jarak tempat efeknya mulai. Diturunkan, ia merembet sampai dekat pusat.</p>
+
+<h3>Monokrom · Pembalikan</h3>
+<ul>
+  <li><strong>Monokrom</strong> — membuang warna, menyisakan hitam putih.</li>
+  <li><strong>Pembalikan (negatif)</strong> — membalik kecerahan dan warna. Dipakai untuk mengembalikan pindaian dari film negatif menjadi positif.</li>
+</ul>
+
+<h3>LUT luar</h3>
+<p>Memuat berkas <span class="path">.cube</span> yang Anda punya lalu memasangnya. <strong>Kekuatan LUT</strong> (0 – 100) mengatur kadarnya.</p>
+<p>Di sini ada dua perkakas lagi.</p>
+<table class="wide">
+  <tr><th>Tombol</th><th>Fungsinya</th></tr>
+  <tr><td>Terapkan sebagai LUT (.cube)…</td><td>Memasang LUT terpilih apa adanya.</td></tr>
+  <tr><td>Ubah menjadi nilai penyesuaian lalu impor…</td><td>Menganalisis apa yang dilakukan LUT itu lalu menguraikannya menjadi <em>nilai penggeser</em>: kurva nada, kepekatan, HSL, dan keseimbangan warna tiga arah. Setelah terurai, Anda bisa terus menggarapnya di atas itu.</td></tr>
+</table>
+</section>
+
+<section id="defringe">
+<h2>Penghapusan aberasi kromatik</h2>
+<p>Membuang luberan warna yang disebabkan lensa. Dua sebab yang berbeda, diurus terpisah.</p>
+
+<h3>Koreksi aberasi kromatik lateral</h3>
+<p>Lensa membentuk merah, hijau, dan biru pada <strong>ukuran yang sedikit berbeda</strong>, sehingga makin ke tepi bingkai makin muncul pita sian dan magenta. Ini tak bisa dihapus dengan mengurangi warna; <strong>kanal yang bergeser harus dikembalikan ke tempatnya</strong> agar hilang.</p>
+<ul>
+  <li>Dinyalakan, ia menganalisis foto dan menetapkan kadar koreksinya sendiri.</li>
+  <li>Anda bisa menyetelnya halus sendiri dengan <strong>Skala merah · Skala biru</strong> (0,994 – 1,006).</li>
+  <li><strong>Ukur ulang</strong> menghitung kembali dengan foto sekarang.</li>
+</ul>
+
+<h3>Penghapusan pinggiran warna</h3>
+<p>Menghapus tepian ungu, hijau, dan merah menyala yang tersisa di perbatasan pada cahaya lawan yang kuat.</p>
+<table>
+  <tr><th>Butir</th><th>Rentang</th></tr>
+  <tr><td>Hapus ungu · Hapus hijau · Hapus merah</td><td>masing-masing 0 – 3</td></tr>
+</table>
+<ul>
+  <li>Nyalakan <strong>Hanya di tempat yang dikuas</strong> dan koreksinya hanya bekerja di bagian yang Anda warnai. Kalau dipasang ke seluruh foto, yang memang benar-benar berwarna itu (bunga ungu, papan nama merah) ikut pudar, jadi mengecat hanya bagian bermasalah lebih aman.</li>
+  <li><strong>Ukuran kuas</strong> antara 10 dan 300.</li>
+  <li><strong>Sembunyikan area yang dikuas</strong> mematikan tandanya sejenak agar hanya hasilnya yang terlihat.</li>
+  <li><strong>Batalkan sapuan terakhir</strong> · <strong>Hapus semuanya</strong> untuk kembali.</li>
+</ul>
+</section>
+
+<section id="mist">
+<h2>Mist</h2>
+<p>Padanan digital dari penapis difusi optik yang dipasang di depan lensa. Bagian terang meleber lembut, kontras mengendur, dan kulit menjadi lunak.</p>
+<table>
+  <tr><th>Tingkat</th><th>Rasa</th></tr>
+  <tr><td>Tidak ada</td><td>Mati</td></tr>
+  <tr><td>1/8</td><td>Paling lemah. Aman untuk potret.</td></tr>
+  <tr><td>1/4</td><td>Kelembutannya mulai tertangkap mata.</td></tr>
+  <tr><td>1/2</td><td>Pada foto malam dan cahaya lawan, titik cahaya jelas merekah.</td></tr>
+  <tr><td>1</td><td>Paling kuat. Suasananya berubah banyak.</td></tr>
+</table>
+<p>Nyalakan <strong>Sebarkan sampai ke bayangan</strong> dan cahaya meleber bukan hanya di tempat terang tapi juga di bagian gelap, memberi kesan cetakan film lama.</p>
+<p>Mist bekerja di tempat ada cahaya. Harus ada sumber cahaya, langit yang terang, atau rambut yang tersorot dari belakang agar terlihat; pada foto yang datar dan mendung, yang terjadi hanya kontrasnya menurun.</p>
+</section>
+
+<section id="privacy">
+<h2>Pengaburan privasi</h2>
+<p>Menutupi wajah orang lain dan pelat nomor kendaraan yang tak sengaja ikut terekam di foto.</p>
+
+<h3>Pencarian otomatis</h3>
+<p>Saat foto dibuka, ia mencari wajah dan pelat nomor lalu menandainya sebagai area. Pendeteksian berjalan pada <strong>resolusi asli</strong>, jadi ia menemukan wajah kecil yang pada pratinjau yang diperkecil akan luluh dan terlewat.</p>
+<p>Area yang ditemukan muncul dalam sebuah daftar dan bisa dinyalakan satu per satu. Orang yang tak perlu ditutupi — misalnya teman seperjalanan Anda — tinggal dimatikan saja.</p>
+
+<h3>Menggambar sendiri</h3>
+<ol class="steps">
+  <li>Tekan <strong>Pilih area yang akan dikaburkan</strong>.</li>
+  <li>Seret pada foto untuk membuat sebuah area.</li>
+  <li>Anda bisa menggambar beberapa berturut-turut; setelah selesai, tekan tombolnya lagi untuk mengakhiri.</li>
+</ol>
+<p>Untuk memindahkan foto sambil menggambar, tahan <span class="kbd">Space</span> lalu seret.</p>
+
+<h3>Bentuk dan kekuatan</h3>
+<table>
+  <tr><th>Butir</th><th>Pilihannya</th></tr>
+  <tr><td>Cara</td><td>Pengaburan / Mosaik</td></tr>
+  <tr><td>Bentuk</td><td>Persegi panjang / Elips</td></tr>
+  <tr><td>Kekuatan</td><td>0,4 – 2,0</td></tr>
+</table>
+<p>Untuk wajah, elips terasa wajar; untuk pelat nomor dan papan nama, persegi panjang.</p>
+
+<div class="warn">
+<b>Periksalah sebelum mengunggah</b>
+<p>Pendeteksian otomatis bisa melewatkan wajah menyamping, wajah bermasker, atau wajah di tempat yang sangat gelap. Kalau fotonya akan dipublikasikan, sebaiknya periksa sekali pada 100 % dengan <span class="kbd">⌘1</span> sebelum mengekspor.</p>
+</div>
+</section>
+
+<section id="frame">
+<h2>Cap tanggal</h2>
+
+<div class="note">
+<b>Bingkai sudah pindah ke mount</b>
+<p>Memberi marjin di sekeliling foto agar pas pada rasio tertentu kini menjadi urusan <a href="#mount">Mount</a>. Taruh satu foto saja, tentukan rasio dan <strong>Bingkai</strong>, dan hasilnya sama dengan bingkai yang lama, lengkap dengan jarak, sudut, dan warna latar.</p>
+</div>
+
+<h3>Cap tanggal</h3>
+<p>Tekan tombol <strong>Cap tanggal</strong> di bagian Resep film untuk membuka pengaturannya.</p>
+<p>Menaruh tanggal pemotretan di kanan bawah, seperti databack kamera film. Angkanya digambar sendiri dalam bentuk tujuh ruas, jadi wujudnya sama di Mac mana pun.</p>
+<p>Tanggalnya dibaca dari informasi pemotretan foto. Urutan penulisannya (susunan tahun, bulan, hari) bisa dipilih.</p>
+<p>Cap itu masuk sebelum simulasi film. Karena itu ia menerima film, nada, butiran, dan mist <strong>persis seperti</strong> fotonya, dan tampak terpapar bersama-sama, bukan tulisan yang ditempelkan belakangan.</p>
+</section>
+
+
+<!-- ══════════ 마운트 ══════════ -->
+
+<section id="mount">
+<h2>Menaruh foto di lembar</h2>
+<p>Mount adalah ruang kerja tempat beberapa foto ditaruh pada satu lembar lalu dijadikan satu gambar. Saat mengunggah ke media sosial, blog, atau situs web, alih-alih mengunggah tiap bidikan terpisah, Anda bisa menyatukannya lalu menyajikannya sekaligus.</p>
+
+<h3>Memulai</h3>
+<ul>
+  <li>Pilih <strong>Mount</strong> pada tab di bagian atas.</li>
+  <li>Seret foto dari <strong>laci foto</strong> di kiri lalu jatuhkan. Kalau lacinya kosong, pilih folder dengan <strong>Buka folder foto</strong>.</li>
+  <li>Anda juga bisa menekan kotak kosong lalu menunjuknya sendiri dengan <strong>Pilih foto</strong>.</li>
+  <li>Di layar pencucian, pilih <strong>Mount foto ini</strong> dan foto yang sedang Anda lihat langsung pindah ke lembar. Dari pustaka, pilih beberapa foto lalu gunakan <strong>Kirim ke mount</strong>.</li>
+</ul>
+<p>Lacinya bisa dilipat dan dibuka dengan ikonnya.</p>
+
+<h3>Ukuran lembar</h3>
+<table>
+  <tr><th>Butir</th><th>Pilihannya</th></tr>
+  <tr><td>Rasio</td><td>Sesuai asli · 1:1 · 4:5 · 5:4 · 2:3 · 3:2 · 3:4 · 4:3 · 9:16 · 16:9 · 1,91:1</td></tr>
+  <tr><td>Resolusi</td><td>1080 · 1440 · 2048 · 4096 (piksel mendatar)</td></tr>
+</table>
+<p><strong>Sesuai asli</strong> memakai rasio foto pertama apa adanya. Praktis saat Anda hanya ingin memberi bingkai di sekelilingnya.</p>
+</section>
+
+<section id="mount-split">
+<h2>Membagi menjadi kotak</h2>
+<p>Nyalakan <strong>Pembagian</strong> dan lembarnya terbagi menjadi kisi. Anda tinggal memilih berapa baris berapa kolom, sampai 5 × 5.</p>
+
+<h3>Mengurus kotak</h3>
+<ul>
+  <li>Seret garis batas antara dua kotak dan ukuran kotaknya berubah. <strong>Kembalikan rasio pembagian</strong> menyamakannya lagi.</li>
+  <li>Klik kanan sebuah garis batas untuk memakai <strong>Pindahkan garis batas</strong> dan <strong>Hilangkan garis batas</strong>.</li>
+  <li>Seret sebuah foto ke kotak lain dan kedua foto bertukar tempat.</li>
+</ul>
+
+<h3>Memaskan foto di dalam kotak</h3>
+<p>Foto di dalam kotak dipotong agar memenuhi kotaknya. Bagian mana yang tampak, Anda yang menentukan.</p>
+<ul>
+  <li>Seret fotonya untuk memindahkan bagian yang tampak.</li>
+  <li>Perbesar dan perkecil dengan gulir atau cubitan.</li>
+  <li><strong>Setel ulang pemotongan</strong> mengembalikan ke keadaan semula.</li>
+  <li><strong>Keluarkan foto</strong> mengosongkan kotak itu.</li>
+</ul>
+</section>
+
+<section id="mount-free">
+<h2>Penataan bebas</h2>
+<p>Matikan <strong>Pembagian</strong> dan kotak-kotaknya lenyap; foto bisa ditaruh sesuka Anda di atas lembar.</p>
+
+<h3>Menaruh dan memindahkan</h3>
+<ul>
+  <li>Seret untuk memindahkan, pegang sudutnya untuk mengubah ukuran, dan bisa diputar.</li>
+  <li>Selama diseret, foto <strong>melekat seperti magnet</strong> pada foto lain atau pada tepi lembar lalu tersejajarkan.</li>
+  <li>Tombol <strong>Kisi</strong> menyalakan kisi penuntun. Tiap kali ditekan ia makin rapat, dan yang terakhir mematikannya.</li>
+</ul>
+
+<h3>Urutan tumpukan</h3>
+<p>Klik kanan sebuah foto untuk mengubahnya — <strong>Ke paling depan · Majukan · Mundurkan · Ke paling belakang</strong>. Di menu yang sama ada juga <strong>Setel ulang pemotongan</strong>, <strong>Setel ulang kemiringan</strong>, dan <strong>Keluarkan foto</strong>.</p>
+
+<h3>Tombol yang membantu</h3>
+<table class="wide">
+  <tr><th>Tombol</th><th>Fungsinya</th></tr>
+  <tr><td>Penataan acak</td><td>Menaburkan foto di atas lembar. Praktis saat mencari titik awal.</td></tr>
+  <tr><td>Ratakan</td><td>Merapikan ukuran dan jaraknya.</td></tr>
+  <tr><td>Kosongkan</td><td>Menurunkan semua foto yang ada di lembar.</td></tr>
+</table>
+
+<h3>Jumlah ruas — menggarap menyambung lalu memotong saat mengekspor</h3>
+<p>Setel <strong>Jumlah ruas</strong> ke 2 atau lebih dan rasio yang dipilih disambung mendatar sebanyak itu menjadi satu lembar. Anda menata komposisi pada lembar yang menyambung itu, lalu saat diekspor ia dipotong lagi dan disimpan dengan <strong>penomoran dari kiri ke kanan</strong>.</p>
+<p>Inilah cara yang dipakai agar foto tampak menyambung tanpa terputus pada unggahan geser banyak gambar di media sosial. Sampai dua belas ruas.</p>
+</section>
+
+<section id="mount-look">
+<h2>Jarak · Bingkai · Sudut</h2>
+<table>
+  <tr><th>Butir</th><th>Rentang</th><th>Fungsinya</th></tr>
+  <tr><td>Jarak</td><td>0 – 80</td><td>Celah antara foto yang satu dan yang lain.</td></tr>
+  <tr><td>Bingkai</td><td>0 – 120</td><td>Marjin di tepi lembar.</td></tr>
+  <tr><td>Sudut</td><td>0 – 120</td><td>Membulatkan sudut foto. Kalau 0, sudutnya siku.</td></tr>
+  <tr><td>Warna latar</td><td>Warna yang Anda mau</td><td>Warna yang mengisi celah dan marjin.</td></tr>
+</table>
+<p>Angka-angkanya mengacu pada lebar 1080 px. Menaikkan resolusi tidak mengubah proporsi yang terlihat.</p>
+
+<h3>Tampilan</h3>
+<ul>
+  <li><strong>Paskan</strong> — menampilkan seluruh lembar agar muat di jendela.</li>
+  <li><strong>100 %</strong> — piksel persis seperti yang akan diekspor. Dipakai untuk memeriksa ukuran sebenarnya yang akan disimpan.</li>
+  <li>Dalam keadaan diperbesar, seret untuk mendorong lembarnya.</li>
+</ul>
+</section>
+
+<section id="mount-export">
+<h2>Menyimpan dan mengekspor</h2>
+
+<h3>Menyimpan pekerjaan</h3>
+<p>Menyimpan tata letaknya sebagai berkas agar nanti bisa dilanjutkan.</p>
+<table>
+  <tr><td><span class="kbd">⌘S</span></td><td>Simpan mount</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>Simpan mount dengan nama baru</td></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Buka mount (di tab mount, ⌘O membuka berkas pekerjaan)</td></tr>
+</table>
+<p>Kalau ada pekerjaan yang belum disimpan, Anda akan ditanya saat berpindah tab atau menutup aplikasi. Pembatalan bekerja pada semua tahap: menaruh foto, memindahkannya, dan mengubah urutannya.</p>
+
+<h3>Mengekspor sebagai gambar</h3>
+<p>Dibuka dengan <span class="kbd">⌘E</span>.</p>
+<table class="wide">
+  <tr><th>Butir</th><th>Isi</th></tr>
+  <tr><td>Format</td><td>Sama dengan ekspor di layar pencucian. Mutu dan kedalaman bit PNG juga ditentukan di sini.</td></tr>
+  <tr><td>Ukuran</td><td>Memakai resolusi lembar apa adanya, atau menguranginya.</td></tr>
+  <tr><td>Ekspor terpisah</td><td>Pada penataan bebas dengan jumlah ruas 2 atau lebih, Anda memilih keluar sebagai satu gambar atau dipotong sebanyak itu. Kalau dipotong, penomorannya dari kiri.</td></tr>
+  <tr><td>Tempat penyimpanan</td><td>Folder asli atau folder yang dipilih.</td></tr>
+  <tr><td>Nama berkas</td><td>Mengikuti nama foto pertama yang ditaruh di lembar. Anda bisa menambahkan akhiran.</td></tr>
+</table>
+</section>
+
+<!-- ══════════ 마무리 ══════════ -->
+
+<section id="crop">
+<h2>Memotong dan memutar</h2>
+<p>Tekan <span class="kbd">C</span> untuk masuk ke mode pemotongan dan pemutaran, tekan <span class="kbd">A</span> untuk kembali ke mode penyesuaian warna.</p>
+
+<h3>Memotong</h3>
+<ul>
+  <li>Seret sudut dan sisinya untuk menetapkan lingkupnya. Kalau bagian dalamnya diseret, seluruh bingkai potongnya ikut bergerak.</li>
+  <li>Rasionya bisa dikunci — <strong>Bebas · Sesuai asli · 1:1 · 3:2 · 2:3 · 4:3 · 3:4 · 16:9 · 4:5</strong></li>
+</ul>
+
+<h3>Menegakkan cakrawala</h3>
+<p><strong>Sudut</strong> (−45° sampai +45°) meluruskan garis cakrawala yang miring. Karena diputar akan timbul sudut kosong, fotonya diperbesar sedikit secara otomatis untuk mengisinya.</p>
+
+<h3>Koreksi distorsi</h3>
+<p><strong>Distorsi</strong> (−100 sampai +100) meluruskan garis yang dibengkokkan lensa. Distorsi barel pada lensa sudut lebar, yang menggembung ke luar, ada di sisi negatif; distorsi bantal pada lensa tele, yang mengatup ke dalam, di sisi positif. Berpatokanlah pada sesuatu yang semestinya lurus, seperti bangunan atau garis cakrawala.</p>
+
+<h3>Memutar dan membalik</h3>
+<ul>
+  <li>Putar 90° ke kiri · Putar 90° ke kanan</li>
+  <li>Balik kiri-kanan · Balik atas-bawah</li>
+</ul>
+<p>Pemotongan dan pemutaran diterapkan paling awal. Karena itu area pengaburan atau jejak kuas yang dimasukkan belakangan menempatkan diri <strong>berdasarkan foto yang sudah dipotong</strong>.</p>
+</section>
+
+<section id="export">
+<h2>Mengekspor</h2>
+<p>Dibuka dengan <span class="kbd">⌘E</span>. Kalau Anda sedang memilih beberapa foto, semuanya disimpan dengan pengaturan yang sama. Menekan <span class="kbd">Return</span> di dalam jendelanya langsung memulai.</p>
+
+<h3>Format</h3>
+<table class="wide">
+  <tr><th>Format</th><th>Untuk apa</th></tr>
+  <tr><td>JPEG</td><td>Paling aman. Media sosial, web, surel.</td></tr>
+  <tr><td>HEIF</td><td>Mutu sama dengan berkas lebih kecil. Saat berkirim antarperangkat Apple.</td></tr>
+  <tr><td>PNG</td><td>Menyimpan tanpa kehilangan. Pilih antara 8 bit dan 16 bit. Berkasnya besar.</td></tr>
+  <tr><td>WebP</td><td>Lebih kecil daripada JPEG saat diunggah ke web.</td></tr>
+  <tr><td>TIFF (8 bit)</td><td>Saat diserahkan ke aplikasi penyunting lain. Kecocokannya bagus.</td></tr>
+  <tr><td>TIFF (16 bit)</td><td>Saat diserahkan dengan menyisakan gradasi sebanyak mungkin. Untuk pencetakan atau koreksi lanjutan.</td></tr>
+</table>
+<p>Format yang memakai kompresi berkehilangan bisa diatur <strong>mutu</strong>nya. Bawaannya 95 %, dan makin dinaikkan makin besar berkasnya. Untuk kebanyakan keperluan, jarang ada alasan menurunkannya di bawah 90 %.</p>
+
+<h3>Mengubah ukuran</h3>
+<p>Pilih satu dari tiga cara.</p>
+<table>
+  <tr><th>Cara</th><th>Nilai yang ditentukan</th></tr>
+  <tr><td>Skala</td><td>Persentase terhadap aslinya</td></tr>
+  <tr><td>Lebar</td><td>Jumlah piksel mendatar</td></tr>
+  <tr><td>Sisi panjang</td><td>Jumlah piksel sisi yang lebih panjang</td></tr>
+</table>
+<p>Cara mana pun yang dipakai, <strong>ia tidak akan diperbesar melampaui aslinya.</strong> Mengarang piksel yang tidak ada hanya menurunkan mutunya.</p>
+
+<h3>Metadata</h3>
+<p>Di tab <strong>Metadata</strong> pada jendela ekspor, pilih butir demi butir informasi apa yang akan ditinggalkan di berkas. Butir yang dicentang akan dibuang dari berkas hasil ekspor.</p>
+<table class="wide">
+  <tr><th>Butir</th><th>Isinya</th></tr>
+  <tr><td>Pengaturan pemotretan</td><td>Pencahayaan · ISO · Bukaan</td></tr>
+  <tr><td>Kamera dan lensa</td><td>Pabrikan · Model · Nomor seri</td></tr>
+  <tr><td>Tanggal dan waktu pemotretan</td><td>Saat diambil</td></tr>
+  <tr><td>Lokasi (GPS)</td><td>Koordinat tempat pemotretan</td></tr>
+  <tr><td>Pembuat dan hak cipta</td><td>Penyusun · Keterangan hak cipta</td></tr>
+  <tr><td>Deskripsi dan kata kunci</td><td>Tulisan dan tag yang dilekatkan pada foto</td></tr>
+  <tr><td>Program penyunting</td><td>Dibuat dengan aplikasi apa. Nama film yang ditinggalkan Rawcookr juga masuk di sini, jadi ikut terbuang.</td></tr>
+  <tr><td>Catatan pabrikan</td><td>Informasi tersendiri yang ditinggalkan kamera</td></tr>
+</table>
+<p><strong>Buang semua</strong> mematikannya sekaligus. Kalau fotonya akan dipublikasikan, setidaknya membuang <strong>Lokasi (GPS)</strong> lebih aman. Foto yang diambil dekat rumah atau tempat kerja bisa membuka jangkauan hidup Anda hanya dari koordinatnya.</p>
+
+<h3>Pengaturan lainnya</h3>
+<table class="wide">
+  <tr><th>Butir</th><th>Fungsinya</th></tr>
+  <tr><td>Akhiran</td><td>Huruf yang ditempelkan di belakang nama berkas. Bawaannya <span class="path">_developed</span>. Ini menjaga namanya tidak bertabrakan dengan aslinya.</td></tr>
+  <tr><td>Tempat penyimpanan</td><td>Biarkan di folder asli, atau tentukan folder lain.</td></tr>
+  <tr><td>Buka folder setelah selesai</td><td>Setelah penyimpanan selesai, folder itu dibuka di Finder.</td></tr>
+  <tr><td>Tutup jendela ini</td><td>Jendelanya menutup sendiri setelah ekspor selesai. Praktis saat mengekspor berkali-kali per rangkaian.</td></tr>
+</table>
+<p>Kalau disimpan sebagai TIFF, nama film yang dipakai ikut dicatat pada informasi deskripsi berkasnya.</p>
+
+<div class="note">
+<b>Kalau warna hasil ekspor tampak berbeda dari layar</b>
+<p>Kebanyakan aplikasi penampil tidak membaca profil warna. Cobalah periksa di pratinjau Finder atau di peramban web. Rawcookr mengekspor dalam sRGB, jadi di hampir semua lingkungan tampak sama.</p>
+</div>
+</section>
+
+<section id="customfilm">
+<h2>Membuat film Anda sendiri</h2>
+<p>Ada dua cara menambahkan film milik Anda ke dalam daftar.</p>
+
+<p>Keduanya ada di menu yang muncul saat Anda memilih keluarga <strong>Khusus</strong> di bagian Resep film.</p>
+
+<h3>LUT yang Anda punya, dijadikan film</h3>
+<ol class="steps">
+  <li>Di menu keluarga khusus, tekan <strong>LUT to FILM…</strong>.</li>
+  <li>Pilih sebuah berkas <span class="path">.cube</span>.</li>
+  <li>Beri nama dan ia masuk ke daftar film.</li>
+</ol>
+<p>LUT hitam putih otomatis dikenali sebagai film hitam putih, lalu muncul nilai-nilai khas monokrom seperti Toning WC dan MG.</p>
+
+<h3>Warna yang Anda racik, dijadikan film</h3>
+<p>Kalau dengan kurva nada, HSL, dan keseimbangan warna Anda sudah mendapat warna yang disukai, pakai <strong>Warna menjadi film…</strong> di menu yang sama untuk memisahkan dan menyimpan transformasi warna itu saja.</p>
+<p>Dari film yang sudah Anda buat, Anda bisa menarik keluar berkas <span class="path">.cube</span> dengan <strong>Ekspor film sebagai LUT</strong>. Bisa dipakai di aplikasi lain juga.</p>
+
+<h3>Menyatukannya menjadi buku resep untuk dibagikan</h3>
+<p>Menyatukan film dan prasetel buatan Anda ke dalam satu berkas <span class="path">.rawb</span>. Penerima berkasnya cukup sekali <strong>Impor buku resep</strong> untuk membawa semuanya.</p>
+<p>Dipakai untuk berbagi warna di antara pengguna perangkat yang sama, atau memindahkan seluruh pengaturan saat berganti Mac.</p>
+</section>
+
+<section id="prefs">
+<h2>Preferensi</h2>
+<table class="wide">
+  <tr><th>Butir</th><th>Isi</th></tr>
+  <tr><td>Tempat penyimpanan suntingan</td><td><strong>Dikelola di folder aplikasi</strong> (bawaan) atau <strong>Di samping berkas asli</strong>. Rinciannya lihat di <a href="#originals">Berkas asli Anda tetap utuh</a>.</td></tr>
+  <tr><td>Latar</td><td>Kecerahan di belakang foto pada layar pencucian. Dibiarkan gelap, kecerahan fotonya lebih mudah dinilai.</td></tr>
+  <tr><td>Ukuran gambar kecil prasetel</td><td>Ukuran pratinjau pada daftar prasetel. Sangat kecil · Kecil · Besar.</td></tr>
+</table>
+<p>Kecerahan seluruh aplikasi (terang/gelap) diubah dengan <span class="kbd">⌘⇧9</span> dan <span class="kbd">⌘⇧0</span>.</p>
+</section>
+
+<section id="shortcuts">
+<h2>Pintasan papan tik</h2>
+<p>Tombol yang bisa dipakai berbeda-beda menurut modenya. Tombol yang berlaku di ketiga mode pun ditulis apa adanya di tiap tabel, jadi Anda cukup melihat tabel mode tempat Anda berada sekarang.</p>
+
+<h3>Di mode mana pun</h3>
+<table>
+  <tr><td><span class="kbd">⌘E</span></td><td>Mengekspor</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Menutup (kalau sedang mencuci, menutup fotonya)</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Bantuan Rawcookr</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span></td><td>Mode gelap</td></tr>
+  <tr><td><span class="kbd">⌘⇧0</span></td><td>Mode terang</td></tr>
+  <tr><td><span class="kbd">⌘Q</span></td><td>Keluar — kalau ada pekerjaan mount yang belum disimpan, akan ditanyakan</td></tr>
+</table>
+
+<h3>Pustaka</h3>
+<table>
+  <tr><th>Tombol</th><th>Fungsinya</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Membuka sebuah folder</td></tr>
+  <tr><td><span class="kbd">⌘R</span></td><td>Membaca ulang folder</td></tr>
+  <tr><td><span class="kbd">⌘A</span></td><td>Memilih semua</td></tr>
+  <tr><td><span class="kbd">←</span> <span class="kbd">→</span> <span class="kbd">↑</span> <span class="kbd">↓</span></td><td>Ke foto di sebelah, atas, bawah dalam kisi</td></tr>
+  <tr><td><span class="kbd">Space</span></td><td>Melihat besar (tekan sekali lagi untuk menutup)</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>Membawa foto terpilih ke layar pencucian</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>Menutup tampilan besar</td></tr>
+  <tr><td><span class="kbd">1</span>–<span class="kbd">5</span></td><td>Memberi bintang pada foto terpilih — masuk ke banyak foto sekaligus</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>Menandai / melepas bendera — ke banyak foto sekaligus</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>Mencuci sebagai versi baru</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>Menampilkan / menyembunyikan bilah sisi</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>Menampilkan / menyembunyikan pohon folder</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>Menampilkan / menyembunyikan informasi berkas</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>Mengekspor semua foto terpilih</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Menutup jendela</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Bantuan</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Mode gelap · Mode terang</td></tr>
+</table>
+
+<h3>Penyuntingan</h3>
+<h4>Tampilan</h4>
+<table>
+  <tr><th>Tombol</th><th>Fungsinya</th></tr>
+  <tr><td><span class="kbd">⌘=</span> · <span class="kbd">⌘-</span></td><td>Memperbesar · Memperkecil</td></tr>
+  <tr><td><span class="kbd">⌘0</span></td><td>Paskan ke jendela</td></tr>
+  <tr><td><span class="kbd">⌘1</span></td><td>100 % (piksel asli)</td></tr>
+  <tr><td><span class="kbd">Space</span> + seret</td><td>Mendorong foto untuk berpindah</td></tr>
+  <tr><td><span class="kbd">M</span></td><td>Melihat aslinya (selama ditekan)</td></tr>
+  <tr><td><span class="kbd">J</span></td><td>Menyalakan / mematikan peringatan pemenggalan</td></tr>
+  <tr><td><span class="kbd">O</span></td><td>Menampilkan / menyembunyikan bilah perbesaran</td></tr>
+  <tr><td><span class="kbd">,</span> · <span class="kbd">.</span></td><td>Membuka · melipat semua bagian penyesuaian</td></tr>
+  <tr><td><span class="kbd">⌘F</span></td><td>Menampilkan / menyembunyikan deretan film</td></tr>
+  <tr><td><span class="kbd">⌃⌘F</span></td><td>Masuk / keluar tampilan terpusat (layar penuh)</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>Menampilkan / menyembunyikan bilah sisi</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>Menampilkan / menyembunyikan pohon folder</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>Menampilkan / menyembunyikan informasi berkas</td></tr>
+</table>
+
+<h4>Penyuntingan</h4>
+<table>
+  <tr><th>Tombol</th><th>Fungsinya</th></tr>
+  <tr><td><span class="kbd">C</span></td><td>Mode pemotongan / pemutaran</td></tr>
+  <tr><td><span class="kbd">A</span></td><td>Kembali ke mode penyesuaian warna</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>Kalau sedang memotong, mengukuhkan lalu keluar</td></tr>
+  <tr><td><span class="kbd">⌘⇧C</span></td><td>Menyalin suntingan</td></tr>
+  <tr><td><span class="kbd">⌘⇧V</span></td><td>Menempelkan suntingan</td></tr>
+  <tr><td><span class="kbd">⌥⌘R</span></td><td>Menyetel ulang seluruh suntingan foto ini</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>Mencuci sebagai versi baru</td></tr>
+</table>
+
+<h4>Memilih dan berpindah</h4>
+<table>
+  <tr><th>Tombol</th><th>Fungsinya</th></tr>
+  <tr><td><span class="kbd">←</span> · <span class="kbd">→</span></td><td>Foto sebelumnya · berikutnya (tidak bekerja selama pemotongan)</td></tr>
+  <tr><td><span class="kbd">1</span>–<span class="kbd">5</span></td><td>Bintang</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>Menandai / melepas bendera</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>Menutup foto dan kembali ke pustaka (kalau sedang memotong, membatalkan pemotongan)</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>Mengekspor</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Menutup foto</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Bantuan</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Mode gelap · Mode terang</td></tr>
+</table>
+
+<h3>Mount</h3>
+<table>
+  <tr><th>Tombol</th><th>Fungsinya</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Membuka mount — di mode ini ⌘O membuka berkas pekerjaan, bukan folder</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>Simpan mount</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>Simpan mount dengan nama baru</td></tr>
+  <tr><td><span class="kbd">⌘Z</span></td><td>Membatalkan — semua tahap, menaruh foto, memindahkannya, dan mengubah urutannya</td></tr>
+  <tr><td><span class="kbd">⇧⌘Z</span></td><td>Mengulangi</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>Mengekspor lembar sebagai gambar</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Menutup jendela</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Bantuan</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Mode gelap · Mode terang</td></tr>
+</table>
+
+</section>
+
+<section id="trouble">
+<h2>Hal yang sering dialami</h2>
+
+<h4>Berkas RAW tidak mau terbuka</h4>
+<p>Pencucian RAW memakai mesin bawaan macOS. Model yang baru sekali keluar perlu macOS diperbarui dulu agar didukung. Coba periksa di <strong>Pengaturan Sistem → Umum → Pembaruan Perangkat Lunak</strong>. Kalau tetap tidak terbuka, cobalah menyimpan sebagai DNG dari kameranya atau <a href="mailto:rawcookr@slowsalmon.com">beri tahu kami</a>.</p>
+
+<h4>Gambar kecilnya lambat muncul</h4>
+<p>Pada folder yang baru pertama kali dibuka, pratinjau tiap foto harus dibuat dulu sehingga makan waktu. Setelah sekali dibuat, berikutnya cepat. Kalau fotonya sangat banyak dalam satu folder, membaginya ke subfolder akan lebih nyaman.</p>
+
+<h4>Sepertinya ketajaman atau butirannya tidak diterapkan</h4>
+<p>Pada perbesaran yang dipaskan ke layar, fotonya digambar mengecil sehingga efek setingkat piksel tidak terlihat. Setel ke 100 % dengan <span class="kbd">⌘1</span> lalu periksa.</p>
+
+<h4>Suntingannya hilang</h4>
+<p>Nilai suntingan berada di berkas yang terpisah dari aslinya. Kalau tempat penyimpanannya Anda setel ke <strong>Di samping berkas asli</strong> lalu Anda memindahkan fotonya saja ke tempat lain, berkas pengaturannya mungkin tidak ikut. Kalau memakai <strong>Pindahkan ke folder lain</strong> di dalam aplikasi, pengaturannya ikut berpindah.</p>
+
+<h4>Langganannya tidak dikenali</h4>
+<p>Periksa apakah Anda sudah masuk ke App Store dengan akun Apple yang sama, lalu coba tekan <strong>Pulihkan pembelian</strong> di layar langganan.</p>
+
+<h4>Masih ada wajah yang belum tertutup</h4>
+<p>Pendeteksian otomatis bisa melewatkan wajah menyamping, bermasker, atau wajah di tempat gelap. Lengkapilah dengan menggambar areanya sendiri, dan periksa sekali pada 100 % sebelum dipublikasikan.</p>
+
+<h4>Pekerjaan mount-nya hilang</h4>
+<p>Mount tidak tersimpan sebagai berkas sampai Anda menyimpannya. Simpanlah dulu dengan <span class="kbd">⌘S</span>. Kalau Anda hendak berpindah tab atau menutup aplikasi tanpa menyimpan, Anda akan ditanya.</p>
+
+<h4>Kalau tetap belum terpecahkan</h4>
+<p>Beri tahu kami di <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a>. Kalau Anda sertakan Mac apa yang Anda pakai dan berkas dari kamera mana, kami bisa menemukannya jauh lebih cepat.</p>
+</section>
+
+</main>
+</div>
+<footer>
+  <p><a href="./">Beranda Rawcookr</a> · <a href="privacy.html">Kebijakan privasi</a> · <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a></p>
+</footer>
+<script>
+  // ── 언어 전환 ──
+  (function () {
+    const sel = document.getElementById('lang');
+    const cur = document.documentElement.lang || 'ko';
+    sel.value = cur;
+    sel.addEventListener('change', () => {
+      const v = sel.value;
+      location.href = (v === 'ko' ? 'guide.html' : 'guide-' + v + '.html') + location.hash;
+    });
+  })();
+
+  const toc = document.getElementById('toc');
+  document.getElementById('menubtn')
+    .addEventListener('click', () => toc.classList.toggle('open'));
+
+  const groups = [...toc.querySelectorAll('li')];
+  const links  = [...toc.querySelectorAll('a')];
+  const linkOf  = new Map(links.map(a => [a.hash.slice(1), a]));
+  const groupOf = new Map(links.map(a => [a.hash.slice(1), a.closest('li')]));
+
+  function openOnly(li) {
+    groups.forEach(g => g.classList.toggle('open', g === li));
+  }
+
+  // 묶음 제목을 누르면 그 묶음만 펼치고, 이미 펼쳐져 있으면 접는다
+  groups.forEach(li => {
+    li.querySelector('.grp').addEventListener('click', () => {
+      openOnly(li.classList.contains('open') ? null : li);
+    });
+  });
+
+  // 좁은 화면에서는 항목을 누르면 목차를 닫는다
+  links.forEach(a => a.addEventListener('click', () => toc.classList.remove('open')));
+
+  function highlight(id) {
+    const a = linkOf.get(id);
+    if (!a || a.classList.contains('on')) return;
+    links.forEach(x => x.classList.remove('on'));
+    a.classList.add('on');
+    const li = groupOf.get(id);
+    if (li && !li.classList.contains('open')) openOnly(li);
+  }
+
+  // 화면에 걸쳐 있는 섹션 가운데 가장 위의 것을 현재 위치로 본다
+  const sections = [...document.querySelectorAll('section[id]')];
+  const visible = new Set();
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => en.isIntersecting ? visible.add(en.target) : visible.delete(en.target));
+    let best = null;
+    visible.forEach(el => {
+      if (!best || el.getBoundingClientRect().top < best.getBoundingClientRect().top) best = el;
+    });
+    if (best) highlight(best.id);
+  }, { rootMargin: '-70px 0px -70% 0px' });
+  sections.forEach(el => obs.observe(el));
+
+  // 주소에 #항목이 붙어 있으면 그 묶음을 열고 시작, 아니면 첫 묶음
+  const start = location.hash.slice(1);
+  if (start && groupOf.has(start)) highlight(start);
+  else groups[0].classList.add('open');
+</script>
+</body>
+</html>

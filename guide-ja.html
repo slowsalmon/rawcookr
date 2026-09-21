@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rawcookr ユーザガイド</title>
+<meta name="description" content="Rawcookrのすべての機能と使い方。フィルムレシピ、プライバシーぼかし、ミスト、部分補正、書き出し、ショートカットまで。">
+<meta property="og:title" content="Rawcookr ユーザガイド">
+<meta property="og:description" content="Rawcookrのすべての機能と使い方を項目ごとにまとめました。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://rawcookr.slowsalmon.com/guide-ja.html">
+<link rel="canonical" href="https://rawcookr.slowsalmon.com/guide-ja.html">
+<link rel="icon" href="icon.png">
+<style>
+  :root {
+    --cream: #F8F5EB;
+    --ink: #1E1B16;
+    --muted: #6B6459;
+    --blue: #0055B8;
+    --blue-soft: #E8EFFA;
+    --lemon: #F2C100;
+    --line: #E4DCC9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                 "Pretendard", "Noto Sans KR", sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--blue); }
+
+  /* ── 상단 바 ── */
+  .topbar {
+    position: sticky; top: 0; z-index: 30;
+    background: rgba(248,245,235,0.94);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 1180px; margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .topbar img { width: 30px; height: 30px; border-radius: 7px; }
+  .topbar .name { font-weight: 800; letter-spacing: -0.01em; }
+  .topbar .name a { color: var(--ink); text-decoration: none; }
+  .topbar .sep { color: var(--line); }
+  .topbar .where { color: var(--muted); font-size: 0.95em; }
+  .topbar .spacer { flex: 1; }
+  .topbar .home { font-size: 0.9em; font-weight: 600; text-decoration: none; }
+  #menubtn {
+    display: none; font: inherit; font-size: 0.85em; font-weight: 700;
+    background: #fff; color: var(--ink); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 14px; cursor: pointer;
+  }
+  #lang {
+    font: inherit; font-size: 0.82em; font-weight: 600; color: var(--ink);
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 5px 28px 5px 12px; cursor: pointer;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%236B6459'/></svg>");
+    background-repeat: no-repeat; background-position: right 11px center;
+  }
+
+  /* ── 레이아웃 ── */
+  .shell { max-width: 1180px; margin: 0 auto; padding: 0 24px; display: flex; gap: 48px; }
+  nav.toc {
+    flex: none; width: 258px; padding: 36px 0 80px;
+    position: sticky; top: 55px; align-self: flex-start;
+    max-height: calc(100vh - 55px); overflow-y: auto;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; }
+  nav.toc > ol > li { margin-bottom: 2px; }
+  nav.toc .grp {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    font: inherit; font-size: 0.78em; font-weight: 800; letter-spacing: 0.06em;
+    color: var(--muted); text-transform: uppercase;
+    background: none; border: 0; cursor: pointer; text-align: left;
+    padding: 8px 10px; margin-left: -10px; border-radius: 7px;
+  }
+  nav.toc .grp:hover { background: #fff; color: var(--ink); }
+  nav.toc .caret {
+    flex: none; width: 6px; height: 6px; margin-top: -2px;
+    border-right: 1.8px solid currentColor; border-bottom: 1.8px solid currentColor;
+    transform: rotate(-45deg); transition: transform 0.18s ease;
+  }
+  nav.toc li.open > .grp { color: var(--ink); }
+  nav.toc li.open > .grp .caret { transform: rotate(45deg); margin-top: -4px; }
+  nav.toc .items {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows 0.22s ease;
+  }
+  nav.toc li.open > .items { grid-template-rows: 1fr; }
+  nav.toc .items > div { overflow: hidden; }
+  nav.toc a {
+    display: block; padding: 3px 10px 3px 28px; margin-left: -10px;
+    color: #443E36; text-decoration: none; font-size: 0.93em;
+    border-radius: 7px; line-height: 1.6;
+  }
+  nav.toc a:hover { background: #fff; }
+  nav.toc a.on { background: var(--blue-soft); color: var(--blue); font-weight: 700; }
+  nav.toc .items > div > :last-child { margin-bottom: 10px; }
+  @media (prefers-reduced-motion: reduce) {
+    nav.toc .items, nav.toc .caret { transition: none; }
+  }
+
+  main { flex: 1; min-width: 0; padding: 36px 0 120px; max-width: 720px; }
+  main h1 { font-size: 2.5em; margin: 0 0 10px; letter-spacing: -0.02em; }
+  main > .lead { color: var(--muted); font-size: 1.08em; margin: 0 0 8px; }
+
+  section { padding-top: 52px; }
+  section > h2 {
+    font-size: 1.62em; margin: 0 0 6px; letter-spacing: -0.01em;
+    padding-top: 28px; border-top: 1px solid var(--line);
+  }
+  section.first > h2 { border-top: none; padding-top: 0; }
+  h3 { font-size: 1.16em; margin: 34px 0 8px; }
+  h4 { font-size: 1.0em; margin: 22px 0 4px; }
+  p { margin: 0 0 14px; color: #443E36; }
+  ul, ol.steps { margin: 0 0 16px; padding-left: 22px; color: #443E36; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--ink); }
+
+  .kbd {
+    display: inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em; background: #fff; border: 1px solid var(--line);
+    border-bottom-width: 2px; border-radius: 6px; padding: 1px 7px;
+    color: var(--ink); white-space: nowrap;
+  }
+  .path {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.88em; background: #fff; border: 1px solid var(--line);
+    border-radius: 6px; padding: 1px 7px;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 20px; font-size: 0.95em; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 0.82em; letter-spacing: 0.04em; color: var(--muted); text-transform: uppercase; font-weight: 700; }
+  td:first-child { white-space: nowrap; font-weight: 600; }
+  table.wide td:first-child { white-space: normal; }
+
+  .note, .tip, .warn {
+    border-radius: 12px; padding: 14px 18px; margin: 18px 0;
+    font-size: 0.96em; line-height: 1.75;
+  }
+  .note { background: #fff; border: 1px solid var(--line); }
+  .tip  { background: var(--blue-soft); }
+  .warn { background: #FFF6DC; }
+  .note p:last-child, .tip p:last-child, .warn p:last-child { margin-bottom: 0; }
+  .note b, .tip b, .warn b { display: block; margin-bottom: 2px; }
+
+  .pill {
+    display: inline-block; background: var(--blue-soft); color: var(--blue);
+    border-radius: 999px; padding: 2px 11px; font-size: 0.8em; font-weight: 700;
+    vertical-align: middle;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); margin-top: 40px;
+    padding: 40px 24px 70px; text-align: center; color: var(--muted); font-size: 0.92em;
+  }
+  footer a { font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .shell { display: block; padding: 0 20px; }
+    #menubtn { display: block; }
+    nav.toc {
+      display: none; width: auto; position: static; max-height: none;
+      padding: 18px 0 6px; border-bottom: 1px solid var(--line);
+    }
+    nav.toc.open { display: block; }
+    main { padding-top: 26px; max-width: none; }
+    main h1 { font-size: 2em; }
+    .topbar .where { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <img src="icon.png" alt="">
+    <span class="name"><a href="./">Rawcookr</a></span>
+    <span class="sep">/</span>
+    <span class="where">ユーザガイド</span>
+    <span class="spacer"></span>
+    <button id="menubtn" type="button">目次</button>
+    <select id="lang" aria-label="Language">
+      <option value="ko">한국어</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+      <option value="zh-Hans">中文（简体）</option>
+      <option value="de">Deutsch</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="th">ไทย</option>
+      <option value="vi">Tiếng Việt</option>
+      <option value="id">Bahasa Indonesia</option>
+    </select>
+    <a class="home" href="./">ホームへ</a>
+  </div>
+</div>
+
+<div class="shell">
+
+<nav class="toc" id="toc">
+  <ol>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>はじめに</button>
+      <div class="items"><div>
+        <a href="#screen">画面の構成</a>
+        <a href="#open">写真を読み込む</a>
+        <a href="#originals">元の写真はそのままです</a>
+        <a href="#subscription">サブスクリプションと無料体験</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>写真を選ぶ</button>
+      <div class="items"><div>
+        <a href="#library">フォルダとサムネイル</a>
+        <a href="#rating">評価と旗</a>
+        <a href="#batch">複数枚をまとめて</a>
+        <a href="#versions">バージョン</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>現像画面</button>
+      <div class="items"><div>
+        <a href="#canvas">拡大と移動</a>
+        <a href="#inspect">元画像との比較とクリッピング警告</a>
+        <a href="#compare">比較ビュー</a>
+        <a href="#sections">調整項目の扱い方</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>調整項目</button>
+      <div class="items"><div>
+        <a href="#presets">プリセット</a>
+        <a href="#film">フィルムレシピ</a>
+        <a href="#wb">ホワイトバランス</a>
+        <a href="#light">光</a>
+        <a href="#curve">トーンカーブ</a>
+        <a href="#hsl">色相・彩度</a>
+        <a href="#levels">レベル</a>
+        <a href="#colorgrade">3ウェイカラーバランス</a>
+        <a href="#selective">選択カラー</a>
+        <a href="#local">部分補正</a>
+        <a href="#layers">レイヤー</a>
+        <a href="#detail">ディテール</a>
+        <a href="#effects">効果</a>
+        <a href="#defringe">色収差の除去</a>
+        <a href="#mist">ミスト</a>
+        <a href="#privacy">プライバシーぼかし</a>
+        <a href="#frame">日付の焼き込み</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>マウント</button>
+      <div class="items"><div>
+        <a href="#mount">板に写真をのせる</a>
+        <a href="#mount-split">マスに分ける</a>
+        <a href="#mount-free">自由配置</a>
+        <a href="#mount-look">間隔 · 枠 · 角</a>
+        <a href="#mount-export">保存と書き出し</a>
+      </div></div>
+    </li>
+    <li>
+      <button type="button" class="grp"><span class="caret"></span>仕上げ</button>
+      <div class="items"><div>
+        <a href="#crop">切り抜きと回転</a>
+        <a href="#export">書き出し</a>
+        <a href="#customfilm">自分だけのフィルムを作る</a>
+        <a href="#prefs">環境設定</a>
+        <a href="#shortcuts">キーボードショートカット</a>
+        <a href="#trouble">よくあること</a>
+      </div></div>
+    </li>
+  </ol>
+</nav>
+
+<main>
+
+<h1>Rawcookr ユーザガイド</h1>
+<p class="lead">写真を現像し、写り込んだ人を隠し、望みの色をのせて、そのまま投稿できる状態で書き出すまで。すべての機能を項目ごとにまとめました。</p>
+<p class="lead" style="font-size:0.95em">macOS 14以降 · バージョン1.1基準</p>
+
+<!-- ══════════ 시작하기 ══════════ -->
+
+<section class="first" id="screen">
+<h2>画面の構成</h2>
+<p>Rawcookrには画面が二つあります。</p>
+
+<h3>ライブラリ</h3>
+<p>フォルダを選んで写真を見渡す場所です。左にフォルダ一覧、中央にサムネイルの格子があります。ここで評価と旗を付け、複数枚を選んでまとめて書き出します。</p>
+
+<h3>マウント</h3>
+<p>複数の写真を一枚の板にのせて一枚にまとめる場所です。詳しくは<a href="#mount">板に写真をのせる</a>をご覧ください。</p>
+
+<h3>現像</h3>
+<p>写真を一枚ずつ実際に仕上げる場所です。中央に写真、右に調整項目のパネル、下にフィルムストリップが並びます。ライブラリで写真をダブルクリックするか<span class="kbd">Return</span>を押すと入ります。戻るときは<span class="kbd">Esc</span>です。</p>
+
+<div class="tip">
+<b>画面を広く使いたいとき</b>
+<p>フィルムストリップは<span class="kbd">⌘F</span>で隠せます。写真だけを全画面で見るには<span class="kbd">⌃⌘F</span>。右パネルの項目をすべて閉じるには<span class="kbd">.</span>、すべて開くには<span class="kbd">,</span>です。</p>
+</div>
+</section>
+
+<section id="open">
+<h2>写真を読み込む</h2>
+
+<h3>フォルダを開く</h3>
+<p><strong>ファイル → フォルダを開く</strong>（<span class="kbd">⌘O</span>）で写真の入ったフォルダを選びます。一度開いたフォルダは左のサイドバーに残り、次回すぐに開けます。サイドバーから外すには、フォルダ名を右クリックして<strong>サイドバーから削除</strong>を選びます。中のサブフォルダも一緒に並びます。</p>
+
+<h3>Finderから直接開く</h3>
+<p>Finderで写真ファイルを右クリックし<strong>このアプリケーションで開く → Rawcookr</strong>を選ぶと、そのファイルのあるフォルダがライブラリに追加され、すぐに現像画面が開きます。</p>
+
+<h3>扱える形式</h3>
+<table>
+  <tr><th>種別</th><th>拡張子</th></tr>
+  <tr><td>RAW</td><td>RAF · DNG · CR2 · CR3 · CRW · NEF · NRW · ARW · SR2 · SRF · RW2 · RAW · RWL · PEF · ORF · 3FR · FFF · IIQ</td></tr>
+  <tr><td>その他</td><td>JPG · JPEG · PNG · HEIC · HEIF · HIF · TIFF · TIF</td></tr>
+</table>
+<p>RAW現像はmacOSに内蔵されたRAWエンジンを使います。ごく最近の機種は、macOSを更新しないと開けない場合があります。</p>
+</section>
+
+<section id="originals">
+<h2>元の写真はそのままです</h2>
+<p>Rawcookrは元のファイルに決して書き込みません。編集した値は小さな設定ファイルに別で記録されます。元の写真を別のアプリで開けば、手を付ける前のままです。</p>
+<p>設定をどこに置くかは<strong>環境設定</strong>で選びます。</p>
+<table class="wide">
+  <tr><th>選択</th><th>意味</th></tr>
+  <tr><td>アプリフォルダで管理 <span class="pill">標準</span></td><td>元のフォルダがきれいなまま保たれます。写真フォルダをそのまま人に渡すときに便利です。</td></tr>
+  <tr><td>元のファイルの隣に</td><td>写真と設定がいつも一緒に動きます。外付けディスクごと別のMacに移しても編集が付いてきます。</td></tr>
+</table>
+<p>編集内容をファイルに書き出したり、読み込んだりもできます。現像画面の<strong>設定を保存</strong>・<strong>設定を適用</strong>で<span class="path">.rawcookr-settings.json</span>ファイルをやり取りします。</p>
+</section>
+
+<section id="subscription">
+<h2>サブスクリプションと無料体験</h2>
+<p>Rawcookrはサブスクリプション制です。<strong>7日間無料</strong>ですべての機能を試したあと、月額または年額で続きます。上位プランや別売りの機能はありません — このガイドに書かれたすべてが含まれます。</p>
+<p>サブスクリプションの管理と解約はApp Storeのアカウント設定で行います。体験期間が終わる前に解約すれば料金は請求されません。</p>
+<div class="note">
+<b>Macを買い替えたら</b>
+<p>同じApple アカウントでApp Storeにサインインしてアプリを開くと、サブスクリプションは自動的に認識されます。認識されない場合はサブスクリプション画面の<strong>購入を復元</strong>を押してください。</p>
+</div>
+</section>
+
+<!-- ══════════ 사진 고르기 ══════════ -->
+
+<section id="library">
+<h2>フォルダとサムネイル</h2>
+<p>ライブラリでは一つのフォルダが一画面です。左のサイドバーでフォルダを選ぶと、その中の写真が格子に並びます。</p>
+
+<h3>見渡す</h3>
+<ul>
+  <li>サムネイルの大きさは右上のスライダで変えます。</li>
+  <li>矢印キーで写真の間を移動します。</li>
+  <li><span class="kbd">Return</span>で現像画面に入ります。</li>
+  <li><span class="kbd">Space</span>は大きく表示です。もう一度押すか<span class="kbd">Esc</span>で閉じ、大きく表示したまま<span class="kbd">Return</span>を押すとその写真を現像します。下にファイル名も出ます。</li>
+</ul>
+
+<h3>選ぶ</h3>
+<ul>
+  <li>クリックで一枚、<span class="kbd">⇧</span>+クリックで範囲、<span class="kbd">⌘</span>+クリックで一枚ずつ追加。</li>
+  <li>何もない所をドラッグすると、四角で囲んで複数枚を一度に選べます。</li>
+  <li><span class="kbd">⌘A</span>ですべて選びます。</li>
+</ul>
+
+<h3>ファイルを扱う</h3>
+<p>サムネイルを右クリックすると出るメニューです。</p>
+<table class="wide">
+  <tr><th>項目</th><th>できること</th></tr>
+  <tr><td>Finderに表示</td><td>元のファイルがあるフォルダをFinderで開きます。</td></tr>
+  <tr><td>名前を変更</td><td>元のファイルの名前を変えます。一枚のときだけ使えます。</td></tr>
+  <tr><td>複製</td><td>元のファイルのコピーをもう一つ作ります。</td></tr>
+  <tr><td>別のフォルダへ移動</td><td>選んだ写真を別のフォルダへ移します。編集設定も一緒に付いていきます。</td></tr>
+  <tr><td>ゴミ箱に入れる</td><td>元のファイルをゴミ箱に入れます。戻すときはFinderのゴミ箱から取り出します。</td></tr>
+</table>
+</section>
+
+<section id="rating">
+<h2>評価と旗</h2>
+<p>たくさん撮った日から使えるものだけを選り分けるのに使います。ライブラリでも現像画面でも付けられます。</p>
+<table>
+  <tr><th>キー</th><th>できること</th></tr>
+  <tr><td><span class="kbd">1</span>〜<span class="kbd">5</span></td><td>評価を付ける</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>旗を付ける／外す</td></tr>
+</table>
+<p>ライブラリでは選んだ写真すべてに一度で入ります。付けたあとは画面上部のフィルタで<strong>旗のみ</strong>や、ある評価以上だけを残して見られます。評価と旗も編集値と同じ場所に保存されるので、元のファイルはそのままです。</p>
+</section>
+
+<section id="batch">
+<h2>複数枚をまとめて</h2>
+
+<h3>編集を移す</h3>
+<p>一枚が気に入る仕上がりになったら、その値をそのまま別の写真へ移せます。</p>
+<ol class="steps">
+  <li>基準にする写真で<span class="kbd">⌘⇧C</span> — 編集内容をコピー</li>
+  <li>適用する写真を開いて<span class="kbd">⌘⇧V</span> — 編集内容をペースト</li>
+</ol>
+<p>ペーストは<strong>いま開いている一枚</strong>にだけ入ります。さらに続けるには<span class="kbd">→</span>で次の写真へ進み、もう一度<span class="kbd">⌘⇧V</span>を押してください。</p>
+<p>位置に結び付いた項目 — プライバシーぼかしの領域、色収差ブラシの跡、切り抜き、部分補正のマスク — は移らず、受け取る側の写真のものがそのまま残ります。写真ごとに顔の位置が違うので、その方が理にかないます。</p>
+
+<h3>まとめて書き出す</h3>
+<p>複数枚を選んだ状態で<span class="kbd">⌘E</span>を押すと、すべて同じ設定で書き出します。詳しくは<a href="#export">書き出し</a>をご覧ください。</p>
+
+<div class="warn">
+<b>注意</b>
+<p>編集のペーストは取り消せません。まとめて入れる前に、一枚で確かめておくと安全です。</p>
+</div>
+</section>
+
+<section id="versions">
+<h2>バージョン</h2>
+<p>同じ写真を別々に現像して並べて比べたいときに使います。ファイルを複製しないので、ディスクを1バイトも余計に使いません。</p>
+<p>現像画面で<strong>ファイル → 新しいバージョンとして現像</strong>（<span class="kbd">⌘G</span>）を選ぶと、いまの編集はそのままに、手つかずの複製がもう一つ増えます。フィルムストリップに<strong>V2</strong>、<strong>V3</strong>のように番号が付いて現れます。</p>
+<p>バージョンを削除しても元のファイルは残ります。削除の確認に「元のファイルはそのまま残ります」と出るのはその意味です。</p>
+</section>
+
+<!-- ══════════ 현상 화면 ══════════ -->
+
+<section id="canvas">
+<h2>拡大と移動</h2>
+<table>
+  <tr><th>操作</th><th>できること</th></tr>
+  <tr><td><span class="kbd">⌘=</span></td><td>拡大</td></tr>
+  <tr><td><span class="kbd">⌘-</span></td><td>縮小</td></tr>
+  <tr><td><span class="kbd">⌘0</span></td><td>画面に合わせる</td></tr>
+  <tr><td><span class="kbd">⌘1</span></td><td>100% — 等倍のピクセル</td></tr>
+  <tr><td><span class="kbd">Space</span> + ドラッグ</td><td>写真をドラッグして移動</td></tr>
+  <tr><td>トラックパッドのピンチ</td><td>拡大・縮小</td></tr>
+  <tr><td>トラックパッドの2本指スクロール</td><td>移動</td></tr>
+  <tr><td><span class="kbd">O</span></td><td>ズームバーの表示／非表示</td></tr>
+</table>
+<p>シャープネスや粒子のようにピクセル単位で見るべきものは、<span class="kbd">⌘1</span>で100%にして確かめてください。それより小さい倍率では画面に合わせて縮小して描かれるため、実際とは違って見えることがあります。</p>
+</section>
+
+<section id="inspect">
+<h2>元画像との比較とクリッピング警告</h2>
+
+<h3>元画像表示 <span class="kbd">M</span></h3>
+<p>押している間だけ編集前の状態が出ます。手を入れて実際に良くなったかを確かめる、いちばん速い方法です。</p>
+
+<h3>クリッピング警告 <span class="kbd">J</span></h3>
+<p>真っ白に飛んだ所は赤、真っ黒に潰れた所は青で覆って示します。</p>
+<p>1チャンネルだけが端に達した程度 — たとえば真っ赤な花びら — はまだ色が残っているので警告しません。<strong>3チャンネルすべてが端に達し、情報が実際に失われた所</strong>だけを示します。画面にクリッピングの知らせが出たら、押すだけで警告表示を切り替えられます。</p>
+
+<h3>ヒストグラム</h3>
+<p>右パネルのヒストグラムは明るさの分布を示します。左端に寄れば暗い側が、右端に寄れば明るい側が切れているという意味です。</p>
+</section>
+
+<section id="compare">
+<h2>比較ビュー</h2>
+<p>写真を2枚並べて見る機能です。同じ場面を別々に現像したうちどちらが良いか選ぶとき、またはバージョン同士を見比べるときに使います。</p>
+<ol class="steps">
+  <li>ツールバーの<strong>比較</strong>を押します。</li>
+  <li>左に現在の写真が入り、右に比べる写真を選びます。</li>
+  <li>倍率を合わせておけば両側が一緒に動き、同じ部分を同じ大きさで見られます。</li>
+</ol>
+</section>
+
+<section id="sections">
+<h2>調整項目の扱い方</h2>
+<p>右パネルは項目（セクション）に分かれています。それぞれ開閉でき、並び順も変えられます。</p>
+
+<h3>オン・オフ</h3>
+<p>項目名の横のスイッチを切ると、その項目の値だけを初期値に戻して描きます。<strong>設定値は消えません</strong> — もう一度入れれば元どおりです。「この項目は本当に効いているのか」を確かめるときに便利です。</p>
+
+<h3>開く・閉じる・並び順</h3>
+<ul>
+  <li><span class="kbd">,</span>すべて開く · <span class="kbd">.</span>すべて閉じる</li>
+  <li>項目名をドラッグして順序を変えられます。変えた順序は次回も保たれます。</li>
+</ul>
+
+<h3>元に戻す</h3>
+<ul>
+  <li>スライダ名をダブルクリックすると、その値だけが初期値に戻ります。</li>
+  <li>項目名の横のリセットボタンはその項目全体を初期化します。</li>
+  <li><span class="kbd">⌥⌘R</span> — 写真のすべての編集を初期化します。</li>
+</ul>
+
+<div class="tip">
+<b>スライダを細かく</b>
+<p>スライダをドラッグするとき<span class="kbd">⌥</span>を押していると、より細かく動きます。数値を直接クリックして入力することもできます。</p>
+</div>
+</section>
+
+
+<!-- ══════════ 조정 항목 ══════════ -->
+
+<section id="presets">
+<h2>プリセット</h2>
+<p>いまの写真に入っている<strong>すべての編集値</strong>をまとめて保存し、別の写真に一度でかける機能です。フィルムもトーンも部分補正も、すべて含まれます。</p>
+
+<h3>作る</h3>
+<ol class="steps">
+  <li>写真を一枚、思いどおりに仕上げます。</li>
+  <li>プリセット項目の<strong>+</strong>を押して名前を付けます。</li>
+  <li>同じ名前でもう一度保存すると上書きされます。</li>
+</ol>
+
+<h3>使う</h3>
+<p>プリセット一覧には、いま開いている写真に各プリセットをかけた姿が小さな絵で並びます。押せばすぐ適用されます。サムネイルの大きさは<strong>極小 · 小 · 大</strong>から選びます。</p>
+
+<div class="tip">
+<b>プリセットとフィルムの違い</b>
+<p><strong>フィルム</strong>は色の変換ひとつ。<strong>プリセット</strong>はフィルムを含む編集の全体です。「この色だけ」を使い回すならフィルム、「この写真を作った手順すべて」を使い回すならプリセットです。</p>
+</div>
+</section>
+
+<section id="film">
+<h2>フィルムレシピ</h2>
+<p>Rawcookrの中心となる機能です。内蔵フィルムを選び、その上でトーンと色を仕上げます。</p>
+
+<h3>フィルムを選ぶ</h3>
+<p>項目のいちばん上のフィルムアイコンを押すと、系統ごとにまとまった一覧が開きます。</p>
+<table class="wide">
+  <tr><th>系統</th><th>数</th><th>性格</th></tr>
+  <tr><td>F.film</td><td>11</td><td>スタンダード · ビビッド · ソフト · ヴィンテージクローム · ナチュラル · ポートレートハイ／スタンダード · クールネガ · レトロネガ · シネマ · ブリーチバイパス</td></tr>
+  <tr><td>KoD</td><td>5</td><td>ポートレート400 · デイリー200 · ファイン100 · クローム64 · モノ400</td></tr>
+  <tr><td>R.co</td><td>6</td><td>ポジティブ · ネガティブ · レトロ · シネマイエロー · シネマグリーン · ハイコントラストモノ</td></tr>
+  <tr><td>IlFd</td><td>2</td><td>モノ400 · ファイン50</td></tr>
+  <tr><td>クラシック</td><td>3</td><td>タングステン800T · クラシックデイリー400 · クロスプロセス</td></tr>
+  <tr><td>モノクロ</td><td>9</td><td>モノファイン系4種（フィルタなし／Ye／R／G） · モノ4種 · セピア</td></tr>
+</table>
+<p>ここに自分で作った<strong>カスタムフィルム</strong>が加わります。作り方は<a href="#customfilm">自分だけのフィルムを作る</a>にあります。</p>
+
+<div class="note">
+<b>名前について</b>
+<p>すべてのフィルムはRawcookrが独自に作った色変換で、名前も独自のものです。特定のメーカーの製品とは関係ありません。</p>
+</div>
+
+<h3>カラーフィルムの調整値</h3>
+<table>
+  <tr><th>項目</th><th>範囲</th><th>できること</th></tr>
+  <tr><td>ハイライトトーン</td><td>−2 〜 +12</td><td>明るい側のコントラスト。上げると硬く、下げると柔らかくなります。</td></tr>
+  <tr><td>シャドウトーン</td><td>−2 〜 +4</td><td>暗い側のコントラスト。</td></tr>
+  <tr><td>カラー</td><td>−4 〜 +4</td><td>フィルム全体の彩度。</td></tr>
+  <tr><td>色相</td><td>−4 〜 +4</td><td>すべての色を一方向に回します。1段階につき3°。</td></tr>
+  <tr><td>キー</td><td>−4 〜 +4</td><td>中間の明るさを上げ下げします。</td></tr>
+  <tr><td>コントラスト</td><td>−4 〜 +4</td><td>中心を基準にコントラストを広げます。</td></tr>
+  <tr><td>クラリティ</td><td>−5 〜 +5</td><td>質感。マイナスは柔らかく、プラスははっきりと。</td></tr>
+  <tr><td>シャープネス</td><td>−4 〜 +4</td><td>フィルム自体の鮮明さ。マイナスはぼかします。</td></tr>
+  <tr><td>シェーディング</td><td>−4 〜 +4</td><td>周辺光量の低下。プラスにすると四隅が暗くなります。</td></tr>
+  <tr><td>WBシフト R · B</td><td>−9 〜 +9</td><td>赤と青をわずかに押して色味を傾けます。</td></tr>
+</table>
+
+<h3>モノクロフィルムの調整値</h3>
+<p>カラーの項目の代わりに<strong>調色WC</strong>と<strong>調色MG</strong>（各 −18 〜 +18）が出ます。WCは暖かさと冷たさ、MGはマゼンタと緑の方向に色を乗せます。二つを組み合わせれば、セピアから冷たい青緑まで作れます。</p>
+
+<h3>粒子</h3>
+<p>フィルム粒子をのせます。強さは<strong>なし · 弱 · 強</strong>、大きさは<strong>小 · 大</strong>から選びます。強さがなしのとき、大きさは選べません。</p>
+
+<div class="tip">
+<b>粒子は100%で確かめてください</b>
+<p>粒子はピクセル単位の効果なので、画面に合わせた状態ではほとんど見えません。<span class="kbd">⌘1</span>で100%にして判断してください。</p>
+</div>
+</section>
+
+<section id="wb">
+<h2>ホワイトバランス</h2>
+<p>写真の色温度を合わせます。RAWファイルは撮影時の値をそのまま使うことも、自分で変えることもできます。</p>
+<table>
+  <tr><th>項目</th><th>範囲</th><th>できること</th></tr>
+  <tr><td>色温度</td><td>2000 〜 12000 K</td><td>下げると青く、上げると黄色くなります。</td></tr>
+  <tr><td>色かぶり補正</td><td>−100 〜 +100</td><td>緑とマゼンタの間を調整します。蛍光灯の下でよく使います。</td></tr>
+</table>
+
+<h3>スポイトで合わせる</h3>
+<p>スポイトを押してから<strong>写真の中で無彩色（グレー）であるべき場所</strong>をクリックすると、その点がグレーになるよう色温度と色かぶりを合わせます。白い壁、灰色のアスファルト、白いシャツの影になった部分が良い基準になります。もともと色のある物をクリックすると、見当違いの方向に行きます。</p>
+
+<h3>カラースイープ</h3>
+<p>スポイトの左にある筆のアイコンです。押すとカラーマップが開き、もう一度押すと閉じます。押したままドラッグすればマップを見ながらその場で合わせられ、開いたままのマップはつまんで動かせます。</p>
+<ul>
+  <li>左右が色温度 — 右へ行くほど暖かくなります。</li>
+  <li>上下が色かぶり — 上へドラッグするとマゼンタ、下へドラッグすると緑寄りです。</li>
+  <li><span class="kbd">⌥</span>を押しながらドラッグすると細かく動きます。</li>
+</ul>
+<p>RAWファイルは開いたとき、カメラが記録した値から始まります。項目名のリセットを押せば、その状態に正確に戻ります。</p>
+</section>
+
+<section id="light">
+<h2>光</h2>
+<p>明るさとコントラストを扱う基本の項目です。たいていの写真はここでほぼ仕上がります。</p>
+<table>
+  <tr><th>項目</th><th>範囲</th><th>できること</th></tr>
+  <tr><td>露出</td><td>−3 〜 +3 EV</td><td>写真全体の明るさ。RAWのデコード段階で適用されるので、いちばんきれいに明るさを変えられます。</td></tr>
+  <tr><td>コントラスト</td><td>−100 〜 +100</td><td>明暗の差。</td></tr>
+  <tr><td>ハイライト</td><td>−100 〜 +100</td><td>飛んだ空や光源を引き下げます。拡張ダイナミックレンジで残した余裕をここで引き出します。</td></tr>
+  <tr><td>シャドウ</td><td>−100 〜 +100</td><td>日陰の質感を持ち上げます。</td></tr>
+  <tr><td>白レベル</td><td>−100 〜 +100</td><td>明るい側の端の位置。</td></tr>
+  <tr><td>黒レベル</td><td>−100 〜 +100</td><td>暗い側の端の位置。少し上げるとフィルムらしい印象になります。</td></tr>
+  <tr><td>明瞭度</td><td>−100 〜 +100</td><td>中くらいの質感のコントラスト。マイナスは肌をなめらかに、プラスは雲やレンガを立たせます。</td></tr>
+  <tr><td>彩度</td><td>−100 〜 +100</td><td>すべての色を均等に。</td></tr>
+  <tr><td>自然な彩度</td><td>−100 〜 +100</td><td>淡い色から先に上げます。肌の色はあまり触らないので人物にも安全です。</td></tr>
+  <tr><td>フェード</td><td>0 〜 100</td><td>黒を持ち上げて褪せた感じを出します。</td></tr>
+</table>
+
+<div class="note">
+<b>ハイライトとシャドウは局所処理です</b>
+<p>この二つは写真全体に同じ値を掛けるのではなく、輪郭を保ちながら明るい部分だけ・暗い部分だけを選んで扱います。空だけを下げてもすぐ隣の中間調はそのまま残り、境目に白い縁（ハロー）は出ません。</p>
+</div>
+</section>
+
+<section id="curve">
+<h2>トーンカーブ</h2>
+<p>明るさの対応関係を自分で描きます。スライダでは届かない細かい調整ができます。</p>
+
+<h3>使い方</h3>
+<ul>
+  <li>線の上をクリックして点を追加し、ドラッグして動かします。</li>
+  <li>点を外へ引き出すと削除されます。</li>
+  <li><strong>RGB</strong>は明るさ全体、<strong>R · G · B</strong>はチャンネルごとです。チャンネルを個別に触ると色が傾くので、色味を作るときに使います。</li>
+  <li>中央が上に膨らめば明るくなり、S字に描けばコントラストが上がります。</li>
+  <li><strong>このチャンネルのみリセット</strong>を押すと、いま見ているチャンネルの曲線だけが直線に戻ります。</li>
+</ul>
+
+<h3>3種類のスポイト</h3>
+<p>写真の中で基準になる点をクリックすると、曲線が自動で決まります。R・G・Bの3本が<strong>一緒に</strong>動いて、その点が基準色になるようにします。</p>
+<table class="wide">
+  <tr><th>スポイト</th><th>クリックする場所</th></tr>
+  <tr><td>黒点</td><td>純粋な黒であるべき点。いちばん深い影。</td></tr>
+  <tr><td>中間点</td><td>無彩色であるべき点。灰色のコンクリート、色味のない服。</td></tr>
+  <tr><td>白点</td><td>純粋な白であるべき点。白い紙、白い壁。</td></tr>
+</table>
+<p>3か所を順にクリックすれば、色のバランスとコントラストが一度に決まります。色が大きく傾いた写真を素早く正常に戻すのに、いちばん効率の良い方法です。</p>
+</section>
+
+<section id="hsl">
+<h2>色相・彩度</h2>
+<p>色を12の帯に分けて一つずつ扱います。</p>
+<p><strong>赤 · オレンジ · 黄 · 黄緑 · 緑 · エメラルド · シアン · 空色 · 青 · 紫 · マゼンタ · ピンク</strong> — 30°間隔で色相環を均等に覆います。</p>
+<table>
+  <tr><th>項目</th><th>範囲</th><th>できること</th></tr>
+  <tr><td>色相</td><td>−30 〜 +30</td><td>その色を隣の色の方へ回します。</td></tr>
+  <tr><td>彩度</td><td>−100 〜 +100</td><td>その色だけを濃く、または淡く。</td></tr>
+  <tr><td>輝度</td><td>−100 〜 +100</td><td>その色だけを明るく、または暗く。</td></tr>
+</table>
+
+<h3>カラーマップから直接選ぶ</h3>
+<p>色チップを<strong>長押ししてドラッグ</strong>すると、マップが開きます。</p>
+<ul>
+  <li>左右にドラッグで<strong>色相</strong></li>
+  <li>上下にドラッグで<strong>彩度</strong></li>
+  <li><span class="kbd">⌘</span>を押しながら上下にドラッグで<strong>輝度</strong></li>
+</ul>
+<p>3本のスライダを行き来せずに、一つの動きで狙った点を見つけられます。</p>
+
+<div class="tip">
+<b>よく使う手入れ</b>
+<p>空を深く — 青と空色の彩度を上げ、輝度を下げます。緑を落ち着かせる — 緑の彩度を下げ、色相を黄色寄りに少し。肌を自然に — オレンジの彩度を少し下げ、輝度を少し上げます。</p>
+</div>
+</section>
+
+<section id="levels">
+<h2>レベル</h2>
+<p>入力と出力の範囲を自分で指定します。トーンカーブより単純ですが、黒と白の位置を正確に決めるときは速いです。</p>
+<table>
+  <tr><th>項目</th><th>範囲</th><th>できること</th></tr>
+  <tr><td>入力の黒</td><td>0 〜 0.9</td><td>この値より暗い所をすべて黒にします。</td></tr>
+  <tr><td>入力の白</td><td>0.1 〜 1</td><td>この値より明るい所をすべて白にします。</td></tr>
+  <tr><td>ガンマ</td><td>0.2 〜 3</td><td>中間の明るさを上げ下げします。</td></tr>
+  <tr><td>出力の黒</td><td>0 〜 0.9</td><td>いちばん暗い所が到達する明るさ。上げると褪せた感じに。</td></tr>
+  <tr><td>出力の白</td><td>0.1 〜 1</td><td>いちばん明るい所が到達する明るさ。下げると白が抑えられます。</td></tr>
+</table>
+<p>入力側を詰めるときは<span class="kbd">J</span>でクリッピング警告を出しておいてください。どこから情報が消えるかがすぐ分かります。</p>
+</section>
+
+<section id="colorgrade">
+<h2>3ウェイカラーバランス</h2>
+<p>暗部 · 中間 · 明部にそれぞれ別の色をのせます。映画の色補正でよく使われる方法です。</p>
+<ul>
+  <li>カラーホイールの中心をドラッグして方向と強さを決めます。中心に近いほど弱くなります。</li>
+  <li>各帯の<strong>輝度</strong>と<strong>彩度</strong>（各 −100 〜 +100）を別々に調整します。</li>
+</ul>
+<p>彩度を帯ごとに分けて使うと、暗い所は落ち着かせたまま明るい所だけを生かす、といった調整ができます。</p>
+<div class="tip">
+<b>定番のひとつ</b>
+<p>暗部をシアンへ、明部をオレンジへわずかに寄せると、見慣れた映画の色味になります。二つの方向が色相環で向かい合うので、人物が背景から浮き立ちます。ごく少量にとどめるのがこつです。</p>
+</div>
+</section>
+
+<section id="selective">
+<h2>選択カラー</h2>
+<p>色を9つの系統に分け、それぞれにシアン・マゼンタ・イエロー・ブラックを足し引きして色を整えます。印刷の世界で長く使われてきた方法で、色相・彩度では捉えにくい微妙な偏りによく効きます。</p>
+
+<h3>選べる系統</h3>
+<p><strong>レッド · イエロー · グリーン · シアン · ブルー · マゼンタ</strong>の6色と、<strong>白 · 中間色 · 黒</strong>の3つの明るさの帯です。すでに触った系統には一覧に印が付きます。</p>
+
+<table>
+  <tr><th>項目</th><th>範囲</th><th>できること</th></tr>
+  <tr><td>シアン</td><td>−100 〜 +100</td><td>上げるとシアンが加わり、下げると赤寄りになります。</td></tr>
+  <tr><td>マゼンタ</td><td>−100 〜 +100</td><td>上げるとマゼンタ、下げると緑寄り。</td></tr>
+  <tr><td>イエロー</td><td>−100 〜 +100</td><td>上げるとイエロー、下げると青寄り。</td></tr>
+  <tr><td>ブラック</td><td>−100 〜 +100</td><td>その系統を暗く、または明るく。</td></tr>
+</table>
+
+<h3>相対値と絶対値</h3>
+<table class="wide">
+  <tr><th>方式</th><th>意味</th></tr>
+  <tr><td>相対値</td><td>すでに含まれている量に比例して変えます。その色がない所には触れないので、純粋な白はそのまま残ります。たいていの場合はこちらが安全です。</td></tr>
+  <tr><td>絶対値</td><td>指定した量をそのまま加えます。変化は大きく確実ですが、粗くなりやすいです。</td></tr>
+</table>
+
+<div class="tip">
+<b>よく使う手入れ</b>
+<p>肌が赤く浮くとき — <strong>レッド</strong>系統でシアンを少し上げます。空が濁るとき — <strong>ブルー</strong>でブラックを少し上げて深くします。白い壁が黄色く出たとき — <strong>白</strong>系統でイエローを下げます。</p>
+</div>
+</section>
+
+<section id="local">
+<h2>部分補正</h2>
+<p>写真の一部にだけ補正を入れます。マスクを作り、その中で値を調整します。作ったマスクは<a href="#layers">レイヤー</a>項目にも並ぶので、重ねたレイヤーと同じ場所で管理できます。</p>
+
+<h3>3種類のマスク</h3>
+<table class="wide">
+  <tr><th>種類</th><th>作り方</th><th>使いどころ</th></tr>
+  <tr><td>線形</td><td>写真の上を一方向にドラッグします。始点が100%、終点が0%。</td><td>空を下げたり前景を上げたりするとき</td></tr>
+  <tr><td>円形</td><td>楕円を描きます。内側が100%、縁が0%。</td><td>人物や被写体を際立たせるとき</td></tr>
+  <tr><td>ブラシ</td><td>補正する所を自分で塗ります。</td><td>形が不規則な所</td></tr>
+</table>
+<ul>
+  <li><strong>ぼかし</strong>（0 〜 1） — 境界の柔らかさ。0で硬く、1でとても柔らかくにじみます。</li>
+  <li><strong>ブラシの大きさ</strong>（20 〜 600）</li>
+  <li><strong>マスクを反転</strong> — 選んだ所ではなく<em>それ以外</em>に補正が入ります。</li>
+  <li>マスクは複数作れ、それぞれオン・オフできます。</li>
+</ul>
+
+<h3>マスクの中で調整する値</h3>
+<table>
+  <tr><th>項目</th><th>範囲</th></tr>
+  <tr><td>露出</td><td>−2 〜 +2 EV</td></tr>
+  <tr><td>コントラスト · ハイライト · シャドウ</td><td>各 −100 〜 +100</td></tr>
+  <tr><td>彩度 · クラリティ</td><td>各 −100 〜 +100</td></tr>
+  <tr><td>暖かさ · 色かぶり補正</td><td>各 −100 〜 +100</td></tr>
+</table>
+</section>
+
+<section id="layers">
+<h2>レイヤー</h2>
+<p>現像した写真の上に層を重ねます。調整レイヤーは下にあるものを整え直し、単色レイヤーはその上を覆い、マスクレイヤーは印を付けた場所だけに効きます。</p>
+
+<h3>3種類のレイヤー</h3>
+<table class="wide">
+  <tr><th>種類</th><th>できること</th></tr>
+  <tr><td>調整値</td><td>光・トーンカーブ・レベル・色相・彩度・3ウェイカラーバランスと、モノクロ・反転をもう一組のせます。同じ調整を二度、違う強さでかけたいときに使います。</td></tr>
+  <tr><td>単色</td><td>選んだ色で覆います。合成方法と組み合わせれば、色をのせるフィルターになります。</td></tr>
+  <tr><td>マスク</td><td>線形・円形・ブラシで印を付けた場所にだけ適用されます。部分補正と同じマスクを使います。</td></tr>
+</table>
+<p>マスクレイヤーは先に写真へ適用され、その上のレイヤーはその結果の上に重なります。</p>
+
+<h3>合成方法</h3>
+<p>16種類あります。</p>
+<table class="wide">
+  <tr><th>グループ</th><th>方式</th></tr>
+  <tr><td>基本</td><td>通常</td></tr>
+  <tr><td>暗くする</td><td>乗算 · 焼き込みカラー · 比較（暗）</td></tr>
+  <tr><td>明るくする</td><td>スクリーン · 覆い焼きカラー · 比較（明）</td></tr>
+  <tr><td>コントラスト</td><td>オーバーレイ · ソフトライト · ハードライト</td></tr>
+  <tr><td>差分</td><td>差の絶対値 · 除外</td></tr>
+  <tr><td>色の成分</td><td>色相 · 彩度 · カラー · 輝度</td></tr>
+</table>
+<p>強さは<strong>不透明度</strong>で調整します。</p>
+
+<h3>整理する</h3>
+<ul>
+  <li><strong>このレイヤーを表示</strong> — 目のアイコンで一時的に切り替えます。</li>
+  <li><strong>上へ · 下へ</strong> — 重なりの順序を変えます。</li>
+  <li><strong>下のレイヤーと結合</strong> — 二つを一つにまとめます。各設定はそのまま残ります。</li>
+  <li><strong>結合を解除</strong> — まとめたものをもう一度分けます。</li>
+  <li><strong>このレイヤーを削除</strong></li>
+</ul>
+
+<div class="tip">
+<b>色をのせるいちばん簡単な方法</b>
+<p>単色レイヤーを一つのせて合成方法を<strong>カラー</strong>にすると、明るさはそのままに色だけが写真全体を覆います。不透明度で強さを合わせれば、フィルムの調色に近い印象になります。</p>
+</div>
+</section>
+
+<section id="detail">
+<h2>ディテール</h2>
+<p>鮮明さとノイズを扱います。この項目は<strong>100%の倍率で判断</strong>してください。</p>
+<table>
+  <tr><th>項目</th><th>範囲</th><th>できること</th></tr>
+  <tr><td>シャープネス</td><td>−4 〜 +4</td><td>RAWデコード段階の鮮明さ。0がmacOSの標準値で、そこから段階ごとに足し引きします。</td></tr>
+  <tr><td>カラーNR</td><td>−4 〜 +4</td><td>色のむら（カラーノイズ）を抑えます。0が標準値です。高感度のときに上げてください。</td></tr>
+  <tr><td>シャープ</td><td>0 〜 300 %</td><td>現像のあとにかけるアンシャープマスク。上のシャープネスとは別物です。</td></tr>
+  <tr><td>半径</td><td>0.5 〜 5 px</td><td>シャープが効く幅。小さいほど細かい質感、大きいほど太い輪郭に効きます。</td></tr>
+</table>
+<p>シャープは明るさのチャンネルだけに効くので、色の境目がにじみません。</p>
+</section>
+
+<section id="effects">
+<h2>効果</h2>
+
+<h3>周辺光量</h3>
+<p><strong>周辺光量</strong>（−100 〜 +100）はマイナスで四隅が暗く、プラスで明るくなります。<strong>中間点</strong>（0 〜 100）は効果が始まる距離です。下げると中心近くまで及びます。</p>
+
+<h3>モノクロ · 反転</h3>
+<ul>
+  <li><strong>モノクロ</strong> — 色を抜いて白黒にします。</li>
+  <li><strong>反転（ネガ）</strong> — 明るさと色を反転します。フィルムネガをスキャンした画像をポジに戻すときに使います。</li>
+</ul>
+
+<h3>外部LUT</h3>
+<p>手持ちの<span class="path">.cube</span>ファイルを読み込んでかけます。<strong>LUTの強さ</strong>（0 〜 100）で効き具合を調整します。</p>
+<p>ここにはさらに二つの道具があります。</p>
+<table class="wide">
+  <tr><th>ボタン</th><th>できること</th></tr>
+  <tr><td>LUTとして適用 (.cube)…</td><td>選んだLUTをそのままかけます。</td></tr>
+  <tr><td>調整値に変換して読み込み…</td><td>LUTの働きを解析して、トーンカーブ・彩度・HSL・3ウェイカラーバランスの<em>スライダ値</em>に分解して入れます。分解しておけば、その上で手を加え続けられます。</td></tr>
+</table>
+</section>
+
+<section id="defringe">
+<h2>色収差の除去</h2>
+<p>レンズによる色のにじみを取り除きます。原因の違う二つを別々に扱います。</p>
+
+<h3>倍率色収差の補正</h3>
+<p>レンズが赤・緑・青を<strong>わずかに違う大きさ</strong>で結ぶため、画面の端へ行くほどシアンやマゼンタの帯が出る現象です。色を抜く方法では消せず、<strong>ずれたチャンネルを元の位置に戻して</strong>はじめて消えます。</p>
+<ul>
+  <li>オンにすると写真を解析して補正量を自動で決めます。</li>
+  <li><strong>赤の倍率 · 青の倍率</strong>（0.994 〜 1.006）で自分で微調整できます。</li>
+  <li><strong>再測定</strong>を押すと、いまの写真で計算し直します。</li>
+</ul>
+
+<h3>フリンジの除去</h3>
+<p>強い逆光の境目に残る紫・緑・赤の縁を消します。</p>
+<table>
+  <tr><th>項目</th><th>範囲</th></tr>
+  <tr><td>紫を除去 · 緑を除去 · 赤を除去</td><td>各 0 〜 3</td></tr>
+</table>
+<ul>
+  <li><strong>ブラシで塗った所だけ</strong>をオンにすると、塗った部分でだけ補正が働きます。写真全体にかけると、もともとその色だったもの（紫の花、赤い看板）まで褪せるので、問題のある所だけを塗る方が安全です。</li>
+  <li><strong>ブラシの大きさ</strong>は10 〜 300。</li>
+  <li><strong>塗った範囲を隠す</strong>で印を一時的に消し、結果だけを見られます。</li>
+  <li><strong>直前の筆を取り消す</strong>・<strong>すべて消去</strong>で戻せます。</li>
+</ul>
+</section>
+
+<section id="mist">
+<h2>ミスト</h2>
+<p>レンズの前に着ける光学ディフュージョンフィルターをデジタルに移した効果です。明るい部分が柔らかくにじみ、コントラストがやわらぎ、肌が穏やかになります。</p>
+<table>
+  <tr><th>段階</th><th>印象</th></tr>
+  <tr><td>なし</td><td>オフ</td></tr>
+  <tr><td>1/8</td><td>いちばん弱い。ポートレートに無難です。</td></tr>
+  <tr><td>1/4</td><td>柔らかさが目に入り始めます。</td></tr>
+  <tr><td>1/2</td><td>夜景や逆光で光のにじみがはっきり広がります。</td></tr>
+  <tr><td>1</td><td>いちばん強い。雰囲気が大きく変わります。</td></tr>
+</table>
+<p><strong>影にも拡散</strong>をオンにすると、明るい所だけでなく暗い部分にも光が回り、古いフィルムプリントのような印象になります。</p>
+<p>ミストは光のある所で効きます。光源や明るい空、逆光の髪などがあって初めて分かり、平坦に曇った写真ではコントラストが下がるだけです。</p>
+</section>
+
+<section id="privacy">
+<h2>プライバシーぼかし</h2>
+<p>写真に偶然写り込んだ他人の顔や車のナンバープレートを隠します。</p>
+
+<h3>自動で見つける</h3>
+<p>写真を開くと顔とナンバープレートを見つけ、領域として押さえます。検出は<strong>等倍の解像度</strong>で走るので、縮小プレビューでは潰れて見逃すような小さな顔も拾います。</p>
+<p>見つけた領域は一覧に並び、一つずつオン・オフできます。隠す必要のない人（連れの人など）はオフにしておけば大丈夫です。</p>
+
+<h3>自分で描く</h3>
+<ol class="steps">
+  <li><strong>ぼかす領域を描く</strong>を押します。</li>
+  <li>写真の上をドラッグして領域を作ります。</li>
+  <li>続けていくつでも描けます。描き終えたらボタンをもう一度押して終了します。</li>
+</ol>
+<p>描いている途中で写真を動かすには、<span class="kbd">Space</span>を押しながらドラッグしてください。</p>
+
+<h3>形と強さ</h3>
+<table>
+  <tr><th>項目</th><th>選べるもの</th></tr>
+  <tr><td>方式</td><td>ぼかし／モザイク</td></tr>
+  <tr><td>形</td><td>長方形／楕円</td></tr>
+  <tr><td>強さ</td><td>0.4 〜 2.0</td></tr>
+</table>
+<p>顔には楕円が、ナンバープレートや看板には長方形が自然です。</p>
+
+<div class="warn">
+<b>公開する前に確かめてください</b>
+<p>自動検出は横顔やマスクをした顔、とても暗い所の顔を見逃すことがあります。公開する写真なら、書き出す前に<span class="kbd">⌘1</span>で100%にして一度見渡すことをおすすめします。</p>
+</div>
+</section>
+
+<section id="frame">
+<h2>日付の焼き込み</h2>
+
+<div class="note">
+<b>フレームはマウントへ移りました</b>
+<p>写真のまわりに余白を回して決まった比率に合わせる役目は、いまは<a href="#mount">マウント</a>が担います。写真を一枚だけのせて画像比と<strong>枠</strong>を決めれば、以前のフレームと同じ結果になり、間隔・角・背景色まで一緒に扱えます。</p>
+</div>
+
+<h3>日付の焼き込み</h3>
+<p>フィルムレシピ項目の<strong>日付の焼き込み</strong>ボタンを押すと設定が開きます。</p>
+<p>フィルムカメラのデータバックのように、右下に撮影日を入れます。数字は7セグメントの形で直接描くので、どのMacでも同じ形になります。</p>
+<p>日付は写真の撮影情報から読み取ります。表記の順序（年・月・日の並び）は選べます。</p>
+<p>焼き込みはフィルムシミュレーションより先に入ります。そのためフィルム・トーン・粒子・ミストを写真と<strong>まったく同じように</strong>受け、あとから載せた文字ではなく一緒に露光されたように見えます。</p>
+</section>
+
+
+<!-- ══════════ 마운트 ══════════ -->
+
+<section id="mount">
+<h2>板に写真をのせる</h2>
+<p>マウントは、複数の写真を一枚の板にのせて一枚の画像にする作業スペースです。SNSやブログ、ウェブサイトに上げるとき、何枚かを別々に上げる代わりに一つにまとめて見せられます。</p>
+
+<h3>はじめかた</h3>
+<ul>
+  <li>上のタブで<strong>マウント</strong>を選びます。</li>
+  <li>左の<strong>写真ドロワー</strong>から写真をドラッグして置きます。ドロワーが空なら<strong>写真フォルダを開く</strong>でフォルダを選びます。</li>
+  <li>空のマスをクリックし、<strong>写真を選択…</strong>で直接指定することもできます。</li>
+  <li>現像画面で<strong>この写真をマウントする</strong>を選ぶと、いま見ていた写真がそのまま板へ移ります。ライブラリで複数枚を選んで<strong>マウントへ送る</strong>もできます。</li>
+</ul>
+<p>ドロワーはアイコンで開閉できます。</p>
+
+<h3>板の大きさ</h3>
+<table>
+  <tr><th>項目</th><th>選べるもの</th></tr>
+  <tr><td>画像比</td><td>元の比率 · 1:1 · 4:5 · 5:4 · 2:3 · 3:2 · 3:4 · 4:3 · 9:16 · 16:9 · 1.91:1</td></tr>
+  <tr><td>解像度</td><td>1080 · 1440 · 2048 · 4096（横のピクセル）</td></tr>
+</table>
+<p><strong>元の比率</strong>は最初の写真の比率をそのまま使います。枠だけを回して額のように使うときに便利です。</p>
+</section>
+
+<section id="mount-split">
+<h2>マスに分ける</h2>
+<p><strong>分割</strong>をオンにすると板が格子に分かれます。何行何列に分けるかを選ぶだけで、最大5 × 5までです。</p>
+
+<h3>マスを扱う</h3>
+<ul>
+  <li>マスの間の境界線をドラッグすると大きさが変わります。<strong>分割比率をリセット</strong>で均等に戻せます。</li>
+  <li>境界線を右クリックすると<strong>境界線を移動</strong>・<strong>境界線を削除</strong>が使えます。</li>
+  <li>写真を別のマスへドラッグすると、2枚が場所を入れ替えます。</li>
+</ul>
+
+<h3>マスの中で写真を合わせる</h3>
+<p>マスの中の写真は、マスを埋めるように切り抜かれて入ります。どの部分を見せるかは自分で決めます。</p>
+<ul>
+  <li>写真をドラッグして見せる位置を動かします。</li>
+  <li>スクロールかピンチで拡大・縮小します。</li>
+  <li><strong>切り抜きをリセット</strong>で最初の状態に戻します。</li>
+  <li><strong>写真を外す</strong>でそのマスを空にします。</li>
+</ul>
+</section>
+
+<section id="mount-free">
+<h2>自由配置</h2>
+<p><strong>分割</strong>をオフにするとマスが消え、写真を板の上に好きなように置けます。</p>
+
+<h3>置いて動かす</h3>
+<ul>
+  <li>ドラッグして動かし、角をつかんで大きさを変え、回せます。</li>
+  <li>ドラッグ中は他の写真や板の縁に<strong>磁石のように吸い付いて</strong>列がそろいます。</li>
+  <li><strong>グリッド</strong>ボタンを押すとガイドの格子が出ます。押すたびに細かくなり、最後はオフになります。</li>
+</ul>
+
+<h3>重なりの順序</h3>
+<p>写真を右クリックして変えます — <strong>最前面へ · 前面へ · 背面へ · 最背面へ</strong>。同じメニューに<strong>切り抜きをリセット</strong>、<strong>回転をリセット</strong>、<strong>写真を外す</strong>もあります。</p>
+
+<h3>助けになるボタン</h3>
+<table class="wide">
+  <tr><th>ボタン</th><th>できること</th></tr>
+  <tr><td>ばらまき</td><td>写真を板の上に散らして置きます。出発点を決めるときに便利です。</td></tr>
+  <tr><td>均等に</td><td>大きさと間隔をそろえます。</td></tr>
+  <tr><td>空にする</td><td>板にのせた写真をすべて降ろします。</td></tr>
+</table>
+
+<h3>マス数 — つないで作り、切って書き出す</h3>
+<p><strong>マス数</strong>を2以上にすると、選んだ画像比が横にその数だけつながって一つの板になります。つながった一枚で構図を決め、書き出すときに切り分けて<strong>左から順に番号を付けて</strong>保存します。</p>
+<p>SNSの複数枚めくる投稿で、写真が途切れずつながって見えるようにする方法です。最大12マスまでです。</p>
+</section>
+
+<section id="mount-look">
+<h2>間隔 · 枠 · 角</h2>
+<table>
+  <tr><th>項目</th><th>範囲</th><th>できること</th></tr>
+  <tr><td>間隔</td><td>0 〜 80</td><td>写真と写真の間のすき間。</td></tr>
+  <tr><td>枠</td><td>0 〜 120</td><td>板の縁の余白。</td></tr>
+  <tr><td>角</td><td>0 〜 120</td><td>写真の角を丸めます。0なら角ばったままです。</td></tr>
+  <tr><td>背景色</td><td>好きな色</td><td>すき間と余白を埋める色。</td></tr>
+</table>
+<p>数値は横1080pxを基準にした値です。解像度を上げても見た目の比率はそのまま保たれます。</p>
+
+<h3>表示</h3>
+<ul>
+  <li><strong>フィット</strong> — 板全体を窓に合わせて表示します。</li>
+  <li><strong>100%</strong> — 書き出すピクセルのまま。実際に保存される大きさを確かめるときに使います。</li>
+  <li>拡大した状態では、ドラッグして板を動かせます。</li>
+</ul>
+</section>
+
+<section id="mount-export">
+<h2>保存と書き出し</h2>
+
+<h3>作業を保存する</h3>
+<p>配置した状態をファイルに残しておき、あとから続けられます。</p>
+<table>
+  <tr><td><span class="kbd">⌘S</span></td><td>マウントを保存</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>別名でマウントを保存</td></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>マウントを開く（マウントタブでは⌘Oが作業ファイルを開きます）</td></tr>
+</table>
+<p>保存していない作業があると、タブを移るときやアプリを終了するときに確認されます。取り消しは、写真を入れ、動かし、順序を変えたすべての過程で効きます。</p>
+
+<h3>画像として書き出す</h3>
+<p><span class="kbd">⌘E</span>で開きます。</p>
+<table class="wide">
+  <tr><th>項目</th><th>内容</th></tr>
+  <tr><td>形式</td><td>現像画面の書き出しと同じです。画質やPNGのビット深度もここで決めます。</td></tr>
+  <tr><td>サイズ</td><td>板の解像度をそのまま使うか、縮めます。</td></tr>
+  <tr><td>分けて書き出す</td><td>マス数を2以上にした自由配置では、一枚として出すか、その数だけ切り分けるかを選びます。切ると左から番号が付きます。</td></tr>
+  <tr><td>保存先</td><td>元のフォルダ、または選んだフォルダ。</td></tr>
+  <tr><td>ファイル名</td><td>板にのせた最初の写真の名前に従います。接尾辞を付けられます。</td></tr>
+</table>
+</section>
+
+<!-- ══════════ 마무리 ══════════ -->
+
+<section id="crop">
+<h2>切り抜きと回転</h2>
+<p><span class="kbd">C</span>を押すと切り抜き・回転モードに入り、<span class="kbd">A</span>で色調整モードに戻ります。</p>
+
+<h3>切り抜き</h3>
+<ul>
+  <li>角と辺をドラッグして範囲を決めます。内側をドラッグすると切り抜き枠ごと動きます。</li>
+  <li>比率を固定できます — <strong>自由 · 元の比率 · 1:1 · 3:2 · 2:3 · 4:3 · 3:4 · 16:9 · 4:5</strong></li>
+</ul>
+
+<h3>水平調整</h3>
+<p><strong>角度</strong>（−45° 〜 +45°）で傾いた水平線を直します。回すと隅が空くので、自動で少し拡大して埋めます。</p>
+
+<h3>歪みの補正</h3>
+<p><strong>歪み</strong>（−100 〜 +100）はレンズのせいで直線が曲がるのを伸ばします。広角で外に膨らむ樽型はマイナス側、望遠で内に締まる糸巻き型はプラス側です。建物や水平線のような、まっすぐであるべきものを基準に合わせてください。</p>
+
+<h3>回転と反転</h3>
+<ul>
+  <li>左に90°回転 · 右に90°回転</li>
+  <li>左右反転 · 上下反転</li>
+</ul>
+<p>切り抜きと回転はいちばん最初に適用されます。そのため、あとから入れるぼかし領域やブラシの跡は<strong>切り抜いた写真を基準に</strong>位置が決まります。</p>
+</section>
+
+<section id="export">
+<h2>書き出し</h2>
+<p><span class="kbd">⌘E</span>で開きます。複数枚を選んでいれば、選んだすべてが同じ設定で保存されます。ウインドウ内で<span class="kbd">Return</span>を押すとすぐ始まります。</p>
+
+<h3>形式</h3>
+<table class="wide">
+  <tr><th>形式</th><th>使いどころ</th></tr>
+  <tr><td>JPEG</td><td>いちばん無難です。SNS・ウェブ・メール。</td></tr>
+  <tr><td>HEIF</td><td>同じ画質でファイルが小さい。Apple製品同士でやり取りするとき。</td></tr>
+  <tr><td>PNG</td><td>劣化なしで保存。8ビットと16ビットから選びます。ファイルは大きくなります。</td></tr>
+  <tr><td>WebP</td><td>ウェブに上げるときJPEGより小さくなります。</td></tr>
+  <tr><td>TIFF (8bit)</td><td>別の編集アプリへ渡すとき。互換性が高いです。</td></tr>
+  <tr><td>TIFF (16bit)</td><td>階調をできるだけ残して渡すとき。プリントや追加補正用。</td></tr>
+</table>
+<p>非可逆圧縮を使う形式では<strong>画質</strong>を調整できます。標準は95%で、上げるほどファイルは大きくなります。普通の用途で90%を下回らせることはめったにありません。</p>
+
+<h3>サイズ変更</h3>
+<p>3つの方式から選びます。</p>
+<table>
+  <tr><th>方式</th><th>指定する値</th></tr>
+  <tr><td>倍率</td><td>元に対する比率</td></tr>
+  <tr><td>横幅</td><td>横のピクセル数</td></tr>
+  <tr><td>長辺</td><td>縦横のうち長い方のピクセル数</td></tr>
+</table>
+<p>どの方式でも<strong>元より大きくは引き伸ばしません。</strong>ない画素を作り出しても画質が落ちるだけだからです。</p>
+
+<h3>メタデータ</h3>
+<p>書き出しウインドウの<strong>メタデータ</strong>タブで、ファイルに残す情報を項目ごとに選びます。チェックした項目は書き出したファイルから外れます。</p>
+<table class="wide">
+  <tr><th>項目</th><th>含まれるもの</th></tr>
+  <tr><td>撮影設定</td><td>露出 · ISO · 絞り</td></tr>
+  <tr><td>カメラ・レンズ</td><td>メーカー · 機種 · シリアル番号</td></tr>
+  <tr><td>撮影日時</td><td>撮った時刻</td></tr>
+  <tr><td>位置情報（GPS）</td><td>撮影場所の座標</td></tr>
+  <tr><td>作成者と著作権</td><td>作成者 · 著作権表示</td></tr>
+  <tr><td>説明とキーワード</td><td>写真に付けた文章とタグ</td></tr>
+  <tr><td>編集ソフト</td><td>どのアプリで作ったか。Rawcookrが残すフィルム名もここに入るので、一緒に外れます。</td></tr>
+  <tr><td>メーカーノート</td><td>カメラが独自に残す情報</td></tr>
+</table>
+<p><strong>すべて削除</strong>で一度にオフにできます。公開する写真なら、少なくとも<strong>位置情報（GPS）</strong>は外しておく方が安全です。自宅や職場の近くで撮った写真は、座標だけで生活圏が分かってしまいます。</p>
+
+<h3>その他の設定</h3>
+<table class="wide">
+  <tr><th>項目</th><th>できること</th></tr>
+  <tr><td>接尾辞</td><td>ファイル名の後ろに付ける文字。標準は<span class="path">_developed</span>です。元のファイルと名前がぶつからないようにします。</td></tr>
+  <tr><td>保存先</td><td>元のフォルダにそのまま置くか、別のフォルダを指定します。</td></tr>
+  <tr><td>終わったらフォルダを開く</td><td>保存が終わるとFinderでそのフォルダを開きます。</td></tr>
+  <tr><td>このウインドウを閉じる</td><td>書き出しが終わるとウインドウが自動で閉じます。何枚も繰り返し書き出すときに便利です。</td></tr>
+</table>
+<p>TIFFで保存すると、使ったフィルム名がファイルの説明情報にも記録されます。</p>
+
+<div class="note">
+<b>書き出した色が画面と違って見えるときは</b>
+<p>見ているアプリがカラープロファイルを読まない場合がほとんどです。Finderのプレビューやウェブブラウザで確かめてみてください。RawcookrはsRGBで書き出すので、たいていの環境で同じに見えます。</p>
+</div>
+</section>
+
+<section id="customfilm">
+<h2>自分だけのフィルムを作る</h2>
+<p>フィルム一覧に自分のものを加える方法は二つあります。</p>
+
+<p>どちらもフィルムレシピ項目で<strong>カスタム</strong>系統を選ぶと出るメニューにあります。</p>
+
+<h3>手持ちのLUTをフィルムに</h3>
+<ol class="steps">
+  <li>カスタム系統のメニューで<strong>LUT to FILM…</strong>を押します。</li>
+  <li><span class="path">.cube</span>ファイルを選びます。</li>
+  <li>名前を付ければフィルム一覧に入ります。</li>
+</ol>
+<p>モノクロのLUTはモノクロフィルムとして自動認識され、調色WC・MGのようなモノクロ専用の調整値が出ます。</p>
+
+<h3>作った色をフィルムに</h3>
+<p>トーンカーブ・HSL・カラーバランスで気に入った色を作ったら、同じメニューの<strong>色をフィルムとして保存…</strong>で、その色変換だけを取り出して保存します。</p>
+<p>作ったフィルムは<strong>フィルムをLUTとして書き出し</strong>で<span class="path">.cube</span>ファイルにできます。他のアプリでも使えます。</p>
+
+<h3>レシピブックにまとめて渡す</h3>
+<p>作ったフィルムとプリセットを<span class="path">.rawb</span>ファイル一つにまとめます。受け取った人は<strong>レシピブックを読み込む</strong>一回ですべて取り込めます。</p>
+<p>同じ機材を使う人どうしで色味を分け合ったり、Macを買い替えるときに設定をまるごと移したりするのに使います。</p>
+</section>
+
+<section id="prefs">
+<h2>環境設定</h2>
+<table class="wide">
+  <tr><th>項目</th><th>内容</th></tr>
+  <tr><td>編集の保存場所</td><td><strong>アプリフォルダで管理</strong>（標準）または<strong>元のファイルの隣に</strong>。詳しくは<a href="#originals">元の写真はそのままです</a>をご覧ください。</td></tr>
+  <tr><td>背景</td><td>現像画面の写真の背後の明るさ。暗くしておくと写真の明るさを判断しやすくなります。</td></tr>
+  <tr><td>プリセットのサムネイルの大きさ</td><td>プリセット一覧のプレビューの大きさ。極小 · 小 · 大。</td></tr>
+</table>
+<p>アプリ全体の明るさ（ライト／ダーク）は<span class="kbd">⌘⇧9</span>と<span class="kbd">⌘⇧0</span>で切り替えます。</p>
+</section>
+
+<section id="shortcuts">
+<h2>キーボードショートカット</h2>
+<p>モードごとに使えるキーが違います。3つのモードすべてで使えるものも各表にそのまま載せているので、いまいるモードの表だけを見れば足ります。</p>
+
+<h3>どのモードでも</h3>
+<table>
+  <tr><td><span class="kbd">⌘E</span></td><td>書き出し</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>閉じる（現像中なら写真を閉じる）</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Rawcookrヘルプ</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span></td><td>ダークモード</td></tr>
+  <tr><td><span class="kbd">⌘⇧0</span></td><td>ライトモード</td></tr>
+  <tr><td><span class="kbd">⌘Q</span></td><td>終了 — マウントに保存していない作業があると確認されます</td></tr>
+</table>
+
+<h3>ライブラリ</h3>
+<table>
+  <tr><th>キー</th><th>できること</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>フォルダを開く</td></tr>
+  <tr><td><span class="kbd">⌘R</span></td><td>フォルダを読み直す</td></tr>
+  <tr><td><span class="kbd">⌘A</span></td><td>すべて選択</td></tr>
+  <tr><td><span class="kbd">←</span> <span class="kbd">→</span> <span class="kbd">↑</span> <span class="kbd">↓</span></td><td>格子の中を移動</td></tr>
+  <tr><td><span class="kbd">Space</span></td><td>大きく表示（もう一度押すと閉じる）</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>選んだ写真を現像画面へ</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>大きく表示を閉じる</td></tr>
+  <tr><td><span class="kbd">1</span>〜<span class="kbd">5</span></td><td>選んだ写真に評価 — 複数枚に一度で入ります</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>旗を付ける／外す — 複数枚に一度で</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>新しいバージョンとして現像</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>サイドバーの表示／非表示</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>フォルダツリーの表示／非表示</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>ファイル情報の表示／非表示</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>選んだ写真をすべて書き出す</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>ウインドウを閉じる</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>ヘルプ</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>ダークモード · ライトモード</td></tr>
+</table>
+
+<h3>現像</h3>
+<h4>表示</h4>
+<table>
+  <tr><th>キー</th><th>できること</th></tr>
+  <tr><td><span class="kbd">⌘=</span> · <span class="kbd">⌘-</span></td><td>拡大 · 縮小</td></tr>
+  <tr><td><span class="kbd">⌘0</span></td><td>画面に合わせる</td></tr>
+  <tr><td><span class="kbd">⌘1</span></td><td>100%（等倍のピクセル）</td></tr>
+  <tr><td><span class="kbd">Space</span> + ドラッグ</td><td>写真を押して動かす</td></tr>
+  <tr><td><span class="kbd">M</span></td><td>元画像表示（押している間）</td></tr>
+  <tr><td><span class="kbd">J</span></td><td>クリッピング警告のオン／オフ</td></tr>
+  <tr><td><span class="kbd">O</span></td><td>ズームバーの表示／非表示</td></tr>
+  <tr><td><span class="kbd">,</span> · <span class="kbd">.</span></td><td>調整項目をすべて開く · 閉じる</td></tr>
+  <tr><td><span class="kbd">⌘F</span></td><td>フィルムストリップの表示／非表示</td></tr>
+  <tr><td><span class="kbd">⌃⌘F</span></td><td>集中表示（全画面）に入る／出る</td></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>サイドバーの表示／非表示</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>フォルダツリーの表示／非表示</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>ファイル情報の表示／非表示</td></tr>
+</table>
+
+<h4>編集</h4>
+<table>
+  <tr><th>キー</th><th>できること</th></tr>
+  <tr><td><span class="kbd">C</span></td><td>切り抜き／回転モード</td></tr>
+  <tr><td><span class="kbd">A</span></td><td>色調整モードに戻る</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>切り抜き中なら確定して抜ける</td></tr>
+  <tr><td><span class="kbd">⌘⇧C</span></td><td>編集内容をコピー</td></tr>
+  <tr><td><span class="kbd">⌘⇧V</span></td><td>編集内容をペースト</td></tr>
+  <tr><td><span class="kbd">⌥⌘R</span></td><td>この写真の編集をすべて初期化</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>新しいバージョンとして現像</td></tr>
+</table>
+
+<h4>選択と移動</h4>
+<table>
+  <tr><th>キー</th><th>できること</th></tr>
+  <tr><td><span class="kbd">←</span> · <span class="kbd">→</span></td><td>前 · 次の写真（切り抜き中は効きません）</td></tr>
+  <tr><td><span class="kbd">1</span>〜<span class="kbd">5</span></td><td>評価</td></tr>
+  <tr><td><span class="kbd">Z</span></td><td>旗を付ける／外す</td></tr>
+  <tr><td><span class="kbd">Esc</span></td><td>写真を閉じてライブラリへ（切り抜き中なら切り抜きを取り消し）</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>書き出し</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>写真を閉じる</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>ヘルプ</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>ダークモード · ライトモード</td></tr>
+</table>
+
+<h3>マウント</h3>
+<table>
+  <tr><th>キー</th><th>できること</th></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>マウントを開く — このモードでは⌘Oがフォルダではなく作業ファイルを開きます</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>マウントを保存</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>別名でマウントを保存</td></tr>
+  <tr><td><span class="kbd">⌘Z</span></td><td>取り消し — 写真を入れ、動かし、順序を変えたすべて</td></tr>
+  <tr><td><span class="kbd">⇧⌘Z</span></td><td>やり直し</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>板を画像として書き出す</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>ウインドウを閉じる</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>ヘルプ</td></tr>
+  <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>ダークモード · ライトモード</td></tr>
+</table>
+
+</section>
+
+<section id="trouble">
+<h2>よくあること</h2>
+
+<h4>RAWファイルが開きません</h4>
+<p>RAW現像はmacOSに内蔵されたエンジンを使うので、ごく最近の機種はmacOSの更新が必要です。<strong>システム設定 → 一般 → ソフトウェアアップデート</strong>を確かめてください。それでも開かない場合は、カメラでDNGとして保存してみるか、<a href="mailto:rawcookr@slowsalmon.com">お知らせください</a>。</p>
+
+<h4>サムネイルの表示が遅いです</h4>
+<p>初めて開くフォルダでは写真ごとにプレビューを作る必要があり、少し時間がかかります。一度作ったあとは速くなります。写真がとても多いフォルダは、サブフォルダに分けた方が快適です。</p>
+
+<h4>シャープネスや粒子が効いていないように見えます</h4>
+<p>画面に合わせた倍率では写真を縮小して描くため、ピクセル単位の効果は見えません。<span class="kbd">⌘1</span>で100%にして確かめてください。</p>
+
+<h4>編集が消えました</h4>
+<p>編集値は元のファイルとは別のファイルにあります。保存場所を<strong>元のファイルの隣に</strong>にしていた場合、写真だけを別の場所へ移すと設定ファイルが付いてこなかった可能性があります。アプリ内の<strong>別のフォルダへ移動</strong>を使えば設定も一緒に移ります。</p>
+
+<h4>サブスクリプションが認識されません</h4>
+<p>App Storeに同じApple アカウントでサインインしているか確かめたうえで、サブスクリプション画面の<strong>購入を復元</strong>を押してみてください。</p>
+
+<h4>隠した顔が残っています</h4>
+<p>自動検出は横顔・マスク・暗い所の顔を見逃すことがあります。自分で領域を描いて補い、公開前に100%で一度見渡してください。</p>
+
+<h4>マウントの作業が消えました</h4>
+<p>マウントは保存するまでファイルになりません。まず<span class="kbd">⌘S</span>で保存しておいてください。保存せずにタブを移ったりアプリを終了しようとすると確認されます。</p>
+
+<h4>それでも解決しない場合</h4>
+<p><a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a>までお知らせください。どのMacをお使いか、どのカメラのどのファイルかを書き添えていただけると、ずっと早く見つけられます。</p>
+</section>
+
+</main>
+</div>
+<footer>
+  <p><a href="./">Rawcookrホーム</a> · <a href="privacy.html">プライバシーポリシー</a> · <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a></p>
+</footer>
+<script>
+  // ── 언어 전환 ──
+  (function () {
+    const sel = document.getElementById('lang');
+    const cur = document.documentElement.lang || 'ko';
+    sel.value = cur;
+    sel.addEventListener('change', () => {
+      const v = sel.value;
+      location.href = (v === 'ko' ? 'guide.html' : 'guide-' + v + '.html') + location.hash;
+    });
+  })();
+
+  const toc = document.getElementById('toc');
+  document.getElementById('menubtn')
+    .addEventListener('click', () => toc.classList.toggle('open'));
+
+  const groups = [...toc.querySelectorAll('li')];
+  const links  = [...toc.querySelectorAll('a')];
+  const linkOf  = new Map(links.map(a => [a.hash.slice(1), a]));
+  const groupOf = new Map(links.map(a => [a.hash.slice(1), a.closest('li')]));
+
+  function openOnly(li) {
+    groups.forEach(g => g.classList.toggle('open', g === li));
+  }
+
+  // 묶음 제목을 누르면 그 묶음만 펼치고, 이미 펼쳐져 있으면 접는다
+  groups.forEach(li => {
+    li.querySelector('.grp').addEventListener('click', () => {
+      openOnly(li.classList.contains('open') ? null : li);
+    });
+  });
+
+  // 좁은 화면에서는 항목을 누르면 목차를 닫는다
+  links.forEach(a => a.addEventListener('click', () => toc.classList.remove('open')));
+
+  function highlight(id) {
+    const a = linkOf.get(id);
+    if (!a || a.classList.contains('on')) return;
+    links.forEach(x => x.classList.remove('on'));
+    a.classList.add('on');
+    const li = groupOf.get(id);
+    if (li && !li.classList.contains('open')) openOnly(li);
+  }
+
+  // 화면에 걸쳐 있는 섹션 가운데 가장 위의 것을 현재 위치로 본다
+  const sections = [...document.querySelectorAll('section[id]')];
+  const visible = new Set();
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => en.isIntersecting ? visible.add(en.target) : visible.delete(en.target));
+    let best = null;
+    visible.forEach(el => {
+      if (!best || el.getBoundingClientRect().top < best.getBoundingClientRect().top) best = el;
+    });
+    if (best) highlight(best.id);
+  }, { rootMargin: '-70px 0px -70% 0px' });
+  sections.forEach(el => obs.observe(el));
+
+  // 주소에 #항목이 붙어 있으면 그 묶음을 열고 시작, 아니면 첫 묶음
+  const start = location.hash.slice(1);
+  if (start && groupOf.has(start)) highlight(start);
+  else groups[0].classList.add('open');
+</script>
+</body>
+</html>
