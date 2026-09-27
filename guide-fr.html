@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guide d’utilisation de Rawcookr</title>
-<meta name="description" content="Toutes les fonctions de Rawcookr et comment s’en servir — recettes argentiques, floutage, diffuseur, retouches locales, export et raccourcis clavier.">
+<meta name="description" content="Toutes les fonctions de Rawcookr et leur utilisation : recette de film, flou de confidentialité, filtres optiques, retouches locales, exportation et raccourcis clavier.">
 <meta property="og:title" content="Guide d’utilisation de Rawcookr">
-<meta property="og:description" content="Toutes les fonctions de Rawcookr et comment s’en servir, section par section.">
+<meta property="og:description" content="Toutes les fonctions de Rawcookr et leur utilisation : recette de film, flou de confidentialité, filtres optiques, retouches locales, exportation et raccourcis clavier.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://rawcookr.slowsalmon.com/guide-fr.html">
 <link rel="canonical" href="https://rawcookr.slowsalmon.com/guide-fr.html">
@@ -221,6 +221,7 @@
       <button type="button" class="grp"><span class="caret"></span>Choisir ses photos</button>
       <div class="items"><div>
         <a href="#library">Dossiers et vignettes</a>
+        <a href="#sidebar">Barre latérale</a>
         <a href="#rating">Notes et drapeaux</a>
         <a href="#batch">Plusieurs à la fois</a>
         <a href="#versions">Versions</a>
@@ -252,7 +253,7 @@
         <a href="#detail">Détail</a>
         <a href="#effects">Effets</a>
         <a href="#defringe">Suppression des franges</a>
-        <a href="#mist">Diffuseur</a>
+        <a href="#mist">Filtre optique</a>
         <a href="#privacy">Floutage de confidentialité</a>
         <a href="#frame">Impression de la date</a>
       </div></div>
@@ -379,6 +380,30 @@
   <tr><td>Déplacer vers un autre dossier</td><td>Déplace les photos sélectionnées ailleurs. Les réglages de retouche suivent.</td></tr>
   <tr><td>Placer dans la corbeille</td><td>Met l’original à la corbeille. Pour annuler, ressortez-le de la corbeille du Finder.</td></tr>
 </table>
+</section>
+
+<section id="sidebar">
+<h2>Barre latérale</h2>
+<p>La barre latérale de gauche contient l'arborescence des dossiers et les infos du fichier, l'une au-dessus de l'autre. La photothèque et la vue de développement partagent la même barre latérale.</p>
+<table>
+  <tr><th>Touche</th><th>Rôle</th></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>Afficher / masquer toute la barre latérale</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>Afficher / masquer l'arborescence des dossiers</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>Afficher / masquer les infos du fichier</td></tr>
+</table>
+<p>En entrant dans la vue de développement, la barre latérale s'ouvre fermée pour laisser de la place à la photo. Ouvrez-la avec <span class="kbd">⌘Y</span> au besoin. De retour dans la photothèque, elle est telle que vous l'y aviez laissée. La largeur de la barre et la hauteur du volet d'infos sont communes aux deux vues.</p>
+
+<h3>Infos du fichier</h3>
+<p>Affiche les informations de la photo en cours de développement, ou de celle sélectionnée dans la photothèque. Cliquez sur le titre d'un groupe pour le replier ou le déplier. Les groupes bruts comme EXIF et TIFF sont repliés au départ.</p>
+<table class="wide">
+  <tr><th>Groupe</th><th>Contenu</th></tr>
+  <tr><td>Fichier</td><td>Chemin · Taille · Création · Modification</td></tr>
+  <tr><td>Image</td><td>Résolution · Profondeur de bits · Profil colorimétrique</td></tr>
+  <tr><td>Prise de vue</td><td>Appareil · Objectif · Date de prise de vue · Vitesse · Ouverture · ISO · Focale (équivalent 24×36) · Correction d'exposition</td></tr>
+  <tr><td>Lieu</td><td>Coordonnées GPS (seulement si enregistrées)</td></tr>
+  <tr><td>Autres groupes</td><td>Les autres valeurs EXIF, TIFF, IPTC et DNG du fichier, et les notes du fabricant</td></tr>
+</table>
+<p>Dans Montage, le tiroir à photos occupe cette place.</p>
 </section>
 
 <section id="rating">
@@ -842,7 +867,10 @@
 </section>
 
 <section id="mist">
-<h2>Diffuseur</h2>
+<h2>Filtre optique</h2>
+<p>Deux filtres que l'on visse devant un objectif, en version numérique : <strong>Mist</strong>, qui fait s'épanouir la lumière en douceur, et le <strong>filtre scintillant</strong>, qui ajoute des rayons aux sources lumineuses.</p>
+
+<h3>Mist</h3>
 <p>Une version numérique du filtre diffuseur optique que l’on visse sur l’objectif. Les hautes lumières s’épanouissent doucement, le contraste se détend, la peau s’adoucit.</p>
 <table>
   <tr><th>Niveau</th><th>Impression</th></tr>
@@ -854,6 +882,30 @@
 </table>
 <p>Activez <strong>Diffuser jusqu’aux ombres</strong> et la lumière se répand aussi dans les parties sombres, pas seulement dans les claires — très proche d’un vieux tirage de laboratoire.</p>
 <p>Le diffuseur a besoin de lumière. Il se voit là où il y a une source, un ciel clair ou des cheveux à contre-jour ; sur une photo plate et couverte, il ne fait que baisser le contraste.</p>
+<h3>Filtre scintillant</h3>
+<p>Ajoute des rayons aux sources lumineuses d'une photo — réverbères, bougies, reflets du soleil sur l'eau. Une version numérique du filtre étoile que l'on visse devant un objectif.</p>
+<table>
+  <tr><th>Rayons</th><th>Forme</th></tr>
+  <tr><td>0</td><td>Désactivé</td></tr>
+  <tr><td>2</td><td>Un seul trait</td></tr>
+  <tr><td>4</td><td>Une croix</td></tr>
+  <tr><td>6</td><td>Un flocon</td></tr>
+  <tr><td>8</td><td>Une étoile à huit branches</td></tr>
+</table>
+<table class="wide">
+  <tr><th>Élément</th><th>Plage</th><th>Rôle</th></tr>
+  <tr><td>Intensité</td><td>0 – 100</td><td>Décide jusqu'où une lumière compte comme source lumineuse. Plus bas, seules les lumières les plus fortes reçoivent une étoile ; plus haut, les lumières plus faibles et les reflets aussi. Par défaut 50.</td></tr>
+  <tr><td>Longueur</td><td>0 – 250</td><td>La longueur des rayons. À 100, ils atteignent 17,5 % du grand côté de la photo. Par défaut 50.</td></tr>
+  <tr><td>Angle</td><td>−90° – +90°</td><td>Fait tourner tous les rayons ensemble, comme on tourne la bague du filtre.</td></tr>
+  <tr><td>Bruit</td><td>0 – 100</td><td>Pose du bruit sur les rayons pour qu'ils s'accordent au bruit de la photo. À 0, les rayons sont lisses. Par défaut 25.</td></tr>
+  <tr><td>Couleurs arc-en-ciel</td><td>Activé / Désactivé</td><td>Les rayons se séparent en couleurs d'arc-en-ciel. Activé par défaut.</td></tr>
+</table>
+<p>Avec 0 rayon, les autres réglages sont verrouillés. La taille d'une étoile suit celle de sa lumière, pas l'intensité : baisser l'intensité retire seulement les étoiles des lumières faibles, les autres restent telles quelles. Une source lumineuse large reçoit plusieurs rayons fins côte à côte, aussi larges que la lumière, plutôt qu'un seul rayon épais.</p>
+<p>Les sources lumineuses sont repérées dans l'aperçu de la vue de développement : quand vous agrandissez ou exportez, les étoiles gardent donc la place et les couleurs vues à l'écran. Le filtre scintillant passe avant Mist ; en utilisant les deux, Mist enveloppe aussi les rayons en douceur.</p>
+<div class="note">
+<b>Un point de départ pour les photos de nuit</b>
+<p>Commencez avec 4 rayons et une intensité de 50. S'il y a trop d'étoiles, baissez l'intensité ; si les rayons paraissent courts, augmentez la longueur. Sur les photos à ISO élevé, un peu plus de bruit fond les rayons dans l'image pour qu'ils ne semblent pas collés.</p>
+</div>
 </section>
 
 <section id="privacy">
@@ -1007,7 +1059,7 @@
 <p>S’il reste du travail non enregistré, on vous demande avant de changer d’onglet ou de quitter. L’annulation couvre tout — ajouter des photos, les déplacer, les réordonner.</p>
 
 <h3>Exporter comme image</h3>
-<p>S’ouvre avec <span class="kbd">⌘E</span>.</p>
+<p>Ouvrez-la avec le bouton <strong>Exporter</strong> de la barre d'outils ou <span class="kbd">⌘E</span>.</p>
 <table class="wide">
   <tr><th>Élément</th><th>Détails</th></tr>
   <tr><td>Format</td><td>Comme l’export depuis la fenêtre de retouche. Qualité et profondeur PNG se règlent ici aussi.</td></tr>
@@ -1015,6 +1067,7 @@
   <tr><td>Redécouper</td><td>En placement libre avec deux panneaux ou plus, choisissez d’enregistrer une seule image ou de la couper en autant de morceaux. Coupés, ils sont numérotés depuis la gauche.</td></tr>
   <tr><td>Destination</td><td>Le dossier d’origine ou celui que vous choisissez.</td></tr>
   <tr><td>Nom du fichier</td><td>Suit le nom de la première photo sur la planche. Un suffixe peut être ajouté.</td></tr>
+  <tr><td>Fermer cette fenêtre</td><td>La fenêtre se ferme d'elle-même une fois l'exportation terminée.</td></tr>
 </table>
 </section>
 
@@ -1129,9 +1182,9 @@
 <table class="wide">
   <tr><th>Élément</th><th>Détails</th></tr>
   <tr><td>Où sont stockées les retouches</td><td><strong>Gérées dans le dossier de l’app</strong> (par défaut) ou <strong>à côté du fichier original</strong>. Voir <a href="#originals">Vos originaux restent intacts</a>.</td></tr>
-  <tr><td>Arrière-plan</td><td>La luminosité derrière la photo dans la fenêtre de retouche. Gardée sombre, elle rend la luminosité de la photo plus facile à juger.</td></tr>
-  <tr><td>Taille des vignettes de préréglages</td><td>La taille de l’aperçu dans la liste des préréglages. Très petite · Petite · Grande.</td></tr>
 </table>
+<p>La couleur de fond de la vue de développement se change par un clic droit en dehors de la photo — <strong>Par défaut · Blanc · Gris 50 % · Gris 15 % · Noir</strong>. Un fond sombre aide à juger la luminosité de la photo.</p>
+<p>La taille des vignettes de préréglages se choisit avec l'icône de grille en haut à droite de la section Préréglages — Très petit · Petit · Grand.</p>
 <p>L’apparence claire ou sombre de l’app se règle avec <span class="kbd">⌘⇧9</span> et <span class="kbd">⌘⇧0</span>.</p>
 </section>
 
@@ -1143,7 +1196,7 @@
 <table>
   <tr><td><span class="kbd">⌘E</span></td><td>Exportation</td></tr>
   <tr><td><span class="kbd">⌘W</span></td><td>Fermer (ferme la photo en cours de retouche)</td></tr>
-  <tr><td><span class="kbd">⌘?</span></td><td>Aide de Rawcookr</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Aide Rawcookr — ouvre ce guide sur le web</td></tr>
   <tr><td><span class="kbd">⌘⇧9</span></td><td>Mode sombre</td></tr>
   <tr><td><span class="kbd">⌘⇧0</span></td><td>Mode clair</td></tr>
   <tr><td><span class="kbd">⌘Q</span></td><td>Quitter — on vous demande si un montage n’est pas enregistré</td></tr>

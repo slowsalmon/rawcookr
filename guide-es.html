@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guía de uso de Rawcookr</title>
-<meta name="description" content="Todas las funciones de Rawcookr y cómo se usan. Receta de película, difuminado de privacidad, difusión, ajustes locales, exportación y atajos de teclado.">
+<meta name="description" content="Todas las funciones de Rawcookr y cómo usarlas: receta de película, difuminado de privacidad, filtros ópticos, ajustes locales, exportación y atajos de teclado.">
 <meta property="og:title" content="Guía de uso de Rawcookr">
-<meta property="og:description" content="Todas las funciones de Rawcookr y cómo se usan, sección por sección.">
+<meta property="og:description" content="Todas las funciones de Rawcookr y cómo usarlas: receta de película, difuminado de privacidad, filtros ópticos, ajustes locales, exportación y atajos de teclado.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://rawcookr.slowsalmon.com/guide-es.html">
 <link rel="canonical" href="https://rawcookr.slowsalmon.com/guide-es.html">
@@ -221,6 +221,7 @@
       <button type="button" class="grp"><span class="caret"></span>Elegir fotos</button>
       <div class="items"><div>
         <a href="#library">Carpetas y miniaturas</a>
+        <a href="#sidebar">Barra lateral</a>
         <a href="#rating">Puntuaciones y banderas</a>
         <a href="#batch">Varias a la vez</a>
         <a href="#versions">Versiones</a>
@@ -252,7 +253,7 @@
         <a href="#detail">Detalle</a>
         <a href="#effects">Efectos</a>
         <a href="#defringe">Corrección de aberración cromática</a>
-        <a href="#mist">Difusión</a>
+        <a href="#mist">Filtro óptico</a>
         <a href="#privacy">Difuminado de privacidad</a>
         <a href="#frame">Fecha impresa</a>
       </div></div>
@@ -379,6 +380,30 @@
   <tr><td>Mover a otra carpeta</td><td>Mueve las fotos seleccionadas a otro sitio. Los ajustes de edición van con ellas.</td></tr>
   <tr><td>Mover a la papelera</td><td>Pone el original en la papelera. Para deshacerlo, sácalo de la papelera del Finder.</td></tr>
 </table>
+</section>
+
+<section id="sidebar">
+<h2>Barra lateral</h2>
+<p>La barra lateral izquierda contiene el árbol de carpetas y la información del archivo, uno encima del otro. La fototeca y la vista de revelado comparten la misma barra lateral.</p>
+<table>
+  <tr><th>Tecla</th><th>Qué hace</th></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>Mostrar / ocultar toda la barra lateral</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>Mostrar / ocultar el árbol de carpetas</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>Mostrar / ocultar la información del archivo</td></tr>
+</table>
+<p>Al entrar en la vista de revelado, la barra lateral empieza cerrada para dejar sitio a la foto. Ábrela con <span class="kbd">⌘Y</span> si la necesitas. Al volver a la fototeca, está como la dejaste allí. El ancho de la barra y el alto del panel de información son comunes a las dos vistas.</p>
+
+<h3>Información del archivo</h3>
+<p>Muestra la información de la foto que estás revelando o de la seleccionada en la fototeca. Haz clic en el título de un grupo para plegarlo o desplegarlo. Los grupos en bruto, como EXIF y TIFF, empiezan plegados.</p>
+<table class="wide">
+  <tr><th>Grupo</th><th>Qué contiene</th></tr>
+  <tr><td>Archivo</td><td>Ruta · Tamaño · Creación · Modificación</td></tr>
+  <tr><td>Imagen</td><td>Resolución · Profundidad de bits · Perfil de color</td></tr>
+  <tr><td>Datos de la toma</td><td>Cámara · Objetivo · Fecha de la toma · Obturación · Diafragma · ISO · Distancia focal (equivalente a 35 mm) · Compensación de exposición</td></tr>
+  <tr><td>Ubicación</td><td>Coordenadas GPS (solo si se registraron)</td></tr>
+  <tr><td>Otros grupos</td><td>El resto de valores EXIF, TIFF, IPTC y DNG del archivo, y las notas del fabricante</td></tr>
+</table>
+<p>En Montaje, este sitio lo ocupa el cajón de fotos.</p>
 </section>
 
 <section id="rating">
@@ -842,7 +867,10 @@
 </section>
 
 <section id="mist">
-<h2>Difusión</h2>
+<h2>Filtro óptico</h2>
+<p>Dos filtros de los que se enroscan delante del objetivo, en digital: <strong>Mist</strong>, que hace florecer la luz con suavidad, y el <strong>filtro de destellos</strong>, que pone rayos en las fuentes de luz.</p>
+
+<h3>Mist</h3>
 <p>El equivalente digital de un filtro óptico de difusión delante del objetivo. Las partes claras se extienden con suavidad, el contraste se afloja y la piel gana dulzura.</p>
 <table>
   <tr><th>Nivel</th><th>Carácter</th></tr>
@@ -854,6 +882,30 @@
 </table>
 <p>Con <strong>Difundir también en las sombras</strong> la luz se extiende no solo en lo claro sino también en lo oscuro, y aparece un aire de copia antigua en papel.</p>
 <p>La difusión necesita luz. Hace falta una fuente de luz, un cielo brillante o un pelo a contraluz para que se note; en una foto plana y nublada solo baja el contraste.</p>
+<h3>Filtro de destellos</h3>
+<p>Añade rayos a las fuentes de luz de la foto: farolas, velas, el sol brillando sobre el agua. Una versión digital del filtro de estrella que se enrosca delante del objetivo.</p>
+<table>
+  <tr><th>Rayos</th><th>Forma</th></tr>
+  <tr><td>0</td><td>Apagado</td></tr>
+  <tr><td>2</td><td>Un solo trazo</td></tr>
+  <tr><td>4</td><td>Una cruz</td></tr>
+  <tr><td>6</td><td>Un copo de nieve</td></tr>
+  <tr><td>8</td><td>Una estrella de ocho puntas</td></tr>
+</table>
+<table class="wide">
+  <tr><th>Elemento</th><th>Rango</th><th>Qué hace</th></tr>
+  <tr><td>Intensidad</td><td>0 – 100</td><td>Decide hasta dónde una luz cuenta como fuente de luz. Más baja, solo las luces más fuertes reciben estrella; más alta, también las luces más tenues y los reflejos. Por omisión 50.</td></tr>
+  <tr><td>Longitud</td><td>0 – 250</td><td>Lo largos que son los rayos. A 100 llegan al 17,5 % del lado largo de la foto. Por omisión 50.</td></tr>
+  <tr><td>Ángulo</td><td>−90° – +90°</td><td>Gira todos los rayos a la vez, como girar el aro del filtro.</td></tr>
+  <tr><td>Ruido</td><td>0 – 100</td><td>Pone ruido sobre los rayos para que casen con el ruido de la foto. A 0 los rayos son lisos. Por omisión 25.</td></tr>
+  <tr><td>Colores de arcoíris</td><td>Sí / No</td><td>Los rayos se separan en colores de arcoíris. Activado por omisión.</td></tr>
+</table>
+<p>Con 0 rayos, los demás controles quedan bloqueados. El tamaño de cada estrella sigue al de su luz, no a la intensidad: bajar la intensidad solo quita las estrellas de las luces débiles y deja las demás como están. Una fuente de luz ancha recibe varios rayos finos uno junto a otro, tan anchos como la luz, en lugar de uno grueso.</p>
+<p>Las fuentes de luz se buscan en la previsualización de la vista de revelado, así que al ampliar o exportar las estrellas quedan en el mismo sitio y con los mismos colores que viste en pantalla. El filtro de destellos se aplica antes que Mist; si usas los dos, Mist envuelve también los rayos con suavidad.</p>
+<div class="note">
+<b>Un punto de partida para fotos nocturnas</b>
+<p>Empieza con 4 rayos y una intensidad de 50. Si hay demasiadas estrellas, baja la intensidad; si los rayos se ven cortos, sube la longitud. En fotos con ISO alta, un poco más de ruido integra los rayos en la imagen para que no parezcan pegados.</p>
+</div>
 </section>
 
 <section id="privacy">
@@ -1007,7 +1059,7 @@
 <p>Si hay trabajo sin guardar, se te pregunta al cambiar de pestaña o al cerrar la app. Deshacer funciona en todo: poner fotos, moverlas y cambiar su orden.</p>
 
 <h3>Exportar como imagen</h3>
-<p>Se abre con <span class="kbd">⌘E</span>.</p>
+<p>Se abre con el botón <strong>Exportar</strong> de la barra de herramientas o con <span class="kbd">⌘E</span>.</p>
 <table class="wide">
   <tr><th>Elemento</th><th>Contenido</th></tr>
   <tr><td>Formato</td><td>Igual que la exportación de la ventana de edición. La calidad y la profundidad de bits del PNG también se fijan aquí.</td></tr>
@@ -1015,6 +1067,7 @@
   <tr><td>Exportar por partes</td><td>En colocación libre con dos o más tramos, eliges si sale como una sola imagen o cortada en ese número de partes. Al cortar, se numeran de izquierda a derecha.</td></tr>
   <tr><td>Dónde guardar</td><td>La carpeta original o la que elijas.</td></tr>
   <tr><td>Nombre del archivo</td><td>Sigue el nombre de la primera foto de la lámina. Puedes añadirle un sufijo.</td></tr>
+  <tr><td>Cerrar esta ventana</td><td>La ventana se cierra sola al terminar la exportación.</td></tr>
 </table>
 </section>
 
@@ -1129,9 +1182,9 @@
 <table class="wide">
   <tr><th>Elemento</th><th>Contenido</th></tr>
   <tr><td>Dónde se guardan las ediciones</td><td><strong>Gestionadas en la carpeta de la app</strong> (por omisión) o <strong>Junto al archivo original</strong>. Los detalles están en <a href="#originals">Tus originales quedan intactos</a>.</td></tr>
-  <tr><td>Fondo</td><td>El brillo detrás de la foto en la ventana de edición. Dejándolo oscuro es más fácil juzgar el brillo de la foto.</td></tr>
-  <tr><td>Tamaño de las miniaturas de preestablecidos</td><td>El tamaño de la previsualización en la lista de preestablecidos. Muy pequeño · Pequeño · Grande.</td></tr>
 </table>
+<p>El color de fondo de la vista de revelado se cambia haciendo clic derecho fuera de la foto: <strong>Por omisión · Blanco · Gris 50 % · Gris 15 % · Negro</strong>. Un fondo oscuro facilita juzgar el brillo de la foto.</p>
+<p>El tamaño de las miniaturas de ajustes preestablecidos se elige en el icono de cuadrícula arriba a la derecha de la sección de preestablecidos: Muy pequeño · Pequeño · Grande.</p>
 <p>El aspecto claro u oscuro de toda la app se cambia con <span class="kbd">⌘⇧9</span> y <span class="kbd">⌘⇧0</span>.</p>
 </section>
 
@@ -1143,7 +1196,7 @@
 <table>
   <tr><td><span class="kbd">⌘E</span></td><td>Exportar</td></tr>
   <tr><td><span class="kbd">⌘W</span></td><td>Cerrar (en edición, cierra la foto)</td></tr>
-  <tr><td><span class="kbd">⌘?</span></td><td>Ayuda de Rawcookr</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Ayuda de Rawcookr: abre esta guía en la web</td></tr>
   <tr><td><span class="kbd">⌘⇧9</span></td><td>Modo oscuro</td></tr>
   <tr><td><span class="kbd">⌘⇧0</span></td><td>Modo claro</td></tr>
   <tr><td><span class="kbd">⌘Q</span></td><td>Salir; si hay montaje sin guardar, se pregunta</td></tr>

@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hướng dẫn sử dụng Rawcookr</title>
-<meta name="description" content="Toàn bộ tính năng của Rawcookr và cách dùng. Công thức phim, làm mờ vì riêng tư, khuếch tán, chỉnh sửa cục bộ, xuất ảnh, cho tới phím tắt.">
+<meta name="description" content="Toàn bộ tính năng của Rawcookr và cách dùng: công thức phim, làm mờ vì riêng tư, kính lọc quang học, chỉnh sửa cục bộ, xuất ảnh và phím tắt.">
 <meta property="og:title" content="Hướng dẫn sử dụng Rawcookr">
-<meta property="og:description" content="Toàn bộ tính năng của Rawcookr và cách dùng, sắp xếp theo từng mục.">
+<meta property="og:description" content="Toàn bộ tính năng của Rawcookr và cách dùng: công thức phim, làm mờ vì riêng tư, kính lọc quang học, chỉnh sửa cục bộ, xuất ảnh và phím tắt.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://rawcookr.slowsalmon.com/guide-vi.html">
 <link rel="canonical" href="https://rawcookr.slowsalmon.com/guide-vi.html">
@@ -221,6 +221,7 @@
       <button type="button" class="grp"><span class="caret"></span>Chọn ảnh</button>
       <div class="items"><div>
         <a href="#library">Thư mục và ảnh thu nhỏ</a>
+        <a href="#sidebar">Thanh bên</a>
         <a href="#rating">Chấm sao và gắn cờ</a>
         <a href="#batch">Nhiều ảnh cùng lúc</a>
         <a href="#versions">Phiên bản</a>
@@ -252,7 +253,7 @@
         <a href="#detail">Chi tiết</a>
         <a href="#effects">Hiệu ứng</a>
         <a href="#defringe">Khử quang sai màu</a>
-        <a href="#mist">Khuếch tán</a>
+        <a href="#mist">Kính lọc quang học</a>
         <a href="#privacy">Làm mờ vì riêng tư</a>
         <a href="#frame">In ngày tháng</a>
       </div></div>
@@ -379,6 +380,30 @@
   <tr><td>Chuyển sang thư mục khác</td><td>Chuyển những ảnh đã chọn sang chỗ khác. Thiết lập chỉnh sửa đi theo.</td></tr>
   <tr><td>Chuyển vào Thùng rác</td><td>Đưa tệp gốc vào thùng rác. Muốn hoàn lại thì lấy ra khỏi Thùng rác của Finder.</td></tr>
 </table>
+</section>
+
+<section id="sidebar">
+<h2>Thanh bên</h2>
+<p>Thanh bên trái chứa cây thư mục và thông tin tệp, xếp trên dưới. Thư viện và màn hình tráng ảnh dùng chung một thanh bên.</p>
+<table>
+  <tr><th>Phím</th><th>Tác dụng</th></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>Hiện / ẩn toàn bộ thanh bên</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>Hiện / ẩn cây thư mục</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>Hiện / ẩn thông tin tệp</td></tr>
+</table>
+<p>Khi vào màn hình tráng ảnh, thanh bên bắt đầu ở trạng thái đóng để ảnh có chỗ. Mở bằng <span class="kbd">⌘Y</span> khi cần. Quay lại thư viện, nó vẫn như bạn để ở đó. Độ rộng thanh bên và chiều cao ô thông tin tệp dùng chung cho cả hai màn hình.</p>
+
+<h3>Thông tin tệp</h3>
+<p>Hiện thông tin của ảnh đang tráng, hoặc ảnh được chọn trong thư viện. Bấm tên nhóm để gập hay mở. Các nhóm dữ liệu thô như EXIF, TIFF lúc đầu được gập lại.</p>
+<table class="wide">
+  <tr><th>Nhóm</th><th>Gồm những gì</th></tr>
+  <tr><td>Tệp</td><td>Đường dẫn · Kích thước · Ngày tạo · Ngày sửa</td></tr>
+  <tr><td>Ảnh</td><td>Độ phân giải · Độ sâu bit · Hồ sơ màu</td></tr>
+  <tr><td>Thông tin chụp</td><td>Máy ảnh · Ống kính · Thời điểm chụp · Tốc độ · Khẩu độ · ISO · Tiêu cự (quy đổi 35mm) · Bù phơi sáng</td></tr>
+  <tr><td>Vị trí</td><td>Tọa độ GPS (chỉ khi có ghi)</td></tr>
+  <tr><td>Các nhóm khác</td><td>Các giá trị EXIF · TIFF · IPTC · DNG còn lại trong tệp và ghi chú của hãng</td></tr>
+</table>
+<p>Trong Ghép ảnh, chỗ này dành cho ngăn ảnh.</p>
 </section>
 
 <section id="rating">
@@ -842,7 +867,10 @@
 </section>
 
 <section id="mist">
-<h2>Khuếch tán</h2>
+<h2>Kính lọc quang học</h2>
+<p>Hai loại kính lọc gắn trước ống kính, làm bằng số: <strong>Sương mờ</strong> làm ánh sáng lan ra dịu dàng, và <strong>kính lọc lấp lánh</strong> gắn tia sáng cho các nguồn sáng.</p>
+
+<h3>Sương mờ</h3>
 <p>Bản số hóa của kính lọc khuếch tán quang học gắn trước ống kính. Phần sáng loang ra dịu dàng, tương phản chùng xuống, và da trở nên mềm mại.</p>
 <table>
   <tr><th>Mức</th><th>Cảm giác</th></tr>
@@ -854,6 +882,30 @@
 </table>
 <p>Bật <strong>Khuếch tán cả vùng tối</strong> thì ánh sáng loang không chỉ ở chỗ sáng mà cả chỗ tối, cho cảm giác như một bản in từ phim cũ.</p>
 <p>Khuếch tán cần ánh sáng mới phát huy. Phải có nguồn sáng, một mảng trời sáng hay mái tóc ngược sáng thì mới thấy rõ; trong một tấm ảnh phẳng lì trời âm u, nó chỉ làm tương phản giảm đi.</p>
+<h3>Kính lọc lấp lánh</h3>
+<p>Gắn tia sáng cho các nguồn sáng trong ảnh — đèn đường, ngọn nến, nắng lấp lánh trên mặt nước. Bản số hóa của kính lọc sao gắn trước ống kính.</p>
+<table>
+  <tr><th>Số tia</th><th>Hình dạng</th></tr>
+  <tr><td>0</td><td>Tắt</td></tr>
+  <tr><td>2</td><td>Một vệt</td></tr>
+  <tr><td>4</td><td>Chữ thập</td></tr>
+  <tr><td>6</td><td>Bông tuyết</td></tr>
+  <tr><td>8</td><td>Ngôi sao tám cánh</td></tr>
+</table>
+<table class="wide">
+  <tr><th>Mục</th><th>Khoảng</th><th>Tác dụng</th></tr>
+  <tr><td>Cường độ</td><td>0 – 100</td><td>Quyết định ánh sáng mờ đến đâu vẫn được coi là nguồn sáng. Hạ xuống thì chỉ những nguồn sáng mạnh nhất có sao; nâng lên thì cả ánh sáng mờ hơn và phản chiếu cũng có. Mặc định 50.</td></tr>
+  <tr><td>Độ dài</td><td>0 – 250</td><td>Độ dài của tia sáng. Ở 100, tia dài bằng 17,5% cạnh dài của ảnh. Mặc định 50.</td></tr>
+  <tr><td>Góc</td><td>−90° – +90°</td><td>Xoay toàn bộ tia sáng cùng lúc, như xoay vành kính lọc.</td></tr>
+  <tr><td>Nhiễu</td><td>0 – 100</td><td>Phủ nhiễu lên tia sáng để hòa với nhiễu của ảnh. Ở 0, tia sáng mịn. Mặc định 25.</td></tr>
+  <tr><td>Tách màu cầu vồng</td><td>Bật / Tắt</td><td>Tia sáng tách thành các màu cầu vồng. Mặc định bật.</td></tr>
+</table>
+<p>Khi số tia là 0, các mục khác bị khóa. Cỡ của ngôi sao theo cỡ của nguồn sáng, không theo cường độ: hạ cường độ chỉ làm mất sao ở những nguồn sáng yếu, các sao còn lại giữ nguyên. Nguồn sáng rộng sẽ có nhiều tia mảnh xếp cạnh nhau rộng bằng nguồn sáng, thay vì một tia dày.</p>
+<p>Nguồn sáng được tìm trong bản xem trước của màn hình tráng ảnh, nên khi phóng to hay xuất ra, sao vẫn ở đúng chỗ và đúng màu như bạn thấy trên màn hình. Kính lọc lấp lánh được áp trước Sương mờ; dùng cả hai thì Sương mờ cũng bao dịu cả tia sáng.</p>
+<div class="note">
+<b>Bắt đầu với ảnh đêm</b>
+<p>Bắt đầu với 4 tia và cường độ 50. Nếu quá nhiều sao, hạ cường độ; nếu tia trông ngắn, tăng độ dài. Với ảnh chụp ISO cao, tăng nhiễu thêm một chút sẽ giúp tia sáng hòa vào ảnh, không trông như dán lên.</p>
+</div>
 </section>
 
 <section id="privacy">
@@ -1007,7 +1059,7 @@
 <p>Nếu còn phần việc chưa lưu, bạn sẽ được hỏi khi chuyển thẻ hoặc tắt ứng dụng. Hoàn tác có tác dụng với mọi bước: đặt ảnh, dời ảnh và đổi thứ tự.</p>
 
 <h3>Xuất thành ảnh</h3>
-<p>Mở bằng <span class="kbd">⌘E</span>.</p>
+<p>Mở bằng nút <strong>Xuất</strong> trên thanh công cụ hoặc <span class="kbd">⌘E</span>.</p>
 <table class="wide">
   <tr><th>Mục</th><th>Nội dung</th></tr>
   <tr><td>Định dạng</td><td>Giống phần xuất ở màn hình tráng ảnh. Chất lượng và độ sâu bit của PNG cũng định ở đây.</td></tr>
@@ -1015,6 +1067,7 @@
   <tr><td>Xuất tách phần</td><td>Với sắp đặt tự do có từ 2 khoang trở lên, bạn chọn xuất thành một ảnh hay cắt ra bấy nhiêu phần. Nếu cắt, chúng được đánh số từ trái sang.</td></tr>
   <tr><td>Nơi lưu</td><td>Thư mục gốc hoặc thư mục bạn chọn.</td></tr>
   <tr><td>Tên tệp</td><td>Theo tên ảnh đầu tiên đặt trên tấm nền. Bạn thêm được hậu tố.</td></tr>
+  <tr><td>Đóng cửa sổ này</td><td>Cửa sổ tự đóng khi xuất xong.</td></tr>
 </table>
 </section>
 
@@ -1129,9 +1182,9 @@
 <table class="wide">
   <tr><th>Mục</th><th>Nội dung</th></tr>
   <tr><td>Nơi lưu phần chỉnh sửa</td><td><strong>Quản lý trong thư mục của ứng dụng</strong> (mặc định) hoặc <strong>Bên cạnh tệp gốc</strong>. Chi tiết xem ở <a href="#originals">Ảnh gốc của bạn vẫn nguyên vẹn</a>.</td></tr>
-  <tr><td>Nền</td><td>Độ sáng phía sau ảnh ở màn hình tráng ảnh. Để tối thì dễ xét độ sáng của ảnh hơn.</td></tr>
-  <tr><td>Cỡ ảnh thu nhỏ của thiết lập sẵn</td><td>Cỡ bản xem trước trong danh sách thiết lập sẵn. Rất nhỏ · Nhỏ · Lớn.</td></tr>
 </table>
+<p>Màu nền của màn hình tráng ảnh đổi bằng cách bấm chuột phải bên ngoài ảnh — <strong>Mặc định · Trắng · Xám 50% · Xám 15% · Đen</strong>. Để nền tối thì dễ xét độ sáng của ảnh hơn.</p>
+<p>Cỡ ảnh thu nhỏ của thiết lập sẵn chọn ở biểu tượng lưới góc trên bên phải mục Thiết lập sẵn — Rất nhỏ · Nhỏ · Lớn.</p>
 <p>Độ sáng của toàn ứng dụng (sáng/tối) đổi bằng <span class="kbd">⌘⇧9</span> và <span class="kbd">⌘⇧0</span>.</p>
 </section>
 
@@ -1143,7 +1196,7 @@
 <table>
   <tr><td><span class="kbd">⌘E</span></td><td>Xuất ảnh</td></tr>
   <tr><td><span class="kbd">⌘W</span></td><td>Đóng (nếu đang tráng ảnh thì đóng ảnh)</td></tr>
-  <tr><td><span class="kbd">⌘?</span></td><td>Trợ giúp Rawcookr</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Trợ giúp Rawcookr — mở hướng dẫn này trên web</td></tr>
   <tr><td><span class="kbd">⌘⇧9</span></td><td>Chế độ tối</td></tr>
   <tr><td><span class="kbd">⌘⇧0</span></td><td>Chế độ sáng</td></tr>
   <tr><td><span class="kbd">⌘Q</span></td><td>Thoát — nếu còn bản ghép chưa lưu thì sẽ được hỏi</td></tr>

@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rawcookr ユーザガイド</title>
-<meta name="description" content="Rawcookrのすべての機能と使い方。フィルムレシピ、プライバシーぼかし、ミスト、部分補正、書き出し、ショートカットまで。">
+<meta name="description" content="Rawcookrのすべての機能と使い方。フィルムレシピ、プライバシーぼかし、光学フィルター、部分補正、書き出し、ショートカットまで。">
 <meta property="og:title" content="Rawcookr ユーザガイド">
-<meta property="og:description" content="Rawcookrのすべての機能と使い方を項目ごとにまとめました。">
+<meta property="og:description" content="Rawcookrのすべての機能と使い方。フィルムレシピ、プライバシーぼかし、光学フィルター、部分補正、書き出し、ショートカットまで。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://rawcookr.slowsalmon.com/guide-ja.html">
 <link rel="canonical" href="https://rawcookr.slowsalmon.com/guide-ja.html">
@@ -221,6 +221,7 @@
       <button type="button" class="grp"><span class="caret"></span>写真を選ぶ</button>
       <div class="items"><div>
         <a href="#library">フォルダとサムネイル</a>
+        <a href="#sidebar">サイドバー</a>
         <a href="#rating">評価と旗</a>
         <a href="#batch">複数枚をまとめて</a>
         <a href="#versions">バージョン</a>
@@ -252,7 +253,7 @@
         <a href="#detail">ディテール</a>
         <a href="#effects">効果</a>
         <a href="#defringe">色収差の除去</a>
-        <a href="#mist">ミスト</a>
+        <a href="#mist">光学フィルター</a>
         <a href="#privacy">プライバシーぼかし</a>
         <a href="#frame">日付の焼き込み</a>
       </div></div>
@@ -379,6 +380,30 @@
   <tr><td>別のフォルダへ移動</td><td>選んだ写真を別のフォルダへ移します。編集設定も一緒に付いていきます。</td></tr>
   <tr><td>ゴミ箱に入れる</td><td>元のファイルをゴミ箱に入れます。戻すときはFinderのゴミ箱から取り出します。</td></tr>
 </table>
+</section>
+
+<section id="sidebar">
+<h2>サイドバー</h2>
+<p>左のサイドバーには、フォルダツリーとファイル情報が上下に並んでいます。ライブラリと現像画面で同じサイドバーを使います。</p>
+<table>
+  <tr><th>キー</th><th>働き</th></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>サイドバー全体の表示 / 非表示</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>フォルダツリーの表示 / 非表示</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>ファイル情報の表示 / 非表示</td></tr>
+</table>
+<p>現像画面に入ると、写真を広く見られるようにサイドバーは閉じた状態で始まります。必要なら<span class="kbd">⌘Y</span>で開いてください。ライブラリに戻ると、ライブラリで使っていた状態のままです。サイドバーの幅とファイル情報欄の高さは両方の画面で共通です。</p>
+
+<h3>ファイル情報</h3>
+<p>現像中の写真、またはライブラリで選んだ写真の情報を表示します。グループごとにタイトルをクリックして折りたためます。EXIF・TIFFなどの生のグループは最初は折りたたまれています。</p>
+<table class="wide">
+  <tr><th>グループ</th><th>内容</th></tr>
+  <tr><td>ファイル</td><td>パス · サイズ · 作成日 · 変更日</td></tr>
+  <tr><td>画像</td><td>解像度 · ビット深度 · カラープロファイル</td></tr>
+  <tr><td>撮影情報</td><td>カメラ · レンズ · 撮影日時 · シャッター · 絞り · ISO · 焦点距離（35mm換算）· 露出補正</td></tr>
+  <tr><td>位置</td><td>GPS座標（記録されている写真のみ）</td></tr>
+  <tr><td>そのほかのグループ</td><td>ファイルに含まれる残りのEXIF · TIFF · IPTC · DNGの値とメーカーノート</td></tr>
+</table>
+<p>マウントでは、この場所を写真の引き出しが使います。</p>
 </section>
 
 <section id="rating">
@@ -842,7 +867,10 @@
 </section>
 
 <section id="mist">
-<h2>ミスト</h2>
+<h2>光学フィルター</h2>
+<p>レンズの前に付けるフィルター二つをデジタルで再現しました。光をやわらかくにじませる<strong>ミスト</strong>と、光源に光条を付ける<strong>トゥインクルフィルター</strong>です。</p>
+
+<h3>ミスト</h3>
 <p>レンズの前に着ける光学ディフュージョンフィルターをデジタルに移した効果です。明るい部分が柔らかくにじみ、コントラストがやわらぎ、肌が穏やかになります。</p>
 <table>
   <tr><th>段階</th><th>印象</th></tr>
@@ -854,6 +882,30 @@
 </table>
 <p><strong>影にも拡散</strong>をオンにすると、明るい所だけでなく暗い部分にも光が回り、古いフィルムプリントのような印象になります。</p>
 <p>ミストは光のある所で効きます。光源や明るい空、逆光の髪などがあって初めて分かり、平坦に曇った写真ではコントラストが下がるだけです。</p>
+<h3>トゥインクルフィルター</h3>
+<p>街灯やろうそく、水面に反射した日差しのように、写真の中の光源に光条を付けます。レンズの前に付けるクロスフィルターをデジタルで再現した効果です。</p>
+<table>
+  <tr><th>本数</th><th>形</th></tr>
+  <tr><td>0</td><td>オフ</td></tr>
+  <tr><td>2</td><td>一本の筋</td></tr>
+  <tr><td>4</td><td>十字</td></tr>
+  <tr><td>6</td><td>雪の結晶</td></tr>
+  <tr><td>8</td><td>八方向の星</td></tr>
+</table>
+<table class="wide">
+  <tr><th>項目</th><th>範囲</th><th>働き</th></tr>
+  <tr><td>強さ</td><td>0 〜 100</td><td>どこまでの光を光源とみなすかを決めます。下げると最も強い光だけに、上げると暗めの光や反射にも星が付きます。標準は50。</td></tr>
+  <tr><td>長さ</td><td>0 〜 250</td><td>光条の長さ。100で写真の長辺の17.5%になります。標準は50。</td></tr>
+  <tr><td>角度</td><td>−90° 〜 +90°</td><td>フィルターの枠を回すように、光条全体を回します。</td></tr>
+  <tr><td>ノイズ</td><td>0 〜 100</td><td>光条にノイズを乗せ、写真のノイズになじませます。0ならなめらかな光条です。標準は25。</td></tr>
+  <tr><td>虹色の分光</td><td>オン / オフ</td><td>光条が虹色に分かれます。標準はオン。</td></tr>
+</table>
+<p>本数が0のときは、ほかの項目はロックされます。星の大きさは強さではなく光の大きさに従います。強さを下げると弱い光の星が消えるだけで、残る星はそのままです。幅の広い光源には、太い光条一本の代わりに細い光条が光源の幅だけ並びます。</p>
+<p>光源は現像画面のプレビューから探します。そのため拡大しても書き出しても、星の位置と色は画面で見たとおりに出ます。トゥインクルフィルターはミストより先にかかるので、両方使うとミストが光条までやわらかく包みます。</p>
+<div class="note">
+<b>夜景での始め方</b>
+<p>本数4、強さ50から始めましょう。星が多すぎるなら強さを下げ、光条が短く見えるなら長さを上げます。高感度で撮った写真はノイズを少し上げると、光条が写真になじんで合成のように見えません。</p>
+</div>
 </section>
 
 <section id="privacy">
@@ -1007,7 +1059,7 @@
 <p>保存していない作業があると、タブを移るときやアプリを終了するときに確認されます。取り消しは、写真を入れ、動かし、順序を変えたすべての過程で効きます。</p>
 
 <h3>画像として書き出す</h3>
-<p><span class="kbd">⌘E</span>で開きます。</p>
+<p>ツールバーの<strong>書き出し</strong>ボタンか<span class="kbd">⌘E</span>で開きます。</p>
 <table class="wide">
   <tr><th>項目</th><th>内容</th></tr>
   <tr><td>形式</td><td>現像画面の書き出しと同じです。画質やPNGのビット深度もここで決めます。</td></tr>
@@ -1015,6 +1067,7 @@
   <tr><td>分けて書き出す</td><td>マス数を2以上にした自由配置では、一枚として出すか、その数だけ切り分けるかを選びます。切ると左から番号が付きます。</td></tr>
   <tr><td>保存先</td><td>元のフォルダ、または選んだフォルダ。</td></tr>
   <tr><td>ファイル名</td><td>板にのせた最初の写真の名前に従います。接尾辞を付けられます。</td></tr>
+  <tr><td>このウインドウを閉じる</td><td>書き出しが終わるとウインドウが自動で閉じます。</td></tr>
 </table>
 </section>
 
@@ -1129,9 +1182,9 @@
 <table class="wide">
   <tr><th>項目</th><th>内容</th></tr>
   <tr><td>編集の保存場所</td><td><strong>アプリフォルダで管理</strong>（標準）または<strong>元のファイルの隣に</strong>。詳しくは<a href="#originals">元の写真はそのままです</a>をご覧ください。</td></tr>
-  <tr><td>背景</td><td>現像画面の写真の背後の明るさ。暗くしておくと写真の明るさを判断しやすくなります。</td></tr>
-  <tr><td>プリセットのサムネイルの大きさ</td><td>プリセット一覧のプレビューの大きさ。極小 · 小 · 大。</td></tr>
 </table>
+<p>現像画面の背景色は、写真の外側を右クリックして変えます — <strong>デフォルト · 白 · 50% グレー · 15% グレー · 黒</strong>。暗くしておくと写真の明るさを判断しやすくなります。</p>
+<p>プリセットのサムネイルの大きさは、プリセット項目の右上にあるグリッドのアイコンから選びます — 極小 · 小 · 大。</p>
 <p>アプリ全体の明るさ（ライト／ダーク）は<span class="kbd">⌘⇧9</span>と<span class="kbd">⌘⇧0</span>で切り替えます。</p>
 </section>
 
@@ -1143,7 +1196,7 @@
 <table>
   <tr><td><span class="kbd">⌘E</span></td><td>書き出し</td></tr>
   <tr><td><span class="kbd">⌘W</span></td><td>閉じる（現像中なら写真を閉じる）</td></tr>
-  <tr><td><span class="kbd">⌘?</span></td><td>Rawcookrヘルプ</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Rawcookrヘルプ — この説明書をウェブで開きます</td></tr>
   <tr><td><span class="kbd">⌘⇧9</span></td><td>ダークモード</td></tr>
   <tr><td><span class="kbd">⌘⇧0</span></td><td>ライトモード</td></tr>
   <tr><td><span class="kbd">⌘Q</span></td><td>終了 — マウントに保存していない作業があると確認されます</td></tr>

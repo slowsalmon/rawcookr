@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rawcookr Benutzerhandbuch</title>
-<meta name="description" content="Jede Funktion von Rawcookr und wie man sie nutzt — Filmrezepte, Unkenntlichmachen, Mist, lokale Korrekturen, Export und Tastaturkurzbefehle.">
+<meta name="description" content="Alle Funktionen von Rawcookr und ihre Bedienung – Filmrezept, Datenschutz-Unschärfe, optische Filter, lokale Anpassungen, Export und Tastenkürzel.">
 <meta property="og:title" content="Rawcookr Benutzerhandbuch">
-<meta property="og:description" content="Jede Funktion von Rawcookr und wie man sie nutzt, Abschnitt für Abschnitt.">
+<meta property="og:description" content="Alle Funktionen von Rawcookr und ihre Bedienung – Filmrezept, Datenschutz-Unschärfe, optische Filter, lokale Anpassungen, Export und Tastenkürzel.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://rawcookr.slowsalmon.com/guide-de.html">
 <link rel="canonical" href="https://rawcookr.slowsalmon.com/guide-de.html">
@@ -221,6 +221,7 @@
       <button type="button" class="grp"><span class="caret"></span>Fotos auswählen</button>
       <div class="items"><div>
         <a href="#library">Ordner und Miniaturen</a>
+        <a href="#sidebar">Seitenleiste</a>
         <a href="#rating">Bewertungen und Markierungen</a>
         <a href="#batch">Mehrere auf einmal</a>
         <a href="#versions">Versionen</a>
@@ -252,7 +253,7 @@
         <a href="#detail">Details</a>
         <a href="#effects">Effekte</a>
         <a href="#defringe">Saumentfernung</a>
-        <a href="#mist">Mist</a>
+        <a href="#mist">Optischer Filter</a>
         <a href="#privacy">Unkenntlich machen</a>
         <a href="#frame">Datumsaufdruck</a>
       </div></div>
@@ -379,6 +380,30 @@
   <tr><td>In anderen Ordner bewegen</td><td>Verschiebt die ausgewählten Fotos woandershin. Die Bearbeitungseinstellungen gehen mit.</td></tr>
   <tr><td>In den Papierkorb legen</td><td>Legt das Original in den Papierkorb. Zum Rückgängigmachen holst du es aus dem Papierkorb im Finder zurück.</td></tr>
 </table>
+</section>
+
+<section id="sidebar">
+<h2>Seitenleiste</h2>
+<p>Die Seitenleiste links enthält Ordnerbaum und Dateiinfo übereinander. Bibliothek und Entwicklungsansicht nutzen dieselbe Seitenleiste.</p>
+<table>
+  <tr><th>Taste</th><th>Wirkung</th></tr>
+  <tr><td><span class="kbd">⌘Y</span></td><td>Ganze Seitenleiste ein- / ausblenden</td></tr>
+  <tr><td><span class="kbd">⌘T</span></td><td>Ordnerbaum ein- / ausblenden</td></tr>
+  <tr><td><span class="kbd">⌘I</span></td><td>Dateiinfo ein- / ausblenden</td></tr>
+</table>
+<p>Beim Wechsel in die Entwicklungsansicht startet die Seitenleiste geschlossen, damit das Foto Platz hat. Öffnen Sie sie bei Bedarf mit <span class="kbd">⌘Y</span>. Zurück in der Bibliothek ist sie so, wie Sie sie dort verlassen haben. Breite der Seitenleiste und Höhe des Dateiinfo-Bereichs teilen sich beide Ansichten.</p>
+
+<h3>Dateiinfo</h3>
+<p>Zeigt Informationen zum Foto, das Sie entwickeln, oder zum in der Bibliothek ausgewählten Foto. Ein Klick auf den Titel einer Gruppe klappt sie ein oder aus. Rohe Gruppen wie EXIF und TIFF starten eingeklappt.</p>
+<table class="wide">
+  <tr><th>Gruppe</th><th>Inhalt</th></tr>
+  <tr><td>Datei</td><td>Pfad · Größe · Erstellt · Geändert</td></tr>
+  <tr><td>Bild</td><td>Auflösung · Bittiefe · Farbprofil</td></tr>
+  <tr><td>Aufnahmedaten</td><td>Kamera · Objektiv · Aufnahmezeit · Verschluss · Blende · ISO · Brennweite (KB-äquivalent) · Belichtungskorrektur</td></tr>
+  <tr><td>Ort</td><td>GPS-Koordinaten (nur wenn aufgezeichnet)</td></tr>
+  <tr><td>Weitere Gruppen</td><td>Die übrigen EXIF-, TIFF-, IPTC- und DNG-Werte der Datei sowie Herstellernotizen</td></tr>
+</table>
+<p>In der Montage nimmt die Fotoschublade diesen Platz ein.</p>
 </section>
 
 <section id="rating">
@@ -842,7 +867,10 @@
 </section>
 
 <section id="mist">
-<h2>Mist</h2>
+<h2>Optischer Filter</h2>
+<p>Zwei Filter, die man vor ein Objektiv schraubt, digital umgesetzt: <strong>Mist</strong>, der Licht weich aufblühen lässt, und der <strong>Funkelfilter</strong>, der Lichtquellen Strahlen verleiht.</p>
+
+<h3>Mist</h3>
 <p>Eine digitale Fassung des optischen Diffusionsfilters, den man aufs Objektiv schraubt. Lichter blühen sanft auf, der Kontrast lässt nach, Haut wird weich.</p>
 <table>
   <tr><th>Stufe</th><th>Wirkung</th></tr>
@@ -854,6 +882,30 @@
 </table>
 <p>Schalte <strong>Schatten mitdiffundieren</strong> ein und das Licht breitet sich auch in den dunklen Partien aus, nicht nur in den hellen — sehr wie ein alter Abzug aus der Dunkelkammer.</p>
 <p>Mist braucht Licht, mit dem es arbeiten kann. Es zeigt sich, wo eine Lichtquelle, ein heller Himmel oder gegenlichtiges Haar ist; auf einem flachen, bedeckten Foto senkt es nur den Kontrast.</p>
+<h3>Funkelfilter</h3>
+<p>Setzt Strahlen an die Lichtquellen im Foto – Straßenlaternen, Kerzen, Sonnenlicht, das auf Wasser glitzert. Eine digitale Umsetzung des Sternfilters, den man vor ein Objektiv schraubt.</p>
+<table>
+  <tr><th>Strahlen</th><th>Form</th></tr>
+  <tr><td>0</td><td>Aus</td></tr>
+  <tr><td>2</td><td>Ein einzelner Strich</td></tr>
+  <tr><td>4</td><td>Ein Kreuz</td></tr>
+  <tr><td>6</td><td>Eine Schneeflocke</td></tr>
+  <tr><td>8</td><td>Ein achtzackiger Stern</td></tr>
+</table>
+<table class="wide">
+  <tr><th>Element</th><th>Bereich</th><th>Wirkung</th></tr>
+  <tr><td>Stärke</td><td>0 – 100</td><td>Legt fest, bis zu welcher Helligkeit ein Licht als Lichtquelle zählt. Niedriger bekommen nur die stärksten Lichter einen Stern, höher auch schwächere Lichter und Reflexe. Standard 50.</td></tr>
+  <tr><td>Länge</td><td>0 – 250</td><td>Wie lang die Strahlen sind. Bei 100 erreichen sie 17,5 % der langen Fotoseite. Standard 50.</td></tr>
+  <tr><td>Winkel</td><td>−90° – +90°</td><td>Dreht alle Strahlen gemeinsam, wie das Drehen des Filterrings.</td></tr>
+  <tr><td>Rauschen</td><td>0 – 100</td><td>Legt Rauschen über die Strahlen, damit sie zum Rauschen des Fotos passen. Bei 0 sind die Strahlen glatt. Standard 25.</td></tr>
+  <tr><td>Regenbogenfarben</td><td>An / Aus</td><td>Die Strahlen spalten sich in Regenbogenfarben auf. Standardmäßig an.</td></tr>
+</table>
+<p>Steht die Strahlenzahl auf 0, sind die übrigen Regler gesperrt. Die Größe eines Sterns folgt der Größe seines Lichts, nicht der Stärke: Eine niedrigere Stärke entfernt nur die Sterne schwächerer Lichter, die übrigen bleiben, wie sie sind. Eine breite Lichtquelle bekommt statt eines dicken Strahls mehrere feine Strahlen nebeneinander, so breit wie das Licht.</p>
+<p>Lichtquellen werden in der Vorschau der Entwicklungsansicht gesucht. Beim Vergrößern oder Exportieren sitzen die Sterne deshalb an denselben Stellen und in denselben Farben wie auf dem Bildschirm. Der Funkelfilter wird vor Mist angewendet; nutzt man beide, umhüllt Mist auch die Strahlen weich.</p>
+<div class="note">
+<b>Ein Ausgangspunkt für Nachtaufnahmen</b>
+<p>Beginnen Sie mit 4 Strahlen und einer Stärke von 50. Sind es zu viele Sterne, senken Sie die Stärke; wirken die Strahlen kurz, erhöhen Sie die Länge. Bei Fotos mit hoher ISO fügt etwas mehr Rauschen die Strahlen ins Bild ein, sodass sie nicht aufgesetzt wirken.</p>
+</div>
 </section>
 
 <section id="privacy">
@@ -1007,7 +1059,7 @@
 <p>Gibt es ungesicherte Arbeit, wirst du vor dem Tabwechsel oder dem Beenden gefragt. Der Widerruf umfasst alles — Fotos hinzufügen, verschieben, umordnen.</p>
 
 <h3>Als Bild exportieren</h3>
-<p>Öffnet mit <span class="kbd">⌘E</span>.</p>
+<p>Öffnen Sie ihn über die Schaltfläche <strong>Exportieren</strong> in der Symbolleiste oder mit <span class="kbd">⌘E</span>.</p>
 <table class="wide">
   <tr><th>Eintrag</th><th>Einzelheiten</th></tr>
   <tr><td>Format</td><td>Wie der Export aus dem Bearbeitungsfenster. Qualität und PNG-Bittiefe werden auch hier gesetzt.</td></tr>
@@ -1015,6 +1067,7 @@
   <tr><td>Zerschneiden</td><td>In freier Platzierung mit zwei oder mehr Feldern wählst du, ob ein Bild gesichert wird oder so viele Teile. Zerschnitten werden sie von links nummeriert.</td></tr>
   <tr><td>Ziel</td><td>Der ursprüngliche Ordner oder einer deiner Wahl.</td></tr>
   <tr><td>Dateiname</td><td>Folgt dem Namen des ersten Fotos auf der Platte. Ein Suffix lässt sich anhängen.</td></tr>
+  <tr><td>Dieses Fenster schließen</td><td>Das Fenster schließt sich von selbst, sobald der Export fertig ist.</td></tr>
 </table>
 </section>
 
@@ -1129,9 +1182,9 @@
 <table class="wide">
   <tr><th>Eintrag</th><th>Einzelheiten</th></tr>
   <tr><td>Wo Bearbeitungen liegen</td><td><strong>Im App-Ordner verwaltet</strong> (Standard) oder <strong>neben der Originaldatei</strong>. Siehe <a href="#originals">Deine Originale bleiben unberührt</a>.</td></tr>
-  <tr><td>Hintergrund</td><td>Wie hell es hinter dem Foto im Bearbeitungsfenster ist. Dunkel gehalten lässt sich die Helligkeit des Fotos leichter beurteilen.</td></tr>
-  <tr><td>Größe der Vorgaben-Miniaturen</td><td>Die Vorschaugröße in der Vorgabenliste. Sehr klein · Klein · Groß.</td></tr>
 </table>
+<p>Die Hintergrundfarbe der Entwicklungsansicht ändern Sie per Rechtsklick außerhalb des Fotos – <strong>Standard · Weiß · 50 % Grau · 15 % Grau · Schwarz</strong>. Ein dunkler Hintergrund macht die Helligkeit des Fotos leichter zu beurteilen.</p>
+<p>Die Größe der Vorgaben-Vorschaubilder wählen Sie über das Rastersymbol oben rechts im Bereich Vorgaben – Sehr klein · Klein · Groß.</p>
 <p>Das helle und dunkle Erscheinungsbild der App stellst du mit <span class="kbd">⌘⇧9</span> und <span class="kbd">⌘⇧0</span> ein.</p>
 </section>
 
@@ -1143,7 +1196,7 @@
 <table>
   <tr><td><span class="kbd">⌘E</span></td><td>Exportieren</td></tr>
   <tr><td><span class="kbd">⌘W</span></td><td>Schließen (beim Bearbeiten schließt es das Foto)</td></tr>
-  <tr><td><span class="kbd">⌘?</span></td><td>Rawcookr-Hilfe</td></tr>
+  <tr><td><span class="kbd">⌘?</span></td><td>Rawcookr-Hilfe – öffnet dieses Handbuch im Web</td></tr>
   <tr><td><span class="kbd">⌘⇧9</span></td><td>Dunkles Erscheinungsbild</td></tr>
   <tr><td><span class="kbd">⌘⇧0</span></td><td>Helles Erscheinungsbild</td></tr>
   <tr><td><span class="kbd">⌘Q</span></td><td>Beenden — du wirst gefragt, wenn eine Montage ungesichert ist</td></tr>
