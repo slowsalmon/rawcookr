@@ -120,11 +120,33 @@
     position: absolute; left: 50%; width: min(760px, calc(100% - 48px)); margin: 0;
     transform: translate(-50%, 12px); opacity: 0;
     font-size: clamp(1.5em, 3.4vw, 2.6em); font-weight: 700; line-height: 1.25;
-    letter-spacing: -0.02em; transition: opacity .45s ease, transform .45s ease;
+    letter-spacing: -0.02em; text-align: center; transition: opacity .45s ease, transform .45s ease;
   }
   .ms-cap.on { opacity: 1; transform: translate(-50%, 0); }
   .ms-layer { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform, opacity; }
-  .ms-app { width: 2400px; height: 1568px; max-width: none; }
+  /* 랩톱 목업: 화면 안쪽이 2400×1568 좌표계 */
+  .ms-laptop { width: 2400px; height: 1568px; }
+  .ms-lid {
+    position: absolute; left: -64px; top: -72px; width: 2528px; height: 1702px;
+    border-radius: 80px 80px 14px 14px; background: #0e0e0f;
+    box-shadow: 0 0 0 7px #b8bbc0, 0 0 0 9px #8e9196;
+  }
+  .ms-scr {
+    position: absolute; left: 0; top: 0; width: 2400px; height: 1568px; overflow: hidden;
+    border-radius: 22px 22px 0 0;
+    background: linear-gradient(140deg, #dfe6ee 0%, #ece6da 55%, #e4dccb 100%);
+  }
+  .ms-scr img { display: block; width: 2400px; height: 1568px; max-width: none; }
+  .ms-notch { position: absolute; top: 0; left: 50%; width: 230px; height: 42px; margin-left: -115px;
+              background: #0e0e0f; border-radius: 0 0 22px 22px; }
+  .ms-deck {
+    position: absolute; left: -215px; top: 1639px; width: 2830px; height: 74px;
+    border-radius: 6px 6px 70px 70px / 6px 6px 48px 48px;
+    background: linear-gradient(#f1f2f4 0%, #d5d7da 30%, #a7aaaf 100%);
+    box-shadow: 0 70px 110px rgba(30, 27, 22, .20), 0 18px 30px rgba(30, 27, 22, .12);
+  }
+  .ms-deck span { position: absolute; left: 50%; top: 0; width: 400px; height: 24px; margin-left: -200px;
+                  border-radius: 0 0 24px 24px; background: linear-gradient(#a6a9ae, #c9cbcf); }
   .ms-strip { display: flex; width: 4800px; height: 500px; }
   .ms-strip img { display: block; width: 400px; height: 500px; flex: none; }
   .ms-free { box-shadow: 0 30px 70px rgba(30, 27, 22, var(--sh, 0)); }
@@ -228,7 +250,11 @@
       <p class="ms-cap" data-i18n="m3"></p>
     </div>
 
-    <img class="ms-layer ms-app" id="msApp" src="images/mount/app.webp" width="2400" height="1568" alt="" aria-hidden="true" decoding="async">
+    <div class="ms-layer ms-laptop" id="msApp" aria-hidden="true">
+      <div class="ms-lid"></div>
+      <div class="ms-scr"><img src="images/mount/app.webp" width="2400" height="1568" alt="" decoding="async"><span class="ms-notch"></span></div>
+      <div class="ms-deck"><span></span></div>
+    </div>
 
     <div class="ms-layer ms-phone" id="msPhone" aria-hidden="true">
       <div class="ms-screen">
@@ -450,7 +476,7 @@ function afterLang(code, t) {
 setLang(pickLang());
 
 // ── 마운트 스토리: 스크롤 위치에 따라 재생되는 애니메이션 ──
-// 앱 화면 → 가로 스트립 확대 → 휴대폰 게시물로 이동 → 12장 캐러셀 넘김
+// 랩톱 속 앱 화면 → 가로 스트립 확대 → 휴대폰 게시물로 이동 → 12장 캐러셀 넘김
 (function () {
   var sec = document.getElementById('ms');
   if (!sec) return;
@@ -491,10 +517,11 @@ setLang(pickLang());
     for (var i = 0; i < caps.length; i++) caps[i].style.top = (64 + capH * 0.18) + 'px';
     caps[0].parentNode.style.height = (top - 8) + 'px';
     // 1) 앱 화면: 영역 안에 꽉 차게
-    var aw = Math.min(W * 0.92, 1180, vh * APP_W / APP_H);
-    var as = aw / APP_W, ah = APP_H * as;
-    G.appBase = as;
-    G.R0 = { x: cx - aw / 2 + S.x * aw, y: cy - ah / 2 + S.y * ah, w: S.w * aw, h: S.h * ah };
+    // 랩톱 전체(화면 + 베젤 + 하판)가 영역에 들어가도록 맞춤
+    var OUT_W = 2830, OUT_H = 1790, OFF_X = 215, OFF_Y = 81;
+    var ls = Math.min(W * 0.92 / OUT_W, vh / OUT_H, 1200 / APP_W);
+    var sx0 = cx - OUT_W * ls / 2 + OFF_X * ls, sy0 = cy - OUT_H * ls / 2 + OFF_Y * ls;
+    G.R0 = { x: sx0 + S.x * APP_W * ls, y: sy0 + S.y * APP_H * ls, w: S.w * APP_W * ls, h: S.h * APP_H * ls };
     // 2) 스트립 확대: 화면 폭에 맞춤
     var zw = W * 0.96;
     G.R1 = { x: cx - zw / 2, y: cy - zw / 9.6 / 2, w: zw, h: zw / 9.6 };
@@ -521,7 +548,7 @@ setLang(pickLang());
     last = p;
 
     // 단계별 진행도
-    var zoom = ease(seg(p, 0.06, 0.26));        // 앱 → 스트립 확대
+    var zoom = ease(seg(p, 0.07, 0.26));        // 랩톱 화면 → 스트립 확대
     var appOut = seg(p, 0.24, 0.34);            // 앱 사라짐
     var phoneIn = ease(seg(p, 0.28, 0.40));     // 휴대폰 등장
     var move = ease(seg(p, 0.36, 0.50));        // 스트립 → 게시물 자리
