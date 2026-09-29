@@ -228,7 +228,7 @@
       </div></div>
     </li>
     <li>
-      <button type="button" class="grp"><span class="caret"></span>현상 화면</button>
+      <button type="button" class="grp"><span class="caret"></span>쿠킹 화면</button>
       <div class="items"><div>
         <a href="#canvas">확대와 이동</a>
         <a href="#inspect">원본 비교와 클리핑 경고</a>
@@ -259,7 +259,7 @@
       </div></div>
     </li>
     <li>
-      <button type="button" class="grp"><span class="caret"></span>마운트</button>
+      <button type="button" class="grp"><span class="caret"></span>플레이팅</button>
       <div class="items"><div>
         <a href="#mount">판에 사진 올리기</a>
         <a href="#mount-split">칸으로 나누기</a>
@@ -285,7 +285,7 @@
 <main>
 
 <h1>Rawcookr 사용 설명서</h1>
-<p class="lead">사진을 현상하고, 사람을 가리고, 원하는 색을 입혀 바로 올릴 수 있게 내보내기까지. 모든 기능을 항목별로 정리했습니다.</p>
+<p class="lead">사진을 쿠킹하고, 사람을 가리고, 원하는 색을 입혀 바로 올릴 수 있게 내보내기까지. 모든 기능을 항목별로 정리했습니다.</p>
 <p class="lead" style="font-size:0.95em">macOS 14 이상 · 버전 1.1 기준</p>
 
 <!-- ══════════ 시작하기 ══════════ -->
@@ -297,10 +297,10 @@
 <h3>라이브러리</h3>
 <p>폴더를 고르고 사진을 훑어보는 곳입니다. 왼쪽에 폴더 목록, 가운데에 썸네일 격자가 있습니다. 여기서 별점과 깃발을 매기고, 여러 장을 골라 한꺼번에 내보냅니다.</p>
 
-<h3>마운트</h3>
+<h3>플레이팅</h3>
 <p>사진 여러 장을 한 판에 얹어 한 장으로 묶는 곳입니다. 자세한 것은 <a href="#mount">판에 사진 올리기</a>를 보세요.</p>
 
-<h3>현상</h3>
+<h3>쿠킹</h3>
 <p>사진 한 장을 실제로 손보는 곳입니다. 가운데에 사진, 오른쪽에 조정 항목 패널, 아래에 필름스트립이 놓입니다. 라이브러리에서 사진을 두 번 누르거나 <span class="kbd">Return</span> 을 누르면 들어갑니다. 돌아올 때는 <span class="kbd">Esc</span> 입니다.</p>
 
 <div class="tip">
@@ -316,7 +316,7 @@
 <p><strong>파일 → 폴더 열기</strong>(<span class="kbd">⌘O</span>)로 사진이 든 폴더를 고릅니다. 한 번 고른 폴더는 왼쪽 사이드바에 남아 다음에 열 때 바로 누를 수 있습니다. 사이드바에서 지우려면 폴더 이름을 오른쪽 눌러 <strong>사이드바에서 제거</strong>를 고릅니다. 폴더 안의 하위 폴더도 함께 나열됩니다.</p>
 
 <h3>Finder에서 바로 열기</h3>
-<p>Finder에서 사진 파일을 오른쪽 눌러 <strong>다음으로 열기 → Rawcookr</strong> 를 고르면, 그 파일이 든 폴더가 라이브러리에 추가되고 곧바로 현상 화면이 열립니다.</p>
+<p>Finder에서 사진 파일을 오른쪽 눌러 <strong>다음으로 열기 → Rawcookr</strong> 를 고르면, 그 파일이 든 폴더가 라이브러리에 추가되고 곧바로 쿠킹 화면이 열립니다.</p>
 
 <h3>다룰 수 있는 형식</h3>
 <table>
@@ -324,7 +324,7 @@
   <tr><td>RAW</td><td>RAF · DNG · CR2 · CR3 · CRW · NEF · NRW · ARW · SR2 · SRF · RW2 · RAW · RWL · PEF · ORF · 3FR · FFF · IIQ</td></tr>
   <tr><td>그 밖</td><td>JPG · JPEG · PNG · HEIC · HEIF · HIF · TIFF · TIF</td></tr>
 </table>
-<p>RAW 현상은 macOS에 내장된 RAW 엔진을 씁니다. 아주 최근에 나온 기종은 macOS 업데이트를 받아야 열리는 경우가 있습니다.</p>
+<p>RAW 쿠킹은 macOS에 내장된 RAW 엔진을 씁니다. 아주 최근에 나온 기종은 macOS 업데이트를 받아야 열리는 경우가 있습니다.</p>
 </section>
 
 <section id="originals">
@@ -336,7 +336,7 @@
   <tr><td>앱 폴더에서 관리 <span class="pill">기본</span></td><td>원본 폴더가 깨끗하게 유지됩니다. 사진 폴더를 그대로 남에게 넘길 때 편합니다.</td></tr>
   <tr><td>원본 파일 옆에</td><td>사진과 설정이 늘 붙어 다닙니다. 외장 디스크째로 다른 Mac에 옮겨도 편집이 따라옵니다.</td></tr>
 </table>
-<p>편집 내용을 파일로 뽑아 두거나 다시 읽어 들일 수도 있습니다. 현상 화면에서 <strong>설정 저장</strong>·<strong>설정 적용</strong>을 쓰면 <span class="path">.rawcookr-settings.json</span> 파일로 오갑니다.</p>
+<p>편집 내용을 파일로 뽑아 두거나 다시 읽어 들일 수도 있습니다. 쿠킹 화면에서 <strong>설정 저장</strong>·<strong>설정 적용</strong>을 쓰면 <span class="path">.rawcookr-settings.json</span> 파일로 오갑니다.</p>
 </section>
 
 <section id="subscription">
@@ -359,8 +359,8 @@
 <ul>
   <li>썸네일 크기는 오른쪽 위 슬라이더로 바꿉니다.</li>
   <li>화살표 키로 사진 사이를 옮겨 다닙니다.</li>
-  <li><span class="kbd">Return</span> 으로 현상 화면에 들어갑니다.</li>
-  <li><span class="kbd">Space</span> 는 크게 보기입니다. 한 번 더 누르거나 <span class="kbd">Esc</span> 로 닫고, 크게 본 상태에서 <span class="kbd">Return</span> 을 누르면 그 사진을 현상합니다. 아래에 파일 이름이 함께 뜹니다.</li>
+  <li><span class="kbd">Return</span> 으로 쿠킹 화면에 들어갑니다.</li>
+  <li><span class="kbd">Space</span> 는 크게 보기입니다. 한 번 더 누르거나 <span class="kbd">Esc</span> 로 닫고, 크게 본 상태에서 <span class="kbd">Return</span> 을 누르면 그 사진을 쿠킹합니다. 아래에 파일 이름이 함께 뜹니다.</li>
 </ul>
 
 <h3>고르기</h3>
@@ -384,17 +384,17 @@
 
 <section id="sidebar">
 <h2>사이드바</h2>
-<p>왼쪽 사이드바에는 폴더 트리와 파일 정보가 위아래로 함께 들어 있습니다. 라이브러리와 현상 화면이 같은 사이드바를 씁니다.</p>
+<p>왼쪽 사이드바에는 폴더 트리와 파일 정보가 위아래로 함께 들어 있습니다. 라이브러리와 쿠킹 화면이 같은 사이드바를 씁니다.</p>
 <table>
   <tr><th>키</th><th>하는 일</th></tr>
   <tr><td><span class="kbd">⌘Y</span></td><td>사이드바 전체 보이기 / 감추기</td></tr>
   <tr><td><span class="kbd">⌘T</span></td><td>폴더 트리 보이기 / 감추기</td></tr>
   <tr><td><span class="kbd">⌘I</span></td><td>파일 정보 보이기 / 감추기</td></tr>
 </table>
-<p>현상 화면에 들어가면 사진을 넓게 볼 수 있도록 사이드바가 닫힌 채 시작합니다. 필요하면 <span class="kbd">⌘Y</span> 로 여세요. 라이브러리로 돌아오면 라이브러리에서 쓰던 상태 그대로입니다. 사이드바의 폭과 파일 정보 칸의 높이는 두 화면이 함께 씁니다.</p>
+<p>쿠킹 화면에 들어가면 사진을 넓게 볼 수 있도록 사이드바가 닫힌 채 시작합니다. 필요하면 <span class="kbd">⌘Y</span> 로 여세요. 라이브러리로 돌아오면 라이브러리에서 쓰던 상태 그대로입니다. 사이드바의 폭과 파일 정보 칸의 높이는 두 화면이 함께 씁니다.</p>
 
 <h3>파일 정보</h3>
-<p>현상 중인 사진, 또는 라이브러리에서 고른 사진의 정보를 보여 줍니다. 묶음마다 제목을 눌러 접고 펼 수 있습니다. 날것의 EXIF·TIFF 같은 묶음은 처음에 접혀 있습니다.</p>
+<p>쿠킹 중인 사진, 또는 라이브러리에서 고른 사진의 정보를 보여 줍니다. 묶음마다 제목을 눌러 접고 펼 수 있습니다. 날것의 EXIF·TIFF 같은 묶음은 처음에 접혀 있습니다.</p>
 <table class="wide">
   <tr><th>묶음</th><th>담긴 것</th></tr>
   <tr><td>파일</td><td>경로 · 크기 · 생성일 · 수정일</td></tr>
@@ -403,12 +403,12 @@
   <tr><td>위치</td><td>GPS 좌표 (기록된 사진만)</td></tr>
   <tr><td>그 밖의 묶음</td><td>파일에 담긴 나머지 EXIF · TIFF · IPTC · DNG 값과 제조사 기록</td></tr>
 </table>
-<p>마운트에서는 이 자리를 사진 서랍이 씁니다.</p>
+<p>플레이팅에서는 이 자리를 사진 서랍이 씁니다.</p>
 </section>
 
 <section id="rating">
 <h2>별점과 깃발</h2>
-<p>많이 찍은 날 쓸 만한 것만 골라내는 데 씁니다. 라이브러리와 현상 화면 어디서든 매길 수 있습니다.</p>
+<p>많이 찍은 날 쓸 만한 것만 골라내는 데 씁니다. 라이브러리와 쿠킹 화면 어디서든 매길 수 있습니다.</p>
 <table>
   <tr><th>키</th><th>하는 일</th></tr>
   <tr><td><span class="kbd">1</span>~<span class="kbd">5</span></td><td>별점 매기기</td></tr>
@@ -440,12 +440,12 @@
 
 <section id="versions">
 <h2>버전</h2>
-<p>같은 사진을 다르게 현상해 두고 나란히 비교하고 싶을 때 씁니다. 파일을 복사하지 않기 때문에 디스크를 한 바이트도 더 쓰지 않습니다.</p>
-<p>현상 화면에서 <strong>파일 → 새 버전으로 현상</strong>(<span class="kbd">⌘G</span>)을 고르면, 지금 편집은 그대로 둔 채 손대지 않은 사본이 하나 더 생깁니다. 필름스트립에 <strong>V2</strong>, <strong>V3</strong> 처럼 번호가 붙어 나타납니다.</p>
+<p>같은 사진을 다르게 쿠킹해 두고 나란히 비교하고 싶을 때 씁니다. 파일을 복사하지 않기 때문에 디스크를 한 바이트도 더 쓰지 않습니다.</p>
+<p>쿠킹 화면에서 <strong>파일 → 새 버전으로 쿠킹</strong>(<span class="kbd">⌘G</span>)을 고르면, 지금 편집은 그대로 둔 채 손대지 않은 사본이 하나 더 생깁니다. 필름스트립에 <strong>V2</strong>, <strong>V3</strong> 처럼 번호가 붙어 나타납니다.</p>
 <p>버전을 지워도 원본 파일은 남습니다. 지우려 할 때 "원본 파일은 그대로 둡니다"라고 알려 주는 것이 그 뜻입니다.</p>
 </section>
 
-<!-- ══════════ 현상 화면 ══════════ -->
+<!-- ══════════ 쿠킹 화면 ══════════ -->
 
 <section id="canvas">
 <h2>확대와 이동</h2>
@@ -479,7 +479,7 @@
 
 <section id="compare">
 <h2>비교 보기</h2>
-<p>사진 두 장을 나란히 놓고 보는 기능입니다. 같은 장면을 다르게 현상한 것 중 어느 쪽이 나은지 고를 때, 또는 버전끼리 견줄 때 씁니다.</p>
+<p>사진 두 장을 나란히 놓고 보는 기능입니다. 같은 장면을 다르게 쿠킹한 것 중 어느 쪽이 나은지 고를 때, 또는 버전끼리 견줄 때 씁니다.</p>
 <ol class="steps">
   <li>도구 막대의 <strong>비교</strong> 를 누릅니다.</li>
   <li>왼쪽에 지금 사진이 놓이고, 오른쪽에 견줄 사진을 고릅니다.</li>
@@ -766,7 +766,7 @@
 
 <section id="layers">
 <h2>레이어</h2>
-<p>현상한 사진 위에 층을 쌓습니다. 조정 레이어는 아래에 있는 것을 다시 손보고, 단색 레이어는 그 위를 덮으며, 마스크 레이어는 표시한 자리만 건드립니다.</p>
+<p>쿠킹한 사진 위에 층을 쌓습니다. 조정 레이어는 아래에 있는 것을 다시 손보고, 단색 레이어는 그 위를 덮으며, 마스크 레이어는 표시한 자리만 건드립니다.</p>
 
 <h3>세 가지 레이어</h3>
 <table class="wide">
@@ -812,7 +812,7 @@
   <tr><th>항목</th><th>범위</th><th>하는 일</th></tr>
   <tr><td>샤프니스</td><td>−4 ~ +4</td><td>RAW 디코딩 단계의 선명도. 0이 macOS 기본값이고, 거기서 단계별로 더하거나 뺍니다.</td></tr>
   <tr><td>컬러 NR</td><td>−4 ~ +4</td><td>색 얼룩(컬러 노이즈) 억제. 0이 기본값입니다. 높은 ISO에서 올리세요.</td></tr>
-  <tr><td>선명 효과</td><td>0 ~ 300 %</td><td>현상 뒤에 거는 언샤프 마스크. 위의 샤프니스와는 별개입니다.</td></tr>
+  <tr><td>선명 효과</td><td>0 ~ 300 %</td><td>쿠킹 뒤에 거는 언샤프 마스크. 위의 샤프니스와는 별개입니다.</td></tr>
   <tr><td>반경</td><td>0.5 ~ 5 px</td><td>선명 효과가 작용하는 폭. 작을수록 미세한 질감, 클수록 굵은 윤곽.</td></tr>
 </table>
 <p>선명 효과는 밝기 채널에만 걸리므로 색 경계가 번지지 않습니다.</p>
@@ -901,7 +901,7 @@
   <tr><td>무지개 색 갈라짐</td><td>켬 / 끔</td><td>빛줄기가 무지개 색으로 갈라집니다. 기본은 켜짐입니다.</td></tr>
 </table>
 <p>줄기 수가 0이면 나머지 항목은 잠깁니다. 별의 크기는 강도가 아니라 빛의 크기를 따릅니다. 강도를 낮추면 약한 빛의 별이 사라질 뿐, 남은 별은 그대로입니다. 넓은 광원에는 굵은 줄기 하나 대신 가는 줄기가 광원 폭만큼 나란히 납니다.</p>
-<p>광원은 현상 화면의 미리보기에서 찾습니다. 그래서 확대해 보거나 내보내도 별의 자리와 색이 화면에서 본 그대로 나옵니다. 트윙클 필터는 미스트보다 먼저 들어가므로, 둘을 함께 쓰면 미스트가 빛줄기까지 부드럽게 감쌉니다.</p>
+<p>광원은 쿠킹 화면의 미리보기에서 찾습니다. 그래서 확대해 보거나 내보내도 별의 자리와 색이 화면에서 본 그대로 나옵니다. 트윙클 필터는 미스트보다 먼저 들어가므로, 둘을 함께 쓰면 미스트가 빛줄기까지 부드럽게 감쌉니다.</p>
 <div class="note">
 <b>야경에서 시작하기</b>
 <p>줄기 4, 강도 50에서 시작하세요. 별이 너무 많으면 강도를 내리고, 줄기가 짧아 보이면 길이를 올립니다. 고감도로 찍은 사진은 노이즈를 조금 올리면 빛줄기가 사진에 섞여 합성처럼 보이지 않습니다.</p>
@@ -943,8 +943,8 @@
 <h2>날짜 각인</h2>
 
 <div class="note">
-<b>프레임은 마운트로 옮겼습니다</b>
-<p>사진 둘레에 여백을 둘러 정해진 비율로 맞추는 일은 이제 <a href="#mount">마운트</a>가 맡습니다. 사진 한 장만 올리고 화상비와 <strong>테두리</strong>를 정하면 예전 프레임과 같은 결과가 나오고, 간격·모서리·배경색까지 함께 다룰 수 있습니다.</p>
+<b>프레임은 플레이팅으로 옮겼습니다</b>
+<p>사진 둘레에 여백을 둘러 정해진 비율로 맞추는 일은 이제 <a href="#mount">플레이팅</a>이 맡습니다. 사진 한 장만 올리고 화상비와 <strong>테두리</strong>를 정하면 예전 프레임과 같은 결과가 나오고, 간격·모서리·배경색까지 함께 다룰 수 있습니다.</p>
 </div>
 
 <h3>날짜 각인</h3>
@@ -955,18 +955,18 @@
 </section>
 
 
-<!-- ══════════ 마운트 ══════════ -->
+<!-- ══════════ 플레이팅 ══════════ -->
 
 <section id="mount">
 <h2>판에 사진 올리기</h2>
-<p>마운트는 사진 여러 장을 한 판에 얹어 한 장으로 만드는 작업 공간입니다. SNS·블로그·웹사이트에 올릴 때, 여러 컷을 따로 올리는 대신 하나로 묶어 보여 줄 수 있습니다.</p>
+<p>플레이팅은 사진 여러 장을 한 판에 얹어 한 장으로 만드는 작업 공간입니다. SNS·블로그·웹사이트에 올릴 때, 여러 컷을 따로 올리는 대신 하나로 묶어 보여 줄 수 있습니다.</p>
 
 <h3>시작하기</h3>
 <ul>
-  <li>위쪽 탭에서 <strong>마운트</strong>를 고릅니다.</li>
+  <li>위쪽 탭에서 <strong>플레이팅</strong>을 고릅니다.</li>
   <li>왼쪽 <strong>사진 서랍</strong>에서 사진을 끌어다 놓습니다. 서랍이 비어 있으면 <strong>사진 폴더 열기</strong>로 폴더를 고릅니다.</li>
   <li>빈 칸을 눌러 <strong>사진 고르기</strong>로 직접 지정할 수도 있습니다.</li>
-  <li>현상 화면에서 <strong>이 사진을 마운트 하기</strong>를 고르면 지금 보던 사진이 그대로 판으로 넘어갑니다. 라이브러리에서 여러 장을 골라 <strong>마운트로 보내기</strong>도 됩니다.</li>
+  <li>쿠킹 화면에서 <strong>이 사진을 플레이팅하기</strong>를 고르면 지금 보던 사진이 그대로 판으로 넘어갑니다. 라이브러리에서 여러 장을 골라 <strong>플레이팅으로 보내기</strong>도 됩니다.</li>
 </ul>
 <p>서랍은 아이콘으로 접고 펼칠 수 있습니다.</p>
 
@@ -1052,9 +1052,9 @@
 <h3>작업 저장</h3>
 <p>배치한 상태를 파일로 남겨 두었다가 나중에 이어서 할 수 있습니다.</p>
 <table>
-  <tr><td><span class="kbd">⌘S</span></td><td>마운트 저장</td></tr>
-  <tr><td><span class="kbd">⇧⌘S</span></td><td>새 이름으로 마운트 저장</td></tr>
-  <tr><td><span class="kbd">⌘O</span></td><td>마운트 불러오기 (마운트 탭에서는 ⌘O가 작업 파일을 엽니다)</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>플레이팅 저장</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>새 이름으로 플레이팅 저장</td></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>플레이팅 불러오기 (플레이팅 탭에서는 ⌘O가 작업 파일을 엽니다)</td></tr>
 </table>
 <p>저장하지 않은 작업이 있으면 탭을 옮기거나 앱을 끌 때 물어봅니다. 실행취소는 사진을 넣고 옮기고 순서를 바꾼 모든 과정에서 작동합니다.</p>
 
@@ -1062,7 +1062,7 @@
 <p>도구 막대의 <strong>내보내기</strong> 단추나 <span class="kbd">⌘E</span> 로 엽니다.</p>
 <table class="wide">
   <tr><th>항목</th><th>내용</th></tr>
-  <tr><td>형식</td><td>현상 화면의 내보내기와 같습니다. 품질, PNG 비트 깊이도 여기서 정합니다.</td></tr>
+  <tr><td>형식</td><td>쿠킹 화면의 내보내기와 같습니다. 품질, PNG 비트 깊이도 여기서 정합니다.</td></tr>
   <tr><td>크기</td><td>판의 해상도를 그대로 쓰거나 줄입니다.</td></tr>
   <tr><td>나눠 내보내기</td><td>칸 수를 2 이상으로 둔 자유 배치에서는, 한 장으로 낼지 그 수만큼 잘라 낼지 고릅니다. 자르면 왼쪽부터 번호가 붙습니다.</td></tr>
   <tr><td>저장 위치</td><td>원본 폴더 또는 고른 폴더.</td></tr>
@@ -1141,7 +1141,7 @@
 <h3>그 밖의 설정</h3>
 <table class="wide">
   <tr><th>항목</th><th>하는 일</th></tr>
-  <tr><td>접미사</td><td>파일 이름 뒤에 붙일 글자. 기본값은 <span class="path">_developed</span> 입니다. 원본과 이름이 겹치지 않게 해 줍니다.</td></tr>
+  <tr><td>접미사</td><td>파일 이름 뒤에 붙일 글자. 기본값은 <span class="path">_cooked</span> 입니다. 원본과 이름이 겹치지 않게 해 줍니다.</td></tr>
   <tr><td>저장 위치</td><td>원본 폴더에 그대로 두거나, 다른 폴더를 지정합니다.</td></tr>
   <tr><td>끝나면 폴더 열기</td><td>저장이 끝나면 Finder에서 그 폴더를 엽니다.</td></tr>
   <tr><td>이 창 닫기</td><td>내보내기가 끝나면 창이 저절로 닫힙니다. 여러 장씩 반복해서 내보낼 때 편합니다.</td></tr>
@@ -1183,7 +1183,7 @@
   <tr><th>항목</th><th>내용</th></tr>
   <tr><td>편집 저장 위치</td><td><strong>앱 폴더에서 관리</strong>(기본) 또는 <strong>원본 파일 옆에</strong>. 자세한 것은 <a href="#originals">원본은 그대로 둡니다</a>를 보세요.</td></tr>
 </table>
-<p>현상 화면의 배경색은 사진 바깥을 오른쪽 클릭해 바꿉니다 — <strong>기본 · 흰색 · 50% 회색 · 15% 회색 · 검은색</strong>. 어둡게 두면 사진의 밝기를 판단하기 쉽습니다.</p>
+<p>쿠킹 화면의 배경색은 사진 바깥을 오른쪽 클릭해 바꿉니다 — <strong>기본 · 흰색 · 50% 회색 · 15% 회색 · 검은색</strong>. 어둡게 두면 사진의 밝기를 판단하기 쉽습니다.</p>
 <p>프리셋 썸네일 크기는 프리셋 항목 오른쪽 위의 격자 아이콘에서 고릅니다 — 아주 작게 · 작게 · 크게.</p>
 <p>앱 전체의 밝기(라이트/다크)는 <span class="kbd">⌘⇧9</span> 와 <span class="kbd">⌘⇧0</span> 으로 바꿉니다.</p>
 </section>
@@ -1195,11 +1195,11 @@
 <h3>어느 모드에서나</h3>
 <table>
   <tr><td><span class="kbd">⌘E</span></td><td>내보내기</td></tr>
-  <tr><td><span class="kbd">⌘W</span></td><td>닫기 (현상 중이면 사진 닫기)</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>닫기 (쿠킹 중이면 사진 닫기)</td></tr>
   <tr><td><span class="kbd">⌘?</span></td><td>Rawcookr 도움말 — 이 설명서를 웹에서 엽니다</td></tr>
   <tr><td><span class="kbd">⌘⇧9</span></td><td>다크 모드</td></tr>
   <tr><td><span class="kbd">⌘⇧0</span></td><td>라이트 모드</td></tr>
-  <tr><td><span class="kbd">⌘Q</span></td><td>종료 — 마운트에 저장하지 않은 작업이 있으면 물어봅니다</td></tr>
+  <tr><td><span class="kbd">⌘Q</span></td><td>종료 — 플레이팅에 저장하지 않은 작업이 있으면 물어봅니다</td></tr>
 </table>
 
 <h3>라이브러리</h3>
@@ -1210,11 +1210,11 @@
   <tr><td><span class="kbd">⌘A</span></td><td>전체 선택</td></tr>
   <tr><td><span class="kbd">←</span> <span class="kbd">→</span> <span class="kbd">↑</span> <span class="kbd">↓</span></td><td>격자에서 옆·위아래 사진으로</td></tr>
   <tr><td><span class="kbd">Space</span></td><td>크게 보기 (한 번 더 누르면 닫힘)</td></tr>
-  <tr><td><span class="kbd">Return</span></td><td>고른 사진을 현상 화면으로</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>고른 사진을 쿠킹 화면으로</td></tr>
   <tr><td><span class="kbd">Esc</span></td><td>크게 보기 닫기</td></tr>
   <tr><td><span class="kbd">1</span>~<span class="kbd">5</span></td><td>고른 사진에 별점 — 여러 장에 한 번에 들어갑니다</td></tr>
   <tr><td><span class="kbd">Z</span></td><td>깃발 표시 / 해제 — 여러 장에 한 번에</td></tr>
-  <tr><td><span class="kbd">⌘G</span></td><td>새 버전으로 현상</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>새 버전으로 쿠킹</td></tr>
   <tr><td><span class="kbd">⌘Y</span></td><td>사이드바 보이기 / 감추기</td></tr>
   <tr><td><span class="kbd">⌘T</span></td><td>폴더 트리 보이기 / 감추기</td></tr>
   <tr><td><span class="kbd">⌘I</span></td><td>파일 정보 보이기 / 감추기</td></tr>
@@ -1224,7 +1224,7 @@
   <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>다크 모드 · 라이트 모드</td></tr>
 </table>
 
-<h3>현상</h3>
+<h3>쿠킹</h3>
 <h4>보기</h4>
 <table>
   <tr><th>키</th><th>하는 일</th></tr>
@@ -1252,7 +1252,7 @@
   <tr><td><span class="kbd">⌘⇧C</span></td><td>편집 내용 복사</td></tr>
   <tr><td><span class="kbd">⌘⇧V</span></td><td>편집 내용 붙여넣기</td></tr>
   <tr><td><span class="kbd">⌥⌘R</span></td><td>이 사진의 편집 전체 초기화</td></tr>
-  <tr><td><span class="kbd">⌘G</span></td><td>새 버전으로 현상</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>새 버전으로 쿠킹</td></tr>
 </table>
 
 <h4>고르기와 이동</h4>
@@ -1268,12 +1268,12 @@
   <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>다크 모드 · 라이트 모드</td></tr>
 </table>
 
-<h3>마운트</h3>
+<h3>플레이팅</h3>
 <table>
   <tr><th>키</th><th>하는 일</th></tr>
-  <tr><td><span class="kbd">⌘O</span></td><td>마운트 불러오기 — 이 모드에서는 ⌘O가 폴더가 아니라 작업 파일을 엽니다</td></tr>
-  <tr><td><span class="kbd">⌘S</span></td><td>마운트 저장</td></tr>
-  <tr><td><span class="kbd">⇧⌘S</span></td><td>새 이름으로 마운트 저장</td></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>플레이팅 불러오기 — 이 모드에서는 ⌘O가 폴더가 아니라 작업 파일을 엽니다</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>플레이팅 저장</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>새 이름으로 플레이팅 저장</td></tr>
   <tr><td><span class="kbd">⌘Z</span></td><td>실행취소 — 사진을 넣고 옮기고 순서를 바꾼 모든 과정</td></tr>
   <tr><td><span class="kbd">⇧⌘Z</span></td><td>다시 실행</td></tr>
   <tr><td><span class="kbd">⌘E</span></td><td>판을 그림으로 내보내기</td></tr>
@@ -1288,7 +1288,7 @@
 <h2>자주 겪는 일</h2>
 
 <h4>RAW 파일이 열리지 않습니다</h4>
-<p>RAW 현상은 macOS에 내장된 엔진을 씁니다. 아주 최근에 나온 기종은 macOS가 업데이트되어야 지원됩니다. <strong>시스템 설정 → 일반 → 소프트웨어 업데이트</strong>를 확인해 보세요. 그래도 열리지 않으면 카메라에서 DNG로 저장해 보시거나 <a href="mailto:rawcookr@slowsalmon.com">알려 주세요</a>.</p>
+<p>RAW 쿠킹은 macOS에 내장된 엔진을 씁니다. 아주 최근에 나온 기종은 macOS가 업데이트되어야 지원됩니다. <strong>시스템 설정 → 일반 → 소프트웨어 업데이트</strong>를 확인해 보세요. 그래도 열리지 않으면 카메라에서 DNG로 저장해 보시거나 <a href="mailto:rawcookr@slowsalmon.com">알려 주세요</a>.</p>
 
 <h4>썸네일이 느리게 뜹니다</h4>
 <p>처음 여는 폴더에서는 사진마다 미리보기를 만들어야 해서 시간이 걸립니다. 한 번 만든 뒤로는 빨라집니다. 사진이 아주 많은 폴더라면 하위 폴더로 나누는 편이 쾌적합니다.</p>
@@ -1305,8 +1305,8 @@
 <h4>가린 얼굴이 남아 있습니다</h4>
 <p>자동 검출은 옆얼굴·마스크·어두운 곳의 얼굴을 놓칠 수 있습니다. 직접 영역을 그려 넣어 보완하시고, 공개 전에 100%로 한 번 훑어보세요.</p>
 
-<h4>마운트 작업이 사라졌습니다</h4>
-<p>마운트는 저장하기 전까지 파일로 남지 않습니다. <span class="kbd">⌘S</span> 로 먼저 저장해 두세요. 저장하지 않은 채 탭을 옮기거나 앱을 끄려 하면 물어봅니다.</p>
+<h4>플레이팅 작업이 사라졌습니다</h4>
+<p>플레이팅은 저장하기 전까지 파일로 남지 않습니다. <span class="kbd">⌘S</span> 로 먼저 저장해 두세요. 저장하지 않은 채 탭을 옮기거나 앱을 끄려 하면 물어봅니다.</p>
 
 <h4>그래도 해결되지 않는다면</h4>
 <p><a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a> 으로 알려 주세요. 어떤 Mac을 쓰시는지, 어떤 카메라의 어떤 파일인지 함께 적어 주시면 훨씬 빨리 찾을 수 있습니다.</p>

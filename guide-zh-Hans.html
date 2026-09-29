@@ -228,7 +228,7 @@
       </div></div>
     </li>
     <li>
-      <button type="button" class="grp"><span class="caret"></span>修图界面</button>
+      <button type="button" class="grp"><span class="caret"></span>烹饪界面</button>
       <div class="items"><div>
         <a href="#canvas">缩放与平移</a>
         <a href="#inspect">与原图对比和溢出警告</a>
@@ -259,9 +259,9 @@
       </div></div>
     </li>
     <li>
-      <button type="button" class="grp"><span class="caret"></span>拼版</button>
+      <button type="button" class="grp"><span class="caret"></span>摆盘</button>
       <div class="items"><div>
-        <a href="#mount">把照片放到版上</a>
+        <a href="#mount">把照片放到盘面上</a>
         <a href="#mount-split">分成格子</a>
         <a href="#mount-free">自由摆放</a>
         <a href="#mount-look">间距 · 描边 · 圆角</a>
@@ -285,7 +285,7 @@
 <main>
 
 <h1>Rawcookr 使用指南</h1>
-<p class="lead">从处理照片、遮住入镜的人、调出想要的颜色，到导出成可以直接发布的样子。所有功能逐项整理。</p>
+<p class="lead">从烹饪照片、遮住入镜的人、调出想要的颜色，到导出成可以直接发布的样子。所有功能逐项整理。</p>
 <p class="lead" style="font-size:0.95em">macOS 14 及以上 · 以 1.1 版为准</p>
 
 <!-- ══════════ 시작하기 ══════════ -->
@@ -297,11 +297,11 @@
 <h3>图库</h3>
 <p>选择文件夹、浏览照片的地方。左边是文件夹列表，中间是缩略图网格。在这里打星级和旗标，也可以选中多张一次性导出。</p>
 
-<h3>拼版</h3>
-<p>把多张照片放到同一块版上、合成一张的地方。详见<a href="#mount">把照片放到版上</a>。</p>
+<h3>摆盘</h3>
+<p>把多张照片放到同一个盘面上、合成一张的地方。详见<a href="#mount">把照片放到盘面上</a>。</p>
 
-<h3>修图</h3>
-<p>真正处理单张照片的地方。中间是照片，右边是调整项面板，下面是胶片条。在图库里双击照片，或按<span class="kbd">Return</span>即可进入。返回时按<span class="kbd">Esc</span>。</p>
+<h3>烹饪</h3>
+<p>真正烹饪单张照片的地方。中间是照片，右边是调整项面板，下面是胶片条。在图库里双击照片，或按<span class="kbd">Return</span>即可进入。返回时按<span class="kbd">Esc</span>。</p>
 
 <div class="tip">
 <b>想把界面用得更宽时</b>
@@ -316,7 +316,7 @@
 <p><strong>文件 → 打开文件夹</strong>（<span class="kbd">⌘O</span>）选择存放照片的文件夹。打开过的文件夹会留在左侧边栏，下次可以直接点。要从边栏移除，右键点击文件夹名选<strong>从边栏移除</strong>。其中的子文件夹也会一并列出。</p>
 
 <h3>从访达直接打开</h3>
-<p>在访达里右键点击照片文件，选<strong>打开方式 → Rawcookr</strong>，该文件所在的文件夹会被加入图库，并立即打开修图界面。</p>
+<p>在访达里右键点击照片文件，选<strong>打开方式 → Rawcookr</strong>，该文件所在的文件夹会被加入图库，并立即打开烹饪界面。</p>
 
 <h3>支持的格式</h3>
 <table>
@@ -324,7 +324,7 @@
   <tr><td>RAW</td><td>RAF · DNG · CR2 · CR3 · CRW · NEF · NRW · ARW · SR2 · SRF · RW2 · RAW · RWL · PEF · ORF · 3FR · FFF · IIQ</td></tr>
   <tr><td>其他</td><td>JPG · JPEG · PNG · HEIC · HEIF · HIF · TIFF · TIF</td></tr>
 </table>
-<p>RAW 处理使用 macOS 内置的 RAW 引擎。非常新的机型有时需要更新 macOS 才能打开。</p>
+<p>RAW 烹饪使用 macOS 内置的 RAW 引擎。非常新的机型有时需要更新 macOS 才能打开。</p>
 </section>
 
 <section id="originals">
@@ -336,7 +336,7 @@
   <tr><td>在应用文件夹中管理 <span class="pill">默认</span></td><td>原始文件夹保持干净。把照片文件夹原样交给别人时很方便。</td></tr>
   <tr><td>放在原始文件旁边</td><td>照片和设置始终一起移动。连同移动硬盘搬到另一台 Mac，编辑也会跟着走。</td></tr>
 </table>
-<p>也可以把编辑内容导出成文件，或再读回来。修图界面的<strong>保存设置</strong>·<strong>应用设置</strong>使用 <span class="path">.rawcookr-settings.json</span> 文件。</p>
+<p>也可以把编辑内容导出成文件，或再读回来。烹饪界面的<strong>保存设置</strong>·<strong>应用设置</strong>使用 <span class="path">.rawcookr-settings.json</span> 文件。</p>
 </section>
 
 <section id="subscription">
@@ -359,8 +359,8 @@
 <ul>
   <li>缩略图大小用右上角的滑块调整。</li>
   <li>用方向键在照片之间移动。</li>
-  <li>按<span class="kbd">Return</span>进入修图界面。</li>
-  <li><span class="kbd">Space</span>是放大查看。再按一次或按<span class="kbd">Esc</span>关闭；放大状态下按<span class="kbd">Return</span>即处理该照片。下方会一并显示文件名。</li>
+  <li>按<span class="kbd">Return</span>进入烹饪界面。</li>
+  <li><span class="kbd">Space</span>是放大查看。再按一次或按<span class="kbd">Esc</span>关闭；放大状态下按<span class="kbd">Return</span>即烹饪该照片。下方会一并显示文件名。</li>
 </ul>
 
 <h3>选择</h3>
@@ -384,17 +384,17 @@
 
 <section id="sidebar">
 <h2>侧边栏</h2>
-<p>左侧边栏上下排列着文件夹树和文件信息。图库和修图界面使用同一个侧边栏。</p>
+<p>左侧边栏上下排列着文件夹树和文件信息。图库和烹饪界面使用同一个侧边栏。</p>
 <table>
   <tr><th>按键</th><th>作用</th></tr>
   <tr><td><span class="kbd">⌘Y</span></td><td>显示 / 隐藏整个侧边栏</td></tr>
   <tr><td><span class="kbd">⌘T</span></td><td>显示 / 隐藏文件夹树</td></tr>
   <tr><td><span class="kbd">⌘I</span></td><td>显示 / 隐藏文件信息</td></tr>
 </table>
-<p>进入修图界面时，侧边栏默认收起，好让照片有更大的空间。需要时用 <span class="kbd">⌘Y</span> 打开。回到图库后，侧边栏还是你在图库中使用时的样子。侧边栏的宽度和文件信息栏的高度由两个界面共用。</p>
+<p>进入烹饪界面时，侧边栏默认收起，好让照片有更大的空间。需要时用 <span class="kbd">⌘Y</span> 打开。回到图库后，侧边栏还是你在图库中使用时的样子。侧边栏的宽度和文件信息栏的高度由两个界面共用。</p>
 
 <h3>文件信息</h3>
-<p>显示正在修图的照片或在图库中选中的照片的信息。点击各组标题即可折叠或展开。EXIF、TIFF 等原始分组默认折叠。</p>
+<p>显示正在烹饪的照片或在图库中选中的照片的信息。点击各组标题即可折叠或展开。EXIF、TIFF 等原始分组默认折叠。</p>
 <table class="wide">
   <tr><th>分组</th><th>内容</th></tr>
   <tr><td>文件</td><td>路径 · 大小 · 创建日期 · 修改日期</td></tr>
@@ -403,12 +403,12 @@
   <tr><td>位置</td><td>GPS 坐标（仅限有记录的照片）</td></tr>
   <tr><td>其他分组</td><td>文件中其余的 EXIF · TIFF · IPTC · DNG 数值和厂商记录</td></tr>
 </table>
-<p>在拼版中，这个位置由照片抽屉使用。</p>
+<p>在摆盘中，这个位置由照片抽屉使用。</p>
 </section>
 
 <section id="rating">
 <h2>星级与旗标</h2>
-<p>用来从拍了很多的那天里挑出可用的。图库和修图界面都能标。</p>
+<p>用来从拍了很多的那天里挑出可用的。图库和烹饪界面都能标。</p>
 <table>
   <tr><th>按键</th><th>作用</th></tr>
   <tr><td><span class="kbd">1</span>~<span class="kbd">5</span></td><td>打星级</td></tr>
@@ -440,12 +440,12 @@
 
 <section id="versions">
 <h2>版本</h2>
-<p>想把同一张照片处理成两种样子并排比较时使用。不会复制文件，所以磁盘上一个字节都不会多占。</p>
-<p>在修图界面选<strong>文件 → 处理为新版本</strong>（<span class="kbd">⌘G</span>），当前编辑保持不变，同时多出一个未经处理的副本。它会以<strong>V2</strong>、<strong>V3</strong>这样的编号出现在胶片条里。</p>
+<p>想把同一张照片烹饪成两种样子并排比较时使用。不会复制文件，所以磁盘上一个字节都不会多占。</p>
+<p>在烹饪界面选<strong>文件 → 烹饪为新版本</strong>（<span class="kbd">⌘G</span>），当前编辑保持不变，同时多出一个未经处理的副本。它会以<strong>V2</strong>、<strong>V3</strong>这样的编号出现在胶片条里。</p>
 <p>删除版本不会动到原始文件。确认删除时提示「原始文件会保留」就是这个意思。</p>
 </section>
 
-<!-- ══════════ 현상 화면 ══════════ -->
+<!-- ══════════ 쿠킹 화면 ══════════ -->
 
 <section id="canvas">
 <h2>缩放与平移</h2>
@@ -479,7 +479,7 @@
 
 <section id="compare">
 <h2>对比视图</h2>
-<p>把两张照片并排查看的功能。用于在同一场景的两种处理之间取舍，或者比较不同版本。</p>
+<p>把两张照片并排查看的功能。用于在同一场景的两种烹饪之间取舍，或者比较不同版本。</p>
 <ol class="steps">
   <li>点击工具栏的<strong>对比</strong>。</li>
   <li>左边是当前照片，右边选择要比较的那张。</li>
@@ -766,7 +766,7 @@
 
 <section id="layers">
 <h2>图层</h2>
-<p>在处理好的照片上叠层。调整图层会重新处理下面的内容，纯色图层盖在上面，蒙版图层只作用于标出的地方。</p>
+<p>在烹饪好的照片上叠层。调整图层会重新处理下面的内容，纯色图层盖在上面，蒙版图层只作用于标出的地方。</p>
 
 <h3>三种图层</h3>
 <table class="wide">
@@ -812,7 +812,7 @@
   <tr><th>项目</th><th>范围</th><th>作用</th></tr>
   <tr><td>锐度</td><td>−4 ~ +4</td><td>RAW 解码阶段的锐度。0 是 macOS 的默认值，在此基础上逐档增减。</td></tr>
   <tr><td>彩色降噪</td><td>−4 ~ +4</td><td>抑制色斑（彩色噪点）。0 是默认值。高感光度时调高。</td></tr>
-  <tr><td>锐化</td><td>0 ~ 300 %</td><td>处理之后再施加的 USM 锐化。与上面的锐度是两回事。</td></tr>
+  <tr><td>锐化</td><td>0 ~ 300 %</td><td>烹饪之后再施加的 USM 锐化。与上面的锐度是两回事。</td></tr>
   <tr><td>半径</td><td>0.5 ~ 5 px</td><td>锐化作用的宽度。越小越针对细微质感，越大越针对粗轮廓。</td></tr>
 </table>
 <p>锐化只作用于亮度通道，所以颜色边界不会晕开。</p>
@@ -901,7 +901,7 @@
   <tr><td>彩虹色散</td><td>开 / 关</td><td>光芒分出彩虹般的颜色。默认开启。</td></tr>
 </table>
 <p>光芒数为 0 时，其他项目会被锁定。星芒的大小取决于光本身的大小，而不是强度：调低强度只会去掉较弱光源上的星芒，留下的星芒不变。宽的光源不会出现一道粗光芒，而是按光源宽度并排出现多道细光芒。</p>
-<p>光源是在修图界面的预览里寻找的，因此放大查看或导出时，星芒的位置和颜色都和屏幕上看到的一样。闪耀滤镜在柔雾之前生效，两者同时使用时，柔雾也会柔和地包住光芒。</p>
+<p>光源是在烹饪界面的预览里寻找的，因此放大查看或导出时，星芒的位置和颜色都和屏幕上看到的一样。闪耀滤镜在柔雾之前生效，两者同时使用时，柔雾也会柔和地包住光芒。</p>
 <div class="note">
 <b>拍夜景时从这里开始</b>
 <p>从光芒数 4、强度 50 开始。星芒太多就调低强度，光芒显得短就调高长度。高感光度拍的照片，稍微调高噪点能让光芒融入画面，不显得像合成。</p>
@@ -943,8 +943,8 @@
 <h2>日期打印</h2>
 
 <div class="note">
-<b>画框已移到拼版</b>
-<p>在照片周围加留白、凑成固定比例这件事，现在交给<a href="#mount">拼版</a>。只放一张照片，定好画幅比和<strong>描边</strong>，就能得到和以前的画框一样的结果，还能一并处理间距、圆角和背景色。</p>
+<b>画框已移到摆盘</b>
+<p>在照片周围加留白、凑成固定比例这件事，现在交给<a href="#mount">摆盘</a>。只放一张照片，定好画幅比和<strong>描边</strong>，就能得到和以前的画框一样的结果，还能一并处理间距、圆角和背景色。</p>
 </div>
 
 <h3>日期打印</h3>
@@ -955,22 +955,22 @@
 </section>
 
 
-<!-- ══════════ 마운트 ══════════ -->
+<!-- ══════════ 플레이팅 ══════════ -->
 
 <section id="mount">
-<h2>把照片放到版上</h2>
-<p>拼版是把多张照片放到同一块版上、做成一张图的工作区。往社交平台、博客或网站上发时，可以把几张并成一张来展示，而不是分开上传。</p>
+<h2>把照片放到盘面上</h2>
+<p>摆盘是把多张照片放到同一个盘面上、做成一张图的工作区。往社交平台、博客或网站上发时，可以把几张并成一张来展示，而不是分开上传。</p>
 
 <h3>开始</h3>
 <ul>
-  <li>在上方标签里选<strong>拼版</strong>。</li>
+  <li>在上方标签里选<strong>摆盘</strong>。</li>
   <li>从左边的<strong>照片抽屉</strong>把照片拖进来。抽屉是空的就用<strong>打开照片文件夹</strong>选一个文件夹。</li>
   <li>也可以点空格子，用<strong>选择照片…</strong>直接指定。</li>
-  <li>在修图界面选<strong>把这张照片拼版</strong>，正在看的照片会直接送到版上。在图库里选中多张，用<strong>发送到拼版</strong>也可以。</li>
+  <li>在烹饪界面选<strong>把这张照片摆盘</strong>，正在看的照片会直接送到盘面上。在图库里选中多张，用<strong>发送到摆盘</strong>也可以。</li>
 </ul>
 <p>抽屉可以用图标收起展开。</p>
 
-<h3>版面大小</h3>
+<h3>盘面大小</h3>
 <table>
   <tr><th>项目</th><th>可选项</th></tr>
   <tr><td>画幅比</td><td>原始比例 · 1:1 · 4:5 · 5:4 · 2:3 · 3:2 · 3:4 · 4:3 · 9:16 · 16:9 · 1.91:1</td></tr>
@@ -981,7 +981,7 @@
 
 <section id="mount-split">
 <h2>分成格子</h2>
-<p>打开<strong>分割</strong>，版面就会分成网格。选好分成几行几列即可，最多 5 × 5。</p>
+<p>打开<strong>分割</strong>，盘面就会分成网格。选好分成几行几列即可，最多 5 × 5。</p>
 
 <h3>操作格子</h3>
 <ul>
@@ -1002,12 +1002,12 @@
 
 <section id="mount-free">
 <h2>自由摆放</h2>
-<p>关掉<strong>分割</strong>，格子消失，照片可以随意摆在版上。</p>
+<p>关掉<strong>分割</strong>，格子消失，照片可以随意摆在盘面上。</p>
 
 <h3>摆放与移动</h3>
 <ul>
   <li>拖动移动，抓住角改大小，还可以旋转。</li>
-  <li>拖动时会<strong>像磁铁一样吸附</strong>到其他照片或版面的边缘，自然对齐。</li>
+  <li>拖动时会<strong>像磁铁一样吸附</strong>到其他照片或盘面的边缘，自然对齐。</li>
   <li>点<strong>网格</strong>按钮会出现参考网格。每按一次更密，最后关闭。</li>
 </ul>
 
@@ -1017,13 +1017,13 @@
 <h3>帮手按钮</h3>
 <table class="wide">
   <tr><th>按钮</th><th>作用</th></tr>
-  <tr><td>随机散布</td><td>把照片散布在版上。作为起点很方便。</td></tr>
+  <tr><td>随机散布</td><td>把照片散布在盘面上。作为起点很方便。</td></tr>
   <tr><td>均匀排布</td><td>把大小和间距整理整齐。</td></tr>
-  <tr><td>清空</td><td>把版上的照片全部拿下。</td></tr>
+  <tr><td>清空</td><td>把盘面上的照片全部拿下。</td></tr>
 </table>
 
 <h3>格数 —— 拼起来做、切开来导出</h3>
-<p>把<strong>格数</strong>设成 2 以上，选定的画幅比就会横向重复这么多次，连成一块版。在连起来的整张上构图，导出时再切开，<strong>从左往右依次编号</strong>保存。</p>
+<p>把<strong>格数</strong>设成 2 以上，选定的画幅比就会横向重复这么多次，连成一个盘面。在连起来的整张上构图，导出时再切开，<strong>从左往右依次编号</strong>保存。</p>
 <p>这是让社交平台上的多图帖子看起来连贯不断的做法。最多 12 格。</p>
 </section>
 
@@ -1032,7 +1032,7 @@
 <table>
   <tr><th>项目</th><th>范围</th><th>作用</th></tr>
   <tr><td>间距</td><td>0 ~ 80</td><td>照片与照片之间的空隙。</td></tr>
-  <tr><td>描边</td><td>0 ~ 120</td><td>版面边缘的留白。</td></tr>
+  <tr><td>描边</td><td>0 ~ 120</td><td>盘面边缘的留白。</td></tr>
   <tr><td>圆角</td><td>0 ~ 120</td><td>把照片的角变圆。0 则保持直角。</td></tr>
   <tr><td>背景色</td><td>任意颜色</td><td>填充空隙和留白的颜色。</td></tr>
 </table>
@@ -1040,9 +1040,9 @@
 
 <h3>查看</h3>
 <ul>
-  <li><strong>适合</strong> —— 把整块版按窗口大小显示。</li>
+  <li><strong>适合</strong> —— 把整个盘面按窗口大小显示。</li>
   <li><strong>100%</strong> —— 就是导出的像素。用来确认实际保存的尺寸。</li>
-  <li>放大之后，可以拖动来平移版面。</li>
+  <li>放大之后，可以拖动来平移盘面。</li>
 </ul>
 </section>
 
@@ -1052,9 +1052,9 @@
 <h3>保存工作</h3>
 <p>把摆好的状态留成文件，之后再接着做。</p>
 <table>
-  <tr><td><span class="kbd">⌘S</span></td><td>保存拼版</td></tr>
-  <tr><td><span class="kbd">⇧⌘S</span></td><td>另存拼版…</td></tr>
-  <tr><td><span class="kbd">⌘O</span></td><td>打开拼版（在拼版标签里，⌘O 打开的是工作文件）</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>保存摆盘</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>另存摆盘…</td></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>打开摆盘（在摆盘标签里，⌘O 打开的是工作文件）</td></tr>
 </table>
 <p>有未保存的工作时，切换标签或退出应用会先询问。撤销覆盖放入照片、移动、改顺序的全部过程。</p>
 
@@ -1062,11 +1062,11 @@
 <p>用工具栏的<strong>导出</strong>按钮或 <span class="kbd">⌘E</span> 打开。</p>
 <table class="wide">
   <tr><th>项目</th><th>内容</th></tr>
-  <tr><td>格式</td><td>和修图界面的导出相同。画质和 PNG 位深也在这里定。</td></tr>
-  <tr><td>尺寸</td><td>沿用版面的分辨率，或者缩小。</td></tr>
+  <tr><td>格式</td><td>和烹饪界面的导出相同。画质和 PNG 位深也在这里定。</td></tr>
+  <tr><td>尺寸</td><td>沿用盘面的分辨率，或者缩小。</td></tr>
   <tr><td>切开导出</td><td>在格数设为 2 以上的自由摆放里，可以选择导出成一张，还是切成那么多张。切开后会从左往右编号。</td></tr>
   <tr><td>保存位置</td><td>原文件夹或你选的文件夹。</td></tr>
-  <tr><td>文件名</td><td>沿用放在版上的第一张照片的名字。可以加后缀。</td></tr>
+  <tr><td>文件名</td><td>沿用放在盘面上的第一张照片的名字。可以加后缀。</td></tr>
   <tr><td>关闭此窗口</td><td>导出完成后窗口会自动关闭。</td></tr>
 </table>
 </section>
@@ -1141,7 +1141,7 @@
 <h3>其他设置</h3>
 <table class="wide">
   <tr><th>项目</th><th>作用</th></tr>
-  <tr><td>文件名后缀</td><td>加在文件名后面的文字。默认是 <span class="path">_developed</span>。可以避免和原文件重名。</td></tr>
+  <tr><td>文件名后缀</td><td>加在文件名后面的文字。默认是 <span class="path">_cooked</span>。可以避免和原文件重名。</td></tr>
   <tr><td>保存位置</td><td>保留在原文件夹，或者指定其他文件夹。</td></tr>
   <tr><td>完成后打开文件夹</td><td>保存完成后在访达中打开该文件夹。</td></tr>
   <tr><td>关闭此窗口</td><td>导出完成后窗口自动关闭。反复分批导出时很方便。</td></tr>
@@ -1183,7 +1183,7 @@
   <tr><th>项目</th><th>内容</th></tr>
   <tr><td>编辑的保存位置</td><td><strong>在应用文件夹中管理</strong>（默认）或<strong>放在原始文件旁边</strong>。详见<a href="#originals">原始文件保持不动</a>。</td></tr>
 </table>
-<p>修图界面的背景颜色，在照片外侧点按右键即可更改——<strong>默认 · 白色 · 50% 灰 · 15% 灰 · 黑色</strong>。保持较暗更容易判断照片的亮度。</p>
+<p>烹饪界面的背景颜色，在照片外侧点按右键即可更改——<strong>默认 · 白色 · 50% 灰 · 15% 灰 · 黑色</strong>。保持较暗更容易判断照片的亮度。</p>
 <p>预设缩略图大小在预设区块右上角的网格图标中选择——极小 · 小 · 大。</p>
 <p>应用整体的明暗（浅色／深色）用<span class="kbd">⌘⇧9</span>和<span class="kbd">⌘⇧0</span>切换。</p>
 </section>
@@ -1195,11 +1195,11 @@
 <h3>任何模式下</h3>
 <table>
   <tr><td><span class="kbd">⌘E</span></td><td>导出</td></tr>
-  <tr><td><span class="kbd">⌘W</span></td><td>关闭（修图中则关闭照片）</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>关闭（烹饪中则关闭照片）</td></tr>
   <tr><td><span class="kbd">⌘?</span></td><td>Rawcookr 帮助——在网页上打开本说明</td></tr>
   <tr><td><span class="kbd">⌘⇧9</span></td><td>深色模式</td></tr>
   <tr><td><span class="kbd">⌘⇧0</span></td><td>浅色模式</td></tr>
-  <tr><td><span class="kbd">⌘Q</span></td><td>退出 —— 拼版有未保存的工作时会询问</td></tr>
+  <tr><td><span class="kbd">⌘Q</span></td><td>退出 —— 摆盘有未保存的工作时会询问</td></tr>
 </table>
 
 <h3>图库</h3>
@@ -1210,11 +1210,11 @@
   <tr><td><span class="kbd">⌘A</span></td><td>全选</td></tr>
   <tr><td><span class="kbd">←</span> <span class="kbd">→</span> <span class="kbd">↑</span> <span class="kbd">↓</span></td><td>在网格中移动</td></tr>
   <tr><td><span class="kbd">Space</span></td><td>放大查看（再按一次关闭）</td></tr>
-  <tr><td><span class="kbd">Return</span></td><td>把选中的照片带进修图界面</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>把选中的照片带进烹饪界面</td></tr>
   <tr><td><span class="kbd">Esc</span></td><td>关闭放大查看</td></tr>
   <tr><td><span class="kbd">1</span>~<span class="kbd">5</span></td><td>给选中的照片打星级 —— 多张一次生效</td></tr>
   <tr><td><span class="kbd">Z</span></td><td>加旗标／取消 —— 多张一次生效</td></tr>
-  <tr><td><span class="kbd">⌘G</span></td><td>处理为新版本</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>烹饪为新版本</td></tr>
   <tr><td><span class="kbd">⌘Y</span></td><td>显示／隐藏边栏</td></tr>
   <tr><td><span class="kbd">⌘T</span></td><td>显示／隐藏文件夹树</td></tr>
   <tr><td><span class="kbd">⌘I</span></td><td>显示／隐藏文件信息</td></tr>
@@ -1224,7 +1224,7 @@
   <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>深色模式 · 浅色模式</td></tr>
 </table>
 
-<h3>修图</h3>
+<h3>烹饪</h3>
 <h4>查看</h4>
 <table>
   <tr><th>按键</th><th>作用</th></tr>
@@ -1252,7 +1252,7 @@
   <tr><td><span class="kbd">⌘⇧C</span></td><td>复制编辑内容</td></tr>
   <tr><td><span class="kbd">⌘⇧V</span></td><td>粘贴编辑内容</td></tr>
   <tr><td><span class="kbd">⌥⌘R</span></td><td>清空这张照片的全部编辑</td></tr>
-  <tr><td><span class="kbd">⌘G</span></td><td>处理为新版本</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>烹饪为新版本</td></tr>
 </table>
 
 <h4>选择与移动</h4>
@@ -1268,15 +1268,15 @@
   <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>深色模式 · 浅色模式</td></tr>
 </table>
 
-<h3>拼版</h3>
+<h3>摆盘</h3>
 <table>
   <tr><th>按键</th><th>作用</th></tr>
-  <tr><td><span class="kbd">⌘O</span></td><td>打开拼版 —— 这个模式下 ⌘O 打开的是工作文件而不是文件夹</td></tr>
-  <tr><td><span class="kbd">⌘S</span></td><td>保存拼版</td></tr>
-  <tr><td><span class="kbd">⇧⌘S</span></td><td>另存拼版…</td></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>打开摆盘 —— 这个模式下 ⌘O 打开的是工作文件而不是文件夹</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>保存摆盘</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>另存摆盘…</td></tr>
   <tr><td><span class="kbd">⌘Z</span></td><td>撤销 —— 放入照片、移动、改顺序的全部过程</td></tr>
   <tr><td><span class="kbd">⇧⌘Z</span></td><td>重做</td></tr>
-  <tr><td><span class="kbd">⌘E</span></td><td>把版面导出为图片</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>把盘面导出为图片</td></tr>
   <tr><td><span class="kbd">⌘W</span></td><td>关闭窗口</td></tr>
   <tr><td><span class="kbd">⌘?</span></td><td>帮助</td></tr>
   <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>深色模式 · 浅色模式</td></tr>
@@ -1288,7 +1288,7 @@
 <h2>常见问题</h2>
 
 <h4>RAW 文件打不开</h4>
-<p>RAW 处理使用 macOS 内置的引擎，非常新的机型需要先更新 macOS。请查看<strong>系统设置 → 通用 → 软件更新</strong>。如果仍然打不开，可以在相机里保存为 DNG 试试，或者<a href="mailto:rawcookr@slowsalmon.com">告诉我们</a>。</p>
+<p>RAW 烹饪使用 macOS 内置的引擎，非常新的机型需要先更新 macOS。请查看<strong>系统设置 → 通用 → 软件更新</strong>。如果仍然打不开，可以在相机里保存为 DNG 试试，或者<a href="mailto:rawcookr@slowsalmon.com">告诉我们</a>。</p>
 
 <h4>缩略图出现得很慢</h4>
 <p>第一次打开的文件夹需要为每张照片生成预览，所以会花些时间。生成过之后就快了。照片特别多的文件夹，分成子文件夹会更舒服。</p>
@@ -1305,8 +1305,8 @@
 <h4>遮住的脸还露着</h4>
 <p>自动检测可能漏掉侧脸、戴口罩或很暗处的脸。请自己画上区域补一下，并在公开前用 100% 过一遍。</p>
 
-<h4>拼版的工作不见了</h4>
-<p>拼版在保存之前不会写成文件。请先用<span class="kbd">⌘S</span>保存。未保存就切换标签或退出应用时会先询问。</p>
+<h4>摆盘的工作不见了</h4>
+<p>摆盘在保存之前不会写成文件。请先用<span class="kbd">⌘S</span>保存。未保存就切换标签或退出应用时会先询问。</p>
 
 <h4>如果还是没解决</h4>
 <p>请发邮件到 <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a>。写明你用的是哪台 Mac、是哪台相机的哪个文件，我们能更快找到原因。</p>

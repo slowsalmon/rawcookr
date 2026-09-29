@@ -228,7 +228,7 @@
       </div></div>
     </li>
     <li>
-      <button type="button" class="grp"><span class="caret"></span>The editing window</button>
+      <button type="button" class="grp"><span class="caret"></span>The cooking window</button>
       <div class="items"><div>
         <a href="#canvas">Zooming and panning</a>
         <a href="#inspect">Comparing with the original, and the clipping warning</a>
@@ -259,9 +259,9 @@
       </div></div>
     </li>
     <li>
-      <button type="button" class="grp"><span class="caret"></span>Mount</button>
+      <button type="button" class="grp"><span class="caret"></span>Plating</button>
       <div class="items"><div>
-        <a href="#mount">Putting photos on the board</a>
+        <a href="#mount">Putting photos on the plate</a>
         <a href="#mount-split">Splitting into cells</a>
         <a href="#mount-free">Free placement</a>
         <a href="#mount-look">Gap · Border · Corners</a>
@@ -285,7 +285,7 @@
 <main>
 
 <h1>Rawcookr User Guide</h1>
-<p class="lead">Develop the photo, cover the people in it, give it the colour you want, and export it ready to post. Every feature, section by section.</p>
+<p class="lead">Cook the photo, cover the people in it, give it the colour you want, and export it ready to post. Every feature, section by section.</p>
 <p class="lead" style="font-size:0.95em">macOS 14 or later · Version 1.1</p>
 
 <!-- ══════════ 시작하기 ══════════ -->
@@ -297,10 +297,10 @@
 <h3>Library</h3>
 <p>Where you pick a folder and look through your photos. The folder list is on the left, the thumbnail grid in the middle. Rate and flag here, and export a whole selection at once.</p>
 
-<h3>Mount</h3>
-<p>Where several photos go onto one board and become a single image. See <a href="#mount">Putting photos on the board</a>.</p>
+<h3>Plating</h3>
+<p>Where several photos go onto one plate and become a single image. See <a href="#mount">Putting photos on the plate</a>.</p>
 
-<h3>Editing</h3>
+<h3>Cooking</h3>
 <p>Where you actually work on one photo. The photo sits in the middle, the adjustment panel on the right, the filmstrip below. Double-click a photo in the library, or press <span class="kbd">Return</span>. <span class="kbd">Esc</span> takes you back.</p>
 
 <div class="tip">
@@ -316,7 +316,7 @@
 <p><strong>File → Open Folder</strong> (<span class="kbd">⌘O</span>) picks the folder your photos are in. Folders you have opened stay in the sidebar on the left, ready for next time. To take one out, right-click its name and choose <strong>Remove from sidebar</strong>. Subfolders are listed too.</p>
 
 <h3>Straight from the Finder</h3>
-<p>Right-click a photo in the Finder and choose <strong>Open With → Rawcookr</strong>. The folder it lives in is added to the library and the editing window opens on that photo.</p>
+<p>Right-click a photo in the Finder and choose <strong>Open With → Rawcookr</strong>. The folder it lives in is added to the library and the cooking window opens on that photo.</p>
 
 <h3>Formats it reads</h3>
 <table>
@@ -324,7 +324,7 @@
   <tr><td>RAW</td><td>RAF · DNG · CR2 · CR3 · CRW · NEF · NRW · ARW · SR2 · SRF · RW2 · RAW · RWL · PEF · ORF · 3FR · FFF · IIQ</td></tr>
   <tr><td>Others</td><td>JPG · JPEG · PNG · HEIC · HEIF · HIF · TIFF · TIF</td></tr>
 </table>
-<p>RAW development uses the engine built into macOS. A very recent camera model may need a macOS update before its files will open.</p>
+<p>RAW cooking uses the engine built into macOS. A very recent camera model may need a macOS update before its files will open.</p>
 </section>
 
 <section id="originals">
@@ -336,7 +336,7 @@
   <tr><td>Managed in the app folder <span class="pill">default</span></td><td>Your photo folder stays clean. Handy when you pass the folder on to someone else as it is.</td></tr>
   <tr><td>Beside the original file</td><td>Photo and settings always travel together. Move the whole external drive to another Mac and your edits come along.</td></tr>
 </table>
-<p>You can also write your edits out to a file and read them back in. <strong>Save settings</strong> and <strong>Apply settings</strong> in the editing window use a <span class="path">.rawcookr-settings.json</span> file.</p>
+<p>You can also write your edits out to a file and read them back in. <strong>Save settings</strong> and <strong>Apply settings</strong> in the cooking window use a <span class="path">.rawcookr-settings.json</span> file.</p>
 </section>
 
 <section id="subscription">
@@ -359,8 +359,8 @@
 <ul>
   <li>The slider at the top right changes the thumbnail size.</li>
   <li>Arrow keys move between photos.</li>
-  <li><span class="kbd">Return</span> opens the editing window.</li>
-  <li><span class="kbd">Space</span> shows the photo large. Press it again or <span class="kbd">Esc</span> to close, and <span class="kbd">Return</span> while it is large starts developing it. The file name appears underneath.</li>
+  <li><span class="kbd">Return</span> opens the cooking window.</li>
+  <li><span class="kbd">Space</span> shows the photo large. Press it again or <span class="kbd">Esc</span> to close, and <span class="kbd">Return</span> while it is large starts cooking it. The file name appears underneath.</li>
 </ul>
 
 <h3>Selecting</h3>
@@ -384,17 +384,17 @@
 
 <section id="sidebar">
 <h2>Sidebar</h2>
-<p>The sidebar on the left holds the folder tree and the file info, one above the other. The library and the editing window share the same sidebar.</p>
+<p>The sidebar on the left holds the folder tree and the file info, one above the other. The library and the cooking window share the same sidebar.</p>
 <table>
   <tr><th>Key</th><th>What it does</th></tr>
   <tr><td><span class="kbd">⌘Y</span></td><td>Show / hide the whole sidebar</td></tr>
   <tr><td><span class="kbd">⌘T</span></td><td>Show / hide the folder tree</td></tr>
   <tr><td><span class="kbd">⌘I</span></td><td>Show / hide file info</td></tr>
 </table>
-<p>When you enter the editing window the sidebar starts closed, to give the photo room. Open it with <span class="kbd">⌘Y</span> if you need it. Back in the library, it is just as you left it there. The sidebar's width and the height of the file info pane are shared by both.</p>
+<p>When you enter the cooking window the sidebar starts closed, to give the photo room. Open it with <span class="kbd">⌘Y</span> if you need it. Back in the library, it is just as you left it there. The sidebar's width and the height of the file info pane are shared by both.</p>
 
 <h3>File info</h3>
-<p>Shows information about the photo you are developing, or the one selected in the library. Click a group's title to fold or unfold it. Raw groups such as EXIF and TIFF start folded.</p>
+<p>Shows information about the photo you are cooking, or the one selected in the library. Click a group's title to fold or unfold it. Raw groups such as EXIF and TIFF start folded.</p>
 <table class="wide">
   <tr><th>Group</th><th>What it holds</th></tr>
   <tr><td>File</td><td>Path · Size · Created · Modified</td></tr>
@@ -403,12 +403,12 @@
   <tr><td>Location</td><td>GPS coordinates (only when recorded)</td></tr>
   <tr><td>Other groups</td><td>The rest of the EXIF, TIFF, IPTC and DNG values in the file, plus maker notes</td></tr>
 </table>
-<p>In Mount, the photo drawer takes this place.</p>
+<p>In Plating, the photo drawer takes this place.</p>
 </section>
 
 <section id="rating">
 <h2>Ratings and flags</h2>
-<p>For sorting the keepers out of a big shoot. You can rate from the library or the editing window.</p>
+<p>For sorting the keepers out of a big shoot. You can rate from the library or the cooking window.</p>
 <table>
   <tr><th>Key</th><th>What it does</th></tr>
   <tr><td><span class="kbd">1</span>~<span class="kbd">5</span></td><td>Set a star rating</td></tr>
@@ -440,12 +440,12 @@
 
 <section id="versions">
 <h2>Versions</h2>
-<p>For developing the same photo two ways and comparing them side by side. Nothing is copied, so not a single byte more is used on disk.</p>
-<p><strong>File → Develop as new version</strong> (<span class="kbd">⌘G</span>) in the editing window keeps your current edits and adds an untouched copy alongside them. It appears in the filmstrip numbered <strong>V2</strong>, <strong>V3</strong> and so on.</p>
+<p>For cooking the same photo two ways and comparing them side by side. Nothing is copied, so not a single byte more is used on disk.</p>
+<p><strong>File → Cook as new version</strong> (<span class="kbd">⌘G</span>) in the cooking window keeps your current edits and adds an untouched copy alongside them. It appears in the filmstrip numbered <strong>V2</strong>, <strong>V3</strong> and so on.</p>
 <p>Deleting a version leaves the original file in place. That is what "the original file stays" means when you are asked to confirm.</p>
 </section>
 
-<!-- ══════════ 현상 화면 ══════════ -->
+<!-- ══════════ 쿠킹 화면 ══════════ -->
 
 <section id="canvas">
 <h2>Zooming and panning</h2>
@@ -766,7 +766,7 @@
 
 <section id="layers">
 <h2>Layers</h2>
-<p>Stacks layers on top of the developed photo. An adjustment layer re-works what is underneath, a solid colour layer covers it, and a masked layer only touches the part you mark.</p>
+<p>Stacks layers on top of the cooked photo. An adjustment layer re-works what is underneath, a solid colour layer covers it, and a masked layer only touches the part you mark.</p>
 
 <h3>Three kinds of layer</h3>
 <table class="wide">
@@ -812,7 +812,7 @@
   <tr><th>Item</th><th>Range</th><th>What it does</th></tr>
   <tr><td>Sharpness</td><td>−4 ~ +4</td><td>Sharpness during RAW decoding. 0 is the macOS default; the steps add to or subtract from it.</td></tr>
   <tr><td>Color NR</td><td>−4 ~ +4</td><td>Holds down colour blotches. 0 is the default. Raise it at high ISO.</td></tr>
-  <tr><td>Sharpen</td><td>0 ~ 300 %</td><td>An unsharp mask applied after developing. Separate from the sharpness above.</td></tr>
+  <tr><td>Sharpen</td><td>0 ~ 300 %</td><td>An unsharp mask applied after cooking. Separate from the sharpness above.</td></tr>
   <tr><td>Radius</td><td>0.5 ~ 5 px</td><td>How wide the sharpening works. Smaller catches fine texture, larger the broad outlines.</td></tr>
 </table>
 <p>Sharpening only touches the brightness channel, so colour edges do not bleed.</p>
@@ -901,7 +901,7 @@
   <tr><td>Rainbow color split</td><td>On / Off</td><td>The rays split into rainbow colours. On by default.</td></tr>
 </table>
 <p>With the ray count at 0 the other controls are locked. A star's size follows the size of its light, not the strength: lowering the strength only removes the stars on weaker lights and leaves the rest as they are. A wide light source gets several fine rays side by side, as wide as the light, rather than one thick one.</p>
-<p>Light sources are found in the editing window's preview, so when you zoom in or export, the stars sit in the same places with the same colours you saw on screen. The twinkle filter goes on before Mist, so using both lets the mist wrap softly around the rays too.</p>
+<p>Light sources are found in the cooking window's preview, so when you zoom in or export, the stars sit in the same places with the same colours you saw on screen. The twinkle filter goes on before Mist, so using both lets the mist wrap softly around the rays too.</p>
 <div class="note">
 <b>A starting point for night shots</b>
 <p>Start with 4 rays and a strength of 50. If there are too many stars, lower the strength; if the rays look short, raise the length. On high-ISO photos, a little more noise blends the rays into the picture so they don't look pasted on.</p>
@@ -943,8 +943,8 @@
 <h2>Date Stamp</h2>
 
 <div class="note">
-<b>Frames moved to Mount</b>
-<p>Putting a margin around a photo to fit a set ratio is now <a href="#mount">Mount</a>'s job. Put one photo on the board, choose the aspect and the <strong>border</strong>, and you get what the old frame did — with gap, corners and background colour as well.</p>
+<b>Frames moved to Plating</b>
+<p>Putting a margin around a photo to fit a set ratio is now <a href="#mount">Plating</a>'s job. Put one photo on the plate, choose the aspect and the <strong>border</strong>, and you get what the old frame did — with gap, corners and background colour as well.</p>
 </div>
 
 <h3>Date Stamp</h3>
@@ -955,22 +955,22 @@
 </section>
 
 
-<!-- ══════════ 마운트 ══════════ -->
+<!-- ══════════ 플레이팅 ══════════ -->
 
 <section id="mount">
-<h2>Putting photos on the board</h2>
-<p>Mount is a workspace where several photos go onto one board and become a single image. When you post to social media, a blog or a website, you can show several frames as one piece rather than separately.</p>
+<h2>Putting photos on the plate</h2>
+<p>Plating is a workspace where several photos go onto one plate and become a single image. When you post to social media, a blog or a website, you can show several frames as one piece rather than separately.</p>
 
 <h3>Getting started</h3>
 <ul>
-  <li>Choose <strong>Mount</strong> in the tabs at the top.</li>
+  <li>Choose <strong>Plating</strong> in the tabs at the top.</li>
   <li>Drag photos in from the <strong>photo drawer</strong> on the left. If the drawer is empty, pick a folder with <strong>Open a photo folder</strong>.</li>
   <li>You can also click an empty cell and point at a file with <strong>Choose photo…</strong>.</li>
-  <li><strong>Mount this photo</strong> in the editing window sends the photo you were looking at straight to the board. From the library, select several and use <strong>Send to Mount</strong>.</li>
+  <li><strong>Plate this photo</strong> in the cooking window sends the photo you were looking at straight to the plate. From the library, select several and use <strong>Send to Plating</strong>.</li>
 </ul>
 <p>The drawer folds away with its icon.</p>
 
-<h3>The size of the board</h3>
+<h3>The size of the plate</h3>
 <table>
   <tr><th>Item</th><th>Options</th></tr>
   <tr><td>Aspect</td><td>Original ratio · 1:1 · 4:5 · 5:4 · 2:3 · 3:2 · 3:4 · 4:3 · 9:16 · 16:9 · 1.91:1</td></tr>
@@ -981,7 +981,7 @@
 
 <section id="mount-split">
 <h2>Splitting into cells</h2>
-<p>Switch <strong>Split</strong> on and the board is divided into a grid. Choose how many rows and columns; up to 5 × 5.</p>
+<p>Switch <strong>Split</strong> on and the plate is divided into a grid. Choose how many rows and columns; up to 5 × 5.</p>
 
 <h3>Working the cells</h3>
 <ul>
@@ -1002,12 +1002,12 @@
 
 <section id="mount-free">
 <h2>Free placement</h2>
-<p>Switch <strong>Split</strong> off and the cells disappear; photos go anywhere you like on the board.</p>
+<p>Switch <strong>Split</strong> off and the cells disappear; photos go anywhere you like on the plate.</p>
 
 <h3>Placing and moving</h3>
 <ul>
   <li>Drag to move, take a corner to resize, and rotate.</li>
-  <li>While you drag, a photo <strong>snaps</strong> to the others and to the board's edges so things line up.</li>
+  <li>While you drag, a photo <strong>snaps</strong> to the others and to the plate's edges so things line up.</li>
   <li>The <strong>Grid</strong> button turns on a guide grid. Press again for a finer one, then off.</li>
 </ul>
 
@@ -1017,13 +1017,13 @@
 <h3>Buttons that help</h3>
 <table class="wide">
   <tr><th>Button</th><th>What it does</th></tr>
-  <tr><td>Scatter</td><td>Scatters the photos across the board. A useful starting point.</td></tr>
+  <tr><td>Scatter</td><td>Scatters the photos across the plate. A useful starting point.</td></tr>
   <tr><td>Even out</td><td>Tidies the sizes and spacing.</td></tr>
-  <tr><td>Clear</td><td>Takes every photo off the board.</td></tr>
+  <tr><td>Clear</td><td>Takes every photo off the plate.</td></tr>
 </table>
 
 <h3>Panels — work joined up, export cut apart</h3>
-<p>Set <strong>Panels</strong> to 2 or more and the aspect you chose is repeated sideways that many times into one board. Compose on the joined-up image, and on export it is cut back apart and saved <strong>numbered from the left</strong>.</p>
+<p>Set <strong>Panels</strong> to 2 or more and the aspect you chose is repeated sideways that many times into one plate. Compose on the joined-up image, and on export it is cut back apart and saved <strong>numbered from the left</strong>.</p>
 <p>This is how you make a multi-image social post look continuous rather than broken into pieces. Up to twelve panels.</p>
 </section>
 
@@ -1032,7 +1032,7 @@
 <table>
   <tr><th>Item</th><th>Range</th><th>What it does</th></tr>
   <tr><td>Gap</td><td>0 ~ 80</td><td>The space between one photo and the next.</td></tr>
-  <tr><td>Border</td><td>0 ~ 120</td><td>The margin at the edge of the board.</td></tr>
+  <tr><td>Border</td><td>0 ~ 120</td><td>The margin at the edge of the plate.</td></tr>
   <tr><td>Corners</td><td>0 ~ 120</td><td>Rounds the photo corners. 0 leaves them square.</td></tr>
   <tr><td>Background color</td><td>Any colour</td><td>Fills the gaps and the margin.</td></tr>
 </table>
@@ -1040,9 +1040,9 @@
 
 <h3>Viewing</h3>
 <ul>
-  <li><strong>Fit</strong> — shows the whole board within the window.</li>
+  <li><strong>Fit</strong> — shows the whole plate within the window.</li>
   <li><strong>100%</strong> — the exported pixels as they are. For checking the size it will actually be saved at.</li>
-  <li>Zoomed in, drag to push the board around.</li>
+  <li>Zoomed in, drag to push the plate around.</li>
 </ul>
 </section>
 
@@ -1052,9 +1052,9 @@
 <h3>Saving the work</h3>
 <p>Keep an arrangement in a file and carry on with it later.</p>
 <table>
-  <tr><td><span class="kbd">⌘S</span></td><td>Save Mount</td></tr>
-  <tr><td><span class="kbd">⇧⌘S</span></td><td>Save Mount As…</td></tr>
-  <tr><td><span class="kbd">⌘O</span></td><td>Open Mount (in the Mount tab, ⌘O opens a saved arrangement)</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>Save Plating</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>Save Plating As…</td></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Open Plating (in the Plating tab, ⌘O opens a saved arrangement)</td></tr>
 </table>
 <p>If there is unsaved work you are asked before you switch tabs or quit. Undo covers everything — adding photos, moving them, reordering them.</p>
 
@@ -1062,11 +1062,11 @@
 <p>Open it with the <strong>Export</strong> button in the toolbar or <span class="kbd">⌘E</span>.</p>
 <table class="wide">
   <tr><th>Item</th><th>Details</th></tr>
-  <tr><td>Format</td><td>The same as exporting from the editing window. Quality and PNG bit depth are set here too.</td></tr>
-  <tr><td>Size</td><td>Keeps the board's resolution or reduces it.</td></tr>
+  <tr><td>Format</td><td>The same as exporting from the cooking window. Quality and PNG bit depth are set here too.</td></tr>
+  <tr><td>Size</td><td>Keeps the plate's resolution or reduces it.</td></tr>
   <tr><td>Cutting it apart</td><td>In free placement with panels set to 2 or more, choose whether to save one image or cut it into that many. Cut, they are numbered from the left.</td></tr>
   <tr><td>Destination</td><td>The original folder or one you choose.</td></tr>
-  <tr><td>File name</td><td>Follows the name of the first photo on the board. A suffix can be added.</td></tr>
+  <tr><td>File name</td><td>Follows the name of the first photo on the plate. A suffix can be added.</td></tr>
   <tr><td>Close this window</td><td>The window closes by itself once the export is done.</td></tr>
 </table>
 </section>
@@ -1141,7 +1141,7 @@
 <h3>Other settings</h3>
 <table class="wide">
   <tr><th>Item</th><th>What it does</th></tr>
-  <tr><td>Filename suffix</td><td>Text added after the file name. The default is <span class="path">_developed</span>. It keeps the name from clashing with the original.</td></tr>
+  <tr><td>Filename suffix</td><td>Text added after the file name. The default is <span class="path">_cooked</span>. It keeps the name from clashing with the original.</td></tr>
   <tr><td>Destination</td><td>Leave it in the original folder or point somewhere else.</td></tr>
   <tr><td>Open the destination folder in Finder</td><td>Opens that folder in the Finder once saving is done.</td></tr>
   <tr><td>Close this window</td><td>The window closes by itself when the export finishes. Handy when you are exporting batch after batch.</td></tr>
@@ -1183,7 +1183,7 @@
   <tr><th>Item</th><th>Details</th></tr>
   <tr><td>Where edits are stored</td><td><strong>Managed in the app folder</strong> (default) or <strong>beside the original file</strong>. See <a href="#originals">Your originals are left alone</a>.</td></tr>
 </table>
-<p>The editing window's background colour is changed by right-clicking outside the photo — <strong>Default · White · 50% Gray · 15% Gray · Black</strong>. Keeping it dark makes the photo's own brightness easier to judge.</p>
+<p>The cooking window's background colour is changed by right-clicking outside the photo — <strong>Default · White · 50% Gray · 15% Gray · Black</strong>. Keeping it dark makes the photo's own brightness easier to judge.</p>
 <p>Preset thumbnail size is chosen from the grid icon at the top right of the Presets section — Tiny · Small · Large.</p>
 <p>The app's own light and dark appearance is set with <span class="kbd">⌘⇧9</span> and <span class="kbd">⌘⇧0</span>.</p>
 </section>
@@ -1195,11 +1195,11 @@
 <h3>In any mode</h3>
 <table>
   <tr><td><span class="kbd">⌘E</span></td><td>Exporting</td></tr>
-  <tr><td><span class="kbd">⌘W</span></td><td>Close (closes the photo while editing)</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Close (closes the photo while cooking)</td></tr>
   <tr><td><span class="kbd">⌘?</span></td><td>Rawcookr Help — opens this guide on the web</td></tr>
   <tr><td><span class="kbd">⌘⇧9</span></td><td>Dark Mode</td></tr>
   <tr><td><span class="kbd">⌘⇧0</span></td><td>Light Mode</td></tr>
-  <tr><td><span class="kbd">⌘Q</span></td><td>Quit — you are asked if a mount has unsaved work</td></tr>
+  <tr><td><span class="kbd">⌘Q</span></td><td>Quit — you are asked if a plating has unsaved work</td></tr>
 </table>
 
 <h3>Library</h3>
@@ -1210,11 +1210,11 @@
   <tr><td><span class="kbd">⌘A</span></td><td>Select all</td></tr>
   <tr><td><span class="kbd">←</span> <span class="kbd">→</span> <span class="kbd">↑</span> <span class="kbd">↓</span></td><td>Move around the grid</td></tr>
   <tr><td><span class="kbd">Space</span></td><td>Show large (press again to close)</td></tr>
-  <tr><td><span class="kbd">Return</span></td><td>Take the selected photo into the editing window</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>Take the selected photo into the cooking window</td></tr>
   <tr><td><span class="kbd">Esc</span></td><td>Close the large view</td></tr>
   <tr><td><span class="kbd">1</span>~<span class="kbd">5</span></td><td>Rate the selected photos — all of them at once</td></tr>
   <tr><td><span class="kbd">Z</span></td><td>Flag / unflag — all of them at once</td></tr>
-  <tr><td><span class="kbd">⌘G</span></td><td>Develop as new version</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>Cook as new version</td></tr>
   <tr><td><span class="kbd">⌘Y</span></td><td>Show / hide the sidebar</td></tr>
   <tr><td><span class="kbd">⌘T</span></td><td>Show / hide the folder tree</td></tr>
   <tr><td><span class="kbd">⌘I</span></td><td>Show / hide file info</td></tr>
@@ -1224,7 +1224,7 @@
   <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Dark Mode · Light Mode</td></tr>
 </table>
 
-<h3>Editing</h3>
+<h3>Cooking</h3>
 <h4>Viewing</h4>
 <table>
   <tr><th>Key</th><th>What it does</th></tr>
@@ -1252,7 +1252,7 @@
   <tr><td><span class="kbd">⌘⇧C</span></td><td>Copy edits</td></tr>
   <tr><td><span class="kbd">⌘⇧V</span></td><td>Paste edits</td></tr>
   <tr><td><span class="kbd">⌥⌘R</span></td><td>Clear every edit on this photo</td></tr>
-  <tr><td><span class="kbd">⌘G</span></td><td>Develop as new version</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>Cook as new version</td></tr>
 </table>
 
 <h4>Selecting and moving</h4>
@@ -1268,15 +1268,15 @@
   <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Dark Mode · Light Mode</td></tr>
 </table>
 
-<h3>Mount</h3>
+<h3>Plating</h3>
 <table>
   <tr><th>Key</th><th>What it does</th></tr>
-  <tr><td><span class="kbd">⌘O</span></td><td>Open Mount — in this mode ⌘O opens a saved arrangement, not a folder</td></tr>
-  <tr><td><span class="kbd">⌘S</span></td><td>Save Mount</td></tr>
-  <tr><td><span class="kbd">⇧⌘S</span></td><td>Save Mount As…</td></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Open Plating — in this mode ⌘O opens a saved arrangement, not a folder</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>Save Plating</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>Save Plating As…</td></tr>
   <tr><td><span class="kbd">⌘Z</span></td><td>Undo — adding photos, moving them, reordering them</td></tr>
   <tr><td><span class="kbd">⇧⌘Z</span></td><td>Redo</td></tr>
-  <tr><td><span class="kbd">⌘E</span></td><td>Export the board as an image</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>Export the plate as an image</td></tr>
   <tr><td><span class="kbd">⌘W</span></td><td>Close the window</td></tr>
   <tr><td><span class="kbd">⌘?</span></td><td>Help</td></tr>
   <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Dark Mode · Light Mode</td></tr>
@@ -1288,7 +1288,7 @@
 <h2>Common questions</h2>
 
 <h4>A RAW file won't open</h4>
-<p>RAW development uses the engine built into macOS, so a very recent camera model needs macOS to be updated first. Check <strong>System Settings → General → Software Update</strong>. If it still won't open, try saving as DNG in the camera, or <a href="mailto:rawcookr@slowsalmon.com">let us know</a>.</p>
+<p>RAW cooking uses the engine built into macOS, so a very recent camera model needs macOS to be updated first. Check <strong>System Settings → General → Software Update</strong>. If it still won't open, try saving as DNG in the camera, or <a href="mailto:rawcookr@slowsalmon.com">let us know</a>.</p>
 
 <h4>Thumbnails are slow to appear</h4>
 <p>The first time you open a folder, a preview has to be built for every photo, which takes a moment. After that it is quick. If a folder holds a very large number of photos, splitting it into subfolders is more comfortable.</p>
@@ -1305,8 +1305,8 @@
 <h4>A face is still showing</h4>
 <p>Automatic detection can miss a face in profile, behind a mask, or in deep shadow. Draw a region over it yourself, and take one pass at 100% before you publish.</p>
 
-<h4>My mount work has disappeared</h4>
-<p>A mount is not written to a file until you save it. Save first with <span class="kbd">⌘S</span>. If you try to switch tabs or quit without saving, you are asked.</p>
+<h4>My plating work has disappeared</h4>
+<p>A plating is not written to a file until you save it. Save first with <span class="kbd">⌘S</span>. If you try to switch tabs or quit without saving, you are asked.</p>
 
 <h4>If none of this helps</h4>
 <p>Write to <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a>. Telling us which Mac you use, and which file from which camera, helps us find it far more quickly.</p>

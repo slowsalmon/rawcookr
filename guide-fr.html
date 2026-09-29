@@ -228,7 +228,7 @@
       </div></div>
     </li>
     <li>
-      <button type="button" class="grp"><span class="caret"></span>La fenêtre de retouche</button>
+      <button type="button" class="grp"><span class="caret"></span>La vue Cuisine</button>
       <div class="items"><div>
         <a href="#canvas">Zoom et déplacement</a>
         <a href="#inspect">Comparer à l’original et l’alerte d’écrêtage</a>
@@ -259,9 +259,9 @@
       </div></div>
     </li>
     <li>
-      <button type="button" class="grp"><span class="caret"></span>Montage</button>
+      <button type="button" class="grp"><span class="caret"></span>Dressage</button>
       <div class="items"><div>
-        <a href="#mount">Poser des photos sur la planche</a>
+        <a href="#mount">Poser des photos sur l’assiette</a>
         <a href="#mount-split">Diviser en cases</a>
         <a href="#mount-free">Placement libre</a>
         <a href="#mount-look">Écart · filet · coins</a>
@@ -285,7 +285,7 @@
 <main>
 
 <h1>Guide d’utilisation de Rawcookr</h1>
-<p class="lead">Développer la photo, masquer les personnes qui s’y trouvent, lui donner la couleur voulue et l’exporter prête à publier. Toutes les fonctions, section par section.</p>
+<p class="lead">Cuisiner la photo, masquer les personnes qui s’y trouvent, lui donner la couleur voulue et l’exporter prête à publier. Toutes les fonctions, section par section.</p>
 <p class="lead" style="font-size:0.95em">macOS 14 ou ultérieur · Version 1.1</p>
 
 <!-- ══════════ 시작하기 ══════════ -->
@@ -297,10 +297,10 @@
 <h3>Photothèque</h3>
 <p>Là où vous choisissez un dossier et parcourez vos photos. La liste des dossiers à gauche, la grille de vignettes au milieu. C’est ici que vous notez et marquez, et que vous exportez toute une sélection d’un coup.</p>
 
-<h3>Montage</h3>
-<p>Là où plusieurs photos se posent sur une même planche et deviennent une seule image. Voir <a href="#mount">Poser des photos sur la planche</a>.</p>
+<h3>Dressage</h3>
+<p>Là où plusieurs photos se posent sur une même assiette et deviennent une seule image. Voir <a href="#mount">Poser des photos sur l’assiette</a>.</p>
 
-<h3>Retouche</h3>
+<h3>Cuisine</h3>
 <p>Là où vous travaillez vraiment une photo. La photo au centre, le panneau des réglages à droite, la pellicule en bas. Double-cliquez une photo dans la photothèque ou appuyez sur <span class="kbd">Return</span>. <span class="kbd">Esc</span> vous ramène en arrière.</p>
 
 <div class="tip">
@@ -316,7 +316,7 @@
 <p><strong>Fichier → Ouvrir un dossier</strong> (<span class="kbd">⌘O</span>) choisit le dossier où sont vos photos. Les dossiers déjà ouverts restent dans la barre latérale à gauche, prêts pour la prochaine fois. Pour en retirer un, faites un clic droit sur son nom et choisissez <strong>Retirer de la barre latérale</strong>. Les sous-dossiers sont également listés.</p>
 
 <h3>Directement depuis le Finder</h3>
-<p>Faites un clic droit sur une photo dans le Finder et choisissez <strong>Ouvrir avec → Rawcookr</strong>. Le dossier où se trouve le fichier est ajouté à la photothèque et la fenêtre de retouche s’ouvre aussitôt.</p>
+<p>Faites un clic droit sur une photo dans le Finder et choisissez <strong>Ouvrir avec → Rawcookr</strong>. Le dossier où se trouve le fichier est ajouté à la photothèque et la vue Cuisine s’ouvre aussitôt.</p>
 
 <h3>Formats pris en charge</h3>
 <table>
@@ -324,7 +324,7 @@
   <tr><td>RAW</td><td>RAF · DNG · CR2 · CR3 · CRW · NEF · NRW · ARW · SR2 · SRF · RW2 · RAW · RWL · PEF · ORF · 3FR · FFF · IIQ</td></tr>
   <tr><td>Autres</td><td>JPG · JPEG · PNG · HEIC · HEIF · HIF · TIFF · TIF</td></tr>
 </table>
-<p>Le développement RAW utilise le moteur intégré à macOS. Un boîtier très récent peut exiger une mise à jour de macOS avant que ses fichiers s’ouvrent.</p>
+<p>La cuisine RAW utilise le moteur intégré à macOS. Un boîtier très récent peut exiger une mise à jour de macOS avant que ses fichiers s’ouvrent.</p>
 </section>
 
 <section id="originals">
@@ -336,7 +336,7 @@
   <tr><td>Gérés dans le dossier de l’app <span class="pill">par défaut</span></td><td>Votre dossier de photos reste propre. Pratique quand vous le transmettez tel quel.</td></tr>
   <tr><td>À côté du fichier original</td><td>Photo et réglages voyagent toujours ensemble. Emportez tout le disque externe sur un autre Mac et vos retouches suivent.</td></tr>
 </table>
-<p>Vous pouvez aussi écrire vos retouches dans un fichier et les relire. <strong>Enregistrer les réglages</strong> et <strong>Appliquer les réglages</strong> dans la fenêtre de retouche utilisent un fichier <span class="path">.rawcookr-settings.json</span>.</p>
+<p>Vous pouvez aussi écrire vos retouches dans un fichier et les relire. <strong>Enregistrer les réglages</strong> et <strong>Appliquer les réglages</strong> dans la vue Cuisine utilisent un fichier <span class="path">.rawcookr-settings.json</span>.</p>
 </section>
 
 <section id="subscription">
@@ -359,8 +359,8 @@
 <ul>
   <li>Le curseur en haut à droite change la taille des vignettes.</li>
   <li>Les flèches déplacent d’une photo à l’autre.</li>
-  <li><span class="kbd">Return</span> ouvre la fenêtre de retouche.</li>
-  <li><span class="kbd">Space</span> affiche la photo en grand. Appuyez de nouveau ou sur <span class="kbd">Esc</span> pour fermer ; <span class="kbd">Return</span> dans cette vue lance le développement. Le nom du fichier apparaît dessous.</li>
+  <li><span class="kbd">Return</span> ouvre la vue Cuisine.</li>
+  <li><span class="kbd">Space</span> affiche la photo en grand. Appuyez de nouveau ou sur <span class="kbd">Esc</span> pour fermer ; <span class="kbd">Return</span> dans cette vue passe en cuisine. Le nom du fichier apparaît dessous.</li>
 </ul>
 
 <h3>Sélectionner</h3>
@@ -384,17 +384,17 @@
 
 <section id="sidebar">
 <h2>Barre latérale</h2>
-<p>La barre latérale de gauche contient l'arborescence des dossiers et les infos du fichier, l'une au-dessus de l'autre. La photothèque et la vue de développement partagent la même barre latérale.</p>
+<p>La barre latérale de gauche contient l'arborescence des dossiers et les infos du fichier, l'une au-dessus de l'autre. La photothèque et la vue Cuisine partagent la même barre latérale.</p>
 <table>
   <tr><th>Touche</th><th>Rôle</th></tr>
   <tr><td><span class="kbd">⌘Y</span></td><td>Afficher / masquer toute la barre latérale</td></tr>
   <tr><td><span class="kbd">⌘T</span></td><td>Afficher / masquer l'arborescence des dossiers</td></tr>
   <tr><td><span class="kbd">⌘I</span></td><td>Afficher / masquer les infos du fichier</td></tr>
 </table>
-<p>En entrant dans la vue de développement, la barre latérale s'ouvre fermée pour laisser de la place à la photo. Ouvrez-la avec <span class="kbd">⌘Y</span> au besoin. De retour dans la photothèque, elle est telle que vous l'y aviez laissée. La largeur de la barre et la hauteur du volet d'infos sont communes aux deux vues.</p>
+<p>En entrant dans la vue Cuisine, la barre latérale s'ouvre fermée pour laisser de la place à la photo. Ouvrez-la avec <span class="kbd">⌘Y</span> au besoin. De retour dans la photothèque, elle est telle que vous l'y aviez laissée. La largeur de la barre et la hauteur du volet d'infos sont communes aux deux vues.</p>
 
 <h3>Infos du fichier</h3>
-<p>Affiche les informations de la photo en cours de développement, ou de celle sélectionnée dans la photothèque. Cliquez sur le titre d'un groupe pour le replier ou le déplier. Les groupes bruts comme EXIF et TIFF sont repliés au départ.</p>
+<p>Affiche les informations de la photo en cours de cuisson, ou de celle sélectionnée dans la photothèque. Cliquez sur le titre d'un groupe pour le replier ou le déplier. Les groupes bruts comme EXIF et TIFF sont repliés au départ.</p>
 <table class="wide">
   <tr><th>Groupe</th><th>Contenu</th></tr>
   <tr><td>Fichier</td><td>Chemin · Taille · Création · Modification</td></tr>
@@ -403,12 +403,12 @@
   <tr><td>Lieu</td><td>Coordonnées GPS (seulement si enregistrées)</td></tr>
   <tr><td>Autres groupes</td><td>Les autres valeurs EXIF, TIFF, IPTC et DNG du fichier, et les notes du fabricant</td></tr>
 </table>
-<p>Dans Montage, le tiroir à photos occupe cette place.</p>
+<p>Dans Dressage, le tiroir à photos occupe cette place.</p>
 </section>
 
 <section id="rating">
 <h2>Notes et drapeaux</h2>
-<p>Pour trier les bonnes prises d’une grosse séance. Vous pouvez noter depuis la photothèque comme depuis la fenêtre de retouche.</p>
+<p>Pour trier les bonnes prises d’une grosse séance. Vous pouvez noter depuis la photothèque comme depuis la vue Cuisine.</p>
 <table>
   <tr><th>Touche</th><th>Ce que ça fait</th></tr>
   <tr><td><span class="kbd">1</span>–<span class="kbd">5</span></td><td>Attribuer des étoiles</td></tr>
@@ -440,12 +440,12 @@
 
 <section id="versions">
 <h2>Versions</h2>
-<p>Pour développer la même photo de deux façons et les comparer côte à côte. Rien n’est copié, pas un octet de plus sur le disque.</p>
-<p><strong>Fichier → Développer comme nouvelle version</strong> (<span class="kbd">⌘G</span>) dans la fenêtre de retouche garde vos réglages actuels et ajoute à côté une copie intacte. Elle apparaît dans la pellicule numérotée <strong>V2</strong>, <strong>V3</strong> et ainsi de suite.</p>
+<p>Pour cuisiner la même photo de deux façons et les comparer côte à côte. Rien n’est copié, pas un octet de plus sur le disque.</p>
+<p><strong>Fichier → Cuisiner comme nouvelle version</strong> (<span class="kbd">⌘G</span>) dans la vue Cuisine garde vos réglages actuels et ajoute à côté une copie intacte. Elle apparaît dans la pellicule numérotée <strong>V2</strong>, <strong>V3</strong> et ainsi de suite.</p>
 <p>Supprimer une version laisse le fichier original en place. C’est ce que veut dire « le fichier original est conservé » dans la confirmation.</p>
 </section>
 
-<!-- ══════════ 현상 화면 ══════════ -->
+<!-- ══════════ 쿠킹 화면 ══════════ -->
 
 <section id="canvas">
 <h2>Zoom et déplacement</h2>
@@ -766,7 +766,7 @@
 
 <section id="layers">
 <h2>Calques</h2>
-<p>Empile des calques par-dessus la photo développée. Un calque de réglage retravaille ce qui est dessous, un calque de couleur unie le recouvre, et un calque masqué ne touche qu’à ce que vous avez marqué.</p>
+<p>Empile des calques par-dessus la photo cuisinée. Un calque de réglage retravaille ce qui est dessous, un calque de couleur unie le recouvre, et un calque masqué ne touche qu’à ce que vous avez marqué.</p>
 
 <h3>Trois sortes de calques</h3>
 <table class="wide">
@@ -812,7 +812,7 @@
   <tr><th>Élément</th><th>Plage</th><th>Ce que ça fait</th></tr>
   <tr><td>Netteté</td><td>−4 à +4</td><td>Netteté au décodage RAW. 0 est la valeur par défaut de macOS ; les crans s’y ajoutent ou s’en retranchent.</td></tr>
   <tr><td>Réduction du bruit couleur</td><td>−4 à +4</td><td>Contient les taches de couleur. 0 est la valeur par défaut. Montez-la à haute sensibilité.</td></tr>
-  <tr><td>Accentuation</td><td>0 – 300 %</td><td>Un masque flou appliqué après le développement. Distinct de la netteté ci-dessus.</td></tr>
+  <tr><td>Accentuation</td><td>0 – 300 %</td><td>Un masque flou appliqué après la cuisson. Distinct de la netteté ci-dessus.</td></tr>
   <tr><td>Rayon</td><td>0,5 – 5 px</td><td>La largeur sur laquelle l’accentuation agit. Plus petit prend la texture fine, plus grand les contours larges.</td></tr>
 </table>
 <p>L’accentuation ne touche que le canal de luminosité : les bords colorés ne bavent pas.</p>
@@ -901,7 +901,7 @@
   <tr><td>Couleurs arc-en-ciel</td><td>Activé / Désactivé</td><td>Les rayons se séparent en couleurs d'arc-en-ciel. Activé par défaut.</td></tr>
 </table>
 <p>Avec 0 rayon, les autres réglages sont verrouillés. La taille d'une étoile suit celle de sa lumière, pas l'intensité : baisser l'intensité retire seulement les étoiles des lumières faibles, les autres restent telles quelles. Une source lumineuse large reçoit plusieurs rayons fins côte à côte, aussi larges que la lumière, plutôt qu'un seul rayon épais.</p>
-<p>Les sources lumineuses sont repérées dans l'aperçu de la vue de développement : quand vous agrandissez ou exportez, les étoiles gardent donc la place et les couleurs vues à l'écran. Le filtre scintillant passe avant Mist ; en utilisant les deux, Mist enveloppe aussi les rayons en douceur.</p>
+<p>Les sources lumineuses sont repérées dans l'aperçu de la vue Cuisine : quand vous agrandissez ou exportez, les étoiles gardent donc la place et les couleurs vues à l'écran. Le filtre scintillant passe avant Mist ; en utilisant les deux, Mist enveloppe aussi les rayons en douceur.</p>
 <div class="note">
 <b>Un point de départ pour les photos de nuit</b>
 <p>Commencez avec 4 rayons et une intensité de 50. S'il y a trop d'étoiles, baissez l'intensité ; si les rayons paraissent courts, augmentez la longueur. Sur les photos à ISO élevé, un peu plus de bruit fond les rayons dans l'image pour qu'ils ne semblent pas collés.</p>
@@ -943,8 +943,8 @@
 <h2>Impression de la date</h2>
 
 <div class="note">
-<b>Les cadres sont passés au Montage</b>
-<p>Mettre une marge autour d’une photo pour la ramener à un format fixe est désormais l’affaire du <a href="#mount">Montage</a>. Posez une seule photo sur la planche, choisissez le format et le <strong>filet</strong>, et vous obtenez ce que faisait l’ancien cadre — avec en plus l’écart, les coins et la couleur de fond.</p>
+<b>Les cadres sont passés au Dressage</b>
+<p>Mettre une marge autour d’une photo pour la ramener à un format fixe est désormais l’affaire du <a href="#mount">Dressage</a>. Posez une seule photo sur l’assiette, choisissez le format et le <strong>filet</strong>, et vous obtenez ce que faisait l’ancien cadre — avec en plus l’écart, les coins et la couleur de fond.</p>
 </div>
 
 <h3>Impression de la date</h3>
@@ -955,22 +955,22 @@
 </section>
 
 
-<!-- ══════════ 마운트 ══════════ -->
+<!-- ══════════ 플레이팅 ══════════ -->
 
 <section id="mount">
-<h2>Poser des photos sur la planche</h2>
-<p>Le Montage est un espace où plusieurs photos se posent sur une planche et deviennent une seule image. Pour publier dans un fil, sur un blog ou un site, vous montrez plusieurs prises comme une seule pièce plutôt que séparément.</p>
+<h2>Poser des photos sur l’assiette</h2>
+<p>Le Dressage est un espace où plusieurs photos se posent sur une assiette et deviennent une seule image. Pour publier dans un fil, sur un blog ou un site, vous montrez plusieurs prises comme une seule pièce plutôt que séparément.</p>
 
 <h3>Pour commencer</h3>
 <ul>
-  <li>Choisissez <strong>Montage</strong> dans les onglets du haut.</li>
+  <li>Choisissez <strong>Dressage</strong> dans les onglets du haut.</li>
   <li>Faites glisser des photos depuis le <strong>tiroir à photos</strong> à gauche. Si le tiroir est vide, choisissez un dossier avec <strong>Ouvrir un dossier de photos</strong>.</li>
   <li>Vous pouvez aussi cliquer une case vide et désigner un fichier avec <strong>Choisir une photo…</strong>.</li>
-  <li><strong>Monter cette photo</strong> dans la fenêtre de retouche envoie directement sur la planche la photo que vous regardiez. Depuis la photothèque, sélectionnez-en plusieurs et prenez <strong>Envoyer au montage</strong>.</li>
+  <li><strong>Dresser cette photo</strong> dans la vue Cuisine envoie directement sur l’assiette la photo que vous regardiez. Depuis la photothèque, sélectionnez-en plusieurs et prenez <strong>Envoyer au dressage</strong>.</li>
 </ul>
 <p>Le tiroir se replie par son icône.</p>
 
-<h3>La taille de la planche</h3>
+<h3>La taille de l’assiette</h3>
 <table>
   <tr><th>Élément</th><th>Options</th></tr>
   <tr><td>Format</td><td>Format d’origine · 1:1 · 4:5 · 5:4 · 2:3 · 3:2 · 3:4 · 4:3 · 9:16 · 16:9 · 1,91:1</td></tr>
@@ -981,7 +981,7 @@
 
 <section id="mount-split">
 <h2>Diviser en cases</h2>
-<p>Activez <strong>Diviser</strong> et la planche se découpe en grille. Choisissez combien de lignes et de colonnes ; jusqu’à 5 × 5.</p>
+<p>Activez <strong>Diviser</strong> et l’assiette se découpe en grille. Choisissez combien de lignes et de colonnes ; jusqu’à 5 × 5.</p>
 
 <h3>Travailler les cases</h3>
 <ul>
@@ -1002,12 +1002,12 @@
 
 <section id="mount-free">
 <h2>Placement libre</h2>
-<p>Désactivez <strong>Diviser</strong> : les cases disparaissent et les photos se posent où vous voulez sur la planche.</p>
+<p>Désactivez <strong>Diviser</strong> : les cases disparaissent et les photos se posent où vous voulez sur l’assiette.</p>
 
 <h3>Placer et déplacer</h3>
 <ul>
   <li>Faites glisser pour déplacer, prenez un coin pour redimensionner, et faites pivoter.</li>
-  <li>Pendant le déplacement, une photo <strong>s’aimante</strong> aux autres et aux bords de la planche pour que tout s’aligne.</li>
+  <li>Pendant le déplacement, une photo <strong>s’aimante</strong> aux autres et aux bords de l’assiette pour que tout s’aligne.</li>
   <li>Le bouton <strong>Grille</strong> affiche une grille de repère. Appuyez encore pour une plus fine, puis pour l’éteindre.</li>
 </ul>
 
@@ -1017,13 +1017,13 @@
 <h3>Des boutons qui aident</h3>
 <table class="wide">
   <tr><th>Bouton</th><th>Ce que ça fait</th></tr>
-  <tr><td>Disperser</td><td>Disperse les photos sur la planche. Un bon point de départ.</td></tr>
+  <tr><td>Disperser</td><td>Disperse les photos sur l’assiette. Un bon point de départ.</td></tr>
   <tr><td>Égaliser</td><td>Remet de l’ordre dans les tailles et les écarts.</td></tr>
-  <tr><td>Vider</td><td>Retire toutes les photos de la planche.</td></tr>
+  <tr><td>Vider</td><td>Retire toutes les photos de l’assiette.</td></tr>
 </table>
 
 <h3>Panneaux — travailler d’un tenant, exporter en morceaux</h3>
-<p>Réglez <strong>Panneaux</strong> sur 2 ou plus et le format choisi se répète latéralement autant de fois sur une seule planche. Composez sur l’image continue ; à l’export elle est redécoupée et enregistrée <strong>numérotée depuis la gauche</strong>.</p>
+<p>Réglez <strong>Panneaux</strong> sur 2 ou plus et le format choisi se répète latéralement autant de fois sur une seule assiette. Composez sur l’image continue ; à l’export elle est redécoupée et enregistrée <strong>numérotée depuis la gauche</strong>.</p>
 <p>C’est ainsi qu’une publication à plusieurs images paraît continue plutôt que morcelée. Jusqu’à douze panneaux.</p>
 </section>
 
@@ -1032,7 +1032,7 @@
 <table>
   <tr><th>Élément</th><th>Plage</th><th>Ce que ça fait</th></tr>
   <tr><td>Écart</td><td>0 – 80</td><td>L’espace d’une photo à l’autre.</td></tr>
-  <tr><td>Filet</td><td>0 – 120</td><td>La marge au bord de la planche.</td></tr>
+  <tr><td>Filet</td><td>0 – 120</td><td>La marge au bord de l’assiette.</td></tr>
   <tr><td>Coins</td><td>0 – 120</td><td>Arrondit les coins des photos. 0 les laisse carrés.</td></tr>
   <tr><td>Couleur de fond</td><td>N’importe quelle couleur</td><td>Remplit les écarts et la marge.</td></tr>
 </table>
@@ -1040,9 +1040,9 @@
 
 <h3>Affichage</h3>
 <ul>
-  <li><strong>Ajuster</strong> — montre toute la planche dans la fenêtre.</li>
+  <li><strong>Ajuster</strong> — montre toute l’assiette dans la fenêtre.</li>
   <li><strong>100 %</strong> — les pixels exportés tels quels. Pour vérifier la taille réellement enregistrée.</li>
-  <li>Zoomé, faites glisser pour promener la planche.</li>
+  <li>Zoomé, faites glisser pour promener l’assiette.</li>
 </ul>
 </section>
 
@@ -1052,9 +1052,9 @@
 <h3>Enregistrer le travail</h3>
 <p>Gardez un agencement dans un fichier et reprenez-le plus tard.</p>
 <table>
-  <tr><td><span class="kbd">⌘S</span></td><td>Enregistrer le montage</td></tr>
-  <tr><td><span class="kbd">⇧⌘S</span></td><td>Enregistrer le montage sous…</td></tr>
-  <tr><td><span class="kbd">⌘O</span></td><td>Ouvrir un montage (dans l’onglet Montage, ⌘O ouvre un agencement enregistré)</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>Enregistrer le dressage</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>Enregistrer le dressage sous…</td></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Ouvrir un dressage (dans l’onglet Dressage, ⌘O ouvre un agencement enregistré)</td></tr>
 </table>
 <p>S’il reste du travail non enregistré, on vous demande avant de changer d’onglet ou de quitter. L’annulation couvre tout — ajouter des photos, les déplacer, les réordonner.</p>
 
@@ -1062,11 +1062,11 @@
 <p>Ouvrez-la avec le bouton <strong>Exporter</strong> de la barre d'outils ou <span class="kbd">⌘E</span>.</p>
 <table class="wide">
   <tr><th>Élément</th><th>Détails</th></tr>
-  <tr><td>Format</td><td>Comme l’export depuis la fenêtre de retouche. Qualité et profondeur PNG se règlent ici aussi.</td></tr>
-  <tr><td>Taille</td><td>Garde la résolution de la planche ou la réduit.</td></tr>
+  <tr><td>Format</td><td>Comme l’export depuis la vue Cuisine. Qualité et profondeur PNG se règlent ici aussi.</td></tr>
+  <tr><td>Taille</td><td>Garde la résolution de l’assiette ou la réduit.</td></tr>
   <tr><td>Redécouper</td><td>En placement libre avec deux panneaux ou plus, choisissez d’enregistrer une seule image ou de la couper en autant de morceaux. Coupés, ils sont numérotés depuis la gauche.</td></tr>
   <tr><td>Destination</td><td>Le dossier d’origine ou celui que vous choisissez.</td></tr>
-  <tr><td>Nom du fichier</td><td>Suit le nom de la première photo sur la planche. Un suffixe peut être ajouté.</td></tr>
+  <tr><td>Nom du fichier</td><td>Suit le nom de la première photo sur l’assiette. Un suffixe peut être ajouté.</td></tr>
   <tr><td>Fermer cette fenêtre</td><td>La fenêtre se ferme d'elle-même une fois l'exportation terminée.</td></tr>
 </table>
 </section>
@@ -1141,7 +1141,7 @@
 <h3>Autres réglages</h3>
 <table class="wide">
   <tr><th>Élément</th><th>Ce que ça fait</th></tr>
-  <tr><td>Suffixe du nom de fichier</td><td>Texte ajouté après le nom du fichier. Le défaut est <span class="path">_developed</span>. Il évite que le nom entre en conflit avec l’original.</td></tr>
+  <tr><td>Suffixe du nom de fichier</td><td>Texte ajouté après le nom du fichier. Le défaut est <span class="path">_cooked</span>. Il évite que le nom entre en conflit avec l’original.</td></tr>
   <tr><td>Destination</td><td>Le laisser dans le dossier d’origine ou pointer ailleurs.</td></tr>
   <tr><td>Ouvrir le dossier de destination dans le Finder</td><td>Ouvre ce dossier dans le Finder une fois l’enregistrement terminé.</td></tr>
   <tr><td>Fermer cette fenêtre</td><td>La fenêtre se ferme d’elle-même quand l’export s’achève. Pratique quand vous exportez lot après lot.</td></tr>
@@ -1183,7 +1183,7 @@
   <tr><th>Élément</th><th>Détails</th></tr>
   <tr><td>Où sont stockées les retouches</td><td><strong>Gérées dans le dossier de l’app</strong> (par défaut) ou <strong>à côté du fichier original</strong>. Voir <a href="#originals">Vos originaux restent intacts</a>.</td></tr>
 </table>
-<p>La couleur de fond de la vue de développement se change par un clic droit en dehors de la photo — <strong>Par défaut · Blanc · Gris 50 % · Gris 15 % · Noir</strong>. Un fond sombre aide à juger la luminosité de la photo.</p>
+<p>La couleur de fond de la vue Cuisine se change par un clic droit en dehors de la photo — <strong>Par défaut · Blanc · Gris 50 % · Gris 15 % · Noir</strong>. Un fond sombre aide à juger la luminosité de la photo.</p>
 <p>La taille des vignettes de préréglages se choisit avec l'icône de grille en haut à droite de la section Préréglages — Très petit · Petit · Grand.</p>
 <p>L’apparence claire ou sombre de l’app se règle avec <span class="kbd">⌘⇧9</span> et <span class="kbd">⌘⇧0</span>.</p>
 </section>
@@ -1195,11 +1195,11 @@
 <h3>Dans tous les modes</h3>
 <table>
   <tr><td><span class="kbd">⌘E</span></td><td>Exportation</td></tr>
-  <tr><td><span class="kbd">⌘W</span></td><td>Fermer (ferme la photo en cours de retouche)</td></tr>
+  <tr><td><span class="kbd">⌘W</span></td><td>Fermer (ferme la photo en cours de cuisson)</td></tr>
   <tr><td><span class="kbd">⌘?</span></td><td>Aide Rawcookr — ouvre ce guide sur le web</td></tr>
   <tr><td><span class="kbd">⌘⇧9</span></td><td>Mode sombre</td></tr>
   <tr><td><span class="kbd">⌘⇧0</span></td><td>Mode clair</td></tr>
-  <tr><td><span class="kbd">⌘Q</span></td><td>Quitter — on vous demande si un montage n’est pas enregistré</td></tr>
+  <tr><td><span class="kbd">⌘Q</span></td><td>Quitter — on vous demande si un dressage n’est pas enregistré</td></tr>
 </table>
 
 <h3>Photothèque</h3>
@@ -1210,11 +1210,11 @@
   <tr><td><span class="kbd">⌘A</span></td><td>Tout sélectionner</td></tr>
   <tr><td><span class="kbd">←</span> <span class="kbd">→</span> <span class="kbd">↑</span> <span class="kbd">↓</span></td><td>Se déplacer dans la grille</td></tr>
   <tr><td><span class="kbd">Space</span></td><td>Afficher en grand (appuyer encore ferme)</td></tr>
-  <tr><td><span class="kbd">Return</span></td><td>Amener la photo sélectionnée dans la fenêtre de retouche</td></tr>
+  <tr><td><span class="kbd">Return</span></td><td>Amener la photo sélectionnée dans la vue Cuisine</td></tr>
   <tr><td><span class="kbd">Esc</span></td><td>Fermer la vue agrandie</td></tr>
   <tr><td><span class="kbd">1</span>–<span class="kbd">5</span></td><td>Noter les photos sélectionnées — toutes d’un coup</td></tr>
   <tr><td><span class="kbd">Z</span></td><td>Marquer / retirer le drapeau — toutes d’un coup</td></tr>
-  <tr><td><span class="kbd">⌘G</span></td><td>Développer comme nouvelle version</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>Cuisiner comme nouvelle version</td></tr>
   <tr><td><span class="kbd">⌘Y</span></td><td>Afficher / masquer la barre latérale</td></tr>
   <tr><td><span class="kbd">⌘T</span></td><td>Afficher / masquer l’arborescence des dossiers</td></tr>
   <tr><td><span class="kbd">⌘I</span></td><td>Afficher / masquer les infos du fichier</td></tr>
@@ -1224,7 +1224,7 @@
   <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Mode sombre · mode clair</td></tr>
 </table>
 
-<h3>Retouche</h3>
+<h3>Cuisine</h3>
 <h4>Affichage</h4>
 <table>
   <tr><th>Touche</th><th>Ce que ça fait</th></tr>
@@ -1252,7 +1252,7 @@
   <tr><td><span class="kbd">⌘⇧C</span></td><td>Copier la retouche</td></tr>
   <tr><td><span class="kbd">⌘⇧V</span></td><td>Coller la retouche</td></tr>
   <tr><td><span class="kbd">⌥⌘R</span></td><td>Effacer toutes les retouches de cette photo</td></tr>
-  <tr><td><span class="kbd">⌘G</span></td><td>Développer comme nouvelle version</td></tr>
+  <tr><td><span class="kbd">⌘G</span></td><td>Cuisiner comme nouvelle version</td></tr>
 </table>
 
 <h4>Sélection et déplacement</h4>
@@ -1268,15 +1268,15 @@
   <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Mode sombre · mode clair</td></tr>
 </table>
 
-<h3>Montage</h3>
+<h3>Dressage</h3>
 <table>
   <tr><th>Touche</th><th>Ce que ça fait</th></tr>
-  <tr><td><span class="kbd">⌘O</span></td><td>Ouvrir un montage — dans ce mode, ⌘O ouvre un agencement enregistré, pas un dossier</td></tr>
-  <tr><td><span class="kbd">⌘S</span></td><td>Enregistrer le montage</td></tr>
-  <tr><td><span class="kbd">⇧⌘S</span></td><td>Enregistrer le montage sous…</td></tr>
+  <tr><td><span class="kbd">⌘O</span></td><td>Ouvrir un dressage — dans ce mode, ⌘O ouvre un agencement enregistré, pas un dossier</td></tr>
+  <tr><td><span class="kbd">⌘S</span></td><td>Enregistrer le dressage</td></tr>
+  <tr><td><span class="kbd">⇧⌘S</span></td><td>Enregistrer le dressage sous…</td></tr>
   <tr><td><span class="kbd">⌘Z</span></td><td>Annuler — ajouter des photos, les déplacer, les réordonner</td></tr>
   <tr><td><span class="kbd">⇧⌘Z</span></td><td>Rétablir</td></tr>
-  <tr><td><span class="kbd">⌘E</span></td><td>Exporter la planche comme image</td></tr>
+  <tr><td><span class="kbd">⌘E</span></td><td>Exporter l’assiette comme image</td></tr>
   <tr><td><span class="kbd">⌘W</span></td><td>Fermer la fenêtre</td></tr>
   <tr><td><span class="kbd">⌘?</span></td><td>Aide</td></tr>
   <tr><td><span class="kbd">⌘⇧9</span> · <span class="kbd">⌘⇧0</span></td><td>Mode sombre · mode clair</td></tr>
@@ -1288,7 +1288,7 @@
 <h2>Questions fréquentes</h2>
 
 <h4>Un fichier RAW ne s’ouvre pas</h4>
-<p>Le développement RAW utilise le moteur intégré à macOS : un boîtier très récent demande d’abord une mise à jour de macOS. Vérifiez dans <strong>Réglages Système → Général → Mise à jour de logiciels</strong>. S’il ne s’ouvre toujours pas, essayez d’enregistrer en DNG dans l’appareil, ou <a href="mailto:rawcookr@slowsalmon.com">dites-le-nous</a>.</p>
+<p>La cuisine RAW utilise le moteur intégré à macOS : un boîtier très récent demande d’abord une mise à jour de macOS. Vérifiez dans <strong>Réglages Système → Général → Mise à jour de logiciels</strong>. S’il ne s’ouvre toujours pas, essayez d’enregistrer en DNG dans l’appareil, ou <a href="mailto:rawcookr@slowsalmon.com">dites-le-nous</a>.</p>
 
 <h4>Les vignettes mettent du temps à apparaître</h4>
 <p>La première fois qu’un dossier s’ouvre, un aperçu doit être construit pour chaque photo, ce qui prend un instant. Ensuite c’est rapide. Si un dossier contient énormément de photos, le diviser en sous-dossiers est plus confortable.</p>
@@ -1305,8 +1305,8 @@
 <h4>Un visage est encore visible</h4>
 <p>La détection automatique peut rater un visage de profil, derrière un masque ou dans une ombre profonde. Dessinez une zone vous-même, et faites un passage à 100 % avant de publier.</p>
 
-<h4>Mon travail de montage a disparu</h4>
-<p>Un montage n’est écrit dans un fichier que lorsque vous l’enregistrez. Enregistrez d’abord avec <span class="kbd">⌘S</span>. Si vous tentez de changer d’onglet ou de quitter sans enregistrer, on vous le demande.</p>
+<h4>Mon travail de dressage a disparu</h4>
+<p>Un dressage n’est écrit dans un fichier que lorsque vous l’enregistrez. Enregistrez d’abord avec <span class="kbd">⌘S</span>. Si vous tentez de changer d’onglet ou de quitter sans enregistrer, on vous le demande.</p>
 
 <h4>Si rien de tout cela n’aide</h4>
 <p>Écrivez à <a href="mailto:rawcookr@slowsalmon.com">rawcookr@slowsalmon.com</a>. Préciser quel Mac vous utilisez, et quel fichier de quel appareil, nous aide à trouver bien plus vite.</p>
