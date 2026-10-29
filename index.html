@@ -150,6 +150,16 @@ p { margin: 0; max-width: 62ch; }
   @keyframes rise { from { opacity: .001; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 }
 
+/* Section headlines appear as they scroll into view. The class is set by script only when
+   IntersectionObserver exists and reduced motion is off, so without script every headline stays visible. */
+.reveal-on main h2 {
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(6px);
+  transition: opacity 1.6s cubic-bezier(.2,.7,.1,1), transform 1.6s cubic-bezier(.2,.7,.1,1), filter 1.6s cubic-bezier(.2,.7,.1,1);
+}
+.reveal-on main h2.is-in { opacity: 1; transform: none; filter: none; }
+
 /* ---------- device / plates ---------- */
 .device {
   background: var(--ink-raised);
@@ -315,6 +325,11 @@ section { border-top: 1px solid var(--line); }
 </style>
 </head>
 <body>
+<script>
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('reveal-on');
+  }
+</script>
 
 <header class="site-header">
   <div class="wrap">
@@ -657,5 +672,16 @@ section { border-top: 1px solid var(--line); }
   </div>
 </footer>
 
+<script>
+  (function () {
+    if (!document.documentElement.classList.contains('reveal-on')) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.2 });
+    document.querySelectorAll('main h2').forEach(function (h) { io.observe(h); });
+  })();
+</script>
 </body>
 </html>
